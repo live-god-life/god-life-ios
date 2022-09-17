@@ -1,0 +1,15 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'LiveGodLife' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for LiveGodLife
+  pod 'Moya'
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'PopupDialog', '~> 1.1'
+  pod 'SideMenu'
+  pod 'Texture/MapKit', '~> 3.1'
+end
