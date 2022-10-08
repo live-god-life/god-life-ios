@@ -9,18 +9,27 @@
 /* Begin PBXBuildFile section */
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
+		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
+		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
+		D06181BB28F1621400B40E32 /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181BA28F1621400B40E32 /* LoginType.swift */; };
 		D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C528D5A3B9000998DC /* AppDelegate.swift */; };
 		D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C728D5A3B9000998DC /* SceneDelegate.swift */; };
 		D08B66CA28D5A3B9000998DC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C928D5A3B9000998DC /* ViewController.swift */; };
 		D08B66CD28D5A3B9000998DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08B66CB28D5A3B9000998DC /* Main.storyboard */; };
 		D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08B66CE28D5A3BA000998DC /* Assets.xcassets */; };
 		D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */; };
+		D0B8D87B28F1A4E200E9339E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87A28F1A4E200E9339E /* User.swift */; };
+		D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */; };
+		D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C51E2B28F121D80004514A /* Endpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
+		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
+		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		D06181BA28F1621400B40E32 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		D08B66C228D5A3B9000998DC /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08B66C528D5A3B9000998DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D08B66C728D5A3B9000998DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +39,9 @@
 		D08B66D128D5A3BA000998DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08B66D328D5A3BA000998DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveGodLife.entitlements; sourceTree = "<group>"; };
+		D0B8D87A28F1A4E200E9339E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodeService.swift; sourceTree = "<group>"; };
+		D0C51E2B28F121D80004514A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		F8E3F9494D00BFB08F3DD6D4 /* Pods-LiveGodLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.release.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,6 +63,26 @@
 				BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D06181B428F15B3600B40E32 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D0C51E2B28F121D80004514A /* Endpoint.swift */,
+				D06181B828F161FD00B40E32 /* APIResponse.swift */,
+				D06181B628F15C0700B40E32 /* APIRequestManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D06181B528F15B4B00B40E32 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D0B8D87A28F1A4E200E9339E /* User.swift */,
+				D06181BA28F1621400B40E32 /* LoginType.swift */,
+				D04D742528EB377A0013B5BB /* AppleLoginService.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		D08B66B928D5A3B9000998DC = {
@@ -82,7 +114,9 @@
 				D08B66CE28D5A3BA000998DC /* Assets.xcassets */,
 				D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */,
 				D08B66D328D5A3BA000998DC /* Info.plist */,
-				D04D742528EB377A0013B5BB /* AppleLoginService.swift */,
+				D06181B428F15B3600B40E32 /* Network */,
+				D06181B528F15B4B00B40E32 /* Login */,
+				D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */,
 			);
 			path = LiveGodLife;
 			sourceTree = "<group>";
@@ -211,10 +245,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
+				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
+				D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* ViewController.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
+				D0B8D87B28F1A4E200E9339E /* User.swift in Sources */,
+				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
+				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
