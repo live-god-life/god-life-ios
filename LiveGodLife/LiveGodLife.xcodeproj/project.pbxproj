@@ -88,7 +88,6 @@
 				6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */,
 				F8E3F9494D00BFB08F3DD6D4 /* Pods-LiveGodLife.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
