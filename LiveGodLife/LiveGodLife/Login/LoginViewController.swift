@@ -23,8 +23,8 @@ class LoginViewController: UIViewController {
     }
 
     func setupUI() {
-        appleLoginButton.configure(title: "Apple로 시작하기", titleColor: .black, backgroundColor: .white)
-        kakaoLoginButton.configure(title: "카카오계정으로 시작하기", titleColor: .black)
+        appleLoginButton.configure(title: "Apple로 시작하기")
+        kakaoLoginButton.configure(title: "카카오계정으로 시작하기")
     }
 
     @IBAction func didTapAppleLoginButton(_ sender: Any) {
@@ -38,3 +38,10 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
     }
 }
 
+extension UIViewController {
+
+    static func instance() -> Self? {
+        let name = String(describing: self)
+        return UIStoryboard(name: name, bundle: nil).instantiateViewController(withIdentifier: name) as? Self
+    }
+}
