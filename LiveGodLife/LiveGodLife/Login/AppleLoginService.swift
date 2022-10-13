@@ -10,7 +10,9 @@ import AuthenticationServices
 
 class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
 
-    private let signupCompletionHandler: (User) -> Void
+    private weak var presentationContextProvider: ASAuthorizationControllerPresentationContextProviding?
+
+//    private let signupCompletionHandler: (User) -> Void
     private lazy var loginSuccessCompletionHandler: (Data?) -> Void = { [weak self] data in
         guard let data = data,
               let response: APIResponse = self?.decode(with: data),
@@ -22,17 +24,17 @@ class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
         print(authToken)
     }
 
-    init(signupCompletionHandler: @escaping (User) -> Void) {
-        self.signupCompletionHandler = signupCompletionHandler
+    init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
+        self.presentationContextProvider = presentationContextProvider
     }
 
-    @objc func didTapAppleLoginButton() {
+    func login() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.email]
 
         let controller = ASAuthorizationController(authorizationRequests: [request])
         controller.delegate = self
-        controller.presentationContextProvider = self as? ASAuthorizationControllerPresentationContextProviding
+        controller.presentationContextProvider = presentationContextProvider
         controller.performRequests()
     }
 
@@ -50,13 +52,17 @@ class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
                     self?.loginSuccessCompletionHandler(data)
                 case .failure(let error):
                     guard let data = error.data,
-                          let response: APIResponse = self?.decode(with: data),
-                          response.status == .error, response.code == 401 else {
+                          let response: APIResponse = self?.decode(with: data) else {
                         // TODO: 예외 처리
                         return
                     }
-                    let user = User(nickname: "", type: .apple, identifier: identifier, email: email)
-                    self?.signupCompletionHandler(user)
+                    if response.status == .error, response.code == 401 {
+                        // 회원이 아님
+                        let user = User(nickname: "", type: .apple, identifier: identifier, email: email)
+    //                    self?.signupCompletionHandler(user)
+                    } else {
+                        // 잘못된 접근 error
+                    }
                 }
             }
         }
@@ -67,10 +73,3 @@ class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
         print("error")
     }
 }
-
-// TODO: - AuthenticationServices
-//extension ViewController: ASWebAuthenticationPresentationContextProviding {
-//    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-//        return self.view.window ?? ASPresentationAnchor()
-//    }
-//}

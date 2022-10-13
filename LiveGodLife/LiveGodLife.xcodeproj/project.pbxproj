@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
+		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
+		CC9C195328F6551F00C53152 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9C195228F6551F00C53152 /* LoginViewController.storyboard */; };
+		CC9C195528F6562700C53152 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* Button.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
 		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
@@ -26,6 +29,9 @@
 /* Begin PBXFileReference section */
 		6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CC9C195228F6551F00C53152 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		CC9C195428F6562700C53152 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -65,6 +71,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CC9C195628F6562A00C53152 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C195428F6562700C53152 /* Button.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		D06181B428F15B3600B40E32 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +95,8 @@
 				D0B8D87A28F1A4E200E9339E /* User.swift */,
 				D06181BA28F1621400B40E32 /* LoginType.swift */,
 				D04D742528EB377A0013B5BB /* AppleLoginService.swift */,
+				CC9C195028F651C100C53152 /* LoginViewController.swift */,
+				CC9C195228F6551F00C53152 /* LoginViewController.storyboard */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -117,6 +133,7 @@
 				D06181B428F15B3600B40E32 /* Network */,
 				D06181B528F15B4B00B40E32 /* Login */,
 				D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */,
+				CC9C195628F6562A00C53152 /* UI */,
 			);
 			path = LiveGodLife;
 			sourceTree = "<group>";
@@ -191,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
+				CC9C195328F6551F00C53152 /* LoginViewController.storyboard in Resources */,
 				D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */,
 				D08B66CD28D5A3B9000998DC /* Main.storyboard in Resources */,
 			);
@@ -252,9 +270,11 @@
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* User.swift in Sources */,
+				CC9C195528F6562700C53152 /* Button.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
+				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
