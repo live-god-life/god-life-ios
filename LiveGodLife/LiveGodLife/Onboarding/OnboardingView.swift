@@ -7,23 +7,29 @@
 
 import UIKit
 
+protocol OnboardingViewDelegate: AnyObject {
+
+    func didTapActionButton(from page: Int)
+}
+
 protocol OnboardingViewModelType {
 
     var title: String { get }
     var subtitle: String { get }
     var description: String { get }
     var buttonTitle: String { get }
-    var actionHandler: (() -> Void)? { get }
 }
 
-class OnboardingView: UIView {
+final class OnboardingView: UIView {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var actionButton: RoundedButton!
 
-    var actionHandler: (() -> Void)?
+    weak var delegate: OnboardingViewDelegate?
+
+    private let page: Int
 
     func configure(with viewModel: OnboardingViewModelType) {
         titleLabel.text = viewModel.title
@@ -32,14 +38,14 @@ class OnboardingView: UIView {
         actionButton.configure(title: viewModel.buttonTitle)
     }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, page: Int) {
+        self.page = page
         super.init(frame: frame)
         commonInit()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
 
     func commonInit() {
@@ -51,6 +57,6 @@ class OnboardingView: UIView {
     }
 
     @IBAction func didTapActionButton(_ sender: UIButton) {
-        actionHandler?()
+        delegate?.didTapActionButton(from: page)
     }
 }
