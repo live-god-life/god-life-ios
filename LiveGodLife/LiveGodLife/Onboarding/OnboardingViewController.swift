@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
 
     private var scrollView: UIScrollView!
 
@@ -31,26 +31,26 @@ class OnboardingViewController: UIViewController {
 
         for index in 0..<data.count {
             let y = scrollView.frame.minY
-            let view = OnboardingView(frame: CGRect(x: CGFloat(index) * scrollView.frame.width, y: y, width: scrollView.frame.width, height: scrollView.frame.height))
-
+            let view = OnboardingView(frame: CGRect(x: CGFloat(index) * scrollView.frame.width, y: y, width: scrollView.frame.width, height: scrollView.frame.height), page: index)
+            view.delegate = self
             view.configure(with: data[index])
-
-            switch index {
-            case data.count - 1:
-                view.actionHandler = { [weak self] in
-                    guard let self = self else { return }
-                    let loginView = LoginViewController.instance()!
-                    loginView.modalPresentationStyle = .fullScreen
-                    self.present(loginView, animated: true)
-                }
-            default:
-                view.actionHandler = { [weak self] in
-                    guard let self = self else { return }
-                    let point = CGPoint(x: CGFloat(index + 1) * self.scrollView.frame.width, y: 0)
-                    self.scrollView.setContentOffset(point, animated: true)
-                }
-            }
             scrollView.addSubview(view)
+        }
+    }
+}
+
+extension OnboardingViewController: OnboardingViewDelegate {
+
+    func didTapActionButton(from page: Int) {
+        let lastPage = data.count - 1
+        if page == lastPage {
+            self.dismiss(animated: true)
+            // Notification
+            NotificationCenter.default.post(name: .moveToLogin, object: self)
+            
+        } else {
+            let point = CGPoint(x: CGFloat(page + 1) * self.scrollView.frame.width, y: 0)
+            self.scrollView.setContentOffset(point, animated: true)
         }
     }
 }
