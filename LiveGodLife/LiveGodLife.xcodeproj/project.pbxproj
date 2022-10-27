@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
-		CC9C195328F6551F00C53152 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9C195228F6551F00C53152 /* LoginViewController.storyboard */; };
 		CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* RoundedButton.swift */; };
 		D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */; };
 		D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46EF28F7BDC200A18FE7 /* OnboardingViewModel.swift */; };
 		D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */; };
 		D021B058290397660031481F /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D021B057290397660031481F /* NotificationName+Extension.swift */; };
+		D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+Extension.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
 		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
@@ -54,12 +54,12 @@
 		6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		CC9C195228F6551F00C53152 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		CC9C195428F6562700C53152 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D00E46EF28F7BDC200A18FE7 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		D021B057290397660031481F /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		D023B076290AB12100387C5C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -145,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				D021B057290397660031481F /* NotificationName+Extension.swift */,
+				D023B076290AB12100387C5C /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -166,7 +167,6 @@
 				D06181BA28F1621400B40E32 /* LoginType.swift */,
 				D04D742528EB377A0013B5BB /* AppleLoginService.swift */,
 				CC9C195028F651C100C53152 /* LoginViewController.swift */,
-				CC9C195228F6551F00C53152 /* LoginViewController.storyboard */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -332,7 +332,6 @@
 				D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */,
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
 				D0BB5B5D2906C19300E46063 /* Montserrat-Medium.otf in Resources */,
-				CC9C195328F6551F00C53152 /* LoginViewController.storyboard in Resources */,
 				D0BB5B542906C17500E46063 /* Pretendard-ExtraLight.otf in Resources */,
 				D0BB5B522906C16F00E46063 /* Pretendard-Black.otf in Resources */,
 				D0BB5B582906C18300E46063 /* Pretendard-Thin.otf in Resources */,
@@ -394,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+Extension.swift in Sources */,
 				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
