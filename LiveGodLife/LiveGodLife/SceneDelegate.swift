@@ -62,3 +62,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+////
+////  ViewController.swift
+////  LiveGodLife
+////
+////  Created by Ador on 2022/09/17.
+////
+//
+
+//
+//class ViewController: UIViewController {
+//    var email:String = ""
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        // Do any additional setup after loading the view.
+//
+
+//    }
+//
