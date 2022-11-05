@@ -24,8 +24,10 @@
 		D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C928D5A3B9000998DC /* RootViewController.swift */; };
 		D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08B66CE28D5A3BA000998DC /* Assets.xcassets */; };
 		D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */; };
+		D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A214EE2905604500D5FF59 /* MyPageViewController.swift */; };
 		D0A215052905687B00D5FF59 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FE2905685600D5FF59 /* Pretendard-Bold.otf */; };
 		D0A21506290568D600D5FF59 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */; };
+		D0A215082905770300D5FF59 /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A215072905770300D5FF59 /* MyPageViewController.storyboard */; };
 		D0A2151D2906B7AF00D5FF59 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A2150F2906B76F00D5FF59 /* Montserrat-Bold.otf */; };
 		D0B8D87B28F1A4E200E9339E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87A28F1A4E200E9339E /* User.swift */; };
 		D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */; };
@@ -45,6 +47,14 @@
 		D0BB5B5D2906C19300E46063 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A2150A2906B76F00D5FF59 /* Montserrat-Medium.otf */; };
 		D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A215182906B76F00D5FF59 /* Montserrat-SemiBold.otf */; };
 		D0BB5B5F2906C19900E46063 /* Montserrat-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A2150C2906B76F00D5FF59 /* Montserrat-Thin.otf */; };
+		D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B642906C59E00E46063 /* SettingViewController.swift */; };
+		D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B662906CD1F00E46063 /* SettingTableViewCell.swift */; };
+		D0BB5B692906CD1F00E46063 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B672906CD1F00E46063 /* SettingTableViewCell.xib */; };
+		D0BB5B6D2906D3D000E46063 /* ProfileUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B6C2906D3D000E46063 /* ProfileUpdateViewController.swift */; };
+		D0BB5B6F2909473500E46063 /* ProfileUpdateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B6E2909473500E46063 /* ProfileUpdateViewController.storyboard */; };
+		D0BB5B7129094E4F00E46063 /* UnregisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B7029094E4F00E46063 /* UnregisterViewController.swift */; };
+		D0BB5B7329094EBF00E46063 /* UnregisterViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B7229094EBF00E46063 /* UnregisterViewController.storyboard */; };
+		D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */; };
 		D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */; };
 		D0BF16CE28F9AF2D00CDA6CE /* OnboardingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */; };
 		D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C51E2B28F121D80004514A /* Endpoint.swift */; };
@@ -72,6 +82,7 @@
 		D08B66D128D5A3BA000998DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08B66D328D5A3BA000998DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveGodLife.entitlements; sourceTree = "<group>"; };
+		D0A214EE2905604500D5FF59 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		D0A214FD2905685600D5FF59 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		D0A214FE2905685600D5FF59 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -81,6 +92,7 @@
 		D0A215022905685700D5FF59 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		D0A215032905685700D5FF59 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		D0A215042905685700D5FF59 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		D0A215072905770300D5FF59 /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		D0A2150A2906B76F00D5FF59 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		D0A2150C2906B76F00D5FF59 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
 		D0A2150E2906B76F00D5FF59 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
@@ -93,6 +105,14 @@
 		D0B8D87A28F1A4E200E9339E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodeService.swift; sourceTree = "<group>"; };
 		D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		D0BB5B642906C59E00E46063 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D0BB5B662906CD1F00E46063 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		D0BB5B672906CD1F00E46063 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
+		D0BB5B6C2906D3D000E46063 /* ProfileUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateViewController.swift; sourceTree = "<group>"; };
+		D0BB5B6E2909473500E46063 /* ProfileUpdateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileUpdateViewController.storyboard; sourceTree = "<group>"; };
+		D0BB5B7029094E4F00E46063 /* UnregisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterViewController.swift; sourceTree = "<group>"; };
+		D0BB5B7229094EBF00E46063 /* UnregisterViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnregisterViewController.storyboard; sourceTree = "<group>"; };
+		D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardingViewController.storyboard; sourceTree = "<group>"; };
 		D0C51E2B28F121D80004514A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -203,6 +223,7 @@
 				D06181B428F15B3600B40E32 /* Network */,
 				D06181B528F15B4B00B40E32 /* Login */,
 				D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */,
+				D0BB5B602906C57A00E46063 /* MyPage */,
 				CC9C195628F6562A00C53152 /* UI */,
 				D021B059290397D60031481F /* Extension */,
 			);
@@ -248,6 +269,31 @@
 				D0A215092906B74000D5FF59 /* Montserrat */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		D0BB5B602906C57A00E46063 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB5B612906C58300E46063 /* Setting */,
+				D0A214EE2905604500D5FF59 /* MyPageViewController.swift */,
+				D0A215072905770300D5FF59 /* MyPageViewController.storyboard */,
+				D0BB5B6C2906D3D000E46063 /* ProfileUpdateViewController.swift */,
+				D0BB5B6E2909473500E46063 /* ProfileUpdateViewController.storyboard */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		D0BB5B612906C58300E46063 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */,
+				D0BB5B662906CD1F00E46063 /* SettingTableViewCell.swift */,
+				D0BB5B672906CD1F00E46063 /* SettingTableViewCell.xib */,
+				D0BB5B642906C59E00E46063 /* SettingViewController.swift */,
+				D0BB5B7029094E4F00E46063 /* UnregisterViewController.swift */,
+				D0BB5B7229094EBF00E46063 /* UnregisterViewController.storyboard */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E1E82C2940AD0B069EF9CCAC /* Pods */ = {
@@ -319,8 +365,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0BB5B692906CD1F00E46063 /* SettingTableViewCell.xib in Resources */,
+				D0A215082905770300D5FF59 /* MyPageViewController.storyboard in Resources */,
 				D0BB5B5F2906C19900E46063 /* Montserrat-Thin.otf in Resources */,
 				D0BF16CE28F9AF2D00CDA6CE /* OnboardingViewController.storyboard in Resources */,
+				D0BB5B7329094EBF00E46063 /* UnregisterViewController.storyboard in Resources */,
 				D0BB5B532906C17300E46063 /* Pretendard-ExtraBold.otf in Resources */,
 				D0BB5B572906C17F00E46063 /* Pretendard-SemiBold.otf in Resources */,
 				D0BB5B5B2906C18F00E46063 /* Montserrat-ExtraLight.otf in Resources */,
@@ -331,6 +380,7 @@
 				D0BB5B5A2906C18C00E46063 /* Montserrat-ExtraBold.otf in Resources */,
 				D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */,
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
+				D0BB5B6F2909473500E46063 /* ProfileUpdateViewController.storyboard in Resources */,
 				D0BB5B5D2906C19300E46063 /* Montserrat-Medium.otf in Resources */,
 				D0BB5B542906C17500E46063 /* Pretendard-ExtraLight.otf in Resources */,
 				D0BB5B522906C16F00E46063 /* Pretendard-Black.otf in Resources */,
@@ -395,11 +445,16 @@
 			files = (
 				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
+				D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+Extension.swift in Sources */,
+				D0BB5B6D2906D3D000E46063 /* ProfileUpdateViewController.swift in Sources */,
 				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
 				D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */,
+				D0BB5B7129094E4F00E46063 /* UnregisterViewController.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
+				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
+				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* User.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
@@ -409,6 +464,7 @@
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
+				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
 			);
