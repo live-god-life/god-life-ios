@@ -23,8 +23,8 @@ class UnregisterViewController: UIViewController {
         text.forEach {
             let contentLabel = UILabel()
             contentLabel.numberOfLines = 0
-            // 디자인가이드에 없는 컬러
-            contentLabel.textColor = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
+            contentLabel.textColor = .BBBBBB
+            contentLabel.font = .bold(with: 16)
             let text = $0
             let attributed = text.attributed()
             contentLabel.attributedText = attributed
