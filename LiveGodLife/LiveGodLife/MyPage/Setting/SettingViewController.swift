@@ -89,7 +89,7 @@ extension SettingViewController: SettingTableViewCellDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             let divider = UIView()
-            divider.backgroundColor = UIColor(red: 68/255, green: 68/255, blue: 68/255, alpha: 1) // #444444
+            divider.backgroundColor = .gray
             return divider
         }
         return UIView()

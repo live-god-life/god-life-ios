@@ -10,7 +10,7 @@ import UIKit
 final class ProfileUpdateViewController: UIViewController {
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nicknameTextField: UITextField!
+    @IBOutlet weak var nicknameTextField: TextFieldView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,17 +20,10 @@ final class ProfileUpdateViewController: UIViewController {
         title = "프로필 수정"
 
         setupProfileImageView()
-        setupNicknameTextField()
     }
-
+    
     private func setupProfileImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
-    }
-
-    private func setupNicknameTextField() {
-        nicknameTextField.layer.borderColor = UIColor.white.cgColor
-        nicknameTextField.layer.borderWidth = 1
-        nicknameTextField.layer.cornerRadius = nicknameTextField.frame.height / 2
     }
 }

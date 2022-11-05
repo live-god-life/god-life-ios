@@ -37,7 +37,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="닉네임을 입력하세요." textAlignment="natural" minimumFontSize="18" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Pa5-DG-dcD">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="닉네임을 입력하세요." textAlignment="natural" minimumFontSize="18" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Pa5-DG-dcD" customClass="TextFieldView" customModule="LiveGodLife" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="31.333333333333343" width="342" height="56"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,7 +62,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="nicknameTextField" destination="Pa5-DG-dcD" id="8DT-KR-fDX"/>
+                        <outlet property="nicknameTextField" destination="Pa5-DG-dcD" id="6w9-lR-UUO"/>
                         <outlet property="profileImageView" destination="2MM-hx-Ra7" id="9QI-PY-1Mz"/>
                     </connections>
                 </viewController>

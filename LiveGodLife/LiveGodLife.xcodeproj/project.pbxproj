@@ -17,6 +17,7 @@
 		D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+Extension.swift */; };
 		D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+Extension.swift */; };
 		D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA54291697C800E9B045 /* UIView+Extension.swift */; };
+		D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA562916A93B00E9B045 /* TextFieldView.swift */; };
 		D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
@@ -75,6 +76,7 @@
 		D023B076290AB12100387C5C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA502916063D00E9B045 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA54291697C800E9B045 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		D03FAA562916A93B00E9B045 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		D04490FB290E952C00BED66F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */,
 				D03FAA502916063D00E9B045 /* UIFont+Extension.swift */,
 				D03FAA54291697C800E9B045 /* UIView+Extension.swift */,
+				D03FAA562916A93B00E9B045 /* TextFieldView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
+				D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
 				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
