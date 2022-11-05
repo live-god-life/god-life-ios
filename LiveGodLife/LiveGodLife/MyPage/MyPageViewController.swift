@@ -26,7 +26,7 @@ final class MyPageViewController: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "Pretendard-Regular", size: 18)!,
+            NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!,
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]
     }
