@@ -59,17 +59,30 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsC-c1-sng">
+                                <rect key="frame" x="0.0" y="161" width="390" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="o39-Gk-Qti"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="rsC-c1-sng" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9kh-1j-VqT"/>
                             <constraint firstItem="iHo-6b-bXJ" firstAttribute="leading" secondItem="hAR-Gv-HBE" secondAttribute="trailing" constant="16" id="VgQ-Mq-NLp"/>
+                            <constraint firstItem="rsC-c1-sng" firstAttribute="top" secondItem="hAR-Gv-HBE" secondAttribute="bottom" id="ZXR-Ng-kMt"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="iHo-6b-bXJ" secondAttribute="trailing" constant="24" id="cWr-Qx-CDN"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="rsC-c1-sng" secondAttribute="trailing" id="cbe-NZ-d93"/>
                             <constraint firstItem="hAR-Gv-HBE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="hnp-b0-hob"/>
                             <constraint firstItem="hAR-Gv-HBE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="34" id="nIj-sC-vn3"/>
                             <constraint firstItem="iHo-6b-bXJ" firstAttribute="centerY" secondItem="hAR-Gv-HBE" secondAttribute="centerY" id="ps2-j7-zcM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="profileImageView" destination="hAR-Gv-HBE" id="jMO-ch-L6S"/>
+                        <outlet property="segmentControlContainerView" destination="rsC-c1-sng" id="2fh-mo-a7D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

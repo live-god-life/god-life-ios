@@ -15,6 +15,7 @@
 		D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */; };
 		D021B058290397660031481F /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D021B057290397660031481F /* NotificationName+Extension.swift */; };
 		D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+Extension.swift */; };
+		D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
 		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
@@ -70,6 +71,7 @@
 		D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		D021B057290397660031481F /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		D023B076290AB12100387C5C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		D04490FB290E952C00BED66F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				D0A2151E2906B89900D5FF59 /* Font */,
 				CC9C195428F6562700C53152 /* RoundedButton.swift */,
+				D04490FB290E952C00BED66F /* SegmentControlView.swift */,
 				D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */,
 			);
 			path = UI;
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
+				D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+Extension.swift in Sources */,
