@@ -25,6 +25,8 @@ final class SettingTableViewCell: UITableViewCell {
     func configure(with viewModel: SettingTableViewCellViewModel) {
         index = viewModel.rawValue
         titleLabel.text = viewModel.title
+        titleLabel.textColor = .BBBBBB
+        titleLabel.font = .bold(with: 16)
     }
 
     override func prepareForReuse() {

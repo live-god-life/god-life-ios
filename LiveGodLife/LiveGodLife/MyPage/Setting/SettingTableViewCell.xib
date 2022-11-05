@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-V4-L0E">
-                        <rect key="frame" x="14" y="0.0" width="42" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="42" height="44"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKB-Tb-Rg0">
-                        <rect key="frame" x="14" y="0.0" width="292" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
                         <connections>
@@ -34,9 +34,9 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="SKB-Tb-Rg0" secondAttribute="trailing" constant="14" id="7Bu-Wu-BNP"/>
+                    <constraint firstAttribute="trailing" secondItem="SKB-Tb-Rg0" secondAttribute="trailing" id="7Bu-Wu-BNP"/>
                     <constraint firstItem="SKB-Tb-Rg0" firstAttribute="leading" secondItem="SRV-V4-L0E" secondAttribute="leading" id="JcC-DK-qr5"/>
-                    <constraint firstItem="SRV-V4-L0E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="Qk5-Ub-6iW"/>
+                    <constraint firstItem="SRV-V4-L0E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Qk5-Ub-6iW"/>
                     <constraint firstAttribute="bottom" secondItem="SRV-V4-L0E" secondAttribute="bottom" id="U4f-jl-som"/>
                     <constraint firstAttribute="bottom" secondItem="SKB-Tb-Rg0" secondAttribute="bottom" id="Zlh-rY-Hcp"/>
                     <constraint firstItem="SRV-V4-L0E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dCR-up-lR9"/>
