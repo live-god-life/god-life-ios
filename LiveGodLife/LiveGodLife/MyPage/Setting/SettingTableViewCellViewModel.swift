@@ -29,4 +29,22 @@ enum SettingTableViewCellViewModel: Int, CaseIterable {
             return "버전 정보"
         }
     }
+
+    var image: String {
+        switch self {
+        case .version:
+            return ""
+        default:
+            return "chevron.right"
+        }
+    }
+
+    var subtitle: String {
+        switch self {
+        case .version:
+            return "v1.0"
+        default:
+            return ""
+        }
+    }
 }

@@ -26,7 +26,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKB-Tb-Rg0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
+                        <buttonConfiguration key="configuration" style="plain"/>
                         <connections>
                             <action selector="didTapActionButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gqO-Cd-hF2"/>
                         </connections>
@@ -45,12 +45,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="button" destination="SKB-Tb-Rg0" id="q0h-RP-hZK"/>
                 <outlet property="titleLabel" destination="SRV-V4-L0E" id="Uhs-LR-ryR"/>
             </connections>
             <point key="canvasLocation" x="135.38461538461539" y="20.616113744075829"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="chevron.right" catalog="system" width="97" height="128"/>
-    </resources>
 </document>
