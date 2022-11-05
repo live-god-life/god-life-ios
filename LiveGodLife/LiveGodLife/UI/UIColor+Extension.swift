@@ -21,4 +21,6 @@ extension UIColor {
     /// 디자인시스템에 없는 컬러
     /// #BBBBBB
     static let BBBBBB = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
+    /// #537CFF
+    static let blue = UIColor(red: 83/255, green: 124/255, blue: 1, alpha: 1)
 }

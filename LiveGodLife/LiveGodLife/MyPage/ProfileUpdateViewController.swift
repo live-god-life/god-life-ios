@@ -11,7 +11,6 @@ final class ProfileUpdateViewController: UIViewController {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameTextField: UITextField!
-    @IBOutlet weak var updateButton: RoundedButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,16 +19,18 @@ final class ProfileUpdateViewController: UIViewController {
 
         title = "프로필 수정"
 
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+        setupProfileImageView()
+        setupNicknameTextField()
+    }
 
+    private func setupProfileImageView() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+    }
+
+    private func setupNicknameTextField() {
         nicknameTextField.layer.borderColor = UIColor.white.cgColor
         nicknameTextField.layer.borderWidth = 1
         nicknameTextField.layer.cornerRadius = nicknameTextField.frame.height / 2
-
-        updateButton.layer.cornerRadius = updateButton.frame.height / 2
-    }
-
-    @IBAction func didTapUpdateButton(_ sender: Any) {
     }
 }

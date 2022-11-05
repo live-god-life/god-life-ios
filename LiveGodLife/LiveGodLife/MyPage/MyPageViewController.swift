@@ -31,9 +31,19 @@ final class MyPageViewController: UIViewController {
     }
 
     private func setupUI() {
+        setupProfileImageView()
         setupNavigationBar()
         setupSegmentView()
         setupPageView()
+    }
+
+    private func setupProfileImageView() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+        profileImageView.image = UIImage(named: "plus")
+        profileImageView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
+        profileImageView.addGestureRecognizer(gesture)
     }
 
     private func setupNavigationBar() {
@@ -78,7 +88,7 @@ final class MyPageViewController: UIViewController {
         navigationController?.pushViewController(settingViewController, animated: true)
     }
 
-    @IBAction func moveToProfileUpdateView(_ sender: UIButton) {
+    @objc func moveToProfileUpdateView(_ sender: UIButton) {
         let profileUpdateViewController = ProfileUpdateViewController.instance()!
         navigationController?.pushViewController(profileUpdateViewController, animated: true)
     }
