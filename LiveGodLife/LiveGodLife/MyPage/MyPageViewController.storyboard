@@ -29,9 +29,9 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsC-c1-sng">
-                                <rect key="frame" x="0.0" y="266.33333333333331" width="390" height="100"/>
+                                <rect key="frame" x="0.0" y="266.33333333333331" width="390" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="o39-Gk-Qti"/>
+                                    <constraint firstAttribute="height" constant="56" id="o39-Gk-Qti"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름이 뭐에요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4go-mv-Lob">
