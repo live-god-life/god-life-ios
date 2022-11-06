@@ -17,12 +17,22 @@ final class MyPageViewController: UIViewController {
     private var selectedPageIndex: Int = 0
 
     private let feedViewController = FeedViewController()
-    private var emptyView = {
+    private var myArticleViewController = {
         let viewController = UIViewController()
-        viewController.view.backgroundColor = .yellow
+        viewController.view.backgroundColor = .black
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
+        label.numberOfLines = 0
+        let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"
+        label.attributedText = text.attributed()
+        label.font = .regular(with: 16)
+        label.textColor = .white
+        viewController.view.addSubview(label)
+        label.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
         return viewController
     }()
-    private lazy var pageViewControllers = [feedViewController, emptyView]
+    private lazy var pageViewControllers = [feedViewController, myArticleViewController]
 
     override func viewDidLoad() {
         super.viewDidLoad()
