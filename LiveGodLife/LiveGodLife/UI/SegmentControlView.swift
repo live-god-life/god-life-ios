@@ -20,22 +20,17 @@ protocol SegmentControlViewDelegate: AnyObject {
 
 class SegmentControlView: UIView {
 
-    class CustomButton: UIButton {
-
-        override var isSelected: Bool {
-            didSet {
-                let selected = UIFont(name: "Pretendard-Bold", size: 16)
-                let normal = UIFont(name: "Pretendard", size: 16)
-                titleLabel?.font = isSelected ? selected : normal
-            }
-        }
-    }
-
     weak var delegate: SegmentControlViewDelegate?
 
 //    private let items: [SegmentItem]
-    private var selectedIndex: Int = 0
-    private var buttons: [CustomButton] = []
+    private var selectedIndex: Int = 0 {
+        didSet {
+            buttons.forEach { $0.isSelected = false }
+            buttons[selectedIndex].isSelected = true
+            delegate?.didTapItem(index: selectedIndex)
+        }
+    }
+    private var buttons: [SegmentControlButton] = []
 
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -51,7 +46,7 @@ class SegmentControlView: UIView {
         super.init(frame: frame)
 
         items.enumerated().forEach { index, item in
-            let button = CustomButton()
+            let button = SegmentControlButton()
             button.setTitle(item.title, for: .normal)
             button.setTitleColor(.gray2, for: .normal)
             button.setTitleColor(.white, for: .selected)
@@ -73,9 +68,6 @@ class SegmentControlView: UIView {
         guard sender.tag != selectedIndex else {
             return
         }
-        buttons[selectedIndex].isSelected = false
-        sender.isSelected = true
         selectedIndex = sender.tag
-        delegate?.didTapItem(index: sender.tag)
     }
 }
