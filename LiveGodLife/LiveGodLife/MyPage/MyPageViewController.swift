@@ -16,7 +16,7 @@ final class MyPageViewController: UIViewController {
     private var pageViewController: UIPageViewController!
     private var selectedPageIndex: Int = 0
 
-    private let feedViewController = UIViewController()
+    private let feedViewController = FeedViewController()
     private var emptyView = {
         let viewController = UIViewController()
         viewController.view.backgroundColor = .yellow
