@@ -14,7 +14,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        let width = contentView.frame.width - 10
+        let width = contentView.frame.width - 40
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = width / 2
