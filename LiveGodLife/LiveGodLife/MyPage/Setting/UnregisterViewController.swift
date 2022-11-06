@@ -32,14 +32,3 @@ class UnregisterViewController: UIViewController {
         }
     }
 }
-
-extension String {
-
-    func attributed() -> NSMutableAttributedString {
-        let attributed = NSMutableAttributedString(string: self)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        attributed.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributed.length))
-        return attributed
-    }
-}
