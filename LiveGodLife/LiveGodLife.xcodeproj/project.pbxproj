@@ -18,7 +18,11 @@
 		D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+Extension.swift */; };
 		D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA54291697C800E9B045 /* UIView+Extension.swift */; };
 		D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA562916A93B00E9B045 /* TextFieldView.swift */; };
+		D0297654290ECB8300FD7FD2 /* FeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0297653290ECB8300FD7FD2 /* FeedCollectionViewCell.xib */; };
+		D0297656290ECD4300FD7FD2 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0297655290ECD4300FD7FD2 /* FeedViewModel.swift */; };
+		D0297658290ECD9100FD7FD2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0297657290ECD9100FD7FD2 /* Feed.swift */; };
 		D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
+		D0449100290EC14500BED66F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FF290EC14500BED66F /* FeedViewController.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* APIRequestManager.swift */; };
 		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
@@ -35,6 +39,7 @@
 		D0A2151D2906B7AF00D5FF59 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A2150F2906B76F00D5FF59 /* Montserrat-Bold.otf */; };
 		D0B8D87B28F1A4E200E9339E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87A28F1A4E200E9339E /* User.swift */; };
 		D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */; };
+		D0B9629D290AD95D00EDAEEA /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9629B290AD95D00EDAEEA /* FeedCollectionViewCell.swift */; };
 		D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */; };
 		D0BB5B512906B9C800E46063 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A215132906B76F00D5FF59 /* Montserrat-Regular.otf */; };
 		D0BB5B522906C16F00E46063 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A215012905685700D5FF59 /* Pretendard-Black.otf */; };
@@ -79,7 +84,11 @@
 		D03FAA502916063D00E9B045 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA54291697C800E9B045 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA562916A93B00E9B045 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		D0297653290ECB8300FD7FD2 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
+		D0297655290ECD4300FD7FD2 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		D0297657290ECD9100FD7FD2 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		D04490FB290E952C00BED66F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
+		D04490FF290EC14500BED66F /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -114,6 +123,7 @@
 		D0A2151B2906B77000D5FF59 /* Montserrat-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.otf"; sourceTree = "<group>"; };
 		D0B8D87A28F1A4E200E9339E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecodeService.swift; sourceTree = "<group>"; };
+		D0B9629B290AD95D00EDAEEA /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		D0BB5B642906C59E00E46063 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D0BB5B662906CD1F00E46063 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -186,6 +196,18 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		D0449101290ECB0C00BED66F /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D04490FF290EC14500BED66F /* FeedViewController.swift */,
+				D0B9629B290AD95D00EDAEEA /* FeedCollectionViewCell.swift */,
+				D0297653290ECB8300FD7FD2 /* FeedCollectionViewCell.xib */,
+				D0297655290ECD4300FD7FD2 /* FeedViewModel.swift */,
+				D0297657290ECD9100FD7FD2 /* Feed.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		D06181B428F15B3600B40E32 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +261,7 @@
 				D06181B428F15B3600B40E32 /* Network */,
 				D06181B528F15B4B00B40E32 /* Login */,
 				D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */,
+				D0449101290ECB0C00BED66F /* Feed */,
 				D0BB5B602906C57A00E46063 /* MyPage */,
 				CC9C195628F6562A00C53152 /* UI */,
 				D021B059290397D60031481F /* Extension */,
@@ -406,6 +429,7 @@
 				D0A21506290568D600D5FF59 /* Pretendard-Regular.otf in Resources */,
 				D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */,
 				D0BB5B562906C17C00E46063 /* Pretendard-Medium.otf in Resources */,
+				D0297654290ECB8300FD7FD2 /* FeedCollectionViewCell.xib in Resources */,
 				D0BB5B552906C17900E46063 /* Pretendard-Light.otf in Resources */,
 				D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */,
 				D0A2151D2906B7AF00D5FF59 /* Montserrat-Bold.otf in Resources */,
@@ -462,11 +486,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
+				D0B9629D290AD95D00EDAEEA /* FeedCollectionViewCell.swift in Sources */,
 				D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+Extension.swift in Sources */,
 				D0BB5B6D2906D3D000E46063 /* ProfileUpdateViewController.swift in Sources */,
+				D0449100290EC14500BED66F /* FeedViewController.swift in Sources */,
 				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
 				D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */,
 				D0BB5B7129094E4F00E46063 /* UnregisterViewController.swift in Sources */,
@@ -478,6 +504,7 @@
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
+				D0297656290ECD4300FD7FD2 /* FeedViewModel.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* User.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
@@ -489,6 +516,7 @@
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
 				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
+				D0297658290ECD9100FD7FD2 /* Feed.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
 			);
