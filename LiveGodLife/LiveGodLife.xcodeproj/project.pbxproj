@@ -10,8 +10,6 @@
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6E9291BB24D0098DD09 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E8291BB24D0098DD09 /* UIApplication+Extension.swift */; };
-		C9D8D6EB291BB5590098DD09 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EA291BB5590098DD09 /* MasterViewController.swift */; };
-		C9D8D6ED291BCD140098DD09 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EC291BCD140098DD09 /* BaseViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
 		C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */; };
 		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
@@ -61,8 +59,6 @@
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6E8291BB24D0098DD09 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
-		C9D8D6EA291BB5590098DD09 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		C9D8D6EC291BCD140098DD09 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
 		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -137,8 +133,6 @@
 				D0A2151E2906B89900D5FF59 /* Font */,
 				CC9C195428F6562700C53152 /* RoundedButton.swift */,
 				D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */,
-				C9D8D6EA291BB5590098DD09 /* MasterViewController.swift */,
-				C9D8D6EC291BCD140098DD09 /* BaseViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -416,7 +410,6 @@
 				D021B058290397660031481F /* NotificationName+Extension.swift in Sources */,
 				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
 				D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */,
-				C9D8D6EB291BB5590098DD09 /* MasterViewController.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
@@ -426,7 +419,6 @@
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
-				C9D8D6ED291BCD140098DD09 /* BaseViewController.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
