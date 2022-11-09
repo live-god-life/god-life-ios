@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
-		C9D8D6E9291BB24D0098DD09 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E8291BB24D0098DD09 /* UIApplication+Extension.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
 		C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */; };
 		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
@@ -58,7 +57,6 @@
 		6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
-		C9D8D6E8291BB24D0098DD09 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
 		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 			children = (
 				D021B057290397660031481F /* NotificationName+Extension.swift */,
 				D023B076290AB12100387C5C /* UIViewController+Extension.swift */,
-				C9D8D6E8291BB24D0098DD09 /* UIApplication+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -425,7 +422,6 @@
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
-				C9D8D6E9291BB24D0098DD09 /* UIApplication+Extension.swift in Sources */,
 				C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
