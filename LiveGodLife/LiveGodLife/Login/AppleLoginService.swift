@@ -58,7 +58,7 @@ class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
                     }
                     if response.status == .error, response.code == 401 {
                         // 회원이 아님
-                        let user = User(nickname: "", type: .apple, identifier: identifier, email: email)
+                        let user = UserModel(nickname: "", type: .apple, identifier: identifier, email: email)
     //                    self?.signupCompletionHandler(user)
                     } else {
                         // 잘못된 접근 error
