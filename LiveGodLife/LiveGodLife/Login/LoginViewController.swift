@@ -99,17 +99,20 @@ final class LoginViewController: UIViewController {
                     print(error)
                 } else {
                     print("카카오 계정으로 로그인 성공")
+//                    self.navigationController?.pushViewController(UserInfoViewController(), animated: true)
+//                    UIApplication.topViewController()?.navigationController?.pushViewController(UserInfoViewController(), animated: true)
+                
+//                    self.navigationController?.pushViewController(UserInfoViewController(), animated: true)
                     
-                    _ = oauthToken
                     // 관련 메소드 추가
                 }
                 UserApi.shared.me { (user, error) in
                     let name = user?.id
                     let token = user?.kakaoAccount
-                    
+
                     print("name : \(name) - \(token)\n")
                     print("idToken : \(idToken)\n")
-                    
+
                     var parameter = Dictionary<String,Any>()
 //                    “identifier” : “key”
 //                      “type” : “apple, kakao”
@@ -117,9 +120,9 @@ final class LoginViewController: UIViewController {
                     parameter.updateValue(idToken ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
-                    
+
                     self.login(param: parameter)
-                    
+
                 }
             }
         }
@@ -138,64 +141,66 @@ final class LoginViewController: UIViewController {
                     print(json)
                     print("response:\(response)")
                     print("message:\(jsonData["message"] ?? "")")
-                    self.authLookProvider.request(.nickname) { response in
-                        switch response {
-                        case .success(let result):
-                            do {
-                                
-                                let json = try result.mapJSON()
-                                //                    let json = try JSON(filteredResponse.mapJSON())
-                                let jsonData = json as? [String:Any] ?? [:]
-                                print("response:\(response)")
-                                print("message:\(jsonData["message"] ?? "")")
-                                
-//                                {
-//                                   nickname : ”닉네임” ,
-//                                   type : “apple, kakao” , ←소문자
-//                                   identifier : “kakao or apple key”
-//                                   email : “dasjdilasdjil@nasdla.com”
+                    
+                    self.navigationController?.pushViewController(UserInfoViewController(), animated: false)
+//                    self.authLookProvider.request(.nickname) { response in
+//                        switch response {
+//                        case .success(let result):
+//                            do {
+//
+//                                let json = try result.mapJSON()
+//                                //                    let json = try JSON(filteredResponse.mapJSON())
+//                                let jsonData = json as? [String:Any] ?? [:]
+//                                print("response:\(response)")
+//                                print("message:\(jsonData["message"] ?? "")")
+//
+////                                {
+////                                   nickname : ”닉네임” ,
+////                                   type : “apple, kakao” , ←소문자
+////                                   identifier : “kakao or apple key”
+////                                   email : “dasjdilasdjil@nasdla.com”
+////                                }
+//                                var joinParam = Dictionary<String,Any>()
+//
+//                                joinParam.updateValue("hun", forKey: "nickname")
+//                                joinParam.updateValue("kakao", forKey: "type")
+//                                joinParam.updateValue(param["identifier"] ?? "", forKey: "identifier")
+//                                joinParam.updateValue(self.email, forKey: "email")
+//
+//                                print("joinPraam : \(joinParam)")
+//                                self.authLookProvider.request(.join(joinParam)) { response in
+//                                    switch response {
+//                                    case .success(let result):
+//                                        do {
+//
+//                                            let json = try result.mapJSON()
+//                                            //                    let json = try JSON(filteredResponse.mapJSON())
+//                                            let jsonData = json as? [String:Any] ?? [:]
+//                                            print("response:\(response)")
+//                                            print("message:\(jsonData["message"] ?? "")")
+//
+//
+//
+//                                        } catch(let err) {
+//                                            print("join err:\(err.localizedDescription)")
+//                                        }
+//                                    case .failure(let err):
+//                                        print("join err:\(err.localizedDescription)")
+//                                    }
+//
+//
 //                                }
-                                var joinParam = Dictionary<String,Any>()
-                                
-                                joinParam.updateValue("hun", forKey: "nickname")
-                                joinParam.updateValue("kakao", forKey: "type")
-                                joinParam.updateValue(param["identifier"] ?? "", forKey: "identifier")
-                                joinParam.updateValue(self.email, forKey: "email")
-
-                                print("joinPraam : \(joinParam)")
-                                self.authLookProvider.request(.join(joinParam)) { response in
-                                    switch response {
-                                    case .success(let result):
-                                        do {
-                                            
-                                            let json = try result.mapJSON()
-                                            //                    let json = try JSON(filteredResponse.mapJSON())
-                                            let jsonData = json as? [String:Any] ?? [:]
-                                            print("response:\(response)")
-                                            print("message:\(jsonData["message"] ?? "")")
-                                            
-                                            
-
-                                        } catch(let err) {
-                                            print("join err:\(err.localizedDescription)")
-                                        }
-                                    case .failure(let err):
-                                        print("join err:\(err.localizedDescription)")
-                                    }
-                                    
-                                    
-                                }
-                                
-
-                            } catch(let err) {
-                                print("nickname err:\(err.localizedDescription)")
-                            }
-                        case .failure(let err):
-                            print("nickname err:\(err.localizedDescription)")
-                        }
-                        
-                        
-                    }
+//
+//
+//                            } catch(let err) {
+//                                print("nickname err:\(err.localizedDescription)")
+//                            }
+//                        case .failure(let err):
+//                            print("nickname err:\(err.localizedDescription)")
+//                        }
+//
+//
+//                    }
                 
                 } catch(let err) {
                     print("nickname err:\(err.localizedDescription)")

@@ -14,8 +14,12 @@ class RootViewController: UIViewController {
 
         NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
             let loginViewController = LoginViewController()
-            loginViewController.modalPresentationStyle = .fullScreen
-            self?.present(loginViewController, animated: true)
+            let navVC = UINavigationController(rootViewController:loginViewController)
+            navVC.modalPresentationStyle = .overCurrentContext
+            navVC.isNavigationBarHidden = true
+            navVC.modalPresentationStyle = .fullScreen
+            self?.present(navVC, animated: true)
+
         }
     }
 
