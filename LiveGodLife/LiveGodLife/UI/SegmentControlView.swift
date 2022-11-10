@@ -22,7 +22,6 @@ class SegmentControlView: UIView {
 
     weak var delegate: SegmentControlViewDelegate?
 
-//    private let items: [SegmentItem]
     private var selectedIndex: Int = 0 {
         didSet {
             buttons.forEach { $0.isSelected = false }
@@ -41,8 +40,6 @@ class SegmentControlView: UIView {
     }()
 
     init(frame: CGRect, items: [SegmentItem]) {
-        // TODO: 스크롤 효과
-//        self.items = items
         super.init(frame: frame)
 
         items.enumerated().forEach { index, item in
