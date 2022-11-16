@@ -146,7 +146,14 @@ final class FeedDetailViewController: UIViewController {
         todoLabel.snp.makeConstraints {
             $0.top.equalTo(mindsetView.snp.bottom).offset(49)
             $0.leading.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(34)
+        }
+
+        let dropDownView = DropDownView()
+        containerView.addSubview(dropDownView)
+        dropDownView.snp.makeConstraints {
+            $0.top.equalTo(todoLabel.snp.bottom).offset(19)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview()
         }
     }
 }

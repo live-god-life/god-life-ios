@@ -78,6 +78,8 @@
 		D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2A1291D1CDE00601936 /* CategoryButton.swift */; };
 		D0E3B2B1291D1CDF00601936 /* HomeCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2A2291D1CDE00601936 /* HomeCollectionViewFlowLayout.swift */; };
 		D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */; };
+		D0E3B2C92924C89B00601936 /* DropDownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E3B2C82924C89B00601936 /* DropDownView.xib */; };
+		D0E3B2CB2924C8A200601936 /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2CA2924C8A200601936 /* DropDownView.swift */; };
 		D0E3B2CD29250A3C00601936 /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E3B2CC29250A3C00601936 /* MindsetView.xib */; };
 		D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2CE29250C0C00601936 /* MindsetView.swift */; };
 		D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */; };
@@ -162,6 +164,8 @@
 		D0E3B2A1291D1CDE00601936 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		D0E3B2A2291D1CDE00601936 /* HomeCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		D0E3B2C82924C89B00601936 /* DropDownView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownView.xib; sourceTree = "<group>"; };
+		D0E3B2CA2924C8A200601936 /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
 		D0E3B2CC29250A3C00601936 /* MindsetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
 		D0E3B2CE29250C0C00601936 /* MindsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetView.swift; sourceTree = "<group>"; };
 		D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewModel.swift; sourceTree = "<group>"; };
@@ -410,6 +414,8 @@
 				D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */,
 				D0E3B2CE29250C0C00601936 /* MindsetView.swift */,
 				D0E3B2CC29250A3C00601936 /* MindsetView.xib */,
+				D0E3B2CA2924C8A200601936 /* DropDownView.swift */,
+				D0E3B2C82924C89B00601936 /* DropDownView.xib */,
 			);
 			path = FeedDetail;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 				D0BB5B572906C17F00E46063 /* Pretendard-SemiBold.otf in Resources */,
 				D0E3B2AA291D1CDF00601936 /* FeedCollectionReusableView.xib in Resources */,
 				D0E3B2AE291D1CDF00601936 /* TodoCollectionViewCell.xib in Resources */,
+				D0E3B2C92924C89B00601936 /* DropDownView.xib in Resources */,
 				D0BB5B5B2906C18F00E46063 /* Montserrat-ExtraLight.otf in Resources */,
 				D0BB5B5C2906C19100E46063 /* Montserrat-Light.otf in Resources */,
 				D0BB5B592906C18600E46063 /* Montserrat-Black.otf in Resources */,
@@ -581,6 +588,7 @@
 				D06181B728F15C0700B40E32 /* APIRequestManager.swift in Sources */,
 				D0B8D87D28F1A9CA00E9339E /* JSONDecodeService.swift in Sources */,
 				D0BB5B7129094E4F00E46063 /* UnregisterViewController.swift in Sources */,
+				D0E3B2CB2924C8A200601936 /* DropDownView.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
