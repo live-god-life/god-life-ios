@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-import SwiftyUserDefaults
 
 class ListViewController<Model:Codable, Cell: CommonCell>:
     UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
@@ -54,7 +53,7 @@ class ListViewController<Model:Codable, Cell: CommonCell>:
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         //comment 동일한 셀 반복 횟수
-        return 1
+        return model.count
     }
 
     
@@ -85,7 +84,7 @@ class ListViewController<Model:Codable, Cell: CommonCell>:
     
 }
 
-class CommonCell:UICollectionViewCell,ReusableView {
+class CommonCell:UICollectionViewCell {
 
     var model:Codable?
     

@@ -54,6 +54,32 @@ class LoginViewController: UIViewController {
             make.height.equalTo(40)
 
         }
+        
+//        var param:[String:Any] = [:]
+//        param.updateValue(20221010, forKey: "date")
+//        param.updateValue(0, forKey: "page")
+//        param.updateValue(25, forKey: "size")
+//        param.updateValue("false", forKey: "completionStatus")
+//
+//        authLookProvider.request(.todos(param)) { response in
+//            switch response {
+//            case .success(let result):
+//                do {
+//
+//                    let json = try result.mapJSON()
+////                    let json = try JSON(filteredResponse.mapJSON())
+//                    let jsonData = json as? [String:Any] ?? [:]
+//                    print(json)
+//                    print("response:\(response)")
+//                    print("message:\(jsonData["message"] ?? "")")
+//
+//                } catch(let err) {
+//                    print("nickname err:\(err.localizedDescription)")
+//                }
+//            case .failure(let err):
+//                print(err.localizedDescription)
+//            }
+//        }
     }
     
     @objc func kakaoLogin(_ sender: UIButton) {
@@ -220,6 +246,7 @@ enum LookService {
     case join(Dictionary<String,Any>)
     case otherDetail(String, Int)
     case login(Dictionary<String,Any>)
+    case todos(Dictionary<String,Any>)
 
 
 }
@@ -239,6 +266,8 @@ extension LookService: TargetType {
             return "/users"
         case .login(_):
             return "/login"
+        case .todos(_):
+            return "/goals/todos"
         }
     }
 
@@ -252,6 +281,8 @@ extension LookService: TargetType {
             return .post
         case .login(_):
             return .post
+        case .todos(_):
+            return .get
         }
     }
 
@@ -272,6 +303,8 @@ extension LookService: TargetType {
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
 
         case .login(let parameter):
+            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .todos(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         }
     }

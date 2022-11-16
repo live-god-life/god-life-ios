@@ -79,13 +79,12 @@ struct MainGoals:Codable {
 }
 struct SubGoals:Codable {
     var title:String
-    var todoSchedules: String
-    var completionStatus: Bool
+    var completionStatus: Bool?
     var taskType: String
     var repetitionType: String
-    var repetitionParams: String
+    var repetitionParams: [String]?
     var totalTodoTaskScheduleCount: Int
-    var completedTodoTaskScheduleCount: 0
+    var completedTodoTaskScheduleCount: Int
     var todoDay: Int
     
     enum Codingkeys: Int,CodingKey{
