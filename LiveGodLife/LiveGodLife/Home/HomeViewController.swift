@@ -21,7 +21,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.isHidden = true
+        navigationItem.backButtonTitle = ""
 
         let layout = HomeCollectionViewFlowLayout()
         layout.minimumLineSpacing = 32
@@ -45,6 +45,12 @@ final class HomeViewController: UIViewController {
                 self?.collectionView.reloadData()
             })
             .store(in: &cancellable)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = true
     }
 }
 
@@ -94,5 +100,11 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell
         cell.configure(with: feeds[indexPath.item])
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // FIXME
+        let vc = FeedDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

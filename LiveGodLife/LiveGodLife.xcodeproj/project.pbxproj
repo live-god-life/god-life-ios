@@ -77,6 +77,9 @@
 		D0E3B2AF291D1CDF00601936 /* TodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2A0291D1CDE00601936 /* TodoCollectionViewCell.swift */; };
 		D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2A1291D1CDE00601936 /* CategoryButton.swift */; };
 		D0E3B2B1291D1CDF00601936 /* HomeCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2A2291D1CDE00601936 /* HomeCollectionViewFlowLayout.swift */; };
+		D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */; };
+		D0E3B2CD29250A3C00601936 /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E3B2CC29250A3C00601936 /* MindsetView.xib */; };
+		D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B2CE29250C0C00601936 /* MindsetView.swift */; };
 		D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */; };
 		D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */; };
 		D0E4AE472917D8A700549BC0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE462917D8A700549BC0 /* String+Extension.swift */; };
@@ -158,6 +161,9 @@
 		D0E3B2A0291D1CDE00601936 /* TodoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E3B2A1291D1CDE00601936 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		D0E3B2A2291D1CDE00601936 /* HomeCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		D0E3B2CC29250A3C00601936 /* MindsetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
+		D0E3B2CE29250C0C00601936 /* MindsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetView.swift; sourceTree = "<group>"; };
 		D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewModel.swift; sourceTree = "<group>"; };
 		D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E4AE462917D8A700549BC0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -378,6 +384,7 @@
 			children = (
 				D0E3B2B4291D1F5C00601936 /* Cell */,
 				D0E3B2B2291D1D2800601936 /* Feed */,
+				D0E3B2D02925289000601936 /* FeedDetail */,
 				D0E3B2A2291D1CDE00601936 /* HomeCollectionViewFlowLayout.swift */,
 				D0E3B295291D1CDE00601936 /* HomeViewController.swift */,
 				D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */,
@@ -395,6 +402,16 @@
 				D0E3B2A0291D1CDE00601936 /* TodoCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D0E3B2D02925289000601936 /* FeedDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D0E3B2B5291FC15A00601936 /* FeedDetailViewController.swift */,
+				D0E3B2CE29250C0C00601936 /* MindsetView.swift */,
+				D0E3B2CC29250A3C00601936 /* MindsetView.xib */,
+			);
+			path = FeedDetail;
 			sourceTree = "<group>";
 		};
 		E1E82C2940AD0B069EF9CCAC /* Pods */ = {
@@ -481,6 +498,7 @@
 				D0A215052905687B00D5FF59 /* Pretendard-Bold.otf in Resources */,
 				D0BB5B512906B9C800E46063 /* Montserrat-Regular.otf in Resources */,
 				D0BB5B5A2906C18C00E46063 /* Montserrat-ExtraBold.otf in Resources */,
+				D0E3B2CD29250A3C00601936 /* MindsetView.xib in Resources */,
 				D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */,
 				D0E3B2AC291D1CDF00601936 /* FeedCollectionViewCell.xib in Resources */,
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
@@ -568,6 +586,7 @@
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */,
+				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D0E3B2A4291D1CDF00601936 /* FeedViewModel.swift in Sources */,
@@ -575,6 +594,7 @@
 				D0B8D87B28F1A4E200E9339E /* User.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
+				D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */,
 				D0E3B2A9291D1CDF00601936 /* FeedCollectionReusableView.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
