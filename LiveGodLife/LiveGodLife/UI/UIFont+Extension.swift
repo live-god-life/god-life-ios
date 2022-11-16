@@ -16,4 +16,8 @@ extension UIFont {
     static func regular(with size: CGFloat) -> UIFont? {
         return UIFont(name: "Pretendard-Regular", size: size)
     }
+
+    static func medium(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Pretendard-Medium", size: size)
+    }
 }
