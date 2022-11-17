@@ -23,12 +23,10 @@ class CalendarListViewController: UIViewController {
     
     lazy var contentsView: UIView = {
         let view = UIView()
-        let scollView = UIScrollView()
         let todayLabel = UILabel()
         let addButton = UIButton()
         
         todayLabel.text = Date.today
-        scollView.backgroundColor = .white
         
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
@@ -51,14 +49,27 @@ class CalendarListViewController: UIViewController {
                                     ],
                                     totalTodoTaskScheduleCount: 39,
                                     completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48)
+                                    todoDay: -48),
+                                SubGoals(
+                                    title: "컨셉잡기1",
+                                    completionStatus: false,
+                                    taskType: "Todo",
+                                    repetitionType: "WEEK",
+                                    repetitionParams: [
+                                        "월",
+                                        "목",
+                                        "토"
+                                    ],
+                                    totalTodoTaskScheduleCount: 39,
+                                    completedTodoTaskScheduleCount: 0,
+                                    todoDay: -48),
                             ]
                           )
         )
         model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
                             [
                                 SubGoals(
-                                    title: "컨셉잡기",
+                                    title: "테스트",
                                     completionStatus: false,
                                     taskType: "Todo",
                                     repetitionType: "DAY",
@@ -76,30 +87,25 @@ class CalendarListViewController: UIViewController {
         view.backgroundColor = .green
         
         view.addSubview(todayLabel)
-        scollView.addSubview(self.listView.view)
-        view.addSubview(scollView)
+        view.addSubview(self.listView.view)
         view.addSubview(addButton)
+        view.backgroundColor = .red
         
-        
-//        scollView.snp.makeConstraints { make in
-//            makr
-//        }
-        
+        self.listView.view.backgroundColor = .yellow
         todayLabel.snp.makeConstraints { make in
             make.top.equalTo(view).offset(20)
-            make.left.equalTo(view).offset(10)
-            make.right.equalTo(view).offset(-10)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
         }
-        scollView.snp.makeConstraints { make in
+        self.listView.view.snp.makeConstraints { make in
             make.top.equalTo(todayLabel.snp.bottom).offset(10)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalTo(addButton.snp.top).offset(10)
         }
-        
         addButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-20)
             make.height.equalTo(30)
-            make.width.equalTo(200)
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
@@ -110,83 +116,77 @@ class CalendarListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(self.contentsView)
-        self.view.backgroundColor = .white
         self.contentsView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view)
-            
+            make.top.left.right.bottom.equalTo(self.view.safeAreaInsets)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        model.removeAll()
-//        MainMenu.allCases.forEach {
-//            /// 간편세차 및 준회원에 따른 모델 객체 패스 처리 로직 필요
-//            model.append(MenuModel(title: $0.title,rawValue: $0.rawValue, menuItem: $0.menuItem))
-//        }
-        
-        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubGoals(
-                                    title: "컨셉잡기",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "WEEK",
-                                    repetitionParams: [
-                                        "월",
-                                        "목",
-                                        "토"
-                                    ],
-                                    totalTodoTaskScheduleCount: 39,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48)
-                            ]
-                          )
-        )
-        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubGoals(
-                                    title: "컨셉잡기",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "DAY",
-                                    repetitionParams: nil,
-                                    totalTodoTaskScheduleCount: 91,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48)
-                            ]
-                          )
-        )
-    
-        self.listView.model     = model
-        self.listView.collectionView.reloadData()
+//        model.removeAll()
+////        MainMenu.allCases.forEach {
+////            /// 간편세차 및 준회원에 따른 모델 객체 패스 처리 로직 필요
+////            model.append(MenuModel(title: $0.title,rawValue: $0.rawValue, menuItem: $0.menuItem))
+////        }
+//
+//        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
+//                            [
+//                                SubGoals(
+//                                    title: "컨셉잡기",
+//                                    completionStatus: false,
+//                                    taskType: "Todo",
+//                                    repetitionType: "WEEK",
+//                                    repetitionParams: [
+//                                        "월",
+//                                        "목",
+//                                        "토"
+//                                    ],
+//                                    totalTodoTaskScheduleCount: 39,
+//                                    completedTodoTaskScheduleCount: 0,
+//                                    todoDay: -48)
+//                            ]
+//                          )
+//        )
+//        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
+//                            [
+//                                SubGoals(
+//                                    title: "컨셉잡기",
+//                                    completionStatus: false,
+//                                    taskType: "Todo",
+//                                    repetitionType: "DAY",
+//                                    repetitionParams: nil,
+//                                    totalTodoTaskScheduleCount: 91,
+//                                    completedTodoTaskScheduleCount: 0,
+//                                    todoDay: -48)
+//                            ]
+//                          )
+//        )
+//
+//        self.listView.model     = model
+//        self.listView.collectionView.reloadData()
     }
 
-    func goWebview(_ url: String = "") {
-//        MenuListController.reMindUrl = url
-//        UIApplication.goWebview(MenuListController.reMindUrl)
-    }
 }
 
 extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        var itemHeightSize = 150.0
-        if indexPath.row < self.listView.model.count {
-            let mainGoals = self.model[indexPath.row]
-            let row = ceil( Double(mainGoals.todoSchedules.count)/2.0 )
-            itemHeightSize = max( 1, row ) * (30 + 5) + 72
-        }
-        return CGSize(width: collectionView.frame.width * 0.9, height: itemHeightSize)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        let headerHeight: CGFloat = LoginMbrInfo.shared.member == .Regular ? SideMenuHeaderView.RegularMemberHeight : SideMenuHeaderView.AssociateMemberHeight
-//        return CGSize(width: collectionView.frame.width, height: headerHeight)
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        var itemHeightSize = 150.0
+//        if indexPath.row < self.listView.model.count {
+//            let mainGoals = self.model[indexPath.row]
+//            let row = ceil( Double(mainGoals.todoSchedules.count)/2.0 )
+//            itemHeightSize = max( 1, row ) * (30 + 5) + 72
+//        }
+//        return CGSize(width: collectionView.frame.width * 0.9, height: itemHeightSize)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+////        let headerHeight: CGFloat = LoginMbrInfo.shared.member == .Regular ? SideMenuHeaderView.RegularMemberHeight : SideMenuHeaderView.AssociateMemberHeight
+////        return CGSize(width: collectionView.frame.width, height: headerHeight)
+//        return CGSize(width: self.view.frame.width, height: self.view.frame.height)
+//
+//    }
 }
 
 
@@ -194,11 +194,11 @@ extension CalendarListViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         //comment 동일한 셀 반복 횟수
-        return 1
+        return 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return self.listView.model.count
+        return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Configure the cell
@@ -212,18 +212,18 @@ extension CalendarListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        switch kind {
-//        case UICollectionView.elementKindSectionHeader:
-//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SideMenuHeaderView", for: indexPath)
-//            if let headerView = headerView as? SideMenuHeaderView {
-//                headerView.delegate = self
-//                headerView.updateView(isRegular: LoginMbrInfo.shared.member == .Regular)
-//            }
-//            return headerView
-//        default:
-//            assert(false, "")
-//        }
-        return UICollectionReusableView()
-    }
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+////        switch kind {
+////        case UICollectionView.elementKindSectionHeader:
+////            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SideMenuHeaderView", for: indexPath)
+////            if let headerView = headerView as? SideMenuHeaderView {
+////                headerView.delegate = self
+////                headerView.updateView(isRegular: LoginMbrInfo.shared.member == .Regular)
+////            }
+////            return headerView
+////        default:
+////            assert(false, "")
+////        }
+//        return UICollectionReusableView()
+//    }
 }

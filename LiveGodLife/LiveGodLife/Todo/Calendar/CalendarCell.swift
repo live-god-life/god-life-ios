@@ -36,8 +36,11 @@ class CalendarCell: CommonCell {
     func addViews(){
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(30)
         }
+        self.backgroundColor = .blue
     }
 
     func update() {
