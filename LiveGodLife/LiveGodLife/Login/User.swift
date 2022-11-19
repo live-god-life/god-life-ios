@@ -9,8 +9,10 @@ import Foundation
 
 struct User: Codable, Hashable {
 
-   let nickname: String
-   let type: LoginType
-   let identifier: String
-   let email: String?
+    // TODO: User 모델의 분리?
+    let nickname: String
+    let type: LoginType?
+    let identifier: String?
+    let email: String?
+    let image: String?
 }

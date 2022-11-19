@@ -11,6 +11,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "TodoCollectionViewCell"
 
+    @IBOutlet weak var repetitionLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
 
     override func awakeFromNib() {
@@ -20,5 +22,12 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         checkButton.tintColor = .green
         checkButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
         checkButton.setImage(UIImage(systemName: "checkmark.circle"), for: .selected)
+        contentView.backgroundColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
+    }
+
+    func configure(_ todo: Todo.Schedule) {
+        repetitionLabel.text = todo.repetitions.joined(separator: ",")
+        repetitionLabel.isHidden = todo.repetitions.isEmpty
+        contentLabel.text = todo.title
     }
 }

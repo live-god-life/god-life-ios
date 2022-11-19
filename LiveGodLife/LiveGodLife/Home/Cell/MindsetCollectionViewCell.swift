@@ -13,6 +13,7 @@ struct MindsetViewModel {
     let content: String
 }
 
+// FIXME: MindsetCollectionViewCell 네이밍
 final class MindsetCollectionViewCell: UICollectionViewCell {
 
     static var identifier = "MindsetCollectionViewCell"
@@ -20,6 +21,19 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+
+    private var goals: [Goal] = [] {
+        didSet {
+            // TODO: 데이터 없을 때 예외처리
+            if let goal = goals.randomElement() {
+                title.text = goal.title
+                if let mindset = goal.mindsets.randomElement() {
+                    content.text = mindset.content
+                }
+            }
+        }
+    }
+    private var todos: [Todo.Schedule] = []
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,24 +43,27 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
         collectionView.dataSource = self
     }
 
-    func configure(_ viewModel: MindsetViewModel) {
-        title.text = viewModel.title
-        content.text = viewModel.content
+    func configure(_ data: (todos: [Todo], goals: [Goal])) {
+        self.todos = data.todos.flatMap { $0.schedules }
+        self.goals = data.goals
     }
 }
+
+// MARK: - Todo Collection View
 
 extension MindsetCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 40), height: 100)
+        return CGSize(width: (collectionView.frame.width - 40), height: collectionView.frame.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return todos.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier, for: indexPath) as! TodoCollectionViewCell
+        cell.configure(todos[indexPath.item])
         return cell
     }
 }
