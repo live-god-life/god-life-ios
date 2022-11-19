@@ -13,9 +13,22 @@ final class HomeViewController: UIViewController {
 
     private var collectionView: UICollectionView!
 
-    private var viewModel = FeedViewModel()
-    private var feeds: [Feed] = []
-
+    private var feeds: [Feed] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    private var todos: [Todo] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+            }
+        }
+    }
+    private var goals: [Goal] = []
+    private let repository = DefaultHomeRepository()
     private var cancellable = Set<AnyCancellable>()
 
     override func viewDidLoad() {
@@ -23,6 +36,23 @@ final class HomeViewController: UIViewController {
 
         navigationItem.backButtonTitle = ""
 
+        setupCollectionView()
+
+        requestData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = true
+    }
+}
+
+// MARK: - Private
+
+private extension HomeViewController {
+
+    func setupCollectionView() {
         let layout = HomeCollectionViewFlowLayout()
         layout.minimumLineSpacing = 32
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -38,21 +68,45 @@ final class HomeViewController: UIViewController {
             $0.leading.trailing.bottom.equalToSuperview()
         }
         self.collectionView = collectionView
+    }
 
-        viewModel.requestFeeds()
-            .sink(receiveValue: { [weak self] feeds in
-                self?.feeds = feeds
-                self?.collectionView.reloadData()
-            })
+    func requestData() {
+        // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만
+        let param: [String: Any] = ["date": "20221001", "size": 5, "completionStatus": "false"]
+        let todos = repository.requestTodos(endpoint: .todos(param))
+        let mindset = repository.requestGoals(endpoint: .mindsets)
+
+        todos.zip(mindset)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] (todos, goals) in
+                self?.todos = todos
+                self?.goals = goals
+            }
+            .store(in: &cancellable)
+
+        DefaultFeedRepository().request(endpoint: .feeds)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] feeds in
+                guard let self = self else { return }
+                self.feeds = feeds
+            }
             .store(in: &cancellable)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.navigationBar.isHidden = true
-    }
 }
+
+// MARK: - Delegate
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
@@ -92,9 +146,10 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // 첫번째 섹션: 마인드셋 + 투두
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetCollectionViewCell.identifier, for: indexPath) as! MindsetCollectionViewCell
-//            cell.configure()
+            cell.configure((todos, goals))
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell

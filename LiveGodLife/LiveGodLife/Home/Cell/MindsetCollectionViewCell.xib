@@ -25,16 +25,16 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Lty-Qk-M6l">
-                        <rect key="frame" x="24" y="20.000000000000004" width="339" height="56.333333333333343"/>
+                        <rect key="frame" x="24" y="20" width="353" height="159"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목제목제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhH-54-cJP">
-                                <rect key="frame" x="0.0" y="0.0" width="339" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="353" height="17"/>
                                 <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="안녕하세요! 수빈님" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcQ-2W-oZQ">
-                                <rect key="frame" x="0.0" y="25" width="339" height="31.333333333333329"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcQ-2W-oZQ">
+                                <rect key="frame" x="0.0" y="25" width="353" height="134"/>
                                 <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -42,21 +42,24 @@
                         </subviews>
                     </stackView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="icz-Aq-aCF">
-                        <rect key="frame" x="0.0" y="86.333333333333343" width="433" height="282.66666666666663"/>
+                        <rect key="frame" x="0.0" y="189" width="433" height="102"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="102" id="M5u-BU-jdX"/>
+                        </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="10" id="b0w-z2-ntb">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="16" minY="34" maxX="16" maxY="16"/>
+                            <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="icz-Aq-aCF" secondAttribute="bottom" id="3ik-vC-0PH"/>
-                <constraint firstAttribute="trailing" secondItem="Lty-Qk-M6l" secondAttribute="trailing" constant="70" id="5na-pw-iQQ"/>
+                <constraint firstAttribute="bottom" secondItem="icz-Aq-aCF" secondAttribute="bottom" constant="78" id="3ik-vC-0PH"/>
+                <constraint firstAttribute="trailing" secondItem="Lty-Qk-M6l" secondAttribute="trailing" constant="56" id="5na-pw-iQQ"/>
                 <constraint firstAttribute="trailing" secondItem="icz-Aq-aCF" secondAttribute="trailing" id="Uef-DK-z1A"/>
                 <constraint firstItem="Lty-Qk-M6l" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="VIO-Cp-6ob"/>
                 <constraint firstItem="Lty-Qk-M6l" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="Yja-PI-x6k"/>

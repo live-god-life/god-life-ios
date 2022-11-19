@@ -8,21 +8,10 @@
 import Foundation
 import AuthenticationServices
 
-class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
+final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
 
     private weak var presentationContextProvider: ASAuthorizationControllerPresentationContextProviding?
 
-//    private let signupCompletionHandler: (User) -> Void
-    private lazy var loginSuccessCompletionHandler: (Data?) -> Void = { [weak self] data in
-        guard let data = data,
-              let response: APIResponse = self?.decode(with: data),
-              let authToken = response.data?["authorization"] else {
-            // TODO: error handle
-            return
-        }
-        // TODO: UserDefaults 저장
-        print(authToken)
-    }
 
     init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
         self.presentationContextProvider = presentationContextProvider
@@ -45,26 +34,6 @@ class AppleLoginService: JSONDecodeService, ASAuthorizationControllerDelegate {
             let data = ["identifier": identifier,
                         "type": LoginType.apple.rawValue]
 
-            let requestManager = APIRequestManager.shared
-            requestManager.request(endpoint: .login(data)) { [weak self] result in
-                switch result {
-                case .success(let data):
-                    self?.loginSuccessCompletionHandler(data)
-                case .failure(let error):
-                    guard let data = error.data,
-                          let response: APIResponse = self?.decode(with: data) else {
-                        // TODO: 예외 처리
-                        return
-                    }
-                    if response.status == .error, response.code == 401 {
-                        // 회원이 아님
-                        let user = User(nickname: "", type: .apple, identifier: identifier, email: email)
-    //                    self?.signupCompletionHandler(user)
-                    } else {
-                        // 잘못된 접근 error
-                    }
-                }
-            }
         }
     }
 
