@@ -15,11 +15,11 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DropDownView" customModule="LiveGodLife" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodoDropDownView" customModule="LiveGodLife" customModuleProvider="target">
             <connections>
-                <outlet property="firstView" destination="G50-QE-wLH" id="O50-Dj-RlE"/>
-                <outlet property="secondView" destination="ioV-C1-kay" id="SJs-6B-WN0"/>
-                <outlet property="thirdView" destination="dvX-Zx-ESa" id="6fI-ZJ-ut6"/>
+                <outlet property="subTodoView" destination="ioV-C1-kay" id="Rpy-sy-Xsd"/>
+                <outlet property="subTodoView2" destination="dvX-Zx-ESa" id="utj-kw-Zsa"/>
+                <outlet property="todoView" destination="G50-QE-wLH" id="1T2-FZ-II3"/>
                 <outlet property="toggleButton" destination="CPM-ZG-xdg" id="2db-qX-xbZ"/>
             </connections>
         </placeholder>
@@ -31,7 +31,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZBR-fl-mv7">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G50-QE-wLH" userLabel="First View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G50-QE-wLH" userLabel="First View" customClass="TodoView" customModule="LiveGodLife" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Af-pN-7SN">
@@ -58,8 +58,12 @@
                                 <constraint firstAttribute="height" constant="80" id="mif-Bw-k6z"/>
                                 <constraint firstItem="7Af-pN-7SN" firstAttribute="leading" secondItem="G50-QE-wLH" secondAttribute="leading" constant="24" id="sPI-7m-sES"/>
                             </constraints>
+                            <connections>
+                                <outlet property="contentLabel" destination="oXi-5U-K7g" id="STw-S1-f1C"/>
+                                <outlet property="titleLabel" destination="I4q-3F-ht3" id="lly-7o-7Nm"/>
+                            </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioV-C1-kay" userLabel="Second View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioV-C1-kay" userLabel="Second View" customClass="TodoView" customModule="LiveGodLife" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="80" width="375" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oi4-3F-UP1">
@@ -86,8 +90,12 @@
                                 <constraint firstItem="oi4-3F-UP1" firstAttribute="leading" secondItem="ioV-C1-kay" secondAttribute="leading" constant="24" id="6qx-mE-4Fq"/>
                                 <constraint firstItem="oi4-3F-UP1" firstAttribute="centerY" secondItem="ioV-C1-kay" secondAttribute="centerY" id="Ixk-V6-iZR"/>
                             </constraints>
+                            <connections>
+                                <outlet property="contentLabel" destination="5ag-X4-GXi" id="xuo-ac-Nry"/>
+                                <outlet property="titleLabel" destination="QR7-C5-nq0" id="1bi-qF-Azn"/>
+                            </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvX-Zx-ESa" userLabel="Third View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvX-Zx-ESa" userLabel="Third View" customClass="TodoView" customModule="LiveGodLife" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="160" width="375" height="80"/>
                             <subviews>
                                 <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9U4-o8-QO5">
@@ -125,6 +133,10 @@
                                 <constraint firstAttribute="trailing" secondItem="9U4-o8-QO5" secondAttribute="trailing" constant="16" id="thr-iA-2cY"/>
                                 <constraint firstItem="9U4-o8-QO5" firstAttribute="top" secondItem="dvX-Zx-ESa" secondAttribute="top" id="xOg-ZK-0HJ"/>
                             </constraints>
+                            <connections>
+                                <outlet property="contentLabel" destination="fCa-df-1dh" id="mnc-w2-R4s"/>
+                                <outlet property="titleLabel" destination="Yl6-kw-Pts" id="en0-lw-cjc"/>
+                            </connections>
                         </view>
                     </subviews>
                 </stackView>

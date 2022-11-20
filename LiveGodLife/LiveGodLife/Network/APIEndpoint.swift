@@ -20,8 +20,8 @@ extension APIEndpoint {
     var url: URL {
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "49.50.167.208"
-        components.port = 8000
+        components.host = "101.101.208.221"
+        components.port = 80
         components.path = path
 
         var queryItems: [URLQueryItem] = []

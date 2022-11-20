@@ -90,7 +90,7 @@ private extension HomeViewController {
             }
             .store(in: &cancellable)
 
-        DefaultFeedRepository().request(endpoint: .feeds)
+        DefaultFeedRepository().requestFeeds(endpoint: .feeds)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -159,7 +159,9 @@ extension HomeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // FIXME
-        let vc = FeedDetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        if indexPath.section == 1 {
+            let vc = FeedDetailViewController(feedID: feeds[indexPath.item].id)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
