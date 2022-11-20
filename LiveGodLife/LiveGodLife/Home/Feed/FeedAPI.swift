@@ -10,7 +10,7 @@ import Alamofire
 
 enum FeedAPI: APIEndpoint {
 
-    case feeds
+    case feeds([String: String]? = nil)
     case feed(Int)
 
     var method: HTTPMethod {
@@ -27,6 +27,11 @@ enum FeedAPI: APIEndpoint {
     }
 
     var parameters: [String: Any] {
-        return [:]
+        switch self {
+        case .feeds(let value):
+            return value ?? [:]
+        default:
+            return [:]
+        }
     }
 }
