@@ -16,8 +16,24 @@ final class FeedDetailViewController: UIViewController {
     private let imageView = UIImageView()
     private let categoryLabel = UILabel()
     private let titleLabel = UILabel()
+    private let todoCountLabel = UILabel()
+    private let todoScheduleDay = UILabel()
+    private let bookmarkButton = UIButton()
     private let nicknameLabel = UILabel()
     private let mindsetView = MindsetView()
+    private let userProfileImageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 20
+        image.backgroundColor = .green
+        return image
+    }()
+    private let calendarImageView: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "calendar"))
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -110,6 +126,7 @@ final class FeedDetailViewController: UIViewController {
             $0.leading.equalToSuperview().inset(24)
         }
 
+        // titleLabel
         titleLabel.textColor = .white
         titleLabel.font = .bold(with: 24)
         titleLabel.numberOfLines = 2
@@ -120,13 +137,59 @@ final class FeedDetailViewController: UIViewController {
             $0.height.equalTo(70)
         }
 
+        let image = UIImageView(image: UIImage(named: "lightning"))
+        image.contentMode = .scaleAspectFit
+        containerView.addSubview(image)
+        image.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().inset(24)
+        }
+        todoCountLabel.text = "0 List"
+        todoCountLabel.textColor = .green
+        todoCountLabel.font = .montserrat(with: 16, weight: .bold)
+        containerView.addSubview(todoCountLabel)
+        todoCountLabel.snp.makeConstraints {
+            $0.leading.equalTo(image.snp.trailing).offset(8)
+            $0.centerY.equalTo(image.snp.centerY)
+        }
+
+        containerView.addSubview(calendarImageView)
+        calendarImageView.snp.makeConstraints {
+            $0.leading.equalTo(todoCountLabel.snp.trailing).offset(10)
+            $0.centerY.equalTo(image.snp.centerY)
+        }
+        todoScheduleDay.textColor = .green
+        todoScheduleDay.font = .montserrat(with: 16, weight: .bold)
+        containerView.addSubview(todoScheduleDay)
+        todoScheduleDay.snp.makeConstraints {
+            $0.leading.equalTo(calendarImageView.snp.trailing).offset(8)
+            $0.centerY.equalTo(image.snp.centerY)
+        }
+
+        bookmarkButton.addTarget(self, action: #selector(didTapBookmark), for: .touchUpInside)
+        bookmarkButton.setBackgroundImage(UIImage(named: "bookmark"), for: .selected)
+        bookmarkButton.setBackgroundImage(UIImage(named: "bookmark_disable"), for: .normal)
+        containerView.addSubview(bookmarkButton)
+        bookmarkButton.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+
         let dividerView = UIView()
         dividerView.backgroundColor = .gray
         containerView.addSubview(dividerView)
         dividerView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
+            $0.top.equalTo(bookmarkButton.snp.bottom).offset(40)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(1)
+        }
+
+        // user
+        containerView.addSubview(userProfileImageView)
+        userProfileImageView.snp.makeConstraints {
+            $0.top.equalTo(dividerView.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().inset(24)
+            $0.width.height.equalTo(40)
         }
 
         nicknameLabel.textColor = .white
@@ -134,13 +197,13 @@ final class FeedDetailViewController: UIViewController {
         nicknameLabel.numberOfLines = 1
         containerView.addSubview(nicknameLabel)
         nicknameLabel.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.bottom).offset(37)
-            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.centerY.equalTo(userProfileImageView.snp.centerY)
+            $0.leading.equalTo(userProfileImageView.snp.trailing).offset(8)
         }
 
         containerView.addSubview(contentsStackView)
         contentsStackView.snp.makeConstraints {
-            $0.top.equalTo(nicknameLabel.snp.bottom).offset(16)
+            $0.top.equalTo(userProfileImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
@@ -205,13 +268,16 @@ final class FeedDetailViewController: UIViewController {
         imageView.image = UIImage(named: feed.image)
         categoryLabel.text = feed.category
         titleLabel.text = feed.title
+        todoCountLabel.text = "\(feed.todoCount) List"
+        todoScheduleDay.text = "\(feed.todoScheduleDay) DAY"
+        bookmarkButton.isSelected = feed.isBookmark
         nicknameLabel.text = feed.user.nickname
 
         feed.contents.forEach { content in
             let titleLabel = UILabel()
             titleLabel.attributedText = content.title.attributed()
             titleLabel.textColor = .white
-            titleLabel.font = .bold(with: 20)
+            titleLabel.font = .bold(with: 18)
             titleLabel.numberOfLines = 0
             contentsStackView.addArrangedSubview(titleLabel)
 
@@ -233,5 +299,22 @@ final class FeedDetailViewController: UIViewController {
             todoView.configure(todo)
             todosStackView.addArrangedSubview(todoView)
         }
+    }
+
+    @objc private func didTapBookmark() {
+        guard let feed = feed else { return }
+        let param: [String: Any] = ["id": feedID, "status": !feed.isBookmark]
+        repository.request(UserAPI.bookmark(param))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { (feed: String?) in
+
+            }
+            .store(in: &cancellable)
     }
 }

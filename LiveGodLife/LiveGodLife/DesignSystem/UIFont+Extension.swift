@@ -20,4 +20,15 @@ extension UIFont {
     static func medium(with size: CGFloat) -> UIFont? {
         return UIFont(name: "Pretendard-Medium", size: size)
     }
+
+    static func montserrat(with size: CGFloat, weight: UIFont.Weight) -> UIFont? {
+        let rawValue: String
+        switch weight {
+        case .bold:
+            rawValue = "Bold"
+        default:
+            rawValue = "Regular"
+        }
+        return UIFont(name: "Montserrat-\(rawValue)", size: size)
+    }
 }

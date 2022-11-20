@@ -37,6 +37,8 @@ struct Feed: Hashable, Decodable {
     let image: String
     let isBookmark: Bool
     // 피드 상세에 사용되는 데이터
+    let todoCount: Int
+    let todoScheduleDay: Int
     let category: String // Type
     let contents: [Content]
     let mindsets: [Mindset]
@@ -45,7 +47,7 @@ struct Feed: Hashable, Decodable {
     enum CodingKeys: String, CodingKey {
         case id = "feedId"
         case isBookmark = "bookMarkStatus"
-        case title, user, image, category, contents, mindsets, todos
+        case title, user, image, todoCount, todoScheduleDay, category, contents, mindsets, todos
     }
 
     init(from decoder: Decoder) throws {
@@ -54,6 +56,8 @@ struct Feed: Hashable, Decodable {
         title = try container.decode(String.self, forKey: .title)
         user = try container.decode(User.self, forKey: .user)
         image = try container.decode(String.self, forKey: .image)
+        todoCount = try container.decodeIfPresent(Int.self, forKey: .todoCount) ?? 0
+        todoScheduleDay = try container.decodeIfPresent(Int.self, forKey: .todoScheduleDay) ?? 0
         category = try container.decodeIfPresent(String.self, forKey: .category) ?? ""
         isBookmark = try container.decode(Bool.self, forKey: .isBookmark)
         contents = try container.decodeIfPresent([Content].self, forKey: .contents) ?? []
