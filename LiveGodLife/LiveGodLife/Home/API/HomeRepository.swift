@@ -12,6 +12,7 @@ protocol HomeRepository: Requestable {
 
     func requestGoals(endpoint: HomeAPI) -> AnyPublisher<[Goal], APIError>
     func requestTodos(endpoint: HomeAPI) -> AnyPublisher<[Todo], APIError>
+    func requestCategory(endpoint: HomeAPI) -> AnyPublisher<[Category], APIError>
 }
 
 struct DefaultHomeRepository: HomeRepository {
@@ -19,7 +20,12 @@ struct DefaultHomeRepository: HomeRepository {
     func requestGoals(endpoint: HomeAPI) -> AnyPublisher<[Goal], APIError> {
         return request(endpoint)
     }
+
     func requestTodos(endpoint: HomeAPI) -> AnyPublisher<[Todo], APIError> {
+        return request(endpoint)
+    }
+
+    func requestCategory(endpoint: HomeAPI) -> AnyPublisher<[Category], APIError> {
         return request(endpoint)
     }
 }

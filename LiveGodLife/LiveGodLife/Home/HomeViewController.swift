@@ -28,6 +28,7 @@ final class HomeViewController: UIViewController {
         }
     }
     private var goals: [Goal] = []
+    private var categories: [Category] = []
     private let repository = DefaultHomeRepository()
     private var cancellable = Set<AnyCancellable>()
 
@@ -90,7 +91,9 @@ private extension HomeViewController {
             }
             .store(in: &cancellable)
 
-        DefaultFeedRepository().requestFeeds(endpoint: .feeds)
+        let categories = repository.requestCategory(endpoint: .category)
+        let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds)
+        categories.zip(feeds)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -98,8 +101,9 @@ private extension HomeViewController {
                 case .finished:
                     print("finished")
                 }
-            } receiveValue: { [weak self] feeds in
+            } receiveValue: { [weak self] (categories, feeds) in
                 guard let self = self else { return }
+                self.categories = categories
                 self.feeds = feeds
             }
             .store(in: &cancellable)
@@ -135,6 +139,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeedCollectionReusableView.identifier, for: indexPath) as! FeedCollectionReusableView
+        view.setupCategoryItems(categories)
         return view
     }
 
