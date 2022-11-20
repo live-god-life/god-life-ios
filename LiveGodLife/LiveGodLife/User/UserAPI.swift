@@ -12,13 +12,17 @@ enum UserAPI: APIEndpoint {
 
     case login([String: Any])
     case signup([String: Any])
+    case user
     case bookmark([String: Any])
+    case profileUpdate([String: Any])
 
     var method: HTTPMethod {
         switch self {
         case .login, .signup:
             return .post
-        case .bookmark:
+        case .user:
+            return .get
+        case .bookmark, .profileUpdate:
             return .patch
         }
     }
@@ -27,24 +31,28 @@ enum UserAPI: APIEndpoint {
         switch self {
         case .login:
             return "/login"
-        case .signup:
+        case .signup, .user:
             return "/users"
         case .bookmark(let value):
             if let id = value["id"] {
                 return "/users/feeds/\(id)/bookmark"
             }
             return ""
+        case .profileUpdate:
+            return "/users"
         }
     }
 
     var parameters: [String: Any] {
         switch self {
-        case .login(let value), .signup(let value):
+        case .login(let value), .signup(let value), .profileUpdate(let value):
             return value
         case .bookmark(let value):
             if let status = value["status"] {
                 return ["bookmarkStatus": "\(status)"]
             }
+            return [:]
+        default:
             return [:]
         }
     }

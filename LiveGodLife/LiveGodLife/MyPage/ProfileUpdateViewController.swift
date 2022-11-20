@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ProfileUpdateViewController: UIViewController {
 
@@ -16,6 +17,8 @@ final class ProfileUpdateViewController: UIViewController {
 
     private var isHiddenImageContainerView: Bool = true
     private let imageCollectionViewModel = ImageCollectionViewModel()
+
+    private var cancellable = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,7 @@ final class ProfileUpdateViewController: UIViewController {
     }
     
     private func setupProfileImageView() {
+        profileImageView.contentMode = .scaleAspectFit
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
         profileImageView.isUserInteractionEnabled = true
@@ -65,6 +69,24 @@ final class ProfileUpdateViewController: UIViewController {
             })
         }
     }
+
+    @IBAction func didTapCompleteButton() {
+        let nickname = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        let param: [String: String] = ["nickname": nickname]
+        DefaultUserRepository().updateProfile(endpoint: .profileUpdate(param))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    // 프로필 업데이트 실패
+                    print(error)
+                default:
+                    print("finished")
+                }
+            } receiveValue: { user in
+                //
+            }
+            .store(in: &cancellable)
+    }
 }
 
 extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -82,5 +104,9 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
         cell.configure(imageCollectionViewModel.data[indexPath.item].name)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        profileImageView.image = UIImage(named: "frog")
     }
 }

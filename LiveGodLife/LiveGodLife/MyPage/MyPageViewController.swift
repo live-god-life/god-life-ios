@@ -12,6 +12,7 @@ import SnapKit
 final class MyPageViewController: UIViewController {
 
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
 
     private var pageViewController: UIPageViewController!
@@ -41,6 +42,42 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        requestData()
+    }
+
+    private func setupUI() {
+        setupProfileImageView()
+        setupNavigationBar()
+        setupSegmentView()
+        setupPageView()
+    }
+
+    @objc private func moveToSettingView() {
+        let settingViewController = SettingViewController()
+        navigationController?.pushViewController(settingViewController, animated: true)
+    }
+
+    @objc func moveToProfileUpdateView(_ sender: UIButton) {
+        let profileUpdateViewController = ProfileUpdateViewController.instance()!
+        navigationController?.pushViewController(profileUpdateViewController, animated: true)
+    }
+
+    private func requestData() {
+        DefaultUserRepository().updateProfile(endpoint: .user)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    // 프로필 조회 실패
+                    print(error)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] user in
+                DispatchQueue.main.async {
+                    self?.nicknameLabel.text = user.nickname
+                }
+            }
+            .store(in: &cancellable)
 
         DefaultFeedRepository().requestFeeds(endpoint: .heartFeeds)
             .sink(receiveCompletion: { completion in
@@ -55,18 +92,14 @@ final class MyPageViewController: UIViewController {
             })
             .store(in: &cancellable)
     }
+}
 
-    private func setupUI() {
-        setupProfileImageView()
-        setupNavigationBar()
-        setupSegmentView()
-        setupPageView()
-    }
+// MARK: - Setup
+extension MyPageViewController {
 
     private func setupProfileImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
-        profileImageView.image = UIImage(named: "plus")
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
         profileImageView.addGestureRecognizer(gesture)
@@ -108,17 +141,9 @@ final class MyPageViewController: UIViewController {
         }
         didMove(toParent: self)
     }
-
-    @objc private func moveToSettingView() {
-        let settingViewController = SettingViewController()
-        navigationController?.pushViewController(settingViewController, animated: true)
-    }
-
-    @objc func moveToProfileUpdateView(_ sender: UIButton) {
-        let profileUpdateViewController = ProfileUpdateViewController.instance()!
-        navigationController?.pushViewController(profileUpdateViewController, animated: true)
-    }
 }
+
+// MARK: - Delegate
 
 extension MyPageViewController: UIPageViewControllerDataSource {
 
