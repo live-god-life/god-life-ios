@@ -13,7 +13,6 @@ final class FeedViewController: UIViewController {
 
     private var collectionView: UICollectionView!
 
-    private var viewModel = FeedViewModel()
     private var feeds: [Feed] = []
 
     private var cancellable = Set<AnyCancellable>()
@@ -33,13 +32,13 @@ final class FeedViewController: UIViewController {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
         self.collectionView = collectionView
+    }
 
-        viewModel.requestFeeds()
-            .sink(receiveValue: { [weak self] feeds in
-                self?.feeds = feeds
-                self?.collectionView.reloadData()
-            })
-            .store(in: &cancellable)
+    func updateView(with feeds: [Feed]) {
+        self.feeds = feeds
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }
 

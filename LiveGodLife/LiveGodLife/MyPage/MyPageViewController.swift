@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 final class MyPageViewController: UIViewController {
@@ -34,10 +35,25 @@ final class MyPageViewController: UIViewController {
     }()
     private lazy var pageViewControllers = [feedViewController, myArticleViewController]
 
+    private var cancellable = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
+
+        DefaultFeedRepository().requestFeeds(endpoint: .heartFeeds)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            }, receiveValue: { [weak self] feeds in
+                self?.feedViewController.updateView(with: feeds)
+            })
+            .store(in: &cancellable)
     }
 
     private func setupUI() {
@@ -88,7 +104,7 @@ final class MyPageViewController: UIViewController {
         view.addSubview(pageViewController.view)
         pageViewController.view.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.top.equalTo(segmentControlContainerView.snp.bottom)
+            $0.top.equalTo(segmentControlContainerView.snp.bottom).offset(30)
         }
         didMove(toParent: self)
     }

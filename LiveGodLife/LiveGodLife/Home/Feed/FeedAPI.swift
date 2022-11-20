@@ -12,6 +12,7 @@ enum FeedAPI: APIEndpoint {
 
     case feeds([String: String]? = nil)
     case feed(Int)
+    case heartFeeds
 
     var method: HTTPMethod {
         return .get
@@ -23,6 +24,8 @@ enum FeedAPI: APIEndpoint {
             return "/feeds"
         case .feed(let id):
             return "/feeds/\(id)"
+        case .heartFeeds:
+            return "/users/hearts"
         }
     }
 
