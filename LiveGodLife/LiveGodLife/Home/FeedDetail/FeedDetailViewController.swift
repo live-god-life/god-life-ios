@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 final class FeedDetailViewController: UIViewController {
@@ -13,6 +14,45 @@ final class FeedDetailViewController: UIViewController {
     private let baseScrollView = UIScrollView()
     private let containerView = UIView()
     private let imageView = UIImageView()
+    private let categoryLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let nicknameLabel = UILabel()
+    private let mindsetView = MindsetView()
+    private let contentsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    private let todosStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+
+    private let repository = DefaultFeedRepository()
+    private var cancellable = Set<AnyCancellable>()
+
+    let feedID: Int
+    var feed: Feed? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.updateView()
+            }
+        }
+    }
+
+    init(feedID: Int) {
+        self.feedID = feedID
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +60,24 @@ final class FeedDetailViewController: UIViewController {
         view.backgroundColor = .black
         navigationController?.navigationBar.isHidden = false
 
+        setupUI()
+
+        repository.requestFeed(endpoint: .feed(feedID))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] feed in
+                guard let self = self else { return }
+                self.feed = feed
+            }
+            .store(in: &cancellable)
+    }
+
+    private func setupUI() {
         // baseScrollView
         baseScrollView.contentSize = containerView.bounds.size
         view.addSubview(baseScrollView)
@@ -41,12 +99,9 @@ final class FeedDetailViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(250)
         }
-        imageView.image = UIImage(named: "frog")
         imageView.contentMode = .scaleAspectFit
 
         // categoryLabel
-        let categoryLabel = UILabel()
-        categoryLabel.text = "카테고리"
         categoryLabel.textColor = .BBBBBB
         categoryLabel.font = .regular(with: 14)
         containerView.addSubview(categoryLabel)
@@ -55,8 +110,6 @@ final class FeedDetailViewController: UIViewController {
             $0.leading.equalToSuperview().inset(24)
         }
 
-        let titleLabel = UILabel()
-        titleLabel.text = "제목이길면제목이길면제목이길면제목이길면제목이길면제목이길면제목이길면"
         titleLabel.textColor = .white
         titleLabel.font = .bold(with: 24)
         titleLabel.numberOfLines = 2
@@ -76,8 +129,6 @@ final class FeedDetailViewController: UIViewController {
             $0.height.equalTo(1)
         }
 
-        let nicknameLabel = UILabel()
-        nicknameLabel.text = "네카라쿠배당돌한얼음이요?"
         nicknameLabel.textColor = .white
         nicknameLabel.font = .bold(with: 20)
         nicknameLabel.numberOfLines = 1
@@ -87,16 +138,8 @@ final class FeedDetailViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
-        let text = """
-        """
-
-        let contentLabel = UILabel()
-        contentLabel.attributedText = text.attributed()
-        contentLabel.textColor = .white
-        contentLabel.font = .medium(with: 16)
-        contentLabel.numberOfLines = 0
-        containerView.addSubview(contentLabel)
-        contentLabel.snp.makeConstraints {
+        containerView.addSubview(contentsStackView)
+        contentsStackView.snp.makeConstraints {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
@@ -105,7 +148,7 @@ final class FeedDetailViewController: UIViewController {
         dividerView2.backgroundColor = .gray
         containerView.addSubview(dividerView2)
         dividerView2.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(58)
+            $0.top.equalTo(contentsStackView.snp.bottom).offset(58)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(1)
         }
@@ -130,8 +173,6 @@ final class FeedDetailViewController: UIViewController {
             $0.leading.equalToSuperview().inset(24)
         }
 
-        let mindsetView = MindsetView()
-        mindsetView.configure()
         containerView.addSubview(mindsetView)
         mindsetView.snp.makeConstraints {
             $0.top.equalTo(mindsetLabel.snp.bottom).offset(19)
@@ -148,12 +189,49 @@ final class FeedDetailViewController: UIViewController {
             $0.leading.equalToSuperview().inset(24)
         }
 
-        let dropDownView = DropDownView()
-        containerView.addSubview(dropDownView)
-        dropDownView.snp.makeConstraints {
+        containerView.addSubview(todosStackView)
+        todosStackView.snp.makeConstraints {
             $0.top.equalTo(todoLabel.snp.bottom).offset(19)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview()
+        }
+    }
+
+    private func updateView() {
+        guard let feed = feed else {
+            // TODO: error handle
+            return
+        }
+        imageView.image = UIImage(named: feed.image)
+        categoryLabel.text = feed.category
+        titleLabel.text = feed.title
+        nicknameLabel.text = feed.user.nickname
+
+        feed.contents.forEach { content in
+            let titleLabel = UILabel()
+            titleLabel.attributedText = content.title.attributed()
+            titleLabel.textColor = .white
+            titleLabel.font = .bold(with: 20)
+            titleLabel.numberOfLines = 0
+            contentsStackView.addArrangedSubview(titleLabel)
+
+            let contentLabel = UILabel()
+            contentLabel.attributedText = content.content.attributed()
+            contentLabel.textColor = .white
+            contentLabel.font = .medium(with: 16)
+            contentLabel.numberOfLines = 0
+            contentsStackView.addArrangedSubview(contentLabel)
+        }
+
+        // 첫 번째 마인드셋을 보여준다
+        if let mindset = feed.mindsets.first {
+            mindsetView.configure(content: mindset.content)
+        }
+
+        feed.todos.forEach { todo in
+            let todoView = TodoDropDownView()
+            todoView.configure(todo)
+            todosStackView.addArrangedSubview(todoView)
         }
     }
 }

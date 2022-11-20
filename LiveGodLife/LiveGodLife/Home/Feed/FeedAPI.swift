@@ -11,6 +11,7 @@ import Alamofire
 enum FeedAPI: APIEndpoint {
 
     case feeds
+    case feed(Int)
 
     var method: HTTPMethod {
         return .get
@@ -20,6 +21,8 @@ enum FeedAPI: APIEndpoint {
         switch self {
         case .feeds:
             return "/feeds"
+        case .feed(let id):
+            return "/feeds/\(id)"
         }
     }
 
