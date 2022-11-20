@@ -9,21 +9,24 @@ import UIKit
 
 final class RoundedButton: UIButton {
 
-    func configure(title: String = "다음",
+    func configure(title: String = "완료",
                    titleColor: UIColor = .label,
-                   backgroundColor: UIColor = .white) {
+                   backgroundColor: UIColor = .green) {
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
-        titleLabel?.font = UIFont(name: "Pretendard", size: 18)
         self.backgroundColor = backgroundColor
+        titleLabel?.font = UIFont(name: "Pretendard", size: 18)
+        clipsToBounds = true
+        layer.cornerRadius = self.frame.height / 2
     }
 
     init() {
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 56)))
-        layer.cornerRadius = self.frame.height / 2
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configure()
     }
 }
