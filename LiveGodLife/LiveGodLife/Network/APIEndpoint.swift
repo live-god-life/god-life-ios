@@ -40,7 +40,8 @@ extension APIEndpoint {
 
     var request: URLRequest {
         var request = URLRequest(url: url)
-        if method == .post {
+        request.method = method
+        if method == .post || method == .put {
             request.httpBody = try! JSONSerialization.data(withJSONObject: parameters)
         }
         return request

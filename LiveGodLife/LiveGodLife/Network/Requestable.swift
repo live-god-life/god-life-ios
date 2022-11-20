@@ -41,8 +41,8 @@ extension Requestable {
                 return output.data
             }
             .decode(type: APIResponse<T>.self, decoder: JSONDecoder())
-            .map { response in
-                return response.data!
+            .compactMap { response in
+                return response.data
             }
             .mapError { error in
                 return APIError.decodingFail(error)
