@@ -12,10 +12,11 @@ enum HomeAPI: APIEndpoint {
 
     case mindsets
     case todos([String: Any])
+    case category
 
     var method: HTTPMethod {
         switch self {
-        case .mindsets, .todos:
+        default:
             return .get
         }
     }
@@ -26,6 +27,8 @@ enum HomeAPI: APIEndpoint {
             return "/goals/mindsets"
         case .todos:
             return "/goals/todos"
+        case .category:
+            return "/commons/categories"
         }
     }
 

@@ -30,6 +30,10 @@ class FeedCollectionReusableView: UICollectionReusableView {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
+
+    func setupCategoryItems(_ items: [Category] ) {
+        filterView.update(items: items)
+    }
 }
 
 extension FeedCollectionReusableView: CategoryFilterViewDelegate {

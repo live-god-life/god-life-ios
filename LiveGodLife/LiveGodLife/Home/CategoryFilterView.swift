@@ -13,10 +13,11 @@ protocol CategoryFilterViewDelegate: AnyObject {
     func filtered(from id: Int)
 }
 
-struct Category: Identifiable {
+struct Category: Identifiable, Decodable {
 
     let id: Int
-    let title: String
+    let code: String
+    let name: String
 }
 
 final class CategoryFilterView: UIView {
@@ -35,22 +36,15 @@ final class CategoryFilterView: UIView {
     }()
 
     private var itemButtons: [CategoryButton] = []
-    private let items: [Category]
+    private var items: [Category] {
+        didSet {
+            update()
+        }
+    }
 
     init(frame: CGRect, items: [Category]) {
         self.items = items
         super.init(frame: frame)
-
-        guard !items.isEmpty else { return }
-
-        items.forEach { category in
-            let button = CategoryButton()
-            button.delegate = self
-            button.configure(title: category.title)
-            itemButtons.append(button)
-            stackView.addArrangedSubview(button)
-        }
-        itemButtons.first?.isSelected = true
 
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.addSubview(stackView)
@@ -66,6 +60,23 @@ final class CategoryFilterView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func update(items: [Category]) {
+        self.items = items
+    }
+
+    private func update() {
+        guard !items.isEmpty else { return }
+
+        items.forEach { category in
+            let button = CategoryButton()
+            button.delegate = self
+            button.configure(title: category.name)
+            itemButtons.append(button)
+            stackView.addArrangedSubview(button)
+        }
+        itemButtons.first?.isSelected = true
     }
 }
 
