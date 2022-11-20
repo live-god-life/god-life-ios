@@ -10,7 +10,7 @@ import SnapKit
 
 protocol CategoryFilterViewDelegate: AnyObject {
 
-    func filtered(from id: Int)
+    func filtered(from category: String)
 }
 
 struct Category: Identifiable, Decodable {
@@ -92,6 +92,6 @@ extension CategoryFilterView: CategoryButtonDelegate {
         guard let index = itemButtons.firstIndex(of: sender) else {
             return
         }
-        delegate?.filtered(from: items[index].id)
+        delegate?.filtered(from: items[index].code)
     }
 }

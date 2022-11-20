@@ -14,14 +14,13 @@ class FeedCollectionReusableView: UICollectionReusableView {
 
     @IBOutlet weak var titleLabel: UILabel!
 
-    private var filterView: CategoryFilterView!
+    private(set) var filterView: CategoryFilterView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
         let items: [Category] = []
         filterView = CategoryFilterView(frame: bounds, items: items)
-        filterView.delegate = self
         addSubview(filterView)
         filterView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
@@ -33,12 +32,5 @@ class FeedCollectionReusableView: UICollectionReusableView {
 
     func setupCategoryItems(_ items: [Category] ) {
         filterView.update(items: items)
-    }
-}
-
-extension FeedCollectionReusableView: CategoryFilterViewDelegate {
-
-    func filtered(from id: Int) {
-
     }
 }

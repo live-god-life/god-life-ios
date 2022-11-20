@@ -92,7 +92,7 @@ private extension HomeViewController {
             .store(in: &cancellable)
 
         let categories = repository.requestCategory(endpoint: .category)
-        let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds)
+        let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds())
         categories.zip(feeds)
             .sink { completion in
                 switch completion {
@@ -140,6 +140,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeedCollectionReusableView.identifier, for: indexPath) as! FeedCollectionReusableView
         view.setupCategoryItems(categories)
+        view.filterView.delegate = self
         return view
     }
 
@@ -168,5 +169,12 @@ extension HomeViewController: UICollectionViewDataSource {
             let vc = FeedDetailViewController(feedID: feeds[indexPath.item].id)
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+}
+
+extension HomeViewController: CategoryFilterViewDelegate {
+
+    func filtered(from category: String) {
+        // TODO: 로직 논의
     }
 }
