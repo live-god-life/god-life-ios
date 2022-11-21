@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 enum SettingTableViewSection {
@@ -21,6 +22,8 @@ final class SettingViewController: UIViewController {
         SettingTableViewSection(rawValue: 0),
         SettingTableViewSection(rawValue: 1)
     ]
+
+    private var cancellable = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +81,22 @@ extension SettingViewController: SettingTableViewCellDelegate {
 
     func didTapActionButton(with index: Int) {
         switch index {
+        case SettingTableViewCellViewModel.logout.rawValue:
+            DefaultUserRepository().request(endpoint: .logout)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        // 로그아웃 실패
+                        print(error)
+                    case .finished:
+                        // 로그인 화면으로 이동
+                        NotificationCenter.default.post(name: .moveToLogin, object: self)
+                    }
+                } receiveValue: { user in
+                    //
+                }
+                .store(in: &cancellable)
+            
         case SettingTableViewCellViewModel.unregister.rawValue:
             let vc = UnregisterViewController.instance()!
             navigationController?.pushViewController(vc, animated: true)
@@ -100,28 +119,5 @@ extension SettingViewController: SettingTableViewCellDelegate {
             return 1
         }
         return 0
-    }
-}
-
-extension SettingTableViewSection: RawRepresentable {
-
-    typealias RawValue = Int
-
-    var rawValue: Int {
-        switch self {
-        case let .first(value), let .second(value):
-            return value.count
-        }
-    }
-
-    init(rawValue: Int) {
-        switch rawValue {
-        case 0:
-            self = .first([.logout, .unregister])
-        case 1:
-            self = .second([.termsOfService, .privacyPolicy, .version])
-        default:
-            fatalError()
-        }
     }
 }
