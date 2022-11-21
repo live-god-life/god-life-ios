@@ -31,6 +31,12 @@ final class ProfileUpdateViewController: UIViewController {
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = false
+    }
     
     private func setupProfileImageView() {
         profileImageView.contentMode = .scaleAspectFit

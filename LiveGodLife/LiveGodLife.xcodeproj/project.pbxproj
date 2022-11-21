@@ -64,6 +64,8 @@
 		D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */; };
 		D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */; };
 		D0BF16CE28F9AF2D00CDA6CE /* OnboardingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */; };
+		D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C18316292BB5B3007E3ED4 /* TabBarView.swift */; };
+		D0C1831A292BB5B3007E3ED4 /* TabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C18317292BB5B3007E3ED4 /* TabBarView.xib */; };
 		D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C51E2B28F121D80004514A /* APIEndpoint.swift */; };
 		D0E3B2A3291D1CDF00601936 /* CategoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */; };
 		D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B295291D1CDE00601936 /* HomeViewController.swift */; };
@@ -116,7 +118,6 @@
 		D06181B628F15C0700B40E32 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		D06181B828F161FD00B40E32 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		D06181BA28F1621400B40E32 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
-		D08B66C228D5A3B9000998DC /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08B66C528D5A3B9000998DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D08B66C728D5A3B9000998DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D08B66C928D5A3B9000998DC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +158,8 @@
 		D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardingViewController.storyboard; sourceTree = "<group>"; };
+		D0C18316292BB5B3007E3ED4 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		D0C18317292BB5B3007E3ED4 /* TabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarView.xib; sourceTree = "<group>"; };
 		D0C51E2B28F121D80004514A /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFilterView.swift; sourceTree = "<group>"; };
 		D0E3B295291D1CDE00601936 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 		D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E4AE462917D8A700549BC0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlButton.swift; sourceTree = "<group>"; };
+		D0F7B05D292E4310006178FC /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E3F9494D00BFB08F3DD6D4 /* Pods-LiveGodLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.release.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -297,18 +301,10 @@
 			isa = PBXGroup;
 			children = (
 				D08B66C428D5A3B9000998DC /* LiveGodLife */,
-				D08B66C328D5A3B9000998DC /* Products */,
 				E1E82C2940AD0B069EF9CCAC /* Pods */,
 				6F92ABCF98F4D9BE1AE4679B /* Frameworks */,
+				D0F7B05D292E4310006178FC /* LiveGodLife.app */,
 			);
-			sourceTree = "<group>";
-		};
-		D08B66C328D5A3B9000998DC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D08B66C228D5A3B9000998DC /* LiveGodLife.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D08B66C428D5A3B9000998DC /* LiveGodLife */ = {
@@ -321,6 +317,7 @@
 				D08B66CE28D5A3BA000998DC /* Assets.xcassets */,
 				D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */,
 				D08B66D328D5A3BA000998DC /* Info.plist */,
+				D0C18315292BB5B3007E3ED4 /* TabBar */,
 				D01E263F292AFCE400FBFF5B /* User */,
 				D01E2638292A630E00FBFF5B /* DesignSystem */,
 				D0E3B2B3291D1F1B00601936 /* Home */,
@@ -403,6 +400,15 @@
 				D0BB5B7229094EBF00E46063 /* UnregisterViewController.storyboard */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		D0C18315292BB5B3007E3ED4 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D0C18316292BB5B3007E3ED4 /* TabBarView.swift */,
+				D0C18317292BB5B3007E3ED4 /* TabBarView.xib */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		D0E3B298291D1CDE00601936 /* Cell */ = {
@@ -501,7 +507,7 @@
 			);
 			name = LiveGodLife;
 			productName = LiveGodLife;
-			productReference = D08B66C228D5A3B9000998DC /* LiveGodLife.app */;
+			productReference = D0F7B05D292E4310006178FC /* LiveGodLife.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -528,7 +534,7 @@
 				Base,
 			);
 			mainGroup = D08B66B928D5A3B9000998DC;
-			productRefGroup = D08B66C328D5A3B9000998DC /* Products */;
+			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -563,6 +569,7 @@
 				D0E3B2AC291D1CDF00601936 /* FeedCollectionViewCell.xib in Resources */,
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
 				D0BB5B6F2909473500E46063 /* ProfileUpdateViewController.storyboard in Resources */,
+				D0C1831A292BB5B3007E3ED4 /* TabBarView.xib in Resources */,
 				D0BB5B5D2906C19300E46063 /* Montserrat-Medium.otf in Resources */,
 				D0BB5B542906C17500E46063 /* Pretendard-ExtraLight.otf in Resources */,
 				D0BB5B522906C16F00E46063 /* Pretendard-Black.otf in Resources */,
@@ -654,6 +661,7 @@
 				D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
+				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */,

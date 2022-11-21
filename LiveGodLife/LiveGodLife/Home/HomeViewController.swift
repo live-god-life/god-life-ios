@@ -35,8 +35,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.backButtonTitle = ""
-
         setupCollectionView()
 
         requestData()
