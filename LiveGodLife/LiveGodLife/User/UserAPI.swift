@@ -15,10 +15,11 @@ enum UserAPI: APIEndpoint {
     case user
     case bookmark([String: Any])
     case profileUpdate([String: Any])
+    case logout
 
     var method: HTTPMethod {
         switch self {
-        case .login, .signup:
+        case .login, .signup, .logout:
             return .post
         case .user:
             return .get
@@ -40,6 +41,8 @@ enum UserAPI: APIEndpoint {
             return ""
         case .profileUpdate:
             return "/users"
+        case .logout:
+            return "/logout"
         }
     }
 
