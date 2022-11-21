@@ -35,6 +35,12 @@ final class SettingViewController: UIViewController {
         setupTableView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = false
+    }
+
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self

@@ -11,6 +11,7 @@ import SnapKit
 
 final class MyPageViewController: UIViewController {
 
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
@@ -45,7 +46,15 @@ final class MyPageViewController: UIViewController {
         requestData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.isHidden = true
+        setupNavigationBar()
+    }
+
     private func setupUI() {
+        setupNavigationBar()
         setupProfileImageView()
         setupNavigationBar()
         setupSegmentView()
@@ -110,15 +119,12 @@ extension MyPageViewController {
         titleLabel.textColor = .white
         titleLabel.text = "MY PAGE"
         titleLabel.font = UIFont(name: "Montserrat-Bold", size: 18)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        let leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        navigationBar.topItem?.leftBarButtonItem = leftBarButtonItem
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(moveToSettingView))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(moveToSettingView))
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!,
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ]
+        navigationBar.topItem?.rightBarButtonItem = rightBarButtonItem
     }
 
     private func setupSegmentView() {
