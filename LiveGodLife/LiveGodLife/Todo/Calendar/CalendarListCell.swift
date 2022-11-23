@@ -28,10 +28,14 @@ class CalendarListCell: CommonCell {
         let view = UIView()
         self.titleLabel.textColor = .white
         self.typeLabel.textColor = .green
-
+        self.checkButton.setImage(.init(imageLiteralResourceName: "todoOnCheck"), for: .normal)
+        
+        
+        view.backgroundColor = .darkGray
         view.layer.cornerRadius = 20
         view.layer.borderColor = UIColor.green.cgColor
         view.layer.borderWidth = 1
+        view.backgroundColor = .darkGray
         view.addSubview(self.typeLabel)
         view.addSubview(self.titleLabel)
         view.addSubview(self.checkButton)
@@ -69,7 +73,6 @@ class CalendarListCell: CommonCell {
     // MARK: - Func
     override func setUpModel() {
         super.setUpModel()
-//        dataModel = (super.model as? MainGoals ?? MainGoals(title: "", goalId: 1, rawValue: "", todoSchedules: [])).todoSchedules
     }
     
     func addViews(){
@@ -85,7 +88,7 @@ class CalendarListCell: CommonCell {
     
     func update() {
         typeLabel.text = dataModel?.taskType
-        titleLabel.text = "• \(dataModel?.title ?? "")"
-
+        titleLabel.text = "\(dataModel?.title ?? "")"
+        typeLabel.textColor = dataModel?.taskType == "Todo" ? .green : .blue
     }
 }
