@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class CalendarListViewController: UIViewController {
+
     
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
@@ -26,14 +27,151 @@ class CalendarListViewController: UIViewController {
         let todayLabel = UILabel()
         let addButton = UIButton()
         
-        todayLabel.text = Date.today
+//        todayLabel.text = Date.today
+//
+//
+////        self.listView.collectionView.register( SideMenuHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SideMenuHeaderView")
+//        model.removeAll()
+//        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
+//                            [
+//                                SubGoals(
+//                                    title: "컨셉잡기",
+//                                    completionStatus: false,
+//                                    taskType: "Todo",
+//                                    repetitionType: "WEEK",
+//                                    repetitionParams: [
+//                                        "월",
+//                                        "목",
+//                                        "토"
+//                                    ],
+//                                    totalTodoTaskScheduleCount: 39,
+//                                    completedTodoTaskScheduleCount: 0,
+//                                    todoDay: -48),
+//                                SubGoals(
+//                                    title: "컨셉잡기1",
+//                                    completionStatus: false,
+//                                    taskType: "Todo",
+//                                    repetitionType: "WEEK",
+//                                    repetitionParams: [
+//                                        "월",
+//                                        "목",
+//                                        "토"
+//                                    ],
+//                                    totalTodoTaskScheduleCount: 39,
+//                                    completedTodoTaskScheduleCount: 0,
+//                                    todoDay: -48),
+//                            ]
+//                          )
+//        )
+//        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
+//                            [
+//                                SubGoals(
+//                                    title: "테스트",
+//                                    completionStatus: false,
+//                                    taskType: "Todo",
+//                                    repetitionType: "DAY",
+//                                    repetitionParams: nil,
+//                                    totalTodoTaskScheduleCount: 91,
+//                                    completedTodoTaskScheduleCount: 0,
+//                                    todoDay: -48)
+//                            ]
+//                          )
+//        )
+//
+//
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .vertical
+//        self.listView.collectionView.collectionViewLayout = layout
+//
+//        self.listView.model = model
+//        self.listView.collectionView.reloadData()
+//        addButton.backgroundColor = .black
+//        view.backgroundColor = .green
+//        self.listView.collectionView.delegate = self
+//        self.listView.collectionView.dataSource = self
+//
+//
+//        view.addSubview(todayLabel)
+//        view.addSubview(self.listView.view)
+//        view.addSubview(addButton)
+//        view.backgroundColor = .red
+//
+//        self.listView.view.backgroundColor = .yellow
+//
+//
+//        todayLabel.snp.makeConstraints { make in
+//            make.top.equalTo(view).offset(20)
+//            make.left.equalTo(view).offset(10)
+//            make.right.equalTo(view).offset(-10)
+//        }
+//        self.listView.view.snp.makeConstraints { make in
+//            make.top.equalTo(todayLabel.snp.bottom).offset(10)
+//            make.left.equalTo(view)
+//            make.right.equalTo(view)
+//            make.bottom.equalTo(addButton.snp.top).offset(10)
+//        }
+//        addButton.snp.makeConstraints { make in
+//            make.bottom.equalTo(view).offset(-20)
+//            make.height.equalTo(30)
+//            make.left.equalTo(view)
+//            make.right.equalTo(view)
+//        }
         
-        self.listView.collectionView.delegate = self
-        self.listView.collectionView.dataSource = self
+        return view
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .black
+//        self.view.addSubview(self.contentsView)
+//        self.contentsView.snp.makeConstraints { make in
+//            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+//        }
+        let todayLabel = UILabel()
+        let addButton = UIButton()
+        
+        todayLabel.text = Date.today
+        todayLabel.textColor = .white
+        
+        self.view.addSubview(todayLabel)
+        self.view.addSubview(addButton)
+        self.view.addSubview(self.listView.view)
+        todayLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.view).offset(20)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
+            make.height.equalTo(30)
+        }
+        self.listView.view.snp.makeConstraints {
+//            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.equalTo(todayLabel.snp.bottom).offset(16)
+            $0.left.equalTo(self.view)
+            $0.right.equalTo(self.view)
+            $0.bottom.equalTo(addButton.snp.top).offset(-40)
+        }
+        addButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view).offset(-20)
+            make.height.equalTo(30)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
+
+        }
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10.0
+        layout.minimumLineSpacing = 5.0
         self.listView.collectionView.collectionViewLayout = layout
-//        self.listView.collectionView.register( SideMenuHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SideMenuHeaderView")
+        self.listView.collectionView.backgroundColor = .black
+
+        addButton.backgroundColor = .blue
+        self.listView.collectionView.delegate = self
+        self.listView.collectionView.dataSource = self
+        self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         model.removeAll()
         model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
                             [
@@ -71,7 +209,7 @@ class CalendarListViewController: UIViewController {
                                 SubGoals(
                                     title: "테스트",
                                     completionStatus: false,
-                                    taskType: "Todo",
+                                    taskType: "D-999",
                                     repetitionType: "DAY",
                                     repetitionParams: nil,
                                     totalTodoTaskScheduleCount: 91,
@@ -83,47 +221,6 @@ class CalendarListViewController: UIViewController {
 
         self.listView.model = model
         self.listView.collectionView.reloadData()
-        addButton.backgroundColor = .black
-        view.backgroundColor = .green
-        
-        view.addSubview(todayLabel)
-        view.addSubview(self.listView.view)
-        view.addSubview(addButton)
-        view.backgroundColor = .red
-        
-        self.listView.view.backgroundColor = .yellow
-        todayLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(20)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        self.listView.view.snp.makeConstraints { make in
-            make.top.equalTo(todayLabel.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalTo(addButton.snp.top).offset(10)
-        }
-        addButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalTo(30)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-        }
-        
-        return view
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(self.contentsView)
-        self.contentsView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(self.view.safeAreaInsets)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
 //        model.removeAll()
 ////        MainMenu.allCases.forEach {
 ////            /// 간편세차 및 준회원에 따른 모델 객체 패스 처리 로직 필요
@@ -168,25 +265,22 @@ class CalendarListViewController: UIViewController {
     }
 
 }
-
-extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //
-//        var itemHeightSize = 150.0
+extension CalendarListViewController: UICollectionViewDelegate {
+    
+}
+extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let itemHeightSize = 75.0
 //        if indexPath.row < self.listView.model.count {
 //            let mainGoals = self.model[indexPath.row]
 //            let row = ceil( Double(mainGoals.todoSchedules.count)/2.0 )
 //            itemHeightSize = max( 1, row ) * (30 + 5) + 72
 //        }
-//        return CGSize(width: collectionView.frame.width * 0.9, height: itemHeightSize)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-////        let headerHeight: CGFloat = LoginMbrInfo.shared.member == .Regular ? SideMenuHeaderView.RegularMemberHeight : SideMenuHeaderView.AssociateMemberHeight
-////        return CGSize(width: collectionView.frame.width, height: headerHeight)
-//        return CGSize(width: self.view.frame.width, height: self.view.frame.height)
-//
-//    }
+        return CGSize(width: self.view.frame.width , height: itemHeightSize)
+    }
+
 }
 
 
@@ -194,36 +288,96 @@ extension CalendarListViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         //comment 동일한 셀 반복 횟수
-        return 0
+        return self.listView.model.count
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        print("section:\(self.listView.model[section].todoSchedules.count)")
+        return self.listView.model[section].todoSchedules.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Configure the cell
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarListCell.identifier, for: indexPath) as? CalendarListCell else {
             return UICollectionViewCell()
         }
-        cell.model = self.listView.model[indexPath.row]
+//        cell.model = self.listView.model[indexPath.row].todoSchedules
+        cell.dataModel = self.listView.model[indexPath.section].todoSchedules[indexPath.row]
         cell.setUpModel()
+       
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
     
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-////        switch kind {
-////        case UICollectionView.elementKindSectionHeader:
-////            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SideMenuHeaderView", for: indexPath)
-////            if let headerView = headerView as? SideMenuHeaderView {
-////                headerView.delegate = self
-////                headerView.updateView(isRegular: LoginMbrInfo.shared.member == .Regular)
-////            }
-////            return headerView
-////        default:
-////            assert(false, "")
-////        }
-//        return UICollectionReusableView()
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CalendarListHeaderView", for: indexPath)
+            if let headerView = headerView as? CalendarListHeaderView {
+                headerView.titleLabel.text = model[indexPath.section].title
+                headerView.delegate = self
+            }
+            return headerView
+        default:
+            assert(false, "")
+        }
+        return UICollectionReusableView()
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 30)
+    }
+}
+extension CalendarListViewController: CalendarListHeaderViewDelegate {
+    func calendarListHeaderView(_ view: CalendarListHeaderView, go: Bool) {
+        // 상세화면 처리하기
+    }}
+protocol CalendarListHeaderViewDelegate: AnyObject {
+    func calendarListHeaderView(_ view: CalendarListHeaderView, go: Bool)
+}
+class CalendarListHeaderView: UICollectionReusableView {
+    
+    /// 버튼 액션 델리게이트
+    weak var delegate: CalendarListHeaderViewDelegate? = nil
+    var titleLabel = UILabel()
+    lazy var detailButton: UIButton = {
+        let button = UIButton()
+//        button.setImage(#imageLiteral(resourceName: "icon-close-20.pdf"), for: .normal)
+//        button.addTarget(self, action: #selector(self.closeAction(_:)), for: .touchUpInside)
+        return button
+    }()
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    deinit {
+    }
+    
+    func setUpView() {
+        self.backgroundColor = .black
+        self.titleLabel.textColor = .white
+        
+        self.addSubview(titleLabel)
+        self.addSubview(detailButton)
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview().offset(16)
+            $0.height.equalTo(24)
+        }
+        detailButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(titleLabel.snp.right).offset(10)
+            make.right.equalToSuperview()
+            make.height.equalTo(24)
+        }
+    }
+    // MARK: - Button Action
+    @objc func closeAction(_ sender: UIButton) {
+//        SKLog.log("close", category: "TOP")
+//        delegate?.sideMenuHeaderView(self, selectedClose: true)
+    }
 }

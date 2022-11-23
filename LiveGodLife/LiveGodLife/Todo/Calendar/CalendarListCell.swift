@@ -10,25 +10,52 @@ import UIKit
 
 class CalendarListCell: CommonCell {
     // MARK: - Variable
-    var dataModel:MainGoals? {
+    var dataModel:SubGoals? {
         didSet {
             update()
         }
     }
-    
+    let typeLabel = UILabel()
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 //        label.font = font
         return label
     }()
+    let checkButton = UIButton()
 
-    var itemsView: ListViewController<SubGoals,CalendarCell> = {
-        let view = ListViewController<SubGoals,CalendarCell>()
+    lazy var contentsView:UIView = {
+        let view = UIView()
+        self.titleLabel.textColor = .white
+        self.typeLabel.textColor = .green
+
+        view.layer.cornerRadius = 20
+        view.layer.borderColor = UIColor.green.cgColor
+        view.layer.borderWidth = 1
+        view.addSubview(self.typeLabel)
+        view.addSubview(self.titleLabel)
+        view.addSubview(self.checkButton)
+        
+        self.typeLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalToSuperview().offset(15)
+            make.bottom.equalToSuperview().offset(-24)
+        }
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalTo(self.typeLabel.snp.right).offset(15)
+            make.bottom.equalToSuperview().offset(-24)
+        }
+        self.checkButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-26)
+            make.bottom.equalToSuperview().offset(-24)
+        }
         return view
     }()
-    
-    
+   
+
+
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,107 +69,23 @@ class CalendarListCell: CommonCell {
     // MARK: - Func
     override func setUpModel() {
         super.setUpModel()
-        dataModel = super.model as? MainGoals ?? MainGoals(title: "", goalId: 1, rawValue: "", todoSchedules: [])
+//        dataModel = (super.model as? MainGoals ?? MainGoals(title: "", goalId: 1, rawValue: "", todoSchedules: [])).todoSchedules
     }
     
     func addViews(){
-        self.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.height.equalTo(30)
+        self.addSubview(self.contentsView)
+        self.backgroundColor = .black
+        self.contentsView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
         }
-        
-        let lineView = UIView()
-        lineView.backgroundColor = .green
-        self.addSubview(lineView)
-        lineView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.height.equalTo(1)
-        }
-        self.addSubview(self.itemsView.view)
-        self.itemsView.view.snp.makeConstraints {
-            $0.top.equalTo(lineView.snp.bottom)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.bottom.equalToSuperview()
-        }
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-//        layout.minimumInteritemSpacing = 10.0
-//        layout.minimumLineSpacing = 5.0
-        self.itemsView.collectionView.collectionViewLayout = layout
-        self.itemsView.collectionView.delegate = self
-        self.itemsView.collectionView.isScrollEnabled = false
-
     }
     
     func update() {
-        itemsView.model = dataModel?.todoSchedules ?? []
+        typeLabel.text = dataModel?.taskType
         titleLabel.text = "• \(dataModel?.title ?? "")"
-        itemsView.collectionView.reloadData()
-    }
-}
-// MARK: - Delegate
-extension CalendarListCell: UICollectionViewDataSource {
-    // MARK: UICollectionViewDataSource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        //comment 동일한 셀 반복 횟수
-        return 0
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Configure the cell
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.identifier, for: indexPath) as? CalendarCell else {
-            return UICollectionViewCell()
-        }
-        cell.model = self.itemsView.model[indexPath.row]
-        cell.setUpModel()
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        switch kind {
-//        case UICollectionView.elementKindSectionHeader:
-//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SideMenuHeaderView", for: indexPath)
-//            if let headerView = headerView as? SideMenuHeaderView {
-//                headerView.delegate = self
-//                headerView.updateView(isRegular: LoginMbrInfo.shared.member == .Regular)
-//            }
-//            return headerView
-//        default:
-//            assert(false, "")
-//        }
-        return UICollectionReusableView()
-    }
-}
 
-extension CalendarListCell:UICollectionViewDelegate {
-    
-//    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // print("menu item: \(dataModel?.menuItem[indexPath.row].action)")
-
-//    }
-
-}
-extension CalendarListCell:UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
-//            return CGSize(width: collectionView.frame.width * 0.45 , height: 30)
-//        }
-//
-//        let numberOfCells: CGFloat = 2.0
-//        let itemSize = (collectionView.frame.size.width - (flowLayout.minimumInteritemSpacing * (numberOfCells-1))) / numberOfCells
-//        return CGSize(width: collectionView.frame, height: 30)
-//    }
+    }
 }

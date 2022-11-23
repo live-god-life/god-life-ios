@@ -10,7 +10,6 @@
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		B92C2FE12921E299000DA2D7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FE02921E299000DA2D7 /* ListViewController.swift */; };
 		B92C2FE42921E36C000DA2D7 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FE32921E36C000DA2D7 /* CalendarModel.swift */; };
-		B92C2FE629235320000DA2D7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FE529235320000DA2D7 /* CalendarCell.swift */; };
 		B92C2FE829235612000DA2D7 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FE729235612000DA2D7 /* CalendarListViewController.swift */; };
 		B92C2FEC29235963000DA2D7 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FEB29235963000DA2D7 /* TodoListTableViewController.swift */; };
 		B92C2FEE29235E7F000DA2D7 /* Utill+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FED29235E7F000DA2D7 /* Utill+Formatter.swift */; };
@@ -45,7 +44,6 @@
 		6C9AAA7E1239CDB46DD79D05 /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		B92C2FE02921E299000DA2D7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B92C2FE32921E36C000DA2D7 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
-		B92C2FE529235320000DA2D7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		B92C2FE729235612000DA2D7 /* CalendarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
 		B92C2FEB29235963000DA2D7 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
 		B92C2FED29235E7F000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utill+Formatter.swift"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				B92C2FE32921E36C000DA2D7 /* CalendarModel.swift */,
-				B92C2FE529235320000DA2D7 /* CalendarCell.swift */,
 				B92C2FE729235612000DA2D7 /* CalendarListViewController.swift */,
 				B92C2FEF292366D1000DA2D7 /* CalendarListCell.swift */,
 			);
@@ -385,7 +382,6 @@
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				B92C2FE829235612000DA2D7 /* CalendarListViewController.swift in Sources */,
-				B92C2FE629235320000DA2D7 /* CalendarCell.swift in Sources */,
 				D0C51E2C28F121D80004514A /* Endpoint.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewTestController.swift in Sources */,
 				B92C2FEE29235E7F000DA2D7 /* Utill+Formatter.swift in Sources */,

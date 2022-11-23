@@ -15,7 +15,7 @@ class ListViewController<Model:Codable, Cell: CommonCell>:
     var id:String = ""
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: 1, height: 1)
         let collectionView = UICollectionView(frame: .zero,
                                          collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

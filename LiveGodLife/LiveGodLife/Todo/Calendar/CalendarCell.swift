@@ -18,9 +18,9 @@ class CalendarCell: CommonCell {
     let titleLabel: UILabel = {
         let label = UILabel()
 //        label.font = .title14
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.8
-        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.8
+//        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -29,16 +29,15 @@ class CalendarCell: CommonCell {
         addViews()
     }
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        super.init(coder: coder)    
         fatalError("init(coder:) has not been implemented")
     }
 
     func addViews(){
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(30)
         }
         self.backgroundColor = .blue
     }
