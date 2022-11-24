@@ -70,12 +70,8 @@ private extension HomeViewController {
     }
 
     func requestData() {
-        // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만
-        let param: [String: Any] = ["date": "20221001", "size": 5, "completionStatus": "false"]
-        let todos = repository.requestTodos(endpoint: .todos(param))
         let mindset = repository.requestGoals(endpoint: .mindsets)
-
-        todos.zip(mindset)
+        requestTodo().zip(mindset)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -153,6 +149,7 @@ extension HomeViewController: UICollectionViewDataSource {
         // 첫번째 섹션: 마인드셋 + 투두
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetCollectionViewCell.identifier, for: indexPath) as! MindsetCollectionViewCell
+            cell.delegate = self
             cell.configure((todos, goals))
             return cell
         }
@@ -174,5 +171,46 @@ extension HomeViewController: CategoryFilterViewDelegate {
 
     func filtered(from category: String) {
         // TODO: 로직 논의
+    }
+}
+
+extension HomeViewController: TodoCollectionViewCellDelegate {
+
+    func requestTodo() -> AnyPublisher<[Todo], APIError> {
+        // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만
+        let param: [String: Any] = ["date": "20221001", "size": 5, "completionStatus": "false"]
+        return repository.requestTodos(endpoint: .todos(param))
+    }
+
+    func bindTodo() {
+        requestTodo()
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    // 완료한 투두는 사라짐. 다시 투두 API를 조회
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+                    }
+                }
+            } receiveValue: { _ in
+                print("complete")
+            }
+            .store(in: &cancellable)
+    }
+    func completeTodo(_ id: Int) {
+        repository.updateTodoStatus(endpoint: .completeTodo(id))
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    self?.bindTodo()
+                }
+            } receiveValue: { _ in
+                print("complete")
+            }
+            .store(in: &cancellable)
     }
 }

@@ -7,13 +7,23 @@
 
 import UIKit
 
+protocol TodoCollectionViewCellDelegate: AnyObject {
+
+    func completeTodo(_ id: Int)
+}
+
 final class TodoCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "TodoCollectionViewCell"
 
+    @IBOutlet weak var dDayLabel: UILabel!
     @IBOutlet weak var repetitionLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
+
+    weak var delegate: TodoCollectionViewCellDelegate?
+
+    private var id: Int?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,8 +36,22 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(_ todo: Todo.Schedule) {
+        id = todo.scheduleID
+        if todo.dDay == 0 {
+            dDayLabel.text = "D-Day"
+        } else {
+            dDayLabel.text = "D-\(todo.dDay)"
+        }
         repetitionLabel.text = todo.repetitions.joined(separator: ",")
         repetitionLabel.isHidden = todo.repetitions.isEmpty
         contentLabel.text = todo.title
+    }
+
+    @IBAction func didTapCheckButton(_ sender: UIButton) {
+        guard let id = id else {
+            // error handle
+            return
+        }
+        delegate?.completeTodo(id)
     }
 }
