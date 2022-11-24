@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 class CalendarListViewController: UIViewController {
-
-    
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
     var model:[MainGoals] = []
@@ -20,104 +18,6 @@ class CalendarListViewController: UIViewController {
     var listView: ListViewController<MainGoals,CalendarListCell> = {
         let node = ListViewController<MainGoals,CalendarListCell>()
         return node
-    }()
-    
-    lazy var contentsView: UIView = {
-        let view = UIView()
-        let todayLabel = UILabel()
-        let addButton = UIButton()
-        
-//        todayLabel.text = Date.today
-//
-//
-////        self.listView.collectionView.register( SideMenuHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SideMenuHeaderView")
-//        model.removeAll()
-//        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
-//                            [
-//                                SubGoals(
-//                                    title: "컨셉잡기",
-//                                    completionStatus: false,
-//                                    taskType: "Todo",
-//                                    repetitionType: "WEEK",
-//                                    repetitionParams: [
-//                                        "월",
-//                                        "목",
-//                                        "토"
-//                                    ],
-//                                    totalTodoTaskScheduleCount: 39,
-//                                    completedTodoTaskScheduleCount: 0,
-//                                    todoDay: -48),
-//                                SubGoals(
-//                                    title: "컨셉잡기1",
-//                                    completionStatus: false,
-//                                    taskType: "Todo",
-//                                    repetitionType: "WEEK",
-//                                    repetitionParams: [
-//                                        "월",
-//                                        "목",
-//                                        "토"
-//                                    ],
-//                                    totalTodoTaskScheduleCount: 39,
-//                                    completedTodoTaskScheduleCount: 0,
-//                                    todoDay: -48),
-//                            ]
-//                          )
-//        )
-//        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
-//                            [
-//                                SubGoals(
-//                                    title: "테스트",
-//                                    completionStatus: false,
-//                                    taskType: "Todo",
-//                                    repetitionType: "DAY",
-//                                    repetitionParams: nil,
-//                                    totalTodoTaskScheduleCount: 91,
-//                                    completedTodoTaskScheduleCount: 0,
-//                                    todoDay: -48)
-//                            ]
-//                          )
-//        )
-//
-//
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        self.listView.collectionView.collectionViewLayout = layout
-//
-//        self.listView.model = model
-//        self.listView.collectionView.reloadData()
-//        addButton.backgroundColor = .black
-//        view.backgroundColor = .green
-//        self.listView.collectionView.delegate = self
-//        self.listView.collectionView.dataSource = self
-//
-//
-//        view.addSubview(todayLabel)
-//        view.addSubview(self.listView.view)
-//        view.addSubview(addButton)
-//        view.backgroundColor = .red
-//
-//        self.listView.view.backgroundColor = .yellow
-//
-//
-//        todayLabel.snp.makeConstraints { make in
-//            make.top.equalTo(view).offset(20)
-//            make.left.equalTo(view).offset(10)
-//            make.right.equalTo(view).offset(-10)
-//        }
-//        self.listView.view.snp.makeConstraints { make in
-//            make.top.equalTo(todayLabel.snp.bottom).offset(10)
-//            make.left.equalTo(view)
-//            make.right.equalTo(view)
-//            make.bottom.equalTo(addButton.snp.top).offset(10)
-//        }
-//        addButton.snp.makeConstraints { make in
-//            make.bottom.equalTo(view).offset(-20)
-//            make.height.equalTo(30)
-//            make.left.equalTo(view)
-//            make.right.equalTo(view)
-//        }
-        
-        return view
     }()
     
     override func viewDidLoad() {

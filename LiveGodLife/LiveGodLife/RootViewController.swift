@@ -13,7 +13,7 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
-            let loginViewController = CalendarListViewController()
+            let loginViewController = MindsetListViewController()
             self?.present(loginViewController, animated: true)
             
             
