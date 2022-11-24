@@ -17,6 +17,11 @@ protocol HomeRepository: Requestable {
 
 struct DefaultHomeRepository: HomeRepository {
 
+    // Empty 사용할 수 있는지 체크
+    func updateTodoStatus(endpoint: HomeAPI) -> AnyPublisher<String?, APIError> {
+        return request(endpoint)
+    }
+
     func requestGoals(endpoint: HomeAPI) -> AnyPublisher<[Goal], APIError> {
         return request(endpoint)
     }
