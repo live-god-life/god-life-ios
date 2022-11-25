@@ -33,7 +33,7 @@ struct Feed: Hashable, Decodable {
 
     let id: Int
     let title: String
-    let user: User
+    let user: UserModel
     let image: String
     let isBookmark: Bool
     // 피드 상세에 사용되는 데이터
@@ -54,7 +54,7 @@ struct Feed: Hashable, Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
-        user = try container.decode(User.self, forKey: .user)
+        user = try container.decode(UserModel.self, forKey: .user)
         image = try container.decode(String.self, forKey: .image)
         todoCount = try container.decodeIfPresent(Int.self, forKey: .todoCount) ?? 0
         todoScheduleDay = try container.decodeIfPresent(Int.self, forKey: .todoScheduleDay) ?? 0
