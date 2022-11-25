@@ -11,5 +11,4 @@ target 'LiveGodLife' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'PopupDialog', '~> 1.1'
   pod 'SideMenu'
-  pod 'Texture/MapKit', '~> 3.1'
 end
