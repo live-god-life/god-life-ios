@@ -18,7 +18,6 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
 
     static var identifier = "MindsetCollectionViewCell"
 
-    @IBOutlet weak var emptyTodoTextLabel: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -36,8 +35,6 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
     }
     private var todos: [Todo.Schedule] = []
 
-    weak var delegate: TodoCollectionViewCellDelegate?
-
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -49,7 +46,6 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
     func configure(_ data: (todos: [Todo], goals: [Goal])) {
         self.todos = data.todos.flatMap { $0.schedules }
         self.goals = data.goals
-        emptyTodoTextLabel.isHidden = !todos.isEmpty
     }
 }
 
@@ -67,7 +63,6 @@ extension MindsetCollectionViewCell: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier, for: indexPath) as! TodoCollectionViewCell
-        cell.delegate = delegate
         cell.configure(todos[indexPath.item])
         return cell
     }

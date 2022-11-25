@@ -42,7 +42,7 @@ class Todo: Goal {
     struct Schedule: Decodable {
 
         let scheduleID: Int
-        let id: Int // Todo ID
+        let id: Int
         let title: String
         let isCompletion: Bool
 //        let taskType: String // Type

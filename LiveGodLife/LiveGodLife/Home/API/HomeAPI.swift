@@ -13,12 +13,9 @@ enum HomeAPI: APIEndpoint {
     case mindsets
     case todos([String: Any])
     case category
-    case completeTodo(Int)
 
     var method: HTTPMethod {
         switch self {
-        case .completeTodo:
-            return .patch
         default:
             return .get
         }
@@ -32,8 +29,6 @@ enum HomeAPI: APIEndpoint {
             return "/goals/todos"
         case .category:
             return "/commons/categories"
-        case .completeTodo(let id):
-            return "/goals/todoSchedules/\(id)"
         }
     }
 
@@ -41,8 +36,6 @@ enum HomeAPI: APIEndpoint {
         switch self {
         case .todos(let value):
             return value
-        case .completeTodo:
-            return ["completionStatus": "true"]
         default:
             return [:]
         }
