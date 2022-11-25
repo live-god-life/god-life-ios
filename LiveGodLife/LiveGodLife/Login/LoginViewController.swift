@@ -82,13 +82,37 @@ final class LoginViewController: UIViewController {
             
             //카톡 설치되어있으면 -> 카톡으로 로그인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+//                if let error = error {
+//                    print(error)
+//                } else {
+//                    print("카카오 톡으로 로그인 성공")
+//
+//                    _ = oauthToken
+//                    /// 로그인 관련 메소드 추가
+//                }
+                let idToken = oauthToken?.idToken
                 if let error = error {
                     print(error)
                 } else {
-                    print("카카오 톡으로 로그인 성공")
-                    
-                    _ = oauthToken
-                    /// 로그인 관련 메소드 추가
+                    print("카카오 계정으로 로그인 성공")
+                }
+                UserApi.shared.me { (user, error) in
+                    let name = user?.id
+                    let token = user?.kakaoAccount
+
+                    print("name : \(name) - \(token)\n")
+//                    print("idToken : \(idToken)\n")
+
+                    var parameter = Dictionary<String,Any>()
+//                    “identifier” : “key”
+//                      “type” : “apple, kakao”
+                    print("identifier: \(name)")
+                    parameter.updateValue(name ?? "", forKey: "identifier")
+                    parameter.updateValue("kakao", forKey: "type")
+                    self.email = user?.kakaoAccount?.email ?? ""
+
+                    self.login(param: parameter)
+
                 }
             }
         } else {
@@ -99,10 +123,6 @@ final class LoginViewController: UIViewController {
                     print(error)
                 } else {
                     print("카카오 계정으로 로그인 성공")
-//                    self.navigationController?.pushViewController(UserInfoViewController(), animated: true)
-//                    UIApplication.topViewController()?.navigationController?.pushViewController(UserInfoViewController(), animated: true)
-                
-//                    self.navigationController?.pushViewController(UserInfoViewController(), animated: true)
                     
                     // 관련 메소드 추가
                 }
@@ -116,8 +136,8 @@ final class LoginViewController: UIViewController {
                     var parameter = Dictionary<String,Any>()
 //                    “identifier” : “key”
 //                      “type” : “apple, kakao”
-                    print("identifier: \(idToken?.count)")
-                    parameter.updateValue(idToken ?? "", forKey: "identifier")
+                    print("identifier: \(name)")
+                    parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
 
