@@ -14,6 +14,7 @@ final class RoundedButton: UIButton {
                    backgroundColor: UIColor = .green) {
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
+        titleLabel?.font = UIFont(name: "Pretendard", size: 18)
         self.backgroundColor = backgroundColor
         titleLabel?.font = UIFont(name: "Pretendard", size: 18)
         clipsToBounds = true

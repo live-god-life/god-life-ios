@@ -24,8 +24,12 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
 
         NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
             let loginViewController = LoginViewController()
+            let navVC = UINavigationController(rootViewController:loginViewController)
+            navVC.modalPresentationStyle = .overCurrentContext
+            navVC.isNavigationBarHidden = true
             loginViewController.modalPresentationStyle = .fullScreen
             self?.present(loginViewController, animated: true)
+
         }
     }
 
