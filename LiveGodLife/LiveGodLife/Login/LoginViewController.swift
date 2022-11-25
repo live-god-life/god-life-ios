@@ -191,7 +191,7 @@ enum NetworkService {
 extension NetworkService: TargetType {
     public var baseURL: URL {
     // GeneralAPI 라는 구조체 파일에 서버 도메인이나 토큰 값을 적어두고 불러왔습니다.
-        return URL(string:  "http://49.50.167.208:8000")!
+        return URL(string:  "http://101.101.208.221:80")!
     }
 
     var path: String {
@@ -235,7 +235,12 @@ extension NetworkService: TargetType {
         case .join(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .login(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+            let data = try! JSONSerialization.data(withJSONObject: parameter)
+//            let encoder = JSONEncoder()
+//            encoder.outputFormatting = .prettyPrinted
+//            let encodedData = try? encoder.encode(data)
+            return .requestData(data)
+            //            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         }
     }
     
