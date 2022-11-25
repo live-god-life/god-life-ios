@@ -7,9 +7,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Bold.otf">
-            <string>Montserrat-Bold</string>
-        </array>
         <array key="Pretendard-Bold.otf">
             <string>Pretendard-Bold</string>
         </array>
@@ -27,63 +24,46 @@
                 <rect key="frame" x="0.0" y="0.0" width="310" height="102"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H0j-9g-z1y">
-                        <rect key="frame" x="20" y="0.0" width="268" height="102"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzL-Up-44i">
+                        <rect key="frame" x="264" y="39" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="bTU-yq-5ah"/>
+                            <constraint firstAttribute="height" constant="24" id="v8r-Zz-TZE"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle.fill" catalog="system"/>
+                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="coS-vo-M6I">
+                        <rect key="frame" x="40" y="19.666666666666668" width="219" height="62.666666666666657"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D-Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Obw-F1-tDa">
-                                <rect key="frame" x="0.0" y="43.666666666666664" width="40" height="14.666666666666664"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="nzW-4B-BZe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="월, 수, 금" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnK-Ds-1Wd">
+                                <rect key="frame" x="0.0" y="0.0" width="219" height="17"/>
+                                <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="coS-vo-M6I">
-                                <rect key="frame" x="50" y="19.666666666666668" width="184" height="62.666666666666657"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="월, 수, 금" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnK-Ds-1Wd">
-                                        <rect key="frame" x="0.0" y="0.0" width="184" height="17"/>
-                                        <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTN-1e-2fP">
-                                        <rect key="frame" x="0.0" y="21.999999999999996" width="184" height="40.666666666666657"/>
-                                        <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzL-Up-44i">
-                                <rect key="frame" x="244" y="39" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="bTU-yq-5ah"/>
-                                    <constraint firstAttribute="height" constant="24" id="v8r-Zz-TZE"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="checkmark.circle.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="didTapCheckButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ZzE-AA-vjs"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTN-1e-2fP">
+                                <rect key="frame" x="0.0" y="21.999999999999996" width="219" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                     </stackView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="H0j-9g-z1y" secondAttribute="trailing" constant="22" id="Azw-P1-mDz"/>
-                <constraint firstItem="H0j-9g-z1y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="GOe-Jn-Wan"/>
-                <constraint firstItem="H0j-9g-z1y" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="PMd-5x-lTh"/>
-                <constraint firstAttribute="bottom" secondItem="H0j-9g-z1y" secondAttribute="bottom" id="QZw-bS-89c"/>
+                <constraint firstItem="RTN-1e-2fP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="JJg-F9-zOc"/>
+                <constraint firstAttribute="trailing" secondItem="jzL-Up-44i" secondAttribute="trailing" constant="22" id="SLS-FV-aAt"/>
+                <constraint firstItem="coS-vo-M6I" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="c8B-Gd-3oF"/>
+                <constraint firstItem="jzL-Up-44i" firstAttribute="leading" secondItem="coS-vo-M6I" secondAttribute="trailing" constant="5" id="da2-p8-RDN"/>
+                <constraint firstItem="jzL-Up-44i" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="rku-bS-SOz"/>
             </constraints>
             <size key="customSize" width="310" height="124"/>
             <connections>
                 <outlet property="checkButton" destination="jzL-Up-44i" id="Rck-tF-JDG"/>
                 <outlet property="contentLabel" destination="RTN-1e-2fP" id="enE-ew-wKx"/>
-                <outlet property="dDayLabel" destination="Obw-F1-tDa" id="p2b-mT-vQj"/>
                 <outlet property="repetitionLabel" destination="LnK-Ds-1Wd" id="Rbo-gD-PAQ"/>
             </connections>
             <point key="canvasLocation" x="292.30769230769232" y="46.919431279620852"/>
