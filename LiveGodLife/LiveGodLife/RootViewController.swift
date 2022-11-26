@@ -8,10 +8,12 @@
 import UIKit
 import SnapKit
 
+
+
 class RootViewController: UITabBarController, TabBarViewDelegate {
+    static var isTest = false
 
     private let tabBarView = TabBarView()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,22 +27,24 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
         NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
             let loginViewController = LoginViewController()
             let navVC = UINavigationController(rootViewController:loginViewController)
-            navVC.modalPresentationStyle = .overCurrentContext
             navVC.isNavigationBarHidden = true
-            loginViewController.modalPresentationStyle = .fullScreen
-            self?.present(loginViewController, animated: true)
+            navVC.modalPresentationStyle = .fullScreen
+            self?.present(navVC, animated: true)
 
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-//        if isBeingPresented || isMovingToParent {
-//            let onboardingViewController = OnboardingViewController.instance()!
-//            onboardingViewController.modalPresentationStyle = .fullScreen
-//            present(onboardingViewController, animated: true)
-//        }
+        //todo: 유저 디폴트 처리 하기
+        if RootViewController.isTest == false {
+            if isBeingPresented || isMovingToParent {
+                let onboardingViewController = OnboardingViewController.instance()!
+                onboardingViewController.modalPresentationStyle = .fullScreen
+                present(onboardingViewController, animated: true)
+                RootViewController.isTest = true
+            }
+        }
     }
 
     private func setupTabBar() {

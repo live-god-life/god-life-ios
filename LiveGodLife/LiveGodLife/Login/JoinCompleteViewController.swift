@@ -56,7 +56,10 @@ class JoinCompleteViewController: UIViewController {
     }
     
     @objc func home(_ sender:UIButton) {
-        
+        let navVC = UINavigationController(rootViewController:RootViewController())
+
+        NavigationViewController.transitionRootViewController(to: navVC, transitionType: .push, transitionSubtype: .fromRight)
+
     }
 
 }

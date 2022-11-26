@@ -163,8 +163,12 @@ final class LoginViewController: UIViewController {
                     print(json)
                     print("response:\(response)")
                     print("message:\(jsonData["message"] ?? "")")
-                    
-                    self.navigationController?.pushViewController(UserInfoViewController(), animated: false)
+                    if jsonData["status"] as! String == "success" {
+                        
+                        NavigationViewController.transitionRootViewController(to:HomeViewController(), transitionType: .push, transitionSubtype: .fromRight)
+                    } else {
+                        self.navigationController?.pushViewController(UserInfoViewController(), animated: false)
+                    }
                 
                 } catch(let err) {
                     print("nickname err:\(err.localizedDescription)")
