@@ -30,6 +30,7 @@ final class ProfileUpdateViewController: UIViewController {
         setupProfileImageView()
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
+        nicknameTextField.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,5 +115,13 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         profileImageView.image = UIImage(named: "frog")
+    }
+}
+
+extension ProfileUpdateViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
