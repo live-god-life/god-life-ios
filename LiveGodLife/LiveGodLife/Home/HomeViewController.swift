@@ -16,14 +16,14 @@ final class HomeViewController: UIViewController {
     private var feeds: [Feed] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.collectionView.reloadData()
+                self?.collectionView.reloadSections(IndexSet(integer: 1))
             }
         }
     }
     private var todos: [Todo] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+                self?.collectionView.reloadSections(IndexSet(integer: 0))
             }
         }
     }
@@ -154,6 +154,9 @@ extension HomeViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetCollectionViewCell.identifier, for: indexPath) as! MindsetCollectionViewCell
             cell.configure((todos, goals))
+            cell.completionHandler = { [weak self] id in
+                self?.updateTodoStatus(id: id)
+            }
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell
@@ -174,5 +177,22 @@ extension HomeViewController: CategoryFilterViewDelegate {
 
     func filtered(from category: String) {
         // TODO: 로직 논의
+    }
+
+    func updateTodoStatus(id: Int) {
+        repository.updateTodoStatus(endpoint: .completeTodo(id))
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadSections(IndexSet(integer: 0))
+                    }
+                }
+            } receiveValue: { _ in
+                print("complete")
+            }
+            .store(in: &cancellable)
     }
 }

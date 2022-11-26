@@ -52,6 +52,8 @@ final class FeedDetailViewController: UIViewController {
     private let repository = DefaultFeedRepository()
     private var cancellable = Set<AnyCancellable>()
 
+    private var isBookmarkStatus: Bool = false
+
     let feedID: Int
     var feed: Feed? {
         didSet {
@@ -93,7 +95,11 @@ final class FeedDetailViewController: UIViewController {
             .store(in: &cancellable)
     }
 
-    private func setupUI() {
+}
+
+private extension FeedDetailViewController {
+
+    func setupUI() {
         // baseScrollView
         baseScrollView.contentSize = containerView.bounds.size
         view.addSubview(baseScrollView)
@@ -260,7 +266,7 @@ final class FeedDetailViewController: UIViewController {
         }
     }
 
-    private func updateView() {
+    func updateView() {
         guard let feed = feed else {
             // TODO: error handle
             return
@@ -272,6 +278,8 @@ final class FeedDetailViewController: UIViewController {
         todoScheduleDay.text = "\(feed.todoScheduleDay) DAY"
         bookmarkButton.isSelected = feed.isBookmark
         nicknameLabel.text = feed.user.nickname
+
+        isBookmarkStatus = feed.isBookmark
 
         feed.contents.forEach { content in
             let titleLabel = UILabel()
@@ -301,20 +309,28 @@ final class FeedDetailViewController: UIViewController {
         }
     }
 
-    @objc private func didTapBookmark() {
-        guard let feed = feed else { return }
-        let param: [String: Any] = ["id": feedID, "status": !feed.isBookmark]
+    @objc func didTapBookmark() {
+        // TODO: Throttle 필요
+        let param: [String: Any] = ["id": feedID, "status": !isBookmarkStatus]
         repository.request(UserAPI.bookmark(param))
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     print(error.localizedDescription)
                 case .finished:
-                    print("finished")
+                    guard let self else { return }
+                    self.isBookmarkStatus = !self.isBookmarkStatus
+                    DispatchQueue.main.async {
+                        self.updateBookmark()
+                    }
                 }
             } receiveValue: { (feed: String?) in
 
             }
             .store(in: &cancellable)
+    }
+
+    func updateBookmark() {
+        bookmarkButton.isSelected = isBookmarkStatus
     }
 }

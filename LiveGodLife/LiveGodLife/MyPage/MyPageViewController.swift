@@ -16,6 +16,14 @@ final class MyPageViewController: UIViewController {
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
 
+    private let label: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .regular(with: 16)
+        label.text = "찜한 글이 없어요 👀"
+        return label
+    }()
+
     private var pageViewController: UIPageViewController!
     private var selectedPageIndex: Int = 0
 
@@ -31,7 +39,8 @@ final class MyPageViewController: UIViewController {
         label.textColor = .white
         viewController.view.addSubview(label)
         label.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(100)
         }
         return viewController
     }()
@@ -43,7 +52,12 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-        requestData()
+
+        feedViewController.view.addSubview(label)
+        label.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(100)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,9 +65,14 @@ final class MyPageViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
         setupNavigationBar()
+        requestData()
     }
+}
 
-    private func setupUI() {
+// MARK: - Private
+private extension MyPageViewController {
+
+    func setupUI() {
         setupNavigationBar()
         setupProfileImageView()
         setupNavigationBar()
@@ -61,7 +80,7 @@ final class MyPageViewController: UIViewController {
         setupPageView()
     }
 
-    @objc private func moveToSettingView() {
+    @objc func moveToSettingView() {
         let settingViewController = SettingViewController()
         navigationController?.pushViewController(settingViewController, animated: true)
     }
@@ -71,7 +90,7 @@ final class MyPageViewController: UIViewController {
         navigationController?.pushViewController(profileUpdateViewController, animated: true)
     }
 
-    private func requestData() {
+    func requestData() {
         DefaultUserRepository().updateProfile(endpoint: .user)
             .sink { completion in
                 switch completion {
@@ -97,9 +116,18 @@ final class MyPageViewController: UIViewController {
                     print("finished")
                 }
             }, receiveValue: { [weak self] feeds in
+                let isHidden = !feeds.isEmpty
+                self?.update(isHidden: isHidden)
                 self?.feedViewController.updateView(with: feeds)
             })
             .store(in: &cancellable)
+    }
+
+    func update(isHidden: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.label.isHidden = isHidden
+        }
     }
 }
 
@@ -150,7 +178,6 @@ extension MyPageViewController {
 }
 
 // MARK: - Delegate
-
 extension MyPageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

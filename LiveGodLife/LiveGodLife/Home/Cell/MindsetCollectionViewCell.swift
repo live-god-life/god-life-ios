@@ -35,6 +35,9 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
     }
     private var todos: [Todo.Schedule] = []
 
+    weak var delegate: TodoCollectionViewCellDelegate?
+    var completionHandler: ((Int) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -46,6 +49,18 @@ final class MindsetCollectionViewCell: UICollectionViewCell {
     func configure(_ data: (todos: [Todo], goals: [Goal])) {
         self.todos = data.todos.flatMap { $0.schedules }
         self.goals = data.goals
+    }
+}
+
+extension MindsetCollectionViewCell: TodoCollectionViewCellDelegate {
+
+    // Todo 완료 체크 버튼
+    func complete(id: Int) {
+        if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
+            todos.remove(at: index)
+            print(index)
+            completionHandler?(id)
+        }
     }
 }
 
@@ -64,6 +79,7 @@ extension MindsetCollectionViewCell: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier, for: indexPath) as! TodoCollectionViewCell
         cell.configure(todos[indexPath.item])
+        cell.delegate = self
         return cell
     }
 }

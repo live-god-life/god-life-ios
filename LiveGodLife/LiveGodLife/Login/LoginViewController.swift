@@ -27,6 +27,8 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appleLoginService = AppleLoginService(presentationContextProvider: self)
+
+        view.backgroundColor = .black
         setupUI()
     }
 

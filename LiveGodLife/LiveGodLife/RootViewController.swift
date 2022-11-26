@@ -36,11 +36,11 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if isBeingPresented || isMovingToParent {
-            let onboardingViewController = OnboardingViewController.instance()!
-            onboardingViewController.modalPresentationStyle = .fullScreen
-            present(onboardingViewController, animated: true)
-        }
+//        if isBeingPresented || isMovingToParent {
+//            let onboardingViewController = OnboardingViewController.instance()!
+//            onboardingViewController.modalPresentationStyle = .fullScreen
+//            present(onboardingViewController, animated: true)
+//        }
     }
 
     private func setupTabBar() {
