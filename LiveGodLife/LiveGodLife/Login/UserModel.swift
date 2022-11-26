@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable, Hashable {
+struct UserModel: Codable, Hashable {
 
     // TODO: User 모델의 분리?
     let nickname: String

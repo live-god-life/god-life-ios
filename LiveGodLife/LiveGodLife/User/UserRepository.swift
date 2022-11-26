@@ -10,17 +10,17 @@ import Combine
 
 protocol UserRepository: Requestable {
 
-    func request(endpoint: UserAPI) -> AnyPublisher<User, APIError>
-    func updateProfile(endpoint: UserAPI) -> AnyPublisher<User, APIError>
+    func request(endpoint: UserAPI) -> AnyPublisher<UserModel, APIError>
+    func updateProfile(endpoint: UserAPI) -> AnyPublisher<UserModel, APIError>
 }
 
 struct DefaultUserRepository: UserRepository {
 
-    func request(endpoint: UserAPI) -> AnyPublisher<User, APIError> {
+    func request(endpoint: UserAPI) -> AnyPublisher<UserModel, APIError> {
         request(endpoint)
     }
 
-    func updateProfile(endpoint: UserAPI) -> AnyPublisher<User, APIError> {
+    func updateProfile(endpoint: UserAPI) -> AnyPublisher<UserModel, APIError> {
         request(endpoint)
     }
 }

@@ -10,4 +10,5 @@ import Foundation
 enum LoginType: String, Codable {
 
     case apple
+    case kakao
 }
