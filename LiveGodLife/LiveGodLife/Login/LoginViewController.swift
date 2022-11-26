@@ -22,6 +22,8 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         appleLoginService = AppleLoginService(presentationContextProvider: self)
+
+        view.backgroundColor = .black
         setupUI()
     }
 
