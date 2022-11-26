@@ -45,8 +45,7 @@ extension OnboardingViewController: OnboardingViewDelegate {
         let lastPage = data.count - 1
         if page == lastPage {
             self.dismiss(animated: true)
-            // Notification
-            NotificationCenter.default.post(name: .moveToLogin, object: self)
+//            NotificationCenter.default.post(name: .moveToLogin, object: self)
             
         } else {
             let point = CGPoint(x: CGFloat(page + 1) * self.scrollView.frame.width, y: 0)

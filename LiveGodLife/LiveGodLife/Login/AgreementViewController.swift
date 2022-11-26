@@ -12,6 +12,9 @@ class AgreementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .black
+        navigationItem.backButtonTitle = ""
         self.navigationController?.isNavigationBarHidden = false
         setupUI()
     }

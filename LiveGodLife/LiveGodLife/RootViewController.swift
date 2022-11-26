@@ -17,35 +17,36 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
 
         view.backgroundColor = .black
 
+        tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = true
         navigationItem.backButtonTitle = ""
 
-        setupTabBar()
-
-        NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
-            let loginViewController = LoginViewController()
-            let navVC = UINavigationController(rootViewController:loginViewController)
-            navVC.modalPresentationStyle = .overCurrentContext
-            navVC.isNavigationBarHidden = true
-            loginViewController.modalPresentationStyle = .fullScreen
-            self?.present(loginViewController, animated: true)
-
-        }
+        addObservers()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-//        if isBeingPresented || isMovingToParent {
-//            let onboardingViewController = OnboardingViewController.instance()!
-//            onboardingViewController.modalPresentationStyle = .fullScreen
-//            present(onboardingViewController, animated: true)
-//        }
+        if !UserDefaults.standard.bool(forKey: "LIVE_GOD_LIFE") {
+            let onboardingViewController = OnboardingViewController.instance()!
+            onboardingViewController.modalPresentationStyle = .fullScreen
+            present(onboardingViewController, animated: true)
+            UserDefaults.standard.set(true, forKey: "LIVE_GOD_LIFE")
+            return
+        }
+
+        // TODO: userdefaults 말고 키체인으로 처리해야 함
+        if !UserDefaults.standard.bool(forKey: "IS_LOGIN") {
+            routeToLogin()
+            return
+        }
+
+        if isBeingPresented || isMovingToParent {
+            NotificationCenter.default.post(name: .moveToHome, object: self)
+        }
     }
 
     private func setupTabBar() {
-        tabBar.isHidden = true
-
         tabBarView.delegate = self
         view.addSubview(tabBarView)
         tabBarView.snp.makeConstraints {
@@ -60,6 +61,24 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
 
     func setViewController(with index: Int) {
         selectedIndex = index
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(forName: .moveToHome, object: nil, queue: .main) { [weak self] _ in
+            self?.setupTabBar()
+        }
+
+        NotificationCenter.default.addObserver(forName: .moveToLogin, object: nil, queue: .main) { [weak self] _ in
+            self?.routeToLogin()
+        }
+    }
+
+    private func routeToLogin() {
+        let loginViewController = LoginViewController()
+        let nav = UINavigationController(rootViewController: loginViewController)
+        nav.isNavigationBarHidden = true
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 }
 
