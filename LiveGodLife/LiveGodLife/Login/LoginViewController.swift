@@ -2,104 +2,122 @@
 //  LoginViewController.swift
 //  LiveGodLife
 //
-//  Created by Quintet on 2022/11/02.
+//  Created by Ador on 2022/10/12.
 //
 
 import UIKit
 import SnapKit
+import AuthenticationServices
+import KakaoSDKUser
 import KakaoSDKAuth
 import SwiftyJSON
 import Moya
-import KakaoSDKUser
 
-class LoginViewController: UIViewController {
-    let kakaoButton = UIButton()    // 카카오 로그인
-    let appleButton = UIButton()    // 애플 로그인
+final class LoginViewController: UIViewController {
+    private var model:UserModel?
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let appleLoginButton = RoundedButton()
+    private let kakaoLoginButton = RoundedButton()
+    private var appleLoginService: AppleLoginService?
+    private let authLookProvider = MoyaProvider<NetworkService>()
+    
     var email:String = ""
-    private let authLookProvider = MoyaProvider<LookService>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        appleLoginService = AppleLoginService(presentationContextProvider: self)
+
+        view.backgroundColor = .black
         setupUI()
     }
 
-    func setupUI() {
-        // setting UI
-        self.appleButton.configure(title: "Apple로 시작하기")
-        self.kakaoButton.configure(title: "카카오계정으로 시작하기")
-        
-        self.appleButton.backgroundColor = .white
-        self.kakaoButton.backgroundColor = .yellow
-        self.appleButton.setTitleColor(.black, for: .normal)
-        self.kakaoButton.setTitleColor(.black, for: .normal)
-        self.kakaoButton.addTarget(self, action: #selector(self.kakaoLogin(_:)), for: .touchUpInside)
-
-        // add viwe
-        self.view.addSubview(self.appleButton)
-        self.view.addSubview(self.kakaoButton)
-        
-        
-        // setting UI layout
-        self.appleButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaInsets.bottom).offset(-20)
-            make.left.equalTo(self.view.safeAreaInsets).offset(10)
-            make.right.equalTo(self.view.safeAreaInsets).offset(-10)
-            make.height.equalTo(40)
+    private func setupUI() {
+        titleLabel.text = "갓생살기"
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(79)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(34)
         }
-        
-        self.kakaoButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.appleButton.snp.bottom).offset(-50)
-            make.left.equalTo(self.appleButton)
-            make.right.equalTo(self.appleButton)
-            make.height.equalTo(40)
-
+        subtitleLabel.text = "꿈꾸는 갓생러들이 모인 곳"
+        subtitleLabel.textColor = .gray1
+        subtitleLabel.font = UIFont(name: "Pretendard", size: 16)
+        view.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(34)
         }
-        
-//        var param:[String:Any] = [:]
-//        param.updateValue(20221010, forKey: "date")
-//        param.updateValue(0, forKey: "page")
-//        param.updateValue(25, forKey: "size")
-//        param.updateValue("false", forKey: "completionStatus")
-//
-//        authLookProvider.request(.todos(param)) { response in
-//            switch response {
-//            case .success(let result):
-//                do {
-//
-//                    let json = try result.mapJSON()
-////                    let json = try JSON(filteredResponse.mapJSON())
-//                    let jsonData = json as? [String:Any] ?? [:]
-//                    print(json)
-//                    print("response:\(response)")
-//                    print("message:\(jsonData["message"] ?? "")")
-//
-//                } catch(let err) {
-//                    print("nickname err:\(err.localizedDescription)")
-//                }
-//            case .failure(let err):
-//                print(err.localizedDescription)
-//            }
-//        }
+
+        setupButtons()
     }
-    
-    @objc func kakaoLogin(_ sender: UIButton) {
+
+    private func setupButtons() {
+        appleLoginButton.configure(title: "Apple로 시작하기", backgroundColor: .white)
+        appleLoginButton.addTarget(self, action: #selector(didTapAppleLoginButton), for: .touchUpInside)
+        kakaoLoginButton.configure(title: "카카오계정으로 시작하기", backgroundColor: UIColor(red: 247/255, green: 227/255, blue: 23/255, alpha: 1))
+        kakaoLoginButton.addTarget(self, action: #selector(didTapKaKaoLoginButton), for: .touchUpInside)
+
+        let buttonStackView = UIStackView()
+        buttonStackView.axis = .vertical
+        buttonStackView.spacing = 20
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.addArrangedSubview(appleLoginButton)
+        buttonStackView.addArrangedSubview(kakaoLoginButton)
+        view.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints {
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
+            $0.height.equalTo(132)
+        }
+    }
+
+    @objc private func didTapAppleLoginButton() {
+        appleLoginService?.login()
+    }
+
+    @objc private func didTapKaKaoLoginButton() {
         // 카카오톡 설치 여부 확인
         // isKakaoTalkLoginAvailable() : 카톡 설치 되어있으면 true
         if (UserApi.isKakaoTalkLoginAvailable()) {
-
+            
             //카톡 설치되어있으면 -> 카톡으로 로그인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+//                if let error = error {
+//                    print(error)
+//                } else {
+//                    print("카카오 톡으로 로그인 성공")
+//
+//                    _ = oauthToken
+//                    /// 로그인 관련 메소드 추가
+//                }
+                let idToken = oauthToken?.idToken
                 if let error = error {
                     print(error)
                 } else {
-                    print("카카오 톡으로 로그인 성공")
+                    print("카카오 계정으로 로그인 성공")
+                }
+                UserApi.shared.me { (user, error) in
+                    let name = user?.id
+                    let token = user?.kakaoAccount
 
-                    _ = oauthToken
-                    /// 로그인 관련 메소드 추가
+                    print("name : \(name) - \(token)\n")
+//                    print("idToken : \(idToken)\n")
+
+                    var parameter = Dictionary<String,Any>()
+//                    “identifier” : “key”
+//                      “type” : “apple, kakao”
+                    print("identifier: \(name)")
+                    parameter.updateValue(name ?? "", forKey: "identifier")
+                    parameter.updateValue("kakao", forKey: "type")
+                    self.email = user?.kakaoAccount?.email ?? ""
+
+                    self.login(param: parameter)
+
                 }
             }
         } else {
-
             // 카톡 없으면 -> 계정으로 로그인
             UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
                 let idToken = oauthToken?.idToken
@@ -107,8 +125,7 @@ class LoginViewController: UIViewController {
                     print(error)
                 } else {
                     print("카카오 계정으로 로그인 성공")
-
-                    _ = oauthToken
+                    
                     // 관련 메소드 추가
                 }
                 UserApi.shared.me { (user, error) in
@@ -121,8 +138,8 @@ class LoginViewController: UIViewController {
                     var parameter = Dictionary<String,Any>()
 //                    “identifier” : “key”
 //                      “type” : “apple, kakao”
-                    print("identifier: \(idToken?.count)")
-                    parameter.updateValue(idToken ?? "", forKey: "identifier")
+                    print("identifier: \(name)")
+                    parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
 
@@ -132,103 +149,23 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-//    func callLogin(param:Dictionary<String,Any>){
-//
-//        APIRequestManager.shared.request(endpoint: .login(param)) { [weak self] result in
-//            switch result {
-//            case .success(let data):
-//                self?.loginSuccessCompletionHandler(data)
-//            case .failure(let error):
-//                guard let data = error.data,
-//                      let response: APIResponse = self?.decode(with: data) else {
-//                    // TODO: 예외 처리
-//                    return
-//                }
-//                if response.status == .error, response.code == 401 {
-//                    // 회원이 아님
-////                    let user = User(nickname: "", type: .apple, identifier: identifier, email: email)
-////                    self?.signupCompletionHandler(user)
-//                } else {
-//                    // 잘못된 접근 error
-//                }
-//            }
-//        }
-//    }
-
     func login(param:Dictionary<String,Any>) {
         print("param: \(param)")
-
+        
         authLookProvider.request(.login(param)) { response in
             switch response {
             case .success(let result):
                 do {
-
+                    
                     let json = try result.mapJSON()
 //                    let json = try JSON(filteredResponse.mapJSON())
                     let jsonData = json as? [String:Any] ?? [:]
                     print(json)
                     print("response:\(response)")
                     print("message:\(jsonData["message"] ?? "")")
-//                    self.authLookProvider.request(.nickname) { response in
-//                        switch response {
-//                        case .success(let result):
-//                            do {
-//
-//                                let json = try result.mapJSON()
-//                                //                    let json = try JSON(filteredResponse.mapJSON())
-//                                let jsonData = json as? [String:Any] ?? [:]
-//                                print("response:\(response)")
-//                                print("message:\(jsonData["message"] ?? "")")
-//
-////                                {
-////                                   nickname : ”닉네임” ,
-////                                   type : “apple, kakao” , ←소문자
-////                                   identifier : “kakao or apple key”
-////                                   email : “dasjdilasdjil@nasdla.com”
-////                                }
-//                                var joinParam = Dictionary<String,Any>()
-//
-//                                joinParam.updateValue("hun", forKey: "nickname")
-//                                joinParam.updateValue("kakao", forKey: "type")
-//                                joinParam.updateValue(param["identifier"] ?? "", forKey: "identifier")
-//                                joinParam.updateValue(self.email, forKey: "email")
-//
-//                                print("joinPraam : \(joinParam)")
-//                                self.authLookProvider.request(.join(joinParam)) { response in
-//                                    switch response {
-//                                    case .success(let result):
-//                                        do {
-//
-//                                            let json = try result.mapJSON()
-//                                            //                    let json = try JSON(filteredResponse.mapJSON())
-//                                            let jsonData = json as? [String:Any] ?? [:]
-//                                            print("response:\(response)")
-//                                            print("message:\(jsonData["message"] ?? "")")
-//
-//
-//
-//                                        } catch(let err) {
-//                                            print("join err:\(err.localizedDescription)")
-//                                        }
-//                                    case .failure(let err):
-//                                        print("join err:\(err.localizedDescription)")
-//                                    }
-//
-//
-//                                }
-//
-//
-//                            } catch(let err) {
-//                                print("nickname err:\(err.localizedDescription)")
-//                            }
-//                        case .failure(let err):
-//                            print("nickname err:\(err.localizedDescription)")
-//                        }
-//
-//
-//                    }
-
+                    
+                    self.navigationController?.pushViewController(UserInfoViewController(), animated: false)
+                
                 } catch(let err) {
                     print("nickname err:\(err.localizedDescription)")
                 }
@@ -240,20 +177,23 @@ class LoginViewController: UIViewController {
 
 }
 
-import Moya
-enum LookService {
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window ?? ASPresentationAnchor()
+    }
+}
+enum NetworkService {
     case nickname
     case join(Dictionary<String,Any>)
     case otherDetail(String, Int)
     case login(Dictionary<String,Any>)
-    case todos(Dictionary<String,Any>)
-
-
+    
 }
-extension LookService: TargetType {
+extension NetworkService: TargetType {
     public var baseURL: URL {
     // GeneralAPI 라는 구조체 파일에 서버 도메인이나 토큰 값을 적어두고 불러왔습니다.
-        return URL(string:  "http://49.50.167.208:8000")!
+        return URL(string:  "http://101.101.208.221:80")!
     }
 
     var path: String {
@@ -266,8 +206,6 @@ extension LookService: TargetType {
             return "/users"
         case .login(_):
             return "/login"
-        case .todos(_):
-            return "/goals/todos"
         }
     }
 
@@ -281,8 +219,6 @@ extension LookService: TargetType {
             return .post
         case .login(_):
             return .post
-        case .todos(_):
-            return .get
         }
     }
 
@@ -299,16 +235,17 @@ extension LookService: TargetType {
         case .otherDetail(_, _):
             return .requestPlain
         case .join(let parameter):
-
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-
         case .login(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .todos(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+            let data = try! JSONSerialization.data(withJSONObject: parameter)
+//            let encoder = JSONEncoder()
+//            encoder.outputFormatting = .prettyPrinted
+//            let encodedData = try? encoder.encode(data)
+            return .requestData(data)
+            //            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         }
     }
-
+    
     var headers: [String: String]? {
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         switch self {

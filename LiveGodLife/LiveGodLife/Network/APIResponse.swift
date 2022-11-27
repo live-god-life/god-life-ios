@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct APIResponse: Decodable {
+struct APIResponse<T: Decodable>: Decodable {
 
     enum Status: String, Decodable {
         case success
@@ -15,7 +15,7 @@ struct APIResponse: Decodable {
     }
 
     let status: Status
-    let data: [String: String]?
+    let data: T?
     let code: Int?
-    let message: String
+    let message: String?
 }

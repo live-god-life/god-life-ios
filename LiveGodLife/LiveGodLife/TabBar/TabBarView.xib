@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.otf">
+            <string>Montserrat-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TabBarView" customModule="LiveGodLife" customModuleProvider="target">
+            <connections>
+                <outlet property="homeButton" destination="d5j-GA-IFI" id="GkY-VQ-HTz"/>
+                <outlet property="mypageButton" destination="E3z-C0-FqL" id="4Vz-si-aQM"/>
+                <outlet property="todoButton" destination="8C9-71-B5n" id="gjv-BK-0p8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="354" height="104"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="4Pe-58-S4g">
+                    <rect key="frame" x="0.0" y="0.0" width="354" height="104"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgg-tA-MqC">
+                            <rect key="frame" x="0.0" y="0.0" width="118" height="104"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5j-GA-IFI">
+                                    <rect key="frame" x="39" y="12" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="gGc-rc-XWc"/>
+                                        <constraint firstAttribute="width" constant="40" id="rxX-E6-oFP"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="tab_home_disable"/>
+                                    <connections>
+                                        <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="ZSM-oL-Rrv"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sds-Pa-J0q">
+                                    <rect key="frame" x="41.666666666666664" y="54" width="34.999999999999993" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="fwy-27-R60"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="11"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Sds-Pa-J0q" firstAttribute="centerX" secondItem="zgg-tA-MqC" secondAttribute="centerX" id="Tcc-2Y-uf9"/>
+                                <constraint firstItem="d5j-GA-IFI" firstAttribute="top" secondItem="zgg-tA-MqC" secondAttribute="top" constant="12" id="XWe-LG-aPd"/>
+                                <constraint firstItem="Sds-Pa-J0q" firstAttribute="top" secondItem="d5j-GA-IFI" secondAttribute="bottom" constant="2" id="cPW-ra-Eo9"/>
+                                <constraint firstItem="d5j-GA-IFI" firstAttribute="centerX" secondItem="zgg-tA-MqC" secondAttribute="centerX" id="o4l-JW-dVF"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv5-TI-KKP">
+                            <rect key="frame" x="118" y="0.0" width="118" height="104"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-71-B5n">
+                                    <rect key="frame" x="39" y="12" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="GJy-LI-alE"/>
+                                        <constraint firstAttribute="height" constant="40" id="gVI-TE-5eE"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="tab_calendar_disable"/>
+                                    <connections>
+                                        <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="vmu-qu-2jG"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FET-Pt-e8e">
+                                    <rect key="frame" x="42.666666666666657" y="54" width="32.666666666666657" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="PP2-3z-jHn"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="11"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="FET-Pt-e8e" firstAttribute="top" secondItem="8C9-71-B5n" secondAttribute="bottom" constant="2" id="KqC-lR-aVd"/>
+                                <constraint firstItem="FET-Pt-e8e" firstAttribute="centerX" secondItem="Yv5-TI-KKP" secondAttribute="centerX" id="U3u-mh-9EZ"/>
+                                <constraint firstItem="8C9-71-B5n" firstAttribute="top" secondItem="Yv5-TI-KKP" secondAttribute="top" constant="12" id="hif-Lv-o4A"/>
+                                <constraint firstItem="8C9-71-B5n" firstAttribute="centerX" secondItem="Yv5-TI-KKP" secondAttribute="centerX" id="ptf-l2-yIe"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa2-uW-doq">
+                            <rect key="frame" x="236" y="0.0" width="118" height="104"/>
+                            <subviews>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-C0-FqL">
+                                    <rect key="frame" x="39" y="12" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="Cfv-Pi-k1o"/>
+                                        <constraint firstAttribute="height" constant="40" id="jLg-uf-aFT"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="tab_my_disable"/>
+                                    <connections>
+                                        <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="Jjf-Hf-A8U"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MYPAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crd-UJ-4ly">
+                                    <rect key="frame" x="35" y="54" width="48.333333333333343" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="raY-9L-SX4"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="11"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="crd-UJ-4ly" firstAttribute="centerX" secondItem="wa2-uW-doq" secondAttribute="centerX" id="7lS-oa-7iQ"/>
+                                <constraint firstItem="E3z-C0-FqL" firstAttribute="centerX" secondItem="wa2-uW-doq" secondAttribute="centerX" id="M0d-xh-pIi"/>
+                                <constraint firstItem="crd-UJ-4ly" firstAttribute="top" secondItem="E3z-C0-FqL" secondAttribute="bottom" constant="2" id="ZkE-XQ-7iU"/>
+                                <constraint firstItem="E3z-C0-FqL" firstAttribute="top" secondItem="wa2-uW-doq" secondAttribute="top" constant="12" id="tek-Aw-DPN"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4Pe-58-S4g" secondAttribute="trailing" id="60u-OJ-R92"/>
+                <constraint firstItem="4Pe-58-S4g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Kf7-rg-oZd"/>
+                <constraint firstAttribute="bottom" secondItem="4Pe-58-S4g" secondAttribute="bottom" id="WFd-AE-gw6"/>
+                <constraint firstItem="4Pe-58-S4g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wZ2-Cq-e3O"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="33.846153846153847" y="-202.60663507109004"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tab_calendar_disable" width="40" height="40"/>
+        <image name="tab_home_disable" width="40" height="40"/>
+        <image name="tab_my_disable" width="40" height="40"/>
+    </resources>
+</document>
