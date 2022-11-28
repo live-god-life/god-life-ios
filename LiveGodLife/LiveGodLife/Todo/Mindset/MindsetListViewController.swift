@@ -33,7 +33,7 @@ class MindsetListViewController: UIViewController {
         self.view.addSubview(addButton)
         self.view.addSubview(self.listView.view)
         todayLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view).offset(20)
+            make.top.equalTo(self.view).offset(90)
             make.left.equalTo(self.view).offset(16)
             make.right.equalTo(self.view).offset(-16)
             make.height.equalTo(30)
@@ -61,7 +61,7 @@ class MindsetListViewController: UIViewController {
         addButton.backgroundColor = .blue
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
-//        self.listView.collectionView.register(MindsetListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "MindsetListHeaderView")
+        self.listView.collectionView.register(MindsetListHeadersView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "MindsetListHeadersView")
 
     }
     
@@ -87,6 +87,9 @@ class MindsetListViewController: UIViewController {
         self.listView.collectionView.reloadData()
     }
 
+}
+extension MindsetListViewController: UICollectionViewDelegate {
+    
 }
 extension MindsetListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -126,9 +129,9 @@ extension MindsetListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "MindsetListHeaderView", for: indexPath)
-            if let headerView = headerView as? MindsetListHeaderView {
-                headerView.titleLabel.text = model[indexPath.section].title
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "MindsetListHeadersView", for: indexPath)
+            if let headerView = headerView as? MindsetListHeadersView {
+//                headerView.titleLabel.text = model[indexPath.section].title
                 headerView.delegate = self
             }
             return headerView
@@ -141,21 +144,21 @@ extension MindsetListViewController: UICollectionViewDataSource {
         return CGSize(width: self.view.frame.width, height: 30)
     }
 }
-extension MindsetListViewController: MindsetListHeaderViewDelegate {
-    func MindsetListHeaderView(_ view: MindsetListHeaderView, go: Bool) {
+extension MindsetListViewController: MindsetListHeadersViewDelegate {
+    func MindsetListHeaderView(_ view: MindsetListHeadersView, go: Bool) {
         // 상세화면 처리하기
     }
 }
                 
-protocol MindsetListHeaderViewDelegate: AnyObject {
-    func MindsetListHeaderView(_ view: MindsetListHeaderView, go: Bool)
+protocol MindsetListHeadersViewDelegate: AnyObject {
+    func MindsetListHeaderView(_ view: MindsetListHeadersView, go: Bool)
 }
 
 
-class MindsetListHeaderView: UICollectionReusableView {
+class MindsetListHeadersView: UICollectionReusableView {
     
     /// 버튼 액션 델리게이트
-    weak var delegate: MindsetListHeaderViewDelegate? = nil
+    weak var delegate: MindsetListHeadersViewDelegate? = nil
     var titleLabel = UILabel()
     lazy var detailButton: UIButton = {
         let button = UIButton()

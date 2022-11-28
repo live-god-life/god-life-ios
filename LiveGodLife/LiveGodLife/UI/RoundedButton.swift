@@ -29,5 +29,5 @@ final class RoundedButton: UIButton {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
-//    }
+    }
 }

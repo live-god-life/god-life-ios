@@ -53,7 +53,7 @@ class RootViewController: UITabBarController, TabBarViewDelegate {
             $0.height.equalTo(104)
         }
 
-        setViewControllers([HomeViewController(), UIViewController(), MyPageViewController.instance()!], animated: true)
+        setViewControllers([HomeViewController(), TodoMainTabBarController(), MyPageViewController.instance()!], animated: true)
         selectedIndex = 0
         tabBarView.homeButton.isSelected = true
     }

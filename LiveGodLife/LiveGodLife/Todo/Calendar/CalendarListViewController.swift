@@ -12,9 +12,7 @@ class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
     var model:[MainGoals] = []
-    
-    //let tableView:UITableView = UITableView()
-    
+        
     var listView: ListViewController<MainGoals,CalendarListCell> = {
         let node = ListViewController<MainGoals,CalendarListCell>()
         return node
@@ -23,10 +21,6 @@ class CalendarListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
-//        self.view.addSubview(self.contentsView)
-//        self.contentsView.snp.makeConstraints { make in
-//            make.edges.equalTo(self.view.safeAreaLayoutGuide)
-//        }
         let todayLabel = UILabel()
         let addButton = UIButton()
         
@@ -37,7 +31,7 @@ class CalendarListViewController: UIViewController {
         self.view.addSubview(addButton)
         self.view.addSubview(self.listView.view)
         todayLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view).offset(20)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(90)
             make.left.equalTo(self.view).offset(16)
             make.right.equalTo(self.view).offset(-16)
             make.height.equalTo(30)
@@ -50,7 +44,7 @@ class CalendarListViewController: UIViewController {
             $0.bottom.equalTo(addButton.snp.top).offset(-40)
         }
         addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view).offset(-20)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-30)
             make.height.equalTo(30)
             make.left.equalTo(self.view).offset(16)
             make.right.equalTo(self.view).offset(-16)
@@ -121,51 +115,11 @@ class CalendarListViewController: UIViewController {
 
         self.listView.model = model
         self.listView.collectionView.reloadData()
-//        model.removeAll()
-////        MainMenu.allCases.forEach {
-////            /// 간편세차 및 준회원에 따른 모델 객체 패스 처리 로직 필요
-////            model.append(MenuModel(title: $0.title,rawValue: $0.rawValue, menuItem: $0.menuItem))
-////        }
-//
-//        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
-//                            [
-//                                SubGoals(
-//                                    title: "컨셉잡기",
-//                                    completionStatus: false,
-//                                    taskType: "Todo",
-//                                    repetitionType: "WEEK",
-//                                    repetitionParams: [
-//                                        "월",
-//                                        "목",
-//                                        "토"
-//                                    ],
-//                                    totalTodoTaskScheduleCount: 39,
-//                                    completedTodoTaskScheduleCount: 0,
-//                                    todoDay: -48)
-//                            ]
-//                          )
-//        )
-//        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
-//                            [
-//                                SubGoals(
-//                                    title: "컨셉잡기",
-//                                    completionStatus: false,
-//                                    taskType: "Todo",
-//                                    repetitionType: "DAY",
-//                                    repetitionParams: nil,
-//                                    totalTodoTaskScheduleCount: 91,
-//                                    completedTodoTaskScheduleCount: 0,
-//                                    todoDay: -48)
-//                            ]
-//                          )
-//        )
-//
-//        self.listView.model     = model
-//        self.listView.collectionView.reloadData()
+
     }
 
 }
-//
+
 extension CalendarListViewController: UICollectionViewDelegate {
     
 }
@@ -173,11 +127,6 @@ extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let itemHeightSize = 75.0
-//        if indexPath.row < self.listView.model.count {
-//            let mainGoals = self.model[indexPath.row]
-//            let row = ceil( Double(mainGoals.todoSchedules.count)/2.0 )
-//            itemHeightSize = max( 1, row ) * (30 + 5) + 72
-//        }
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
 
