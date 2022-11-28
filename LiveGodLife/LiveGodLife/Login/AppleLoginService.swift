@@ -8,10 +8,16 @@
 import Foundation
 import AuthenticationServices
 
+protocol AppleLoginServiceDelegate: AnyObject {
+
+    func signup()
+}
+
 final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
 
     private weak var presentationContextProvider: ASAuthorizationControllerPresentationContextProviding?
 
+    weak var delegate: AppleLoginServiceDelegate?
 
     init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
         self.presentationContextProvider = presentationContextProvider
@@ -34,6 +40,11 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
             let data = ["identifier": identifier,
                         "type": LoginType.apple.rawValue]
 
+            // 애플 로그인 인증 성공
+            // 회원 인증했으면 홈으로
+            // UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
+            // 회원이 아니면 회원가입
+            delegate?.signup()
         }
     }
 
