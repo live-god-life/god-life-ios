@@ -12,6 +12,8 @@ class JoinCompleteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .black
         setupUI()
     }
 
@@ -56,7 +58,10 @@ class JoinCompleteViewController: UIViewController {
     }
     
     @objc func home(_ sender:UIButton) {
-        
+        self.dismiss(animated: true)
+        // 회원가입 성공
+        UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
+        NotificationCenter.default.post(name: .moveToHome, object: self)
     }
 
 }

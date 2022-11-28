@@ -6,13 +6,19 @@
 //
 
 import UIKit
+import SnapKit
 
 class UserInfoViewController: UIViewController {
     let nickNameTextField = UITextField()
     let nextButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .black
+
+        navigationItem.backButtonTitle = ""
         self.navigationController?.isNavigationBarHidden = false
+
         setupUI()
     }
 
@@ -26,12 +32,11 @@ class UserInfoViewController: UIViewController {
         mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
         mainTitleLabel.numberOfLines = 0
         
-        subtitleLabel.text = "유니코드 제외, 한글(8글자)\n 영어 가능(16자), 공백X,\n “_”가능, “-”불가능"
+        subtitleLabel.text = "유니코드 제외, 한글(8글자)\n영어 가능(16자), 공백X,\n “_”가능, “-”불가능"
         subtitleLabel.textColor = .gray1
         subtitleLabel.font = UIFont(name: "Pretendard", size: 16)
         subtitleLabel.numberOfLines = 0
 
-        
         self.nickNameTextField.placeholder = "닉네임을 입력해주세요."
         self.nickNameTextField.textColor = .white
         self.nickNameTextField.layer.borderColor = UIColor.white.cgColor
@@ -51,39 +56,28 @@ class UserInfoViewController: UIViewController {
         view.addSubview(self.nickNameTextField)
         view.addSubview(lineView)
         view.addSubview(self.nextButton)
-
   
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(63)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
             $0.height.equalTo(68)
         }
         subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(16)
             $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view)
-            $0.width.equalTo(274)
+            $0.trailing.equalToSuperview()
             $0.height.equalTo(48)
         }
         self.nickNameTextField.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(98)
-            $0.left.equalTo(view).offset(16)
-            $0.right.equalTo(view).offset(-16)
+            $0.top.equalTo(subtitleLabel.snp.bottom).offset(60)
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-16)
             $0.height.equalTo(56)
         }
-        lineView.snp.makeConstraints {
-            $0.top.equalTo(self.nickNameTextField.snp.bottom).offset(8)
-            $0.left.equalTo(view).offset(28)
-            $0.right.equalTo(view).offset(-27)
-            $0.height.equalTo(1)
-            
-        }
-        
         self.nextButton.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
-            $0.left.equalTo(view).offset(16)
-            $0.right.equalTo(view).offset(-16)
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-16)
             $0.height.equalTo(56)
         }
     }

@@ -13,8 +13,16 @@ import KakaoSDKAuth
 import SwiftyJSON
 import Moya
 
+extension LoginViewController: AppleLoginServiceDelegate {
+
+    func signup() {
+        navigationController?.pushViewController(UserInfoViewController(), animated: true)
+    }
+}
+
 final class LoginViewController: UIViewController {
-    private var model:UserModel?
+
+    private var model: UserModel?
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private let appleLoginButton = RoundedButton()
@@ -27,8 +35,10 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appleLoginService = AppleLoginService(presentationContextProvider: self)
+        appleLoginService?.delegate = self
 
         view.backgroundColor = .black
+        navigationItem.backButtonTitle = ""
         setupUI()
     }
 
