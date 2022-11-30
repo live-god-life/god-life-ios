@@ -15,10 +15,11 @@ class MindsetListCell: CommonCell {
             update()
         }
     }
-    let typeLabel = UILabel()
-    let titleLabel: UILabel = {
+    
+    let contentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
 //        label.font = font
         return label
     }()
@@ -26,35 +27,39 @@ class MindsetListCell: CommonCell {
 
     lazy var contentsView:UIView = {
         let view = UIView()
-        self.titleLabel.textColor = .white
-        self.typeLabel.textColor = .green
-        self.checkButton.setImage(.init(imageLiteralResourceName: "todoOnCheck"), for: .normal)
+        let leftImageView = UIImageView()
+        let rightImageView = UIImageView()
         
+        self.contentsLabel.textColor = .white
         
-        view.backgroundColor = .darkGray
+        leftImageView.image = UIImage(named: "leftQuote")
+        rightImageView.image = UIImage(named: "rightQuote")
+        
         view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.green.cgColor
-        view.layer.borderWidth = 1
-        view.backgroundColor = .darkGray
-        view.addSubview(self.typeLabel)
-        view.addSubview(self.titleLabel)
-        view.addSubview(self.checkButton)
+
+        view.addSubview(leftImageView)
+        view.addSubview(self.contentsLabel)
+        view.addSubview(rightImageView)
         
-        self.typeLabel.snp.makeConstraints { make in
+        leftImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(54)
+            make.left.equalToSuperview().offset(24)
+            make.width.equalTo(13)
+            make.height.equalTo(13)
+        }
+        self.contentsLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(15)
+            make.left.equalTo(leftImageView.snp.right).offset(15)
+            make.right.equalTo(rightImageView.snp.left).offset(15)
             make.bottom.equalToSuperview().offset(-24)
         }
-        self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalTo(self.typeLabel.snp.right).offset(15)
-            make.bottom.equalToSuperview().offset(-24)
-        }
-        self.checkButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
+        rightImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(54)
             make.right.equalToSuperview().offset(-26)
-            make.bottom.equalToSuperview().offset(-24)
+            make.width.equalTo(13)
+            make.height.equalTo(13)
         }
+
         return view
     }()
    
@@ -64,6 +69,12 @@ class MindsetListCell: CommonCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
+        let gradient = UIImage.gradientImage(bounds: self.bounds, colors: [.green , .blue])
+        let gradientColor = UIColor(patternImage: gradient)
+        self.layer.borderColor = gradientColor.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 20
+
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -88,7 +99,7 @@ class MindsetListCell: CommonCell {
     
     func update() {
 //        typeLabel.text = dataModel?.taskType
-//        titleLabel.text = "\(dataModel?.title ?? "")"
+        contentsLabel.text = "\(dataModel?.content ?? "")"
 //        typeLabel.textColor = dataModel?.taskType == "Todo" ? .green : .blue
     }
 }
