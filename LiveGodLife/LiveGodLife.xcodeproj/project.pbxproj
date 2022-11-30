@@ -32,7 +32,6 @@
 		D021B058290397660031481F /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D021B057290397660031481F /* NotificationName+Extension.swift */; };
 		D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+Extension.swift */; };
 		D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+Extension.swift */; };
-		D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA54291697C800E9B045 /* UIView+Extension.swift */; };
 		D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA562916A93B00E9B045 /* TextFieldView.swift */; };
 		D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
@@ -87,6 +86,8 @@
 		D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C18316292BB5B3007E3ED4 /* TabBarView.swift */; };
 		D0C1831A292BB5B3007E3ED4 /* TabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C18317292BB5B3007E3ED4 /* TabBarView.xib */; };
 		D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C51E2B28F121D80004514A /* APIEndpoint.swift */; };
+		D0C97A612937932B001EC122 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C97A602937932B001EC122 /* UIImage+Extension.swift */; };
+		D0C97A6329379444001EC122 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C97A6229379444001EC122 /* UIView+Extension.swift */; };
 		D0E3B2A3291D1CDF00601936 /* CategoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */; };
 		D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B295291D1CDE00601936 /* HomeViewController.swift */; };
 		D0E3B2A6291D1CDF00601936 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B296291D1CDE00601936 /* Feed.swift */; };
@@ -138,7 +139,6 @@
 		D021B057290397660031481F /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		D023B076290AB12100387C5C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA502916063D00E9B045 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		D03FAA54291697C800E9B045 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA562916A93B00E9B045 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		D04490FB290E952C00BED66F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SegmentControlView.swift; path = ../UI/SegmentControlView.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
@@ -195,6 +195,8 @@
 		D0C18316292BB5B3007E3ED4 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		D0C18317292BB5B3007E3ED4 /* TabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarView.xib; sourceTree = "<group>"; };
 		D0C51E2B28F121D80004514A /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		D0C97A602937932B001EC122 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		D0C97A6229379444001EC122 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFilterView.swift; sourceTree = "<group>"; };
 		D0E3B295291D1CDE00601936 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D0E3B296291D1CDE00601936 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
@@ -284,9 +286,9 @@
 				D0A2151E2906B89900D5FF59 /* Font */,
 				CC9C195428F6562700C53152 /* RoundedButton.swift */,
 				D0BAD2BC28FEC6DC00637482 /* UIColor+Extension.swift */,
-				D03FAA54291697C800E9B045 /* UIView+Extension.swift */,
 				D03FAA562916A93B00E9B045 /* TextFieldView.swift */,
 				D0E4AE462917D8A700549BC0 /* String+Extension.swift */,
+				D0C97A6229379444001EC122 /* UIView+Extension.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -334,6 +336,7 @@
 		D021B059290397D60031481F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D0C97A602937932B001EC122 /* UIImage+Extension.swift */,
 				D021B057290397660031481F /* NotificationName+Extension.swift */,
 				D023B076290AB12100387C5C /* UIViewController+Extension.swift */,
 			);
@@ -729,6 +732,7 @@
 				D0E3B2A6291D1CDF00601936 /* Feed.swift in Sources */,
 				B92C311229377CAD000DA2D7 /* CalendarCell.swift in Sources */,
 				D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */,
+				D0C97A612937932B001EC122 /* UIImage+Extension.swift in Sources */,
 				D0E3B2C1292123DD00601936 /* FeedRepository.swift in Sources */,
 				D0E3B2A7291D1CDF00601936 /* FeedViewController.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
@@ -749,7 +753,6 @@
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
-				D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */,
 				B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */,
 				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
@@ -778,6 +781,7 @@
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */,
 				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
+				D0C97A6329379444001EC122 /* UIView+Extension.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+Formatter.swift in Sources */,
