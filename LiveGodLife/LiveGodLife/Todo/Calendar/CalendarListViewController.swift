@@ -226,7 +226,6 @@ class CalendarListHeaderView: UICollectionReusableView {
     }
     // MARK: - Button Action
     @objc func closeAction(_ sender: UIButton) {
-//        SKLog.log("close", category: "TOP")
 //        delegate?.sideMenuHeaderView(self, selectedClose: true)
     }
 }

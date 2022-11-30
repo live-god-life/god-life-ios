@@ -10,6 +10,7 @@
 		773C287F817FC5797CB7B29F /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */; };
 		B92C2FE12921E299000DA2D7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FE02921E299000DA2D7 /* ListViewController.swift */; };
 		B92C2FEE29235E7F000DA2D7 /* Utill+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C2FED29235E7F000DA2D7 /* Utill+Formatter.swift */; };
+		C9009D162936CCED0090AA9F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9009D152936CCED0090AA9F /* UIImage+Extension.swift */; };
 		C912CFDD291290330014E2C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912CFDC291290330014E2C8 /* LoginViewController.swift */; };
 		C9EA15E22933E2AC0064BEE5 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA15AB2933E2AC0064BEE5 /* UIFont+Extension.swift */; };
 		C9EA15E32933E2AC0064BEE5 /* CategoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA15AD2933E2AC0064BEE5 /* CategoryFilterView.swift */; };
@@ -118,6 +119,7 @@
 		B92C2FE02921E299000DA2D7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B92C2FED29235E7F000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utill+Formatter.swift"; sourceTree = "<group>"; };
 		BC63CABACF4A82ABDB0B778E /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9009D152936CCED0090AA9F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		C912CFDC291290330014E2C8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C9EA15AB2933E2AC0064BEE5 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		C9EA15AD2933E2AC0064BEE5 /* CategoryFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFilterView.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				C9EA16162933E4B80064BEE5 /* UIViewController+Extension.swift */,
 				D021B057290397660031481F /* NotificationName+Extension.swift */,
 				B92C2FED29235E7F000DA2D7 /* Utill+Formatter.swift */,
+				C9009D152936CCED0090AA9F /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				C9EA160A2933E2AC0064BEE5 /* UnregisterViewController.swift in Sources */,
 				C9EA16552933E8650064BEE5 /* SegmentControlView.swift in Sources */,
 				C9EA15F32933E2AC0064BEE5 /* FeedAPI.swift in Sources */,
+				C9009D162936CCED0090AA9F /* UIImage+Extension.swift in Sources */,
 				C9EA162B2933E5240064BEE5 /* UserInfoViewController.swift in Sources */,
 				C9EA160B2933E2AC0064BEE5 /* SettingTableViewSection.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,

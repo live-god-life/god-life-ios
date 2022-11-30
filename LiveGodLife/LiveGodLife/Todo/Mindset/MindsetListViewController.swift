@@ -23,42 +23,22 @@ class MindsetListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
-        let todayLabel = UILabel()
-        let addButton = UIButton()
         
-        todayLabel.text = Date.today
-        todayLabel.textColor = .white
-        
-        self.view.addSubview(todayLabel)
-        self.view.addSubview(addButton)
         self.view.addSubview(self.listView.view)
-        todayLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view).offset(90)
-            make.left.equalTo(self.view).offset(16)
-            make.right.equalTo(self.view).offset(-16)
-            make.height.equalTo(30)
-        }
         self.listView.view.snp.makeConstraints {
-            $0.top.equalTo(todayLabel.snp.bottom).offset(16)
+            $0.top.equalTo(self.view).offset(140)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
-            $0.bottom.equalTo(addButton.snp.top).offset(-40)
+            $0.bottom.equalTo(self.view).offset(-40)
         }
-        addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view).offset(-20)
-            make.height.equalTo(30)
-            make.left.equalTo(self.view).offset(16)
-            make.right.equalTo(self.view).offset(-16)
-
-        }
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 10.0
         layout.minimumLineSpacing = 5.0
         self.listView.collectionView.collectionViewLayout = layout
         self.listView.collectionView.backgroundColor = .black
-
-        addButton.backgroundColor = .blue
+        
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register(MindsetListHeadersView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "MindsetListHeadersView")
@@ -94,7 +74,7 @@ extension MindsetListViewController: UICollectionViewDelegate {
 extension MindsetListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let itemHeightSize = 75.0
+        let itemHeightSize = 120.0
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
 
@@ -117,9 +97,9 @@ extension MindsetListViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetListCell.identifier, for: indexPath) as? MindsetListCell else {
             return UICollectionViewCell()
         }
-//        cell.model = self.listView.model[indexPath.row].todoSchedules
-//        cell.dataModel = self.listView.model[indexPath.section].mindsets[indexPath.row]
-//        cell.setUpModel()
+        cell.model = self.listView.model[indexPath.row].mindsets
+        cell.dataModel = self.listView.model[indexPath.section].mindsets[indexPath.row]
+        cell.setUpModel()
        
         return cell
     }
@@ -131,7 +111,7 @@ extension MindsetListViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "MindsetListHeadersView", for: indexPath)
             if let headerView = headerView as? MindsetListHeadersView {
-//                headerView.titleLabel.text = model[indexPath.section].title
+                headerView.titleLabel.text = model[indexPath.section].title
                 headerView.delegate = self
             }
             return headerView
@@ -196,7 +176,6 @@ class MindsetListHeadersView: UICollectionReusableView {
     }
     // MARK: - Button Action
     @objc func closeAction(_ sender: UIButton) {
-//        SKLog.log("close", category: "TOP")
 //        delegate?.sideMenuHeaderView(self, selectedClose: true)
     }
 }
