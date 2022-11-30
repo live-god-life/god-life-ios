@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0E66984FFCAA5074CDF59CF5 /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EEE71511ED933C1BD92C18 /* Pods_LiveGodLife.framework */; };
+		B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310229377C97000DA2D7 /* ListViewController.swift */; };
+		B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310629377CAD000DA2D7 /* CalendarModel.swift */; };
+		B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310729377CAD000DA2D7 /* CalendarListCell.swift */; };
+		B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */; };
+		B92C311229377CAD000DA2D7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310929377CAD000DA2D7 /* CalendarCell.swift */; };
+		B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */; };
+		B92C311429377CAD000DA2D7 /* MindsetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */; };
+		B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */; };
+		B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310E29377CAD000DA2D7 /* MindsetModel.swift */; };
+		B92C311829377CEA000DA2D7 /* Utill+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
 		C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */; };
@@ -104,6 +114,16 @@
 		161CB2CC40D6EE90A19D80D3 /* Pods-LiveGodLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.release.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.release.xcconfig"; sourceTree = "<group>"; };
 		66A3E2AB6DCB7660679636CD /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
 		93EEE71511ED933C1BD92C18 /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B92C310229377C97000DA2D7 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B92C310629377CAD000DA2D7 /* CalendarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
+		B92C310729377CAD000DA2D7 /* CalendarListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarListCell.swift; sourceTree = "<group>"; };
+		B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
+		B92C310929377CAD000DA2D7 /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainTabViewController.swift; sourceTree = "<group>"; };
+		B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListViewController.swift; sourceTree = "<group>"; };
+		B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListCell.swift; sourceTree = "<group>"; };
+		B92C310E29377CAD000DA2D7 /* MindsetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetModel.swift; sourceTree = "<group>"; };
+		B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Utill+Formatter.swift"; path = "Extension/Utill+Formatter.swift"; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
@@ -133,7 +153,7 @@
 		D08B66D328D5A3BA000998DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveGodLife.entitlements; sourceTree = "<group>"; };
 		D0A214EE2905604500D5FF59 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		D0A214FD2905685600D5FF59 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		D0A214FE2905685600D5FF59 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		D0A214FF2905685600D5FF59 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -211,6 +231,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B92C310029377C97000DA2D7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310129377C97000DA2D7 /* CollectionViewController */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B92C310129377C97000DA2D7 /* CollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310229377C97000DA2D7 /* ListViewController.swift */,
+			);
+			path = CollectionViewController;
+			sourceTree = "<group>";
+		};
+		B92C310429377CAD000DA2D7 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310529377CAD000DA2D7 /* Calendar */,
+				B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */,
+				B92C310B29377CAD000DA2D7 /* Mindset */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		B92C310529377CAD000DA2D7 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310629377CAD000DA2D7 /* CalendarModel.swift */,
+				B92C310729377CAD000DA2D7 /* CalendarListCell.swift */,
+				B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */,
+				B92C310929377CAD000DA2D7 /* CalendarCell.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		B92C310B29377CAD000DA2D7 /* Mindset */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */,
+				B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */,
+				B92C310E29377CAD000DA2D7 /* MindsetModel.swift */,
+			);
+			path = Mindset;
+			sourceTree = "<group>";
+		};
 		CC9C195628F6562A00C53152 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +378,9 @@
 		D08B66C428D5A3B9000998DC /* LiveGodLife */ = {
 			isa = PBXGroup;
 			children = (
+				B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */,
+				B92C310429377CAD000DA2D7 /* Todo */,
+				B92C310029377C97000DA2D7 /* Common */,
 				D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */,
 				D08B66C528D5A3B9000998DC /* AppDelegate.swift */,
 				D08B66C728D5A3B9000998DC /* SceneDelegate.swift */,
@@ -650,12 +720,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
 				D0B0583A29362D420014F88E /* HomeHeaderView.swift in Sources */,
 				D0B0583C293656DF0014F88E /* FilterHeaderView.swift in Sources */,
 				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
 				D0E3B2A6291D1CDF00601936 /* Feed.swift in Sources */,
+				B92C311229377CAD000DA2D7 /* CalendarCell.swift in Sources */,
 				D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */,
 				D0E3B2C1292123DD00601936 /* FeedRepository.swift in Sources */,
 				D0E3B2A7291D1CDF00601936 /* FeedViewController.swift in Sources */,
@@ -674,9 +746,12 @@
 				D0E3B2CB2924C8A200601936 /* TodoDropDownView.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
+				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				D03FAA55291697C800E9B045 /* UIView+Extension.swift in Sources */,
+				B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */,
+				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
 				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
@@ -687,10 +762,13 @@
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* UserModel.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
+				B92C311429377CAD000DA2D7 /* MindsetListViewController.swift in Sources */,
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
 				D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */,
+				B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
+				B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
@@ -702,6 +780,8 @@
 				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
+				B92C311829377CEA000DA2D7 /* Utill+Formatter.swift in Sources */,
+				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,
 				D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */,
 				D0B0584429365F7F0014F88E /* FeedCollectionViewCell.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
