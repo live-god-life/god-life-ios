@@ -39,7 +39,7 @@ struct Feed: Hashable, Decodable {
     // 피드 상세에 사용되는 데이터
     let todoCount: Int
     let todoScheduleDay: Int
-    let category: String // Type
+    let category: String
     let contents: [Content]
     let mindsets: [Mindset]
     let todos: [FeedTodo]

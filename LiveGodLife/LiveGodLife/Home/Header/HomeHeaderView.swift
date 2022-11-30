@@ -1,72 +1,69 @@
 //
-//  MindsetCollectionViewCell.swift
+//  HomeHeaderView.swift
 //  LiveGodLife
 //
-//  Created by Ador on 2022/11/09.
+//  Created by Ador on 2022/11/29.
 //
 
 import UIKit
 
-struct MindsetViewModel {
+struct HomeHeaderViewModel {
 
-    let title: String
-    let content: String
+    let todos: [Todo]
+    let goals: [Goal]
 }
 
-// FIXME: MindsetCollectionViewCell 네이밍
-final class MindsetCollectionViewCell: UICollectionViewCell {
-
-    static var identifier = "MindsetCollectionViewCell"
+class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    private var goals: [Goal] = [] {
-        didSet {
-            // TODO: 데이터 없을 때 예외처리
-            if let goal = goals.randomElement() {
-                title.text = goal.title
-                if let mindset = goal.mindsets.randomElement() {
-                    content.text = mindset.content
-                }
-            }
-        }
-    }
     private var todos: [Todo.Schedule] = []
-
-    weak var delegate: TodoCollectionViewCellDelegate?
-    var completionHandler: ((Int) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 16
+
+        layout.itemSize = CGSize(width: 296, height: 102)
+        collectionView.collectionViewLayout = layout
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+
         collectionView.register(UINib(nibName: TodoCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: TodoCollectionViewCell.identifier)
+
         collectionView.delegate = self
         collectionView.dataSource = self
     }
 
-    func configure(_ data: (todos: [Todo], goals: [Goal])) {
-        self.todos = data.todos.flatMap { $0.schedules }
-        self.goals = data.goals
+    func configure(viewModel: HomeHeaderViewModel) {
+        self.todos = viewModel.todos.flatMap { $0.schedules }
+
+        DispatchQueue.main.async { [weak self] in
+            if let goal = viewModel.goals.randomElement() {
+                self?.title.text = goal.title
+                self?.content.text = goal.mindsets.randomElement()?.content
+            }
+            self?.collectionView.reloadData()
+        }
     }
 }
 
-extension MindsetCollectionViewCell: TodoCollectionViewCellDelegate {
+extension HomeHeaderView {
 
     // Todo 완료 체크 버튼
     func complete(id: Int) {
         if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
             todos.remove(at: index)
             print(index)
-            completionHandler?(id)
+            
         }
     }
 }
 
-// MARK: - Todo Collection View
-
-extension MindsetCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 40), height: collectionView.frame.height)

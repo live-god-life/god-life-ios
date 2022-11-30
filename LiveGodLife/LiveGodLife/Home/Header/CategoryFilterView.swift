@@ -36,20 +36,26 @@ final class CategoryFilterView: UIView {
     }()
 
     private var itemButtons: [CategoryButton] = []
-    private var items: [Category] {
+    private var items: [Category] = [] {
         didSet {
             update()
         }
     }
 
-    init(frame: CGRect, items: [Category]) {
+    func configure(items: [Category]) {
         self.items = items
+    }
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
+
+        backgroundColor = .black
 
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().inset(10)
+            $0.top.trailing.bottom.equalToSuperview()
         }
         scrollView.contentSize = stackView.intrinsicContentSize
         addSubview(scrollView)
@@ -68,7 +74,6 @@ final class CategoryFilterView: UIView {
 
     private func update() {
         guard !items.isEmpty else { return }
-
         items.forEach { category in
             let button = CategoryButton()
             button.delegate = self

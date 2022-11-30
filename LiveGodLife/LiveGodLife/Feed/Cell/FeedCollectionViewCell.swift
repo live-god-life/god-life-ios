@@ -1,5 +1,5 @@
 //
-//  HomeFeedCollectionViewCell.swift
+//  FeedCollectionViewCell.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/28.
@@ -15,6 +15,9 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bookmarkButton: UIButton!
+    @IBOutlet weak var todoCountLabel: UILabel!
+    @IBOutlet weak var todoScheduleDay: UILabel!
+    @IBOutlet weak var feedInfoView: UIView!
 
     static let identifier = "FeedCollectionViewCell"
 
@@ -24,12 +27,17 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 30
         bookmarkButton.setImage(UIImage(named: "bookmark_disable"), for: .normal)
         bookmarkButton.setImage(UIImage(named: "bookmark"), for: .selected)
+        feedInfoView.layer.borderWidth = 1
+        feedInfoView.layer.borderColor = UIColor.green.cgColor
+        feedInfoView.layer.cornerRadius = feedInfoView.frame.height / 2
     }
 
-    func configure(with data: Feed) {
-        userNameLabel.text = data.user.nickname
-        titleLabel.text = data.title
-        bookmarkButton.isSelected = data.isBookmark
+    func configure(with feed: Feed) {
+        userNameLabel.text = feed.user.nickname
+        titleLabel.text = feed.title
+        bookmarkButton.isSelected = feed.isBookmark
+        todoCountLabel.text = "\(feed.todoCount) List"
+        todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
     }
 
     @IBAction func didTapBookmarkButton(_ sendser: UIButton) {

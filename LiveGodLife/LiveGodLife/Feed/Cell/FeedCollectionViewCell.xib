@@ -4,9 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
         <array key="Pretendard-Bold.otf">
             <string>Pretendard-Bold</string>
         </array>
@@ -21,7 +25,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="322" height="221"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frog" translatesAutoresizingMaskIntoConstraints="NO" id="cbO-wD-vb4">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbO-wD-vb4">
                         <rect key="frame" x="0.0" y="0.0" width="322" height="221"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpn-Xx-iHV">
@@ -37,24 +41,69 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1년안으로 마라톤 완주하기 최대2줄총36글자 명언 최대한 하기로 한거" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Br-UB-r92">
-                        <rect key="frame" x="24" y="158.66666666666666" width="234" height="38.333333333333343"/>
+                        <rect key="frame" x="24" y="102.66666666666667" width="234" height="38.333333333333329"/>
                         <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gSZ-c5-ewk">
-                        <rect key="frame" x="24" y="126.66666666666669" width="24" height="24"/>
+                        <rect key="frame" x="24" y="70.666666666666671" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="9vi-SQ-z0Y"/>
                             <constraint firstAttribute="width" constant="24" id="QDx-lo-bCH"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임이름이모에요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7N-Kd-7wI">
-                        <rect key="frame" x="52" y="131.66666666666666" width="190" height="14"/>
+                        <rect key="frame" x="52" y="75.666666666666671" width="190" height="14"/>
                         <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJ0-fU-hyq">
+                        <rect key="frame" x="24" y="157" width="234" height="40"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightning_white" translatesAutoresizingMaskIntoConstraints="NO" id="9Hd-cJ-BDB">
+                                <rect key="frame" x="15" y="12.666666666666657" width="10" height="15"/>
+                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="AhP-5c-vKY"/>
+                                    <constraint firstAttribute="width" constant="10" id="g6C-37-z4S"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_white" translatesAutoresizingMaskIntoConstraints="NO" id="az5-ns-uWw">
+                                <rect key="frame" x="85" y="12.666666666666657" width="10" height="15"/>
+                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="9kY-Jm-8eB"/>
+                                    <constraint firstAttribute="width" constant="10" id="uvb-Gd-26E"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siH-Q8-4Jb">
+                                <rect key="frame" x="33" y="10.333333333333341" width="42" height="19.333333333333329"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QQ-hi-9eG">
+                                <rect key="frame" x="103" y="10" width="45" height="20"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9Hd-cJ-BDB" firstAttribute="leading" secondItem="OJ0-fU-hyq" secondAttribute="leading" constant="15" id="HMb-PA-sp6"/>
+                            <constraint firstItem="4QQ-hi-9eG" firstAttribute="centerY" secondItem="az5-ns-uWw" secondAttribute="centerY" id="TU9-OB-Xnv"/>
+                            <constraint firstAttribute="height" constant="40" id="Ue5-jk-OTr"/>
+                            <constraint firstItem="siH-Q8-4Jb" firstAttribute="leading" secondItem="9Hd-cJ-BDB" secondAttribute="trailing" constant="8" id="ZYO-qh-C3G"/>
+                            <constraint firstItem="9Hd-cJ-BDB" firstAttribute="centerY" secondItem="OJ0-fU-hyq" secondAttribute="centerY" id="dvj-QK-Jur"/>
+                            <constraint firstItem="siH-Q8-4Jb" firstAttribute="centerY" secondItem="9Hd-cJ-BDB" secondAttribute="centerY" id="eqY-Et-Cdl"/>
+                            <constraint firstItem="az5-ns-uWw" firstAttribute="centerY" secondItem="siH-Q8-4Jb" secondAttribute="centerY" id="md2-mz-m6P"/>
+                            <constraint firstItem="az5-ns-uWw" firstAttribute="leading" secondItem="siH-Q8-4Jb" secondAttribute="trailing" constant="10" id="q2d-Pw-Z6P"/>
+                            <constraint firstItem="4QQ-hi-9eG" firstAttribute="leading" secondItem="az5-ns-uWw" secondAttribute="trailing" constant="8" id="vbP-NJ-ctt"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,19 +115,25 @@
                 <constraint firstItem="cbO-wD-vb4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fng-wm-vI2"/>
                 <constraint firstAttribute="trailing" secondItem="tpn-Xx-iHV" secondAttribute="trailing" constant="16" id="Hvx-df-cyV"/>
                 <constraint firstItem="v7N-Kd-7wI" firstAttribute="leading" secondItem="gSZ-c5-ewk" secondAttribute="trailing" constant="4" id="JEo-Fg-ymp"/>
+                <constraint firstItem="tpn-Xx-iHV" firstAttribute="leading" secondItem="OJ0-fU-hyq" secondAttribute="trailing" constant="8" id="NYD-Bt-ohj"/>
                 <constraint firstItem="gSZ-c5-ewk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="Tq8-B9-FrX"/>
                 <constraint firstAttribute="trailing" secondItem="v7N-Kd-7wI" secondAttribute="trailing" constant="80" id="Wty-XV-ZXZ"/>
                 <constraint firstItem="5Br-UB-r92" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="ZQW-ey-MOS"/>
-                <constraint firstAttribute="bottom" secondItem="5Br-UB-r92" secondAttribute="bottom" constant="24" id="fUy-3i-Fem"/>
+                <constraint firstItem="OJ0-fU-hyq" firstAttribute="top" secondItem="5Br-UB-r92" secondAttribute="bottom" constant="16" id="eTc-xI-MBT"/>
+                <constraint firstAttribute="bottom" secondItem="OJ0-fU-hyq" secondAttribute="bottom" constant="24" id="haj-WC-qOD"/>
                 <constraint firstItem="cbO-wD-vb4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="iXQ-Bk-0HG"/>
                 <constraint firstAttribute="bottom" secondItem="tpn-Xx-iHV" secondAttribute="bottom" constant="24" id="ir8-2d-hzY"/>
+                <constraint firstItem="OJ0-fU-hyq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="sYB-1h-AqE"/>
                 <constraint firstItem="5Br-UB-r92" firstAttribute="top" secondItem="gSZ-c5-ewk" secondAttribute="bottom" constant="8" id="vMt-BM-d50"/>
             </constraints>
             <size key="customSize" width="322" height="221"/>
             <connections>
                 <outlet property="bookmarkButton" destination="tpn-Xx-iHV" id="tbq-69-Me1"/>
+                <outlet property="feedInfoView" destination="OJ0-fU-hyq" id="zhV-dj-l8d"/>
                 <outlet property="imageView" destination="cbO-wD-vb4" id="F5q-Zz-BDE"/>
                 <outlet property="titleLabel" destination="5Br-UB-r92" id="NHp-Ne-OOi"/>
+                <outlet property="todoCountLabel" destination="siH-Q8-4Jb" id="XMb-Jj-UMr"/>
+                <outlet property="todoScheduleDay" destination="4QQ-hi-9eG" id="p8t-yq-CvV"/>
                 <outlet property="userNameLabel" destination="v7N-Kd-7wI" id="6ej-wG-YDp"/>
                 <outlet property="userProfileImageView" destination="gSZ-c5-ewk" id="QnK-Iv-zgc"/>
             </connections>
@@ -87,6 +142,10 @@
     </objects>
     <resources>
         <image name="bookmark" width="40" height="40"/>
-        <image name="frog" width="61" height="64.666664123535156"/>
+        <image name="calendar_white" width="12" height="12"/>
+        <image name="lightning_white" width="10" height="15"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>
