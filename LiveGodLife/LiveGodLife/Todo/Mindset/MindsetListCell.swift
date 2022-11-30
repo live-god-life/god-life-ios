@@ -32,7 +32,6 @@ class MindsetListCell: CommonCell {
         
         self.contentsLabel.textColor = .white
         
-        view.backgroundColor = .darkGray
         leftImageView.image = UIImage(named: "leftQuote")
         rightImageView.image = UIImage(named: "rightQuote")
         

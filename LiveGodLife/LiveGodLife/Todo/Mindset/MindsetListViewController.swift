@@ -13,8 +13,6 @@ class MindsetListViewController: UIViewController {
     static var reMindUrl:String = ""
     var model:[MindSetModel] = []
     
-    //let tableView:UITableView = UITableView()
-    
     var listView: ListViewController<MindSetModel,MindsetListCell> = {
         let node = ListViewController<MindSetModel,MindsetListCell>()
         return node
@@ -26,7 +24,7 @@ class MindsetListViewController: UIViewController {
         
         self.view.addSubview(self.listView.view)
         self.listView.view.snp.makeConstraints {
-            $0.top.equalTo(self.view).offset(140)
+            $0.top.equalTo(self.view).offset(150)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
             $0.bottom.equalTo(self.view).offset(-40)
