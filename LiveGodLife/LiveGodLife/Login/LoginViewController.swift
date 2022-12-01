@@ -94,6 +94,14 @@ final class LoginViewController: UIViewController {
             
             //카톡 설치되어있으면 -> 카톡으로 로그인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+//                if let error = error {
+//                    print(error)
+//                } else {
+//                    print("카카오 톡으로 로그인 성공")
+//
+//                    _ = oauthToken
+//                    /// 로그인 관련 메소드 추가
+//                }
                 let idToken = oauthToken?.idToken
                 if let error = error {
                     print(error)
