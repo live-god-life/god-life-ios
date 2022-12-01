@@ -31,9 +31,10 @@
 		D01E2641292B16F100FBFF5B /* SettingTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01E2640292B16F100FBFF5B /* SettingTableViewSection.swift */; };
 		D021B058290397660031481F /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D021B057290397660031481F /* NotificationName+Extension.swift */; };
 		D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+Extension.swift */; };
+		D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
+		D0340F4F29384FAF00D2A5A6 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0340F4E29384FAF00D2A5A6 /* UIApplication+Extension.swift */; };
 		D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+Extension.swift */; };
 		D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA562916A93B00E9B045 /* TextFieldView.swift */; };
-		D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04490FB290E952C00BED66F /* SegmentControlView.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* Requestable.swift */; };
 		D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B828F161FD00B40E32 /* APIResponse.swift */; };
@@ -124,7 +125,7 @@
 		B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListViewController.swift; sourceTree = "<group>"; };
 		B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListCell.swift; sourceTree = "<group>"; };
 		B92C310E29377CAD000DA2D7 /* MindsetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetModel.swift; sourceTree = "<group>"; };
-		B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Utill+Formatter.swift"; path = "Extension/Utill+Formatter.swift"; sourceTree = "<group>"; };
+		B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utill+Formatter.swift"; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 		D01E2640292B16F100FBFF5B /* SettingTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewSection.swift; sourceTree = "<group>"; };
 		D021B057290397660031481F /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		D023B076290AB12100387C5C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		D0340F4E29384FAF00D2A5A6 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA502916063D00E9B045 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		D03FAA562916A93B00E9B045 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		D04490FB290E952C00BED66F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SegmentControlView.swift; path = ../UI/SegmentControlView.swift; sourceTree = "<group>"; };
@@ -336,9 +338,11 @@
 		D021B059290397D60031481F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */,
 				D0C97A602937932B001EC122 /* UIImage+Extension.swift */,
 				D021B057290397660031481F /* NotificationName+Extension.swift */,
 				D023B076290AB12100387C5C /* UIViewController+Extension.swift */,
+				D0340F4E29384FAF00D2A5A6 /* UIApplication+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,7 +385,6 @@
 		D08B66C428D5A3B9000998DC /* LiveGodLife */ = {
 			isa = PBXGroup;
 			children = (
-				B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */,
 				B92C310429377CAD000DA2D7 /* Todo */,
 				B92C310029377C97000DA2D7 /* Common */,
 				D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */,
@@ -723,6 +726,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
 				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
@@ -731,7 +735,6 @@
 				D023B077290AB12100387C5C /* UIViewController+Extension.swift in Sources */,
 				D0E3B2A6291D1CDF00601936 /* Feed.swift in Sources */,
 				B92C311229377CAD000DA2D7 /* CalendarCell.swift in Sources */,
-				D04490FC290E952C00BED66F /* SegmentControlView.swift in Sources */,
 				D0C97A612937932B001EC122 /* UIImage+Extension.swift in Sources */,
 				D0E3B2C1292123DD00601936 /* FeedRepository.swift in Sources */,
 				D0E3B2A7291D1CDF00601936 /* FeedViewController.swift in Sources */,
@@ -751,6 +754,7 @@
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
+				D0340F4F29384FAF00D2A5A6 /* UIApplication+Extension.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */,
