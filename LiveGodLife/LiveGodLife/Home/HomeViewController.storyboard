@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Pretendard-Bold.otf">
+            <string>Pretendard-Bold</string>
+        </array>
+        <array key="Pretendard-Regular.otf">
+            <string>Pretendard-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="LiveGodLife" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3Pe-tr-W7e">
+                                <rect key="frame" x="0.0" y="47" width="390" height="797"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="390" placeholderIntrinsicHeight="282" translatesAutoresizingMaskIntoConstraints="NO" id="eRJ-Ih-9NM" customClass="HomeHeaderView" customModule="LiveGodLife" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="307.33333333333331"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목제목제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKD-JR-EuQ">
+                                            <rect key="frame" x="24" y="55" width="316" height="17"/>
+                                            <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
+                                            <rect key="frame" x="24" y="82" width="316" height="93.333333333333314"/>
+                                            <string key="text">인생이란...
+인생이란...
+인생이란...</string>
+                                            <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="26"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-k3-QMK">
+                                            <rect key="frame" x="0.0" y="205.33333333333337" width="390" height="102"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="102" id="Zjd-Uy-vhd"/>
+                                            </constraints>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="veS-9F-hlK">
+                                                <size key="itemSize" width="128" height="128"/>
+                                                <size key="estimatedItemSize" width="128" height="128"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells/>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="55" id="3E6-bz-VpZ"/>
+                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" id="7el-cq-UzE"/>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="E1Z-nv-QIu"/>
+                                        <constraint firstAttribute="trailing" secondItem="SKD-JR-EuQ" secondAttribute="trailing" constant="50" id="Vax-zg-H65"/>
+                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="Znt-Ag-aey"/>
+                                        <constraint firstAttribute="trailing" secondItem="Tg7-k3-QMK" secondAttribute="trailing" id="eru-gf-QR0"/>
+                                        <constraint firstAttribute="trailing" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="50" id="lHP-0p-JeU"/>
+                                        <constraint firstAttribute="bottom" secondItem="Tg7-k3-QMK" secondAttribute="bottom" id="ncX-zL-c6E"/>
+                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="30" id="sjs-Tc-wce"/>
+                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="top" secondItem="SKD-JR-EuQ" secondAttribute="bottom" constant="10" id="taS-wH-oHf"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="collectionView" destination="Tg7-k3-QMK" id="kgb-sg-039"/>
+                                        <outlet property="content" destination="CSz-Dp-RSK" id="y2a-Nh-URR"/>
+                                        <outlet property="title" destination="SKD-JR-EuQ" id="wBA-X5-Y1p"/>
+                                    </connections>
+                                </view>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3Pe-tr-W7e" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="K9r-Rs-we7"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="3Pe-tr-W7e" secondAttribute="trailing" id="PCF-0w-5Kg"/>
+                            <constraint firstAttribute="bottom" secondItem="3Pe-tr-W7e" secondAttribute="bottom" id="nkV-6v-Dzu"/>
+                            <constraint firstItem="3Pe-tr-W7e" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="tVt-Mo-B6Y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="headerView" destination="eRJ-Ih-9NM" id="1LP-jf-63p"/>
+                        <outlet property="tableView" destination="3Pe-tr-W7e" id="OQT-t1-2q8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="126.15384615384615" y="-2.1327014218009479"/>
+        </scene>
+    </scenes>
+</document>

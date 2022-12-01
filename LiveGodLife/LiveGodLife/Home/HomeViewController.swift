@@ -9,35 +9,35 @@ import UIKit
 import SnapKit
 import Combine
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
-    private var collectionView: UICollectionView!
+    @IBOutlet weak var headerView: HomeHeaderView!
+    @IBOutlet weak var tableView: UITableView!
 
-    private var feeds: [Feed] = [] {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.collectionView.reloadSections(IndexSet(integer: 1))
-            }
-        }
-    }
-    private var todos: [Todo] = [] {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.collectionView.reloadSections(IndexSet(integer: 0))
-            }
-        }
-    }
-    private var goals: [Goal] = []
-    private var categories: [Category] = []
+    private let filterHeaderView = FilterHeaderView()
+
     private let repository = DefaultHomeRepository()
+    private var feeds: [Feed] = []
+    private var categories: [Category] = []
+
     private var cancellable = Set<AnyCancellable>()
+
+    // TODO: 개선
+    private var isFiltered: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCollectionView()
+        tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        // 탭바의 높이만큼 bottom inset
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
 
-        requestData()
+        filterHeaderView.categoryFilterView.delegate = self
+
+        requestTodos()
+        requestFeeds()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,25 +51,7 @@ final class HomeViewController: UIViewController {
 
 private extension HomeViewController {
 
-    func setupCollectionView() {
-        let layout = HomeCollectionViewFlowLayout()
-        layout.minimumLineSpacing = 32
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UINib(nibName: FeedCollectionReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FeedCollectionReusableView.identifier)
-        collectionView.register(UINib(nibName: FeedCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: FeedCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: MindsetCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: MindsetCollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .black
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        self.collectionView = collectionView
-    }
-
-    func requestData() {
+    func requestTodos() {
         // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만
         let param: [String: Any] = ["date": "20221001", "size": 5, "completionStatus": "false"]
         let todos = repository.requestTodos(endpoint: .todos(param))
@@ -84,11 +66,12 @@ private extension HomeViewController {
                     print("finished")
                 }
             } receiveValue: { [weak self] (todos, goals) in
-                self?.todos = todos
-                self?.goals = goals
+                self?.headerView.configure(viewModel: HomeHeaderViewModel(todos: todos, goals: goals))
             }
             .store(in: &cancellable)
+    }
 
+    func requestFeeds() {
         let categories = repository.requestCategory(endpoint: .category)
         let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds())
         categories.zip(feeds)
@@ -103,80 +86,30 @@ private extension HomeViewController {
                 guard let self = self else { return }
                 self.categories = categories
                 self.feeds = feeds
+                self.update()
             }
             .store(in: &cancellable)
     }
 }
 
-// MARK: - Delegate
-
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.width, height: 330)
-        }
-        return CGSize(width: view.frame.width - 32, height: 330)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 1 {
-            // FIXME: top(10) + 라벨(30) + 간격(16) + 카테고리버튼(40) + bottom(24) = 110
-            return CGSize(width: collectionView.frame.width, height: 120)
-        }
-        return .zero
-    }
-}
-
-extension HomeViewController: UICollectionViewDataSource {
-
-    // TODO: Section 관리하기
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FeedCollectionReusableView.identifier, for: indexPath) as! FeedCollectionReusableView
-        view.setupCategoryItems(categories)
-        view.filterView.delegate = self
-        return view
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 1 {
-            return feeds.count
-        }
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // 첫번째 섹션: 마인드셋 + 투두
-        if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetCollectionViewCell.identifier, for: indexPath) as! MindsetCollectionViewCell
-            cell.configure((todos, goals))
-            cell.completionHandler = { [weak self] id in
-                self?.updateTodoStatus(id: id)
-            }
-            return cell
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell
-        cell.configure(with: feeds[indexPath.item])
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // FIXME
-        if indexPath.section == 1 {
-            let vc = FeedDetailViewController(feedID: feeds[indexPath.item].id)
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-}
-
-extension HomeViewController: CategoryFilterViewDelegate {
+extension HomeViewController {
 
     func filtered(from category: String) {
-        // TODO: 로직 논의
+        let param = ["category": category]
+        DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    self.isFiltered = true
+                }
+            } receiveValue: { [weak self] feeds in
+                guard let self = self else { return }
+                self.feeds = feeds
+                self.update()
+            }
+            .store(in: &cancellable)
     }
 
     func updateTodoStatus(id: Int) {
@@ -187,12 +120,57 @@ extension HomeViewController: CategoryFilterViewDelegate {
                     print(error.localizedDescription)
                 case .finished:
                     DispatchQueue.main.async {
-                        self?.collectionView.reloadSections(IndexSet(integer: 0))
+                        //
                     }
                 }
             } receiveValue: { _ in
                 print("complete")
             }
             .store(in: &cancellable)
+    }
+}
+
+extension HomeViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return feeds.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
+        cell.selectionStyle = .none
+        cell.configure(with: feeds[indexPath.row])
+        return cell
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if !isFiltered {
+            filterHeaderView.configure(items: categories)
+        }
+        return filterHeaderView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 110
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 330
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let id = feeds[indexPath.row].id
+        let vc = FeedDetailViewController(feedID: id)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func update() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }

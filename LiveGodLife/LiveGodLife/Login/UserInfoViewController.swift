@@ -42,6 +42,7 @@ class UserInfoViewController: UIViewController {
         self.nickNameTextField.layer.borderColor = UIColor.white.cgColor
         self.nickNameTextField.backgroundColor = UIColor.white
         self.nickNameTextField.layer.cornerRadius = 25
+        nickNameTextField.delegate = self
         
         lineView.backgroundColor = .white
         
@@ -84,5 +85,13 @@ class UserInfoViewController: UIViewController {
     
     @objc func next(_ sender:UIButton) {
         self.navigationController?.pushViewController(AgreementViewController(), animated: true)
+    }
+}
+
+extension UserInfoViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
