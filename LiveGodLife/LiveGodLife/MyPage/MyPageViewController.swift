@@ -30,7 +30,7 @@ final class MyPageViewController: UIViewController {
     private let feedViewController = FeedViewController()
     private var myArticleViewController = {
         let viewController = UIViewController()
-        viewController.view.backgroundColor = .black
+        viewController.view.backgroundColor = .background
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         label.numberOfLines = 0
         let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"

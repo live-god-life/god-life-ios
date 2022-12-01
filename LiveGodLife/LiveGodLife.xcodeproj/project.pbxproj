@@ -89,6 +89,8 @@
 		D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C51E2B28F121D80004514A /* APIEndpoint.swift */; };
 		D0C97A612937932B001EC122 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C97A602937932B001EC122 /* UIImage+Extension.swift */; };
 		D0C97A6329379444001EC122 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C97A6229379444001EC122 /* UIView+Extension.swift */; };
+		D0D42D3F2938C91E00211317 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D42D3E2938C91E00211317 /* MyPageAPI.swift */; };
+		D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D42D402938C9B800211317 /* MyPageRepository.swift */; };
 		D0E3B2A3291D1CDF00601936 /* CategoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */; };
 		D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B295291D1CDE00601936 /* HomeViewController.swift */; };
 		D0E3B2A6291D1CDF00601936 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3B296291D1CDE00601936 /* Feed.swift */; };
@@ -199,6 +201,8 @@
 		D0C51E2B28F121D80004514A /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		D0C97A602937932B001EC122 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		D0C97A6229379444001EC122 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		D0D42D3E2938C91E00211317 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
+		D0D42D402938C9B800211317 /* MyPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRepository.swift; sourceTree = "<group>"; };
 		D0E3B293291D1CDE00601936 /* CategoryFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFilterView.swift; sourceTree = "<group>"; };
 		D0E3B295291D1CDE00601936 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D0E3B296291D1CDE00601936 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
@@ -470,10 +474,9 @@
 				D0BB5B612906C58300E46063 /* Setting */,
 				D0A214EE2905604500D5FF59 /* MyPageViewController.swift */,
 				D0A215072905770300D5FF59 /* MyPageViewController.storyboard */,
-				D0BB5B6C2906D3D000E46063 /* ProfileUpdateViewController.swift */,
-				D0BB5B6E2909473500E46063 /* ProfileUpdateViewController.storyboard */,
-				D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */,
-				D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */,
+				D0D42D3B2938C7D300211317 /* ProfileUpdate */,
+				D0D42D3E2938C91E00211317 /* MyPageAPI.swift */,
+				D0D42D402938C9B800211317 /* MyPageRepository.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -499,6 +502,17 @@
 				D0C18317292BB5B3007E3ED4 /* TabBarView.xib */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		D0D42D3B2938C7D300211317 /* ProfileUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB5B6C2906D3D000E46063 /* ProfileUpdateViewController.swift */,
+				D0BB5B6E2909473500E46063 /* ProfileUpdateViewController.storyboard */,
+				D0E4AE412917BE8700549BC0 /* ImageCollectionViewModel.swift */,
+				D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */,
+			);
+			path = ProfileUpdate;
 			sourceTree = "<group>";
 		};
 		D0E3B298291D1CDE00601936 /* Cell */ = {
@@ -754,6 +768,7 @@
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
+				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+Extension.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
@@ -771,6 +786,7 @@
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
 				B92C311429377CAD000DA2D7 /* MindsetListViewController.swift in Sources */,
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
+				D0D42D3F2938C91E00211317 /* MyPageAPI.swift in Sources */,
 				D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */,
 				B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
