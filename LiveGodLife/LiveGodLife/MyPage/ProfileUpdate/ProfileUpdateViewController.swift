@@ -16,7 +16,7 @@ final class ProfileUpdateViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
 
     private var isHiddenImageContainerView: Bool = true
-    private let imageCollectionViewModel = ImageCollectionViewModel()
+    private var imageCollectionViewModel = ImageCollectionViewModel()
 
     private var cancellable = Set<AnyCancellable>()
 
@@ -31,6 +31,8 @@ final class ProfileUpdateViewController: UIViewController {
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
         nicknameTextField.delegate = self
+
+        requestImages()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,9 +42,10 @@ final class ProfileUpdateViewController: UIViewController {
     }
     
     private func setupProfileImageView() {
+        let radius = profileImageView.frame.height / 2
         profileImageView.contentMode = .scaleAspectFit
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+        profileImageView.layer.cornerRadius = radius
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
         profileImageView.addGestureRecognizer(gesture)
@@ -66,6 +69,28 @@ final class ProfileUpdateViewController: UIViewController {
         }
     }
 
+    func requestImages() {
+        DefaultMyPageRepository().requestImages(endpoint: .images)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] data in
+                let images = data.compactMap { ImageAsset(name: $0) }
+                let defaultImages = [ImageAsset(name: "frog"),
+                                     ImageAsset(name: "frog"),
+                                     ImageAsset(name: "frog"),
+                                     ImageAsset(name: "frog"),
+                                     ImageAsset(name: "frog"),
+                                     ImageAsset(name: "frog")]
+                self?.imageCollectionViewModel.data = images.isEmpty ? defaultImages : images
+            }
+            .store(in: &cancellable)
+    }
+
     @IBAction func didTapImageContainerViewClose() {
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.4, animations: {
@@ -86,7 +111,8 @@ final class ProfileUpdateViewController: UIViewController {
                 case .failure(let error):
                     // 프로필 업데이트 실패
                     print(error)
-                default:
+                case .finished:
+                    // 성공 팝업
                     print("finished")
                 }
             } receiveValue: { user in

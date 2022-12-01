@@ -22,7 +22,7 @@ class FilterHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = .black
+        backgroundColor = .background
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview().inset(24)

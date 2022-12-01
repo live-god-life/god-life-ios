@@ -49,7 +49,7 @@ final class CategoryFilterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = .black
+        backgroundColor = .background
 
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.addSubview(stackView)

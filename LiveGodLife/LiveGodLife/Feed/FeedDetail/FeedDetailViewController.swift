@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import SnapKit
+import Kingfisher
 
 final class FeedDetailViewController: UIViewController {
 
@@ -246,6 +247,7 @@ private extension FeedDetailViewController {
         mindsetView.snp.makeConstraints {
             $0.top.equalTo(mindsetLabel.snp.bottom).offset(19)
             $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(120)
         }
 
         let todoLabel = UILabel()
@@ -271,7 +273,8 @@ private extension FeedDetailViewController {
             // TODO: error handle
             return
         }
-        imageView.image = UIImage(named: feed.image)
+        let url = URL(string: feed.image)
+        imageView.kf.setImage(with: url)
         categoryLabel.text = feed.category
         titleLabel.text = feed.title
         todoCountLabel.text = "\(feed.todoCount) List"
@@ -300,6 +303,7 @@ private extension FeedDetailViewController {
         // 첫 번째 마인드셋을 보여준다
         if let mindset = feed.mindsets.first {
             mindsetView.configure(content: mindset.content)
+            mindsetView.makeBorderGradation(startColor: .green, endColor: .blue, radius: 16)
         }
 
         feed.todos.forEach { todo in

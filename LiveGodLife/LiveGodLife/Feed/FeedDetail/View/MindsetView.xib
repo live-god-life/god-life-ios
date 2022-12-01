@@ -24,7 +24,7 @@
                         <constraint firstAttribute="height" constant="12" id="dyY-ac-dPE"/>
                     </constraints>
                 </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right-quote" translatesAutoresizingMaskIntoConstraints="NO" id="fUX-dc-4rQ">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_quote" translatesAutoresizingMaskIntoConstraints="NO" id="fUX-dc-4rQ">
                     <rect key="frame" x="362" y="54" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="12" id="QB6-RE-N5v"/>
@@ -55,6 +55,6 @@
     </objects>
     <resources>
         <image name="left_quote" width="13" height="12"/>
-        <image name="right-quote" width="13" height="12"/>
+        <image name="right_quote" width="13" height="12"/>
     </resources>
 </document>

@@ -30,7 +30,7 @@ final class MyPageViewController: UIViewController {
     private let feedViewController = FeedViewController()
     private var myArticleViewController = {
         let viewController = UIViewController()
-        viewController.view.backgroundColor = .black
+        viewController.view.backgroundColor = .background
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         label.numberOfLines = 0
         let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"
@@ -50,6 +50,8 @@ final class MyPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .background
 
         setupUI()
 
@@ -135,8 +137,9 @@ private extension MyPageViewController {
 extension MyPageViewController {
 
     private func setupProfileImageView() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+        let radius = profileImageView.frame.height / 2
+        profileImageView.layer.cornerRadius = radius
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
         profileImageView.addGestureRecognizer(gesture)

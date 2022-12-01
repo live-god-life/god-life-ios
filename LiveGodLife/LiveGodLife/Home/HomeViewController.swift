@@ -28,13 +28,11 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        // 탭바의 높이만큼 bottom inset
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
+        view.backgroundColor = .background
 
         filterHeaderView.categoryFilterView.delegate = self
+
+        setupTableView()
 
         requestTodos()
         requestFeeds()
@@ -50,6 +48,15 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 // MARK: - Private
 
 private extension HomeViewController {
+
+    func setupTableView() {
+        tableView.backgroundColor = .background
+        tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        // 탭바의 높이만큼 bottom inset
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
+    }
 
     func requestTodos() {
         // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만

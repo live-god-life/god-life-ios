@@ -12,6 +12,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.11.3)
   - KakaoSDKUser (2.11.3):
     - KakaoSDKAuth (= 2.11.3)
+  - Kingfisher (7.4.1)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -25,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - KakaoSDKAuth
   - KakaoSDKUser
+  - Kingfisher (~> 7.0)
   - Moya
   - PopupDialog (~> 1.1)
   - SideMenu
@@ -38,6 +40,7 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Kingfisher
     - Moya
     - PopupDialog
     - SideMenu
@@ -50,12 +53,13 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: a64dde90516e18fdfc35b83bbad2677c3675c329
   KakaoSDKCommon: b4235203f67a5b6ee2df75eaf9bbc863c6d92e09
   KakaoSDKUser: 9a42e9b74855ce876b071c841418aa6726534010
+  Kingfisher: cd762a593a61b2fbecf7645c00f9a801a3ebfc9c
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 7e472ff76a24a3b1bc74d5f5f05737f4481ff3c9
+PODFILE CHECKSUM: 95ba04fa88cf253ebd89cc2ff956be03ce7c41ac
 
 COCOAPODS: 1.11.3

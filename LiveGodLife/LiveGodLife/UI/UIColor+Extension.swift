@@ -23,6 +23,10 @@ extension UIColor {
     static let BBBBBB = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
     /// #537CFF
     static let blue = UIColor(red: 83/255, green: 124/255, blue: 1, alpha: 1)
+    /// #111111
+    static let background = UIColor(red: 17/255, green: 17/255, blue: 17/255, alpha: 1)
+    /// #333333
+    static let `default` = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
     /// #444444
     static let gray = UIColor(red: 68/255, green: 68/255, blue: 68/255, alpha: 1)
 }

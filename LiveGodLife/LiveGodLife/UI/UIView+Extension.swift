@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
 
-    func makeBorderGradation(startColor: UIColor, endColor: UIColor) {
+    func makeBorderGradation(startColor: UIColor, endColor: UIColor, radius: CGFloat) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [startColor.cgColor, endColor.cgColor]
         gradient.locations = [0.0 , 1.0]
@@ -19,7 +19,7 @@ extension UIView {
 
         let shape = CAShapeLayer()
         shape.lineWidth = 2
-        shape.path = UIBezierPath(roundedRect: self.bounds.inset(by: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)), cornerRadius: self.frame.height / 2).cgPath
+        shape.path = UIBezierPath(roundedRect: self.bounds.inset(by: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)), cornerRadius: radius).cgPath
         shape.strokeColor = UIColor.black.cgColor
         shape.fillColor = UIColor.clear.cgColor
         gradient.mask = shape
