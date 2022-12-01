@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FeedTableViewCell: UITableViewCell {
 
@@ -35,6 +36,8 @@ final class FeedTableViewCell: UITableViewCell {
     }
 
     func configure(with feed: Feed) {
+        feedImageView.contentMode = .scaleAspectFill
+        feedImageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
         titleLabel.text = feed.title
         bookmarkButton.isSelected = feed.isBookmark
