@@ -135,8 +135,9 @@ private extension MyPageViewController {
 extension MyPageViewController {
 
     private func setupProfileImageView() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+        let radius = profileImageView.frame.height / 2
+        profileImageView.layer.cornerRadius = radius
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
         profileImageView.addGestureRecognizer(gesture)

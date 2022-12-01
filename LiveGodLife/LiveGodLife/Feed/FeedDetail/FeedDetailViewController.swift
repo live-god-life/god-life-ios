@@ -246,6 +246,7 @@ private extension FeedDetailViewController {
         mindsetView.snp.makeConstraints {
             $0.top.equalTo(mindsetLabel.snp.bottom).offset(19)
             $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(120)
         }
 
         let todoLabel = UILabel()
@@ -300,6 +301,7 @@ private extension FeedDetailViewController {
         // 첫 번째 마인드셋을 보여준다
         if let mindset = feed.mindsets.first {
             mindsetView.configure(content: mindset.content)
+            mindsetView.makeBorderGradation(startColor: .green, endColor: .blue, radius: 16)
         }
 
         feed.todos.forEach { todo in

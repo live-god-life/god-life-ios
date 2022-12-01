@@ -27,7 +27,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.addSubview(imageView)
-        contentView.makeBorderGradation(startColor: .green, endColor: .blue)
+        contentView.makeBorderGradation(startColor: .green, endColor: .blue, radius: frame.height / 2)
     }
 
     required init?(coder: NSCoder) {

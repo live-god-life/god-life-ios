@@ -40,9 +40,10 @@ final class ProfileUpdateViewController: UIViewController {
     }
     
     private func setupProfileImageView() {
+        let radius = profileImageView.frame.height / 2
         profileImageView.contentMode = .scaleAspectFit
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue)
+        profileImageView.layer.cornerRadius = radius
+        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
         profileImageView.addGestureRecognizer(gesture)
