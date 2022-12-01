@@ -24,13 +24,14 @@ final class FeedTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        layer.cornerRadius = 30
-        backgroundColor = .default
+        backgroundColor = .background
         bookmarkButton.setImage(UIImage(named: "bookmark_disable"), for: .normal)
         bookmarkButton.setImage(UIImage(named: "bookmark"), for: .selected)
         feedInfoView.layer.borderWidth = 1
         feedInfoView.layer.borderColor = UIColor.green.cgColor
         feedInfoView.layer.cornerRadius = feedInfoView.frame.height / 2
+        feedImageView.backgroundColor = .default
+        feedImageView.layer.cornerRadius = 30
     }
 
     func configure(with feed: Feed) {
