@@ -51,6 +51,8 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .background
+
         setupUI()
 
         feedViewController.view.addSubview(label)

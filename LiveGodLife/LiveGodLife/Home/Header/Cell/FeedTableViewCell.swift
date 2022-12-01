@@ -25,7 +25,7 @@ final class FeedTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
         layer.cornerRadius = 30
-        backgroundColor = .black
+        backgroundColor = .default
         bookmarkButton.setImage(UIImage(named: "bookmark_disable"), for: .normal)
         bookmarkButton.setImage(UIImage(named: "bookmark"), for: .selected)
         feedInfoView.layer.borderWidth = 1
