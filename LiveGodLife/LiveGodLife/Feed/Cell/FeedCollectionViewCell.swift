@@ -30,6 +30,10 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         feedInfoView.layer.borderWidth = 1
         feedInfoView.layer.borderColor = UIColor.green.cgColor
         feedInfoView.layer.cornerRadius = feedInfoView.frame.height / 2
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 30
+        imageView.backgroundColor = .default
     }
 
     func configure(with feed: Feed) {
