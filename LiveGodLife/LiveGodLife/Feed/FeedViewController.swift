@@ -26,7 +26,8 @@ final class FeedViewController: UIViewController {
         collectionView.register(UINib(nibName: FeedCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: FeedCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .background
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
