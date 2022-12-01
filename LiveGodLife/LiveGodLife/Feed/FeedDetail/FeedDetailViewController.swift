@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import SnapKit
+import Kingfisher
 
 final class FeedDetailViewController: UIViewController {
 
@@ -272,7 +273,8 @@ private extension FeedDetailViewController {
             // TODO: error handle
             return
         }
-        imageView.image = UIImage(named: feed.image)
+        let url = URL(string: feed.image)
+        imageView.kf.setImage(with: url)
         categoryLabel.text = feed.category
         titleLabel.text = feed.title
         todoCountLabel.text = "\(feed.todoCount) List"

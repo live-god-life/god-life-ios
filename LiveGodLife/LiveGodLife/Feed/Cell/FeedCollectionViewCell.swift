@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FeedCollectionViewCell: UICollectionViewCell {
 
@@ -37,6 +38,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with feed: Feed) {
+        imageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
         titleLabel.text = feed.title
         bookmarkButton.isSelected = feed.isBookmark
