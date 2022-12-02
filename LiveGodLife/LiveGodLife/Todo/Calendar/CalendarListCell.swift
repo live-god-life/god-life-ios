@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarListCell: CommonCell {
     // MARK: - Variable
-    var dataModel:SubGoals? {
+    var dataModel:SubCalendarModel? {
         didSet {
             update()
         }

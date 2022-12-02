@@ -1,26 +1,31 @@
 //
-//  CalendarCell.swift
+//  GoalsListCell.swift
 //  LiveGodLife
 //
-//  Created by khAhn on 2022/11/15.
+//  Created by khAhn on 2022/11/30.
 //
 
 import Foundation
 import UIKit
 
-class CalendarCell: CommonCell {
+class GoalsListCell: CommonCell {
     
-    var dataModel:SubCalendarModel? {
+    var dataModel:GoalsModel? {
         didSet {
             update()
         }
     }
+    
+    let datelabel = UILabel()
+    let mindsetImage = UIImageView()
+    let mindsetCountLabel = UILabel()
+    let totalTodoCountLabel = UILabel()
+    let totalTodoImage = UIImageView()
+    let completedTodoCount = UILabel()
+    let completedTodoImage = UIImageView()
+    let dDayLabel = UILabel()
     let titleLabel: UILabel = {
         let label = UILabel()
-//        label.font = .title14
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.8
-//        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -29,7 +34,7 @@ class CalendarCell: CommonCell {
         addViews()
     }
     required init?(coder: NSCoder) {
-        super.init(coder: coder)    
+        super.init(coder: coder)
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -39,14 +44,15 @@ class CalendarCell: CommonCell {
             $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview()
         }
+        
         self.backgroundColor = .blue
     }
 
     func update() {
         titleLabel.text = dataModel?.title ?? ""
     }
+    
     override func setUpModel() {
         super.setUpModel()
-        dataModel = super.model as? SubCalendarModel ?? SubCalendarModel(title: "", completionStatus: nil, taskType: "", repetitionType: "", totalTodoTaskScheduleCount: 0, completedTodoTaskScheduleCount: 0, todoDay: 0)
     }
 }
