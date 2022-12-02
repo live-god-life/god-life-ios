@@ -258,8 +258,8 @@
 		B92C310429377CAD000DA2D7 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				B92C310529377CAD000DA2D7 /* Calendar */,
 				B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */,
+				B92C310529377CAD000DA2D7 /* Calendar */,
 				B92C310B29377CAD000DA2D7 /* Mindset */,
 			);
 			path = Todo;
