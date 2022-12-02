@@ -2,29 +2,11 @@
 //  MindsetModel.swift
 //  LiveGodLife
 //
-//  Created by Quintet on 2022/11/23.
+//  Created by khAhn on 2022/11/23.
 //
 
 import Foundation
 
-/*
- {
-   "status": "success",
-   "message": "ok",
-   "data": [
-     {
-       "goalId": 1,
-       "title": "이직하기",
-       "mindsets": [
-         {
-           "mindsetId": 1,
-           "content": "사는건 레벨업이 아닌 스펙트럼을 넓히는 거란 얘길 들었다. 어떤 말보다 용기가 된다111."
-         }
-       ]
-     }
-   ]
- }
- */
 struct MindSetModel: Codable {
     var goalId: Int
     var title: String

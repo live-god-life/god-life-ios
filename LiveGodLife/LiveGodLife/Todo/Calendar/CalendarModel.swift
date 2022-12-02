@@ -7,17 +7,18 @@
 
 import Foundation
 
-struct MainGoals:Codable {
+struct MainCalendarModel:Codable {
     var title:String
     var goalId:Int
     var rawValue:String
-    var todoSchedules:[SubGoals]
+    var todoSchedules:[SubCalendarModel]
+    
     enum Codingkeys: Int,CodingKey{
         case title
         case goalId
     }
 }
-struct SubGoals:Codable {
+struct SubCalendarModel:Codable {
     var title:String
     var completionStatus: Bool?
     var taskType: String

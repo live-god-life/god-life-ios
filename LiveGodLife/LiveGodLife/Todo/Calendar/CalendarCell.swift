@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarCell: CommonCell {
     
-    var dataModel:SubGoals? {
+    var dataModel:SubCalendarModel? {
         didSet {
             update()
         }
@@ -47,6 +47,6 @@ class CalendarCell: CommonCell {
     }
     override func setUpModel() {
         super.setUpModel()
-        dataModel = super.model as? SubGoals ?? SubGoals(title: "", completionStatus: nil, taskType: "", repetitionType: "", totalTodoTaskScheduleCount: 0, completedTodoTaskScheduleCount: 0, todoDay: 0)
+        dataModel = super.model as? SubCalendarModel ?? SubCalendarModel(title: "", completionStatus: nil, taskType: "", repetitionType: "", totalTodoTaskScheduleCount: 0, completedTodoTaskScheduleCount: 0, todoDay: 0)
     }
 }

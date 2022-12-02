@@ -2,7 +2,7 @@
 //  MindsetListCell.swift
 //  LiveGodLife
 //
-//  Created by Quintet on 2022/11/23.
+//  Created by khAhn on 2022/11/23.
 //
 
 import Foundation
@@ -32,8 +32,8 @@ class MindsetListCell: CommonCell {
         
         self.contentsLabel.textColor = .white
         
-        leftImageView.image = UIImage(named: "left_quote")
-        rightImageView.image = UIImage(named: "right_quote")
+        leftImageView.image = UIImage(named: "leftQuote")
+        rightImageView.image = UIImage(named: "rightQuote")
         
         view.layer.cornerRadius = 20
 
@@ -62,18 +62,17 @@ class MindsetListCell: CommonCell {
 
         return view
     }()
-   
-
 
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
-        let gradient = UIImage.gradientImage(bounds: self.bounds, colors: [.green, .blue])
+        let gradient = UIImage.gradientImage(bounds: self.bounds, colors: [.green , .blue])
         let gradientColor = UIColor(patternImage: gradient)
         self.layer.borderColor = gradientColor.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 20
+
     }
 
     required init?(coder: NSCoder) {
@@ -85,7 +84,7 @@ class MindsetListCell: CommonCell {
     override func setUpModel() {
         super.setUpModel()
     }
-    
+
     func addViews(){
         self.addSubview(self.contentsView)
         self.backgroundColor = .black
@@ -96,10 +95,8 @@ class MindsetListCell: CommonCell {
             make.bottom.equalToSuperview().offset(-5)
         }
     }
-    
+
     func update() {
-//        typeLabel.text = dataModel?.taskType
         contentsLabel.text = "\(dataModel?.content ?? "")"
-//        typeLabel.textColor = dataModel?.taskType == "Todo" ? .green : .blue
     }
 }

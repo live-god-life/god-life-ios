@@ -11,10 +11,10 @@ import UIKit
 class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
-    var model:[MainGoals] = []
-        
-    var listView: ListViewController<MainGoals,CalendarListCell> = {
-        let node = ListViewController<MainGoals,CalendarListCell>()
+    var model:[MainCalendarModel] = []
+
+    var listView: ListViewController<MainCalendarModel,CalendarListCell> = {
+        let node = ListViewController<MainCalendarModel,CalendarListCell>()
         return node
     }()
     
@@ -37,7 +37,6 @@ class CalendarListViewController: UIViewController {
             make.height.equalTo(30)
         }
         self.listView.view.snp.makeConstraints {
-//            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
             $0.top.equalTo(todayLabel.snp.bottom).offset(16)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
@@ -69,7 +68,7 @@ class CalendarListViewController: UIViewController {
         model.removeAll()
         model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
                             [
-                                SubGoals(
+                                SubCalendarModel(
                                     title: "컨셉잡기",
                                     completionStatus: false,
                                     taskType: "Todo",
@@ -82,7 +81,7 @@ class CalendarListViewController: UIViewController {
                                     totalTodoTaskScheduleCount: 39,
                                     completedTodoTaskScheduleCount: 0,
                                     todoDay: -48),
-                                SubGoals(
+                                SubCalendarModel(
                                     title: "컨셉잡기1",
                                     completionStatus: false,
                                     taskType: "Todo",
@@ -100,7 +99,7 @@ class CalendarListViewController: UIViewController {
         )
         model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
                             [
-                                SubGoals(
+                                SubCalendarModel(
                                     title: "테스트",
                                     completionStatus: false,
                                     taskType: "D-999",
@@ -226,7 +225,6 @@ class CalendarListHeaderView: UICollectionReusableView {
     }
     // MARK: - Button Action
     @objc func closeAction(_ sender: UIButton) {
-//        SKLog.log("close", category: "TOP")
 //        delegate?.sideMenuHeaderView(self, selectedClose: true)
     }
 }
