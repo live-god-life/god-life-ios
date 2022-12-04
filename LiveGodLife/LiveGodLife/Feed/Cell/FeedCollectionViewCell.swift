@@ -11,7 +11,6 @@ import Kingfisher
 
 final class FeedCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var gradationView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -45,8 +44,6 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         bookmarkButton.isSelected = feed.isBookmark
         todoCountLabel.text = "\(feed.todoCount) List"
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
-        let color = UIColor(red: 29/255, green: 29/255, blue: 31/255, alpha: 1)
-        gradationView.backgroundColor = color
     }
 
     @IBAction func didTapBookmarkButton(_ sendser: UIButton) {
