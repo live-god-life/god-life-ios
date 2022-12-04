@@ -9,8 +9,21 @@ import UIKit
 import SnapKit
 
 class UserInfoViewController: UIViewController {
-    let nickNameTextField = UITextField()
+
+    let nickNameTextField = TextFieldView()
     let nextButton = UIButton()
+
+    private var user: UserModel
+
+    init(_ user: UserModel) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,16 +44,13 @@ class UserInfoViewController: UIViewController {
         mainTitleLabel.textColor = .white
         mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
         mainTitleLabel.numberOfLines = 0
-        
+
         subtitleLabel.text = "유니코드 제외, 한글(8글자)\n영어 가능(16자), 공백X,\n “_”가능, “-”불가능"
         subtitleLabel.textColor = .gray1
         subtitleLabel.font = UIFont(name: "Pretendard", size: 16)
         subtitleLabel.numberOfLines = 0
 
         self.nickNameTextField.placeholder = "닉네임을 입력해주세요."
-        self.nickNameTextField.textColor = .white
-        self.nickNameTextField.layer.borderColor = UIColor.white.cgColor
-        self.nickNameTextField.backgroundColor = UIColor.white
         self.nickNameTextField.layer.cornerRadius = 25
         nickNameTextField.delegate = self
         
@@ -84,7 +94,8 @@ class UserInfoViewController: UIViewController {
     }
     
     @objc func next(_ sender:UIButton) {
-        self.navigationController?.pushViewController(AgreementViewController(), animated: true)
+        user.nickname = nickNameTextField.text ?? ""
+        self.navigationController?.pushViewController(AgreementViewController(user), animated: true)
     }
 }
 

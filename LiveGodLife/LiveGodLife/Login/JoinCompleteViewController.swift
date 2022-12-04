@@ -8,7 +8,19 @@
 import UIKit
 
 class JoinCompleteViewController: UIViewController {
-    let homeButton = UIButton()
+
+    private let homeButton = UIButton()
+
+    private var user: UserModel
+
+    init(_ user: UserModel) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +33,7 @@ class JoinCompleteViewController: UIViewController {
         let mainTitleLabel = UILabel()
         let subTitleLabel = UILabel()
         
-        mainTitleLabel.text = "이든님,\n서비스 가입을 축하해요!"
+        mainTitleLabel.text = "\(user.nickname)님,\n서비스 가입을 축하해요!"
         mainTitleLabel.textColor = .white
         mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
         mainTitleLabel.numberOfLines = 0
