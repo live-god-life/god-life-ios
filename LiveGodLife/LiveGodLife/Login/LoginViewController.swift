@@ -15,14 +15,16 @@ import Moya
 
 extension LoginViewController: AppleLoginServiceDelegate {
 
-    func signup() {
-        navigationController?.pushViewController(UserInfoViewController(), animated: true)
+    func signup(_ user: UserModel) {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.pushViewController(UserInfoViewController(user), animated: true)
+        }
     }
 }
 
 final class LoginViewController: UIViewController {
 
-    private var model: UserModel?
+    private var user: UserModel?
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private let appleLoginButton = RoundedButton()
@@ -45,7 +47,7 @@ final class LoginViewController: UIViewController {
     private func setupUI() {
         titleLabel.text = "갓생살기"
         titleLabel.textColor = .white
-        titleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
+        titleLabel.font = .bold(with: 26)
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(79)
@@ -53,7 +55,7 @@ final class LoginViewController: UIViewController {
         }
         subtitleLabel.text = "꿈꾸는 갓생러들이 모인 곳"
         subtitleLabel.textColor = .gray1
-        subtitleLabel.font = UIFont(name: "Pretendard", size: 16)
+        subtitleLabel.font = .regular(with: 16)
         view.addSubview(subtitleLabel)
         subtitleLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
@@ -162,7 +164,8 @@ final class LoginViewController: UIViewController {
     func login(param:Dictionary<String,Any>) {
         print("param: \(param)")
         
-        authLookProvider.request(.login(param)) { response in
+        authLookProvider.request(.login(param)) { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let result):
                 do {
@@ -173,8 +176,9 @@ final class LoginViewController: UIViewController {
                     print(json)
                     print("response:\(response)")
                     print("message:\(jsonData["message"] ?? "")")
-                    
-                    self.navigationController?.pushViewController(UserInfoViewController(), animated: false)
+
+                    guard let user = self.user else { return }
+                    self.navigationController?.pushViewController(UserInfoViewController(user), animated: false)
                 
                 } catch(let err) {
                     print("nickname err:\(err.localizedDescription)")

@@ -11,7 +11,7 @@ import Alamofire
 enum UserAPI: APIEndpoint {
 
     case login([String: Any])
-    case signup([String: Any])
+    case signup(UserModel)
     case user
     case bookmark([String: Any])
     case profileUpdate([String: Any])
@@ -48,8 +48,10 @@ enum UserAPI: APIEndpoint {
 
     var parameters: [String: Any] {
         switch self {
-        case .login(let value), .signup(let value), .profileUpdate(let value):
+        case .login(let value), .profileUpdate(let value):
             return value
+        case .signup(let user):
+            return user.toDictionary ?? [:]
         case .bookmark(let value):
             if let status = value["status"] {
                 return ["bookmarkStatus": "\(status)"]
