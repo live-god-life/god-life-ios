@@ -15,6 +15,8 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var viewCountLabel: UILabel!
+    @IBOutlet weak var pickCountLabel: UILabel!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var todoCountLabel: UILabel!
     @IBOutlet weak var todoScheduleDay: UILabel!
@@ -41,6 +43,8 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         imageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
         titleLabel.text = feed.title
+        viewCountLabel.text = "\(feed.viewCount)"
+        pickCountLabel.text = "\(feed.pickCount)"
         bookmarkButton.isSelected = feed.isBookmark
         todoCountLabel.text = "\(feed.todoCount) List"
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"

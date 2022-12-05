@@ -43,11 +43,13 @@ struct Feed: Hashable, Decodable {
     let contents: [Content]
     let mindsets: [Mindset]
     let todos: [FeedTodo]
+    let viewCount: Int
+    let pickCount: Int
 
     enum CodingKeys: String, CodingKey {
         case id = "feedId"
         case isBookmark = "bookMarkStatus"
-        case title, user, image, todoCount, todoScheduleDay, category, contents, mindsets, todos
+        case title, user, image, todoCount, todoScheduleDay, category, contents, mindsets, todos, viewCount, pickCount
     }
 
     init(from decoder: Decoder) throws {
@@ -63,6 +65,8 @@ struct Feed: Hashable, Decodable {
         contents = try container.decodeIfPresent([Content].self, forKey: .contents) ?? []
         mindsets = try container.decodeIfPresent([Mindset].self, forKey: .mindsets) ?? []
         todos = try container.decodeIfPresent([FeedTodo].self, forKey: .todos) ?? []
+        viewCount = try container.decodeIfPresent(Int.self, forKey: .viewCount) ?? 0
+        pickCount = try container.decodeIfPresent(Int.self, forKey: .pickCount) ?? 0
     }
 
     static func == (lhs: Feed, rhs: Feed) -> Bool {

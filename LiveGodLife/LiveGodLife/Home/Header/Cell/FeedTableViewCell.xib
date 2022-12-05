@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
         <array key="Montserrat-Regular.otf">
             <string>Montserrat-Regular</string>
         </array>
@@ -98,22 +101,58 @@
                         <constraint firstItem="83z-n6-rlP" firstAttribute="leading" secondItem="SqM-Am-I0g" secondAttribute="leading" constant="15" id="jke-yH-Za2"/>
                     </constraints>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" translatesAutoresizingMaskIntoConstraints="NO" id="U0r-Yj-v6t">
+                    <rect key="frame" x="174.66666666666666" y="60.666666666666657" width="14" height="12"/>
+                    <color key="tintColor" systemColor="systemBlueColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="Fnu-WI-c14"/>
+                        <constraint firstAttribute="width" constant="14" id="hrW-WC-93U"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTl-RB-2Jb">
+                    <rect key="frame" x="193.66666666666666" y="59.333333333333336" width="22.333333333333343" height="14.666666666666664"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="8Tc-QK-Szv">
+                    <rect key="frame" x="224" y="59.666666666666657" width="14" height="14"/>
+                    <color key="tintColor" systemColor="systemBlueColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="NKm-Fx-cm4"/>
+                        <constraint firstAttribute="width" constant="14" id="y7a-Mt-spr"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9C-td-n14">
+                    <rect key="frame" x="243" y="59.333333333333336" width="22.333333333333314" height="14.666666666666664"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="w0N-Md-gWg" firstAttribute="top" secondItem="bQG-6k-CoQ" secondAttribute="bottom" constant="8" id="1A8-Ot-Caw"/>
                 <constraint firstItem="rcD-iv-2ni" firstAttribute="bottom" secondItem="eiA-68-GxU" secondAttribute="bottom" constant="24" id="2Ox-h1-nTM"/>
+                <constraint firstItem="U0r-Yj-v6t" firstAttribute="leading" secondItem="ScH-Vd-m94" secondAttribute="trailing" constant="13" id="5Gj-Qc-bgk"/>
                 <constraint firstItem="bQG-6k-CoQ" firstAttribute="leading" secondItem="rcD-iv-2ni" secondAttribute="leading" constant="24" id="CY2-U5-fs9"/>
                 <constraint firstItem="SqM-Am-I0g" firstAttribute="top" secondItem="w0N-Md-gWg" secondAttribute="bottom" constant="16" id="DEa-1Y-M0A"/>
+                <constraint firstItem="nTl-RB-2Jb" firstAttribute="centerY" secondItem="U0r-Yj-v6t" secondAttribute="centerY" id="Ms9-7w-ljl"/>
                 <constraint firstItem="eiA-68-GxU" firstAttribute="leading" secondItem="SqM-Am-I0g" secondAttribute="trailing" constant="8" id="N5u-gk-zWA"/>
                 <constraint firstAttribute="trailing" secondItem="rcD-iv-2ni" secondAttribute="trailing" constant="16" id="UcF-CH-5og"/>
+                <constraint firstItem="8Tc-QK-Szv" firstAttribute="centerY" secondItem="nTl-RB-2Jb" secondAttribute="centerY" id="VVf-Ib-ySR"/>
                 <constraint firstItem="ScH-Vd-m94" firstAttribute="centerY" secondItem="bQG-6k-CoQ" secondAttribute="centerY" id="ZpR-0i-NYQ"/>
+                <constraint firstItem="8Tc-QK-Szv" firstAttribute="leading" secondItem="nTl-RB-2Jb" secondAttribute="trailing" constant="8" id="a2p-Tt-oCT"/>
                 <constraint firstItem="eiA-68-GxU" firstAttribute="leading" secondItem="w0N-Md-gWg" secondAttribute="trailing" constant="8" id="fsO-Ur-5Dj"/>
                 <constraint firstItem="rcD-iv-2ni" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="gHC-ro-G73"/>
+                <constraint firstItem="J9C-td-n14" firstAttribute="leading" secondItem="8Tc-QK-Szv" secondAttribute="trailing" constant="5" id="hNi-aD-oFR"/>
                 <constraint firstItem="SqM-Am-I0g" firstAttribute="leading" secondItem="rcD-iv-2ni" secondAttribute="leading" constant="24" id="hgG-Lg-kfK"/>
                 <constraint firstItem="rcD-iv-2ni" firstAttribute="trailing" secondItem="eiA-68-GxU" secondAttribute="trailing" constant="16" id="lJI-Gc-VZZ"/>
+                <constraint firstItem="J9C-td-n14" firstAttribute="centerY" secondItem="8Tc-QK-Szv" secondAttribute="centerY" id="lYL-eo-DKm"/>
                 <constraint firstItem="rcD-iv-2ni" firstAttribute="bottom" secondItem="SqM-Am-I0g" secondAttribute="bottom" constant="24" id="mnY-QA-buI"/>
+                <constraint firstItem="nTl-RB-2Jb" firstAttribute="leading" secondItem="U0r-Yj-v6t" secondAttribute="trailing" constant="5" id="nws-ad-dGO"/>
                 <constraint firstAttribute="bottom" secondItem="rcD-iv-2ni" secondAttribute="bottom" constant="16" id="p1t-SR-Bq6"/>
+                <constraint firstItem="U0r-Yj-v6t" firstAttribute="centerY" secondItem="ScH-Vd-m94" secondAttribute="centerY" id="qb5-xA-U4q"/>
                 <constraint firstItem="rcD-iv-2ni" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="rh4-Ej-8eU"/>
                 <constraint firstItem="w0N-Md-gWg" firstAttribute="leading" secondItem="rcD-iv-2ni" secondAttribute="leading" constant="24" id="yjq-Vp-TVW"/>
                 <constraint firstItem="ScH-Vd-m94" firstAttribute="leading" secondItem="bQG-6k-CoQ" secondAttribute="trailing" constant="4" id="zkm-7E-WGn"/>
@@ -123,11 +162,13 @@
                 <outlet property="bookmarkButton" destination="eiA-68-GxU" id="mUF-Is-7yp"/>
                 <outlet property="feedImageView" destination="rcD-iv-2ni" id="67W-2P-83a"/>
                 <outlet property="feedInfoView" destination="SqM-Am-I0g" id="mAy-pd-88d"/>
+                <outlet property="pickCountLabel" destination="J9C-td-n14" id="sO5-11-8uH"/>
                 <outlet property="titleLabel" destination="w0N-Md-gWg" id="OHp-qw-Lqw"/>
                 <outlet property="todoCountLabel" destination="lG7-D3-QW3" id="5SZ-Ko-t2y"/>
                 <outlet property="todoScheduleDay" destination="k4V-rV-llL" id="THv-ux-jUM"/>
                 <outlet property="userNameLabel" destination="ScH-Vd-m94" id="Kud-qK-U03"/>
                 <outlet property="userProfileImageView" destination="bQG-6k-CoQ" id="YM8-Tk-3pT"/>
+                <outlet property="viewCountLabel" destination="nTl-RB-2Jb" id="AXl-Nj-bBX"/>
             </connections>
             <point key="canvasLocation" x="116.15384615384615" y="20.971563981042653"/>
         </view>
@@ -135,6 +176,8 @@
     <resources>
         <image name="bookmark" width="40" height="40"/>
         <image name="calendar_white" width="12" height="12"/>
+        <image name="download" width="16" height="16"/>
+        <image name="eye" width="16" height="16"/>
         <image name="lightning_white" width="10" height="15"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
