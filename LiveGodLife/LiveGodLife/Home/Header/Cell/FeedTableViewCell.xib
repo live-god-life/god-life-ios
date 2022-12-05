@@ -47,14 +47,18 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiA-68-GxU">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiA-68-GxU">
                     <rect key="frame" x="303" y="141" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="HgL-7x-i9D"/>
                         <constraint firstAttribute="height" constant="40" id="esy-Fk-Syc"/>
                     </constraints>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="bookmark"/>
+                    <connections>
+                        <action selector="didTapBookmarkButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="vkY-Ao-2oj"/>
+                    </connections>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqM-Am-I0g">
                     <rect key="frame" x="40" y="141" width="255" height="40"/>
