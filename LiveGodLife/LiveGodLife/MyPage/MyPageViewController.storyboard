@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,31 +21,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="buI-q1-sDp">
-                                <rect key="frame" x="0.0" y="29" width="390" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buI-q1-sDp">
+                                <rect key="frame" x="0.0" y="58" width="390" height="44"/>
                                 <items>
                                     <navigationItem id="MLN-GV-Eaf"/>
                                 </items>
                             </navigationBar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="WJR-io-KuT" userLabel="Plus Image View">
-                                <rect key="frame" x="179" y="127" width="32" height="32"/>
+                                <rect key="frame" x="179" y="182" width="32" height="32"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hAR-Gv-HBE">
-                                <rect key="frame" x="145" y="93" width="100" height="100"/>
+                                <rect key="frame" x="145" y="148" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="M4j-Pa-Bhl"/>
                                     <constraint firstAttribute="width" constant="100" id="NTR-Ad-wcz"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsC-c1-sng">
-                                <rect key="frame" x="0.0" y="268.33333333333331" width="390" height="56"/>
+                                <rect key="frame" x="0.0" y="316" width="390" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="o39-Gk-Qti"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름이 뭐에요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4go-mv-Lob">
-                                <rect key="frame" x="135.33333333333334" y="205" width="119.33333333333334" height="24"/>
+                                <rect key="frame" x="135.33333333333334" y="260" width="119.33333333333334" height="24"/>
                                 <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -55,14 +54,17 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rsC-c1-sng" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9kh-1j-VqT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="buI-q1-sDp" secondAttribute="trailing" id="F3T-I8-nRC"/>
                             <constraint firstItem="WJR-io-KuT" firstAttribute="centerX" secondItem="hAR-Gv-HBE" secondAttribute="centerX" id="P1u-Ap-ZvP"/>
                             <constraint firstItem="4go-mv-Lob" firstAttribute="top" secondItem="hAR-Gv-HBE" secondAttribute="bottom" constant="12" id="S2u-Yr-aEc"/>
                             <constraint firstItem="WJR-io-KuT" firstAttribute="centerY" secondItem="hAR-Gv-HBE" secondAttribute="centerY" id="TV3-7m-LhJ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="rsC-c1-sng" secondAttribute="trailing" id="cbe-NZ-d93"/>
                             <constraint firstItem="4go-mv-Lob" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="hMx-QZ-Ysp"/>
-                            <constraint firstItem="hAR-Gv-HBE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="46" id="nIj-sC-vn3"/>
+                            <constraint firstItem="hAR-Gv-HBE" firstAttribute="top" secondItem="buI-q1-sDp" secondAttribute="bottom" constant="46" id="nIj-sC-vn3"/>
                             <constraint firstItem="hAR-Gv-HBE" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="pAV-cb-v9G"/>
                             <constraint firstItem="rsC-c1-sng" firstAttribute="top" secondItem="4go-mv-Lob" secondAttribute="bottom" constant="32" id="u14-Nk-y0B"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="leading" secondItem="buI-q1-sDp" secondAttribute="leading" id="vfk-mv-I1M"/>
+                            <constraint firstAttribute="top" secondItem="buI-q1-sDp" secondAttribute="top" constant="-58" id="yoJ-MT-s6s"/>
                         </constraints>
                     </view>
                     <connections>
