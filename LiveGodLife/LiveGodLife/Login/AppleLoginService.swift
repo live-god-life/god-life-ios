@@ -7,10 +7,11 @@
 
 import Foundation
 import AuthenticationServices
+import Combine
 
 protocol AppleLoginServiceDelegate: AnyObject {
 
-    func signup()
+    func signup(_ user: UserModel)
 }
 
 final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
@@ -18,6 +19,8 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
     private weak var presentationContextProvider: ASAuthorizationControllerPresentationContextProviding?
 
     weak var delegate: AppleLoginServiceDelegate?
+
+    private var cancellable = Set<AnyCancellable>()
 
     init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
         self.presentationContextProvider = presentationContextProvider
@@ -40,11 +43,24 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
             let data = ["identifier": identifier,
                         "type": LoginType.apple.rawValue]
 
-            // 애플 로그인 인증 성공
-            // 회원 인증했으면 홈으로
-            // UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
-            // 회원이 아니면 회원가입
-            delegate?.signup()
+            DefaultUserRepository().login(endpoint: .login(data))
+                .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { [weak self] data in
+                // 회원이 아니면 회원가입
+                let user = UserModel(nickname: "", type: .apple, identifier: identifier, email: email, image: nil)
+                if data.code == 401 {
+                    self?.delegate?.signup(user)
+                    return
+                }
+                NotificationCenter.default.post(name: .moveToHome, object: self)
+            }
+            .store(in: &cancellable)
         }
     }
 

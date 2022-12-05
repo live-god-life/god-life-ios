@@ -6,9 +6,24 @@
 //
 
 import UIKit
+import Combine
 
 class AgreementViewController: UIViewController {
+
     let nextButton = UIButton()
+
+    private var user: UserModel
+
+    private var cancellable = Set<AnyCancellable>()
+
+    init(_ user: UserModel) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +55,17 @@ class AgreementViewController: UIViewController {
         lineView.backgroundColor = .white
         
         serviceLabel.text = "(필수) 서비스 이용약관"
-        serviceLabel.textColor = .white
+        serviceLabel.textColor = .BBBBBB
         serviceLabel.font = UIFont(name: "Pretendard", size: 18)
         serviceLabel.numberOfLines = 0
-        
+
         privacyLabel.text = "(필수) 개인정보 처리방침"
-        privacyLabel.textColor = .white
+        privacyLabel.textColor = .BBBBBB
         privacyLabel.font = UIFont(name: "Pretendard", size: 18)
         privacyLabel.numberOfLines = 0
         
         marketingLabel.text = "(선택) 마케팅 정보 수신 동의"
-        marketingLabel.textColor = .white
+        marketingLabel.textColor = .BBBBBB
         marketingLabel.font = UIFont(name: "Pretendard", size: 18)
         marketingLabel.numberOfLines = 0
         
@@ -109,8 +124,23 @@ class AgreementViewController: UIViewController {
         }
     }
     
-    @objc func next(_ sender:UIButton) {
-        self.navigationController?.pushViewController(JoinCompleteViewController(), animated: true)
+    @objc func next(_ sender: UIButton) {
+        // 회원가입
+        DefaultUserRepository().request(endpoint: .signup(user))
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    // error 처리 필요
+                case .finished:
+                    guard let self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(JoinCompleteViewController(self.user), animated: true)
+                    }
+                }
+            } receiveValue: { token in
+                print(token)
+            }
+            .store(in: &cancellable)
     }
-
 }
