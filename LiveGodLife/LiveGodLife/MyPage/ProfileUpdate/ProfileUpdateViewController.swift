@@ -80,13 +80,16 @@ final class ProfileUpdateViewController: UIViewController {
                 }
             } receiveValue: { [weak self] data in
                 let images = data.compactMap { ImageAsset(name: $0) }
-                let defaultImages = [ImageAsset(name: "frog"),
-                                     ImageAsset(name: "frog"),
-                                     ImageAsset(name: "frog"),
-                                     ImageAsset(name: "frog"),
-                                     ImageAsset(name: "frog"),
-                                     ImageAsset(name: "frog")]
+                let defaultImages = [ImageAsset(name: "frog1"),
+                                     ImageAsset(name: "frog2"),
+                                     ImageAsset(name: "frog3"),
+                                     ImageAsset(name: "frog4"),
+                                     ImageAsset(name: "frog5"),
+                                     ImageAsset(name: "frog6")]
                 self?.imageCollectionViewModel.data = images.isEmpty ? defaultImages : images
+                DispatchQueue.main.async {
+                    self?.imageCollectionView.reloadData()
+                }
             }
             .store(in: &cancellable)
     }
