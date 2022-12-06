@@ -53,12 +53,10 @@ class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
 
 extension HomeHeaderView {
 
-    // Todo 완료 체크 버튼
     func complete(id: Int) {
         if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
             todos.remove(at: index)
-            print(index)
-            
+            collectionView.reloadData()
         }
     }
 }
@@ -66,7 +64,7 @@ extension HomeHeaderView {
 extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 40), height: collectionView.frame.height)
+        return CGSize(width: 296, height: collectionView.frame.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

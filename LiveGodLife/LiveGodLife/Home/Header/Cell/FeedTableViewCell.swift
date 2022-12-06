@@ -14,6 +14,8 @@ final class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var feedImageView: UIImageView!
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var viewCountLabel: UILabel!
+    @IBOutlet weak var pickCountLabel: UILabel! // 가져가기
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var todoCountLabel: UILabel!
@@ -39,6 +41,8 @@ final class FeedTableViewCell: UITableViewCell {
         feedImageView.contentMode = .scaleAspectFill
         feedImageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
+        viewCountLabel.text = "\(feed.viewCount)"
+        pickCountLabel.text = "\(feed.pickCount)"
         titleLabel.text = feed.title
         bookmarkButton.isSelected = feed.isBookmark
         todoCountLabel.text = "\(feed.todoCount) List"
