@@ -30,7 +30,7 @@ final class CategoryFilterView: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 15
+        stackView.spacing = 10
         stackView.distribution = .fillProportionally
         return stackView
     }()

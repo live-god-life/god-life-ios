@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="47" width="390" height="797"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="390" placeholderIntrinsicHeight="282" translatesAutoresizingMaskIntoConstraints="NO" id="eRJ-Ih-9NM" customClass="HomeHeaderView" customModule="LiveGodLife" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="307.33333333333331"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="282"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목제목제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKD-JR-EuQ">
                                             <rect key="frame" x="24" y="55" width="316" height="17"/>
@@ -36,8 +36,8 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
-                                            <rect key="frame" x="24" y="82" width="316" height="93.333333333333314"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
+                                            <rect key="frame" x="24" y="82" width="299" height="66"/>
                                             <string key="text">인생이란...
 인생이란...
 인생이란...</string>
@@ -46,7 +46,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-k3-QMK">
-                                            <rect key="frame" x="0.0" y="205.33333333333337" width="390" height="102"/>
+                                            <rect key="frame" x="0.0" y="180" width="390" height="102"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="102" id="Zjd-Uy-vhd"/>
@@ -60,18 +60,35 @@
                                             </collectionViewFlowLayout>
                                             <cells/>
                                         </collectionView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5T-jf-mMG">
+                                            <rect key="frame" x="335" y="108" width="40" height="40"/>
+                                            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="VRf-mU-yRV"/>
+                                                <constraint firstAttribute="height" constant="40" id="wWt-5b-Nal"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="arrow_right"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="55" id="3E6-bz-VpZ"/>
                                         <constraint firstItem="Tg7-k3-QMK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" id="7el-cq-UzE"/>
+                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="o5T-jf-mMG" secondAttribute="bottom" constant="32" id="A86-Aw-bJD"/>
                                         <constraint firstItem="SKD-JR-EuQ" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="E1Z-nv-QIu"/>
                                         <constraint firstAttribute="trailing" secondItem="SKD-JR-EuQ" secondAttribute="trailing" constant="50" id="Vax-zg-H65"/>
                                         <constraint firstItem="CSz-Dp-RSK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="Znt-Ag-aey"/>
+                                        <constraint firstAttribute="trailing" secondItem="o5T-jf-mMG" secondAttribute="trailing" constant="15" id="bkW-uc-2Mq"/>
                                         <constraint firstAttribute="trailing" secondItem="Tg7-k3-QMK" secondAttribute="trailing" id="eru-gf-QR0"/>
-                                        <constraint firstAttribute="trailing" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="50" id="lHP-0p-JeU"/>
                                         <constraint firstAttribute="bottom" secondItem="Tg7-k3-QMK" secondAttribute="bottom" id="ncX-zL-c6E"/>
-                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="30" id="sjs-Tc-wce"/>
+                                        <constraint firstItem="o5T-jf-mMG" firstAttribute="leading" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="12" id="rlP-CJ-Eb4"/>
+                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="32" id="sjs-Tc-wce"/>
                                         <constraint firstItem="CSz-Dp-RSK" firstAttribute="top" secondItem="SKD-JR-EuQ" secondAttribute="bottom" constant="10" id="taS-wH-oHf"/>
                                     </constraints>
                                     <connections>
@@ -101,4 +118,7 @@
             <point key="canvasLocation" x="126.15384615384615" y="-2.1327014218009479"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow_right" width="30" height="30"/>
+    </resources>
 </document>
