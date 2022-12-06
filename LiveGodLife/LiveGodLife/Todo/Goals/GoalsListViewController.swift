@@ -13,8 +13,8 @@ class GoalsListViewController: UIViewController {
     static var reMindUrl:String = ""
     var model:[GoalsModel] = []
     
-    var listView: ListViewController<GoalsModel,MindsetListCell> = {
-        let node = ListViewController<GoalsModel,MindsetListCell>()
+    var listView: ListViewController<GoalsModel,GoalsListCell> = {
+        let node = ListViewController<GoalsModel,GoalsListCell>()
         return node
     }()
     
@@ -58,7 +58,7 @@ extension GoalsListViewController: UICollectionViewDelegate {
 extension GoalsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let itemHeightSize = 120.0
+        let itemHeightSize = 146.0
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
 
@@ -69,25 +69,28 @@ extension GoalsListViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         //comment 동일한 셀 반복 횟수
-        return self.listView.model.count
+//        return self.listView.model.count
+        return 3
+
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
 //        print("section:\(self.listView.model[section].mindsets.count)")
 //        return self.listView.model[section].mindsets.count
-        return self.listView.model.count
+//        return self.listView.model.count
+        return 1
+
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Configure the cell
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MindsetListCell.identifier, for: indexPath) as? MindsetListCell else {
-//            return UICollectionViewCell()
-//        }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalsListCell.identifier, for: indexPath) as? GoalsListCell else {
+            return UICollectionViewCell()
+        }
 //        cell.model = self.listView.model[indexPath.row].mindsets
 //        cell.dataModel = self.listView.model[indexPath.section].mindsets[indexPath.row]
-//        cell.setUpModel()
+        cell.setUpModel()
        
-//        return cell
-        return UICollectionViewCell()
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }

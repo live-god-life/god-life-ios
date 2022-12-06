@@ -31,7 +31,7 @@ enum TodoMainTab: CaseIterable {
         case .mindset:
             return MindsetListViewController()
         case .goal:
-            return UIViewController()
+            return GoalsListViewController()
         }
     }
     

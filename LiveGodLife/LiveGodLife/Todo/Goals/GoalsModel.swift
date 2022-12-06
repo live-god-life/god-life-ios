@@ -21,6 +21,7 @@ import Foundation
 //      "completedTodoTaskScheduleCount": 0
 //    }
 //  ]
+
 struct GoalsModel: Codable {
     var goalId: Int
     var category: String
