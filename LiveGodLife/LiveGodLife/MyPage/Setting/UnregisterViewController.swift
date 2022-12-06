@@ -13,6 +13,7 @@ class UnregisterViewController: UIViewController {
     @IBOutlet weak var contentStackView: UIStackView!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var unregisterButton: RoundedButton!
+    @IBOutlet weak var dimmedView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +43,19 @@ class UnregisterViewController: UIViewController {
 
     @IBAction func didTapCheckButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        unregisterButton.isEnabled = checkButton.isSelected
     }
 
     @IBAction func didTapunregisterButton(_ sender: UIButton) {
+        dimmedView.isHidden = false
         if !checkButton.isSelected {
             return
         }
         let popup = PopupView()
-        popup.configure(negativeHandler: {
+        popup.configure(title: "정말 탈퇴하시겠습니까?",
+                        negativeHandler: { [weak self] in
             popup.removeFromSuperview()
+            self?.dimmedView.isHidden = true
         }, positiveHandler: { [weak self] in
             self?.dismiss(animated: true)
             NotificationCenter.default.post(name: .moveToLogin, object: self)
@@ -59,7 +64,7 @@ class UnregisterViewController: UIViewController {
         view.addSubview(popup)
         popup.snp.makeConstraints {
             $0.width.equalTo(327)
-            $0.height.equalTo(212)
+            $0.height.equalTo(188)
             $0.center.equalToSuperview()
         }
     }

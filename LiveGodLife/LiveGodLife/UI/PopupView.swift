@@ -9,6 +9,8 @@ import UIKit
 
 class PopupView: UIView {
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var negativeButton: RoundedButton!
     @IBOutlet weak var positiveButton: RoundedButton!
 
@@ -35,7 +37,10 @@ class PopupView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(negativeHandler: @escaping () -> Void, positiveHandler: @escaping () -> Void) {
+    func configure(title: String = "", subtitle: String = "", negativeHandler: @escaping () -> Void, positiveHandler: @escaping () -> Void) {
+        titleLabel.text = title
+        subtitleLabel.text = subtitle
+        if subtitle.isEmpty { subtitleLabel.isHidden = true }
         self.negativeHandler = negativeHandler
         self.positiveHandler = positiveHandler
     }

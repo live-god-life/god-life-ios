@@ -65,7 +65,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTr-LA-jL4" customClass="RoundedButton" customModule="LiveGodLife" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTr-LA-jL4" customClass="RoundedButton" customModule="LiveGodLife" customModuleProvider="target">
                                 <rect key="frame" x="24" y="714" width="342" height="56"/>
                                 <color key="backgroundColor" red="0.48627450979999998" green="0.98823529409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -83,21 +83,29 @@
                                     <action selector="didTapunregisterButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="NC0-dK-ddh"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8m-XX-Bj4">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="FTr-LA-jL4" secondAttribute="bottom" constant="40" id="24J-hE-cbp"/>
+                            <constraint firstItem="G8m-XX-Bj4" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="3tb-Uf-rLf"/>
                             <constraint firstItem="US5-Dd-rU8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="26" id="BGZ-Ln-Y0n"/>
                             <constraint firstItem="eMx-M1-bpr" firstAttribute="top" secondItem="ept-Kw-fP6" secondAttribute="bottom" constant="16" id="FZh-Bh-On2"/>
+                            <constraint firstAttribute="bottom" secondItem="G8m-XX-Bj4" secondAttribute="bottom" id="G4l-IS-oDW"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aHi-ZR-vUv" secondAttribute="trailing" constant="24" id="GCV-kR-ig3"/>
                             <constraint firstItem="aHi-ZR-vUv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="L71-JZ-fya"/>
+                            <constraint firstItem="G8m-XX-Bj4" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="NNx-Nq-zfr"/>
                             <constraint firstItem="aHi-ZR-vUv" firstAttribute="top" secondItem="eMx-M1-bpr" secondAttribute="bottom" constant="24" id="XaU-xg-PuE"/>
                             <constraint firstItem="ept-Kw-fP6" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="34" id="dtJ-cl-cgU"/>
                             <constraint firstItem="eMx-M1-bpr" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="fT1-Cc-IWd"/>
                             <constraint firstAttribute="trailing" secondItem="eMx-M1-bpr" secondAttribute="trailing" constant="24" id="gbx-vD-Y2Q"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ept-Kw-fP6" secondAttribute="trailing" constant="24" id="jOH-HE-FnM"/>
                             <constraint firstItem="FTr-LA-jL4" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="lR4-Rf-3bS"/>
+                            <constraint firstAttribute="trailing" secondItem="G8m-XX-Bj4" secondAttribute="trailing" id="n8X-1s-K2S"/>
                             <constraint firstItem="ept-Kw-fP6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="nKh-ZW-q2B"/>
                             <constraint firstAttribute="trailing" secondItem="US5-Dd-rU8" secondAttribute="trailing" constant="24" id="oAU-Zd-Frd"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FTr-LA-jL4" secondAttribute="trailing" constant="24" id="wlK-rS-iX5"/>
@@ -107,6 +115,7 @@
                     <connections>
                         <outlet property="checkButton" destination="R3V-vk-ecA" id="ifm-qk-8qU"/>
                         <outlet property="contentStackView" destination="eMx-M1-bpr" id="2Sw-eC-O1t"/>
+                        <outlet property="dimmedView" destination="G8m-XX-Bj4" id="gmu-O2-ox9"/>
                         <outlet property="unregisterButton" destination="FTr-LA-jL4" id="1cl-oX-Iyz"/>
                     </connections>
                 </viewController>
