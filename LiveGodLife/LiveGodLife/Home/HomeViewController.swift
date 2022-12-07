@@ -54,6 +54,7 @@ private extension HomeViewController {
         tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         // 탭바의 높이만큼 bottom inset
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
     }

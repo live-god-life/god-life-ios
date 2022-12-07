@@ -46,6 +46,7 @@ final class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: SettingTableViewCell.indentifier, bundle: nil), forCellReuseIdentifier: SettingTableViewCell.indentifier)
         tableView.backgroundColor = .black
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.leading.trailing.top.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
