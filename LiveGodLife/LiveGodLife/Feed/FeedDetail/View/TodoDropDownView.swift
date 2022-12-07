@@ -48,9 +48,11 @@ final class TodoDropDownView: UIView {
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
         view.layer.borderWidth = 1
-        todoView.backgroundColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        subTodoView.backgroundColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
-        subTodoView2.backgroundColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
+        todoView.backgroundColor = .default
+        subTodoView.backgroundColor = .gray5
+        subTodoView2.backgroundColor = .gray5
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray3.cgColor
         view.frame = self.bounds
         addSubview(view)
     }

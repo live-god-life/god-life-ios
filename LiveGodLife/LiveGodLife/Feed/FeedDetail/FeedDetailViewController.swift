@@ -46,7 +46,7 @@ final class FeedDetailViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.spacing = 8
+        stackView.spacing = 24
         return stackView
     }()
 
