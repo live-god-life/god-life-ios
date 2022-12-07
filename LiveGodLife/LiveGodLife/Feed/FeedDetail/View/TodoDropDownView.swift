@@ -62,6 +62,7 @@ final class TodoDropDownView: UIView {
         guard let childs = todo.childs, !childs.isEmpty else {
             subTodoView.isHidden = true
             subTodoView2.isHidden = true
+            toggleButton.isHidden = true
             return
         }
         // TODO: 코드 개선
@@ -78,7 +79,7 @@ final class TodoDropDownView: UIView {
         }
     }
 
-    @IBAction func toggle(_ sendser: UIButton) {
+    @IBAction func toggle(_ sender: UIButton) {
 //        UIView.animate(withDuration: 0.4, animations: {
 //            if self.isOpened {
 //                self.subTodoView.isHidden = true
