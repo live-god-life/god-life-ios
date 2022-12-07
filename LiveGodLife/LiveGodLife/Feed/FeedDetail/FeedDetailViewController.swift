@@ -134,7 +134,7 @@ private extension FeedDetailViewController {
         }
 
         // titleLabel
-        titleLabel.textColor = .white
+        titleLabel.textColor = .BBBBBB
         titleLabel.font = .bold(with: 24)
         titleLabel.numberOfLines = 2
         containerView.addSubview(titleLabel)

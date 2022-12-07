@@ -23,7 +23,7 @@ final class ProfileUpdateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .background
 
         title = "프로필 수정"
 

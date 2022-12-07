@@ -22,6 +22,7 @@ class TextFieldView: UITextField {
     private func commonInit() {
         backgroundColor = .clear
         textColor = .white
+        borderStyle = .none
 
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.gray.cgColor
