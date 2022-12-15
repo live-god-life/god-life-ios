@@ -104,7 +104,7 @@ final class LoginViewController: UIViewController {
 //                    _ = oauthToken
 //                    /// 로그인 관련 메소드 추가
 //                }
-                let idToken = oauthToken?.idToken
+//                let idToken = oauthToken?.idToken
                 if let error = error {
                     print(error)
                 } else {
@@ -114,14 +114,8 @@ final class LoginViewController: UIViewController {
                     let name = user?.id
                     let token = user?.kakaoAccount
 
-                    print("name : \(name) - \(token)\n")
-//                    print("idToken : \(idToken)\n")
-
                     var parameter = Dictionary<String,Any>()
-//                    “identifier” : “key”
-//                      “type” : “apple, kakao”
-                    print("identifier: \(name)")
-                    parameter.updateValue(name ?? "", forKey: "identifier")
+//                  parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
 
@@ -144,13 +138,9 @@ final class LoginViewController: UIViewController {
                     let name = user?.id
                     let token = user?.kakaoAccount
 
-                    print("name : \(name) - \(token)\n")
-                    print("idToken : \(idToken)\n")
-
                     var parameter = Dictionary<String,Any>()
 //                    “identifier” : “key”
 //                      “type” : “apple, kakao”
-                    print("identifier: \(name)")
                     parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""

@@ -18,6 +18,8 @@
 		B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */; };
 		B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310E29377CAD000DA2D7 /* MindsetModel.swift */; };
 		B92C311829377CEA000DA2D7 /* Utill+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */; };
+		B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312429491819000DA2D7 /* NetworkManger.swift */; };
+		B92C312729491868000DA2D7 /* LGLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312629491868000DA2D7 /* LGLService.swift */; };
 		C9152E9B29397F4400C6C025 /* GoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9A29397F4400C6C025 /* GoalsModel.swift */; };
 		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
@@ -131,6 +133,8 @@
 		B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListCell.swift; sourceTree = "<group>"; };
 		B92C310E29377CAD000DA2D7 /* MindsetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetModel.swift; sourceTree = "<group>"; };
 		B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utill+Formatter.swift"; sourceTree = "<group>"; };
+		B92C312429491819000DA2D7 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
+		B92C312629491868000DA2D7 /* LGLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGLService.swift; sourceTree = "<group>"; };
 		C9152E9A29397F4400C6C025 /* GoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsModel.swift; sourceTree = "<group>"; };
 		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
@@ -375,6 +379,8 @@
 				D06181B828F161FD00B40E32 /* APIResponse.swift */,
 				D06181B628F15C0700B40E32 /* Requestable.swift */,
 				D0B8D87C28F1A9CA00E9339E /* JSONDecodeService.swift */,
+				B92C312429491819000DA2D7 /* NetworkManger.swift */,
+				B92C312629491868000DA2D7 /* LGLService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -757,6 +763,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */,
 				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
 				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
@@ -811,6 +818,7 @@
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
 				B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */,
+				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
