@@ -43,9 +43,9 @@ class CalendarListViewController: UIViewController {
             $0.bottom.equalTo(addButton.snp.top).offset(-40)
         }
         addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-30)
-            make.height.equalTo(30)
-            make.left.equalTo(self.view).offset(16)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-90)
+            make.height.equalTo(48)
+            make.width.equalTo(48)
             make.right.equalTo(self.view).offset(-16)
 
         }
@@ -56,7 +56,8 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.collectionViewLayout = layout
         self.listView.collectionView.backgroundColor = .black
 
-        addButton.backgroundColor = .blue
+        addButton.setImage(UIImage(named: "addButton"), for: .normal)
+        addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
@@ -116,7 +117,9 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.reloadData()
 
     }
-
+    @objc func add(_ sender: UIButton) {
+        self.navigationController?.pushViewController(GoalCreateViewController(), animated: true)
+    }
 }
 
 extension CalendarListViewController: UICollectionViewDelegate {
@@ -140,7 +143,6 @@ extension CalendarListViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        print("section:\(self.listView.model[section].todoSchedules.count)")
         return self.listView.model[section].todoSchedules.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

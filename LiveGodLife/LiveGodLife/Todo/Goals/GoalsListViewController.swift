@@ -75,7 +75,6 @@ extension GoalsListViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-//        print("section:\(self.listView.model[section].mindsets.count)")
 //        return self.listView.model[section].mindsets.count
 //        return self.listView.model.count
         return 1
