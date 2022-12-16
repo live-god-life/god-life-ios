@@ -12,6 +12,7 @@ import SnapKit
 final class MyPageViewController: UIViewController {
 
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var profileImageContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
@@ -26,6 +27,7 @@ final class MyPageViewController: UIViewController {
 
     private var pageViewController: UIPageViewController!
     private var selectedPageIndex: Int = 0
+    private var userProfileImage: String?
 
     private let feedViewController = FeedViewController()
     private var myArticleViewController = {
@@ -89,6 +91,7 @@ private extension MyPageViewController {
 
     @objc func moveToProfileUpdateView(_ sender: UIButton) {
         let profileUpdateViewController = ProfileUpdateViewController.instance()!
+        profileUpdateViewController.userProfileImage = userProfileImage
         navigationController?.pushViewController(profileUpdateViewController, animated: true)
     }
 
@@ -105,6 +108,8 @@ private extension MyPageViewController {
             } receiveValue: { [weak self] user in
                 DispatchQueue.main.async {
                     self?.nicknameLabel.text = user.nickname
+                    self?.profileImageView.image = UIImage(named: user.image ?? "")
+                    self?.userProfileImage = user.image
                 }
             }
             .store(in: &cancellable)
@@ -137,9 +142,9 @@ private extension MyPageViewController {
 extension MyPageViewController {
 
     private func setupProfileImageView() {
-        let radius = profileImageView.frame.height / 2
-        profileImageView.layer.cornerRadius = radius
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
+        let radius = profileImageContainerView.frame.height / 2
+        profileImageContainerView.layer.cornerRadius = radius
+        profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
         profileImageView.addGestureRecognizer(gesture)

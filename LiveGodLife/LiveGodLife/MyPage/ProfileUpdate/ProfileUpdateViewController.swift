@@ -10,11 +10,14 @@ import Combine
 
 final class ProfileUpdateViewController: UIViewController {
 
+    @IBOutlet weak var profileImageContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameTextField: TextFieldView!
     @IBOutlet weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var dimmedView: UIView!
+
+    var userProfileImage: String?
 
     private var isHiddenImageContainerView: Bool = true
     private var imageCollectionViewModel = ImageCollectionViewModel()
@@ -45,10 +48,11 @@ final class ProfileUpdateViewController: UIViewController {
     }
 
     private func setupProfileImageView() {
-        let radius = profileImageView.frame.height / 2
+        let radius = profileImageContainerView.frame.height / 2
+        profileImageContainerView.layer.cornerRadius = radius
+        profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.contentMode = .scaleAspectFit
-        profileImageView.layer.cornerRadius = radius
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
+        profileImageView.image = UIImage(named: userProfileImage ?? "")
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
         profileImageView.addGestureRecognizer(gesture)
@@ -116,7 +120,8 @@ final class ProfileUpdateViewController: UIViewController {
 
     @IBAction func didTapCompleteButton() {
         let nickname = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
-        let param: [String: String] = ["nickname": nickname]
+        let param: [String: String] = ["nickname": nickname,
+                                       "image": imageCollectionViewModel.selectedImage]
         DefaultUserRepository().updateProfile(endpoint: .profileUpdate(param))
             .sink { completion in
                 switch completion {
@@ -152,7 +157,9 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        profileImageView.image = UIImage(named: "frog")
+        let imageName = imageCollectionViewModel.data[indexPath.item].name
+        imageCollectionViewModel.selectedImage = imageName
+        profileImageView.image = UIImage(named: imageName)
     }
 }
 
