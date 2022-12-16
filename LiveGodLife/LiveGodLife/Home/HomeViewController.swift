@@ -35,13 +35,14 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
         setupTableView()
 
         requestTodos()
-        requestFeeds()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
+
+        requestFeeds()
     }
 }
 
@@ -60,8 +61,12 @@ private extension HomeViewController {
     }
 
     func requestTodos() {
-        // TODO: - 오늘 날짜, 최대 5개만, 미완료 투두만
-        let param: [String: Any] = ["date": "20221001", "size": 5, "completionStatus": "false"]
+        // 오늘 날짜, 최대 5개만, 미완료 투두만
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let today = dateFormatter.string(from: Date())
+
+        let param: [String: Any] = ["date": today, "size": 5, "completionStatus": "false"]
         let todos = repository.requestTodos(endpoint: .todos(param))
         let mindset = repository.requestGoals(endpoint: .mindsets)
 
@@ -147,6 +152,7 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
         cell.selectionStyle = .none
+        cell.delegate = self
         cell.configure(with: feeds[indexPath.row])
         return cell
     }
@@ -180,5 +186,24 @@ extension HomeViewController: UITableViewDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
+    }
+}
+
+extension HomeViewController: FeedTableViewCellDelegate {
+
+    func bookmark(feedID: Int, status: Bool) {
+        let param: [String: Any] = ["id": feedID, "status": status]
+        repository.request(UserAPI.bookmark(param))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    print("finished")
+                }
+            } receiveValue: { (feed: String?) in
+
+            }
+            .store(in: &cancellable)
     }
 }
