@@ -76,9 +76,9 @@
                                     <action selector="didTapCompleteButton" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MrR-Q4-IFx"/>
                                 </connections>
                             </button>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLc-mE-Kc6" userLabel="Dimmed View">
+                            <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLc-mE-Kc6" userLabel="Dimmed View">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAd-me-4CU">
                                 <rect key="frame" x="0.0" y="468.33333333333326" width="390" height="375.66666666666674"/>

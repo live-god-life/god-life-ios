@@ -69,7 +69,7 @@ final class ProfileUpdateViewController: UIViewController {
 
         isHiddenImageContainerView = false
         DispatchQueue.main.async { [weak self] in
-            self?.dimmedView.alpha = 0.7
+            self?.dimmedView.isHidden = false
             self?.imageContainerViewBottomConstraint.constant = 0
             UIView.animate(withDuration: 0.4) {
                 self?.view.layoutIfNeeded()
@@ -79,11 +79,11 @@ final class ProfileUpdateViewController: UIViewController {
 
     @objc private func hideProfileImageSelectView() {
         DispatchQueue.main.async { [weak self] in
-            self?.dimmedView.alpha = 0
             self?.imageContainerViewBottomConstraint.constant = 400
             UIView.animate(withDuration: 0.4, animations: {
                 self?.view.layoutIfNeeded()
             }, completion: { _ in
+                self?.dimmedView.isHidden = true
                 self?.isHiddenImageContainerView = true
             })
         }
@@ -123,14 +123,15 @@ final class ProfileUpdateViewController: UIViewController {
         let param: [String: String] = ["nickname": nickname,
                                        "image": imageCollectionViewModel.selectedImage]
         DefaultUserRepository().updateProfile(endpoint: .profileUpdate(param))
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     // 프로필 업데이트 실패
                     print(error)
                 case .finished:
-                    // 성공 팝업
-                    print("finished")
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             } receiveValue: { user in
                 //
