@@ -14,6 +14,7 @@ final class ProfileUpdateViewController: UIViewController {
     @IBOutlet weak var nicknameTextField: TextFieldView!
     @IBOutlet weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var dimmedView: UIView!
 
     private var isHiddenImageContainerView: Bool = true
     private var imageCollectionViewModel = ImageCollectionViewModel()
@@ -30,6 +31,8 @@ final class ProfileUpdateViewController: UIViewController {
         setupProfileImageView()
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
+        dimmedView.addGestureRecognizer(gesture)
         nicknameTextField.delegate = self
 
         requestImages()
@@ -40,7 +43,7 @@ final class ProfileUpdateViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = false
     }
-    
+
     private func setupProfileImageView() {
         let radius = profileImageView.frame.height / 2
         profileImageView.contentMode = .scaleAspectFit
@@ -57,15 +60,28 @@ final class ProfileUpdateViewController: UIViewController {
         imageCollectionView.dataSource = self
     }
 
-    @objc func showProfileImageSelectView() {
+    @objc private func showProfileImageSelectView() {
         guard isHiddenImageContainerView else { return }
 
         isHiddenImageContainerView = false
         DispatchQueue.main.async { [weak self] in
+            self?.dimmedView.alpha = 0.7
+            self?.imageContainerViewBottomConstraint.constant = 0
             UIView.animate(withDuration: 0.4) {
-                self?.imageContainerViewBottomConstraint.constant = 0
                 self?.view.layoutIfNeeded()
             }
+        }
+    }
+
+    @objc private func hideProfileImageSelectView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.dimmedView.alpha = 0
+            self?.imageContainerViewBottomConstraint.constant = 400
+            UIView.animate(withDuration: 0.4, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion: { _ in
+                self?.isHiddenImageContainerView = true
+            })
         }
     }
 
@@ -95,14 +111,7 @@ final class ProfileUpdateViewController: UIViewController {
     }
 
     @IBAction func didTapImageContainerViewClose() {
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.4, animations: {
-                self?.imageContainerViewBottomConstraint.constant = 400
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self?.isHiddenImageContainerView = true
-            })
-        }
+        hideProfileImageSelectView()
     }
 
     @IBAction func didTapCompleteButton() {
