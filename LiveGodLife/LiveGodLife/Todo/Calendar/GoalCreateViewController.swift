@@ -11,7 +11,7 @@ import UIKit
 class GoalCreateViewController: UIViewController {
     let inputGoal = UITextField()
     let textView = UIView()
-    lazy var mindSetView:UIView = {
+    lazy var mindSetView: UIView = {
         let view = UIView()
         let title = UILabel()
         let addButton = UIButton()
@@ -27,11 +27,10 @@ class GoalCreateViewController: UIViewController {
         leftImageView.image = UIImage(named: "leftQuote")
         rightImageView.image = UIImage(named: "rightQuote")
         
-        self.textView.layer.cornerRadius = 20
-
-        self.textView.layer.borderWidth = 3
-        self.textView.layer.cornerRadius = 20
-        
+//        view.makeBorderGradation(startColor: .green, endColor: .blue, radius: 20)
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.cornerRadius = 20
+        view.layer.borderWidth = 1
         
         self.textView.addSubview(leftImageView)
         self.textView.addSubview(mindSetTextLabel)
@@ -57,12 +56,12 @@ class GoalCreateViewController: UIViewController {
             make.width.equalTo(13)
             make.height.equalTo(13)
         }
-        
         self.textView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(16)
             make.bottom.right.equalToSuperview().offset(-16)
             
         }
+        
         return view
     }()
     
@@ -71,7 +70,7 @@ class GoalCreateViewController: UIViewController {
         self.view.backgroundColor = .black
         let inputGoalsImage = UIImageView()
         let spaceView = UIView()
-        
+        spaceView.backgroundColor = .darkGray
         self.view.addSubview(spaceView)
         self.view.addSubview(mindSetView)
         
@@ -83,20 +82,37 @@ class GoalCreateViewController: UIViewController {
         
         mindSetView.snp.makeConstraints { make in
             make.top.equalTo(spaceView).offset(32)
-            make.left.equalTo(self.view)
-            make.right.equalTo(self.view)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
             
         }
 
-        let gradient = UIImage.gradientImage(bounds: textView.bounds, colors: [.green , .blue])
-        let gradientColor = UIColor(patternImage: gradient)
-        self.textView.layer.borderColor = gradientColor.cgColor
-        self.mindSetView.setNeedsDisplay()
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
         navigationItem.backButtonTitle = "목표추가"
+    }
+}
+
+class GradientView: UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let gradient = UIImage()
+        let gradientColor = UIColor(patternImage: gradient
+            .gradientImage(
+                bounds: self.bounds,
+                colors: [
+                    .green,
+                    .blue
+                ]
+            )
+        )
+        self.layer.borderColor = gradientColor.cgColor
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
