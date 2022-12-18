@@ -14,4 +14,5 @@ struct ImageAsset {
 struct ImageCollectionViewModel {
 
     var data: [ImageAsset] = []
+    var selectedImage: String = ""
 }

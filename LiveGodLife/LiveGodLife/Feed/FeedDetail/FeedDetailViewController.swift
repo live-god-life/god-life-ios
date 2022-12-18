@@ -35,18 +35,19 @@ final class FeedDetailViewController: UIViewController {
         image.contentMode = .scaleAspectFit
         return image
     }()
-    private let contentsStackView: UIStackView = {
+    private let contentsContainerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.spacing = 8
+        stackView.spacing = 32
         return stackView
     }()
+
     private let todosStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.spacing = 8
+        stackView.spacing = 24
         return stackView
     }()
 
@@ -134,7 +135,7 @@ private extension FeedDetailViewController {
         }
 
         // titleLabel
-        titleLabel.textColor = .white
+        titleLabel.textColor = .BBBBBB
         titleLabel.font = .bold(with: 24)
         titleLabel.numberOfLines = 2
         containerView.addSubview(titleLabel)
@@ -208,17 +209,22 @@ private extension FeedDetailViewController {
             $0.leading.equalTo(userProfileImageView.snp.trailing).offset(8)
         }
 
-        containerView.addSubview(contentsStackView)
-        contentsStackView.snp.makeConstraints {
+        containerView.addSubview(contentsContainerView)
+        contentsContainerView.snp.makeConstraints {
             $0.top.equalTo(userProfileImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
+
+//        contentsContainerView.addSubview(contentsStackView)
+//        contentsStackView.snp.makeConstraints {
+//            $0.top.leading.trailing.bottom.equalToSuperview()
+//        }
 
         let dividerView2 = UIView()
         dividerView2.backgroundColor = .gray
         containerView.addSubview(dividerView2)
         dividerView2.snp.makeConstraints {
-            $0.top.equalTo(contentsStackView.snp.bottom).offset(58)
+            $0.top.equalTo(contentsContainerView.snp.bottom).offset(58)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(1)
         }
@@ -285,19 +291,26 @@ private extension FeedDetailViewController {
         isBookmarkStatus = feed.isBookmark
 
         feed.contents.forEach { content in
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 8
+
             let titleLabel = UILabel()
             titleLabel.attributedText = content.title.attributed()
             titleLabel.textColor = .white
             titleLabel.font = .bold(with: 18)
             titleLabel.numberOfLines = 0
-            contentsStackView.addArrangedSubview(titleLabel)
+            stackView.addArrangedSubview(titleLabel)
 
             let contentLabel = UILabel()
             contentLabel.attributedText = content.content.attributed()
             contentLabel.textColor = .white
             contentLabel.font = .medium(with: 16)
             contentLabel.numberOfLines = 0
-            contentsStackView.addArrangedSubview(contentLabel)
+            stackView.addArrangedSubview(contentLabel)
+
+            contentsContainerView.addArrangedSubview(stackView)
         }
 
         // 첫 번째 마인드셋을 보여준다

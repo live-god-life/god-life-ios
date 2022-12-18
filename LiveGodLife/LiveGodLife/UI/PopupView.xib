@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Pretendard-Medium.otf">
+            <string>Pretendard-Medium</string>
+        </array>
+        <array key="Pretendard-Regular.otf">
+            <string>Pretendard-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopupView" customModule="LiveGodLife" customModuleProvider="target">
+            <connections>
+                <outlet property="negativeButton" destination="akO-RZ-VLy" id="wZM-dW-7ES"/>
+                <outlet property="positiveButton" destination="6VR-jg-fQy" id="h3N-PN-7LZ"/>
+                <outlet property="subtitleLabel" destination="RgU-c0-rLu" id="5Pa-aK-ktn"/>
+                <outlet property="titleLabel" destination="BHT-SA-gso" id="R97-E7-FUQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="327" height="188"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ebQ-y5-iRc">
+                    <rect key="frame" x="32" y="24" width="263" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-SA-gso">
+                            <rect key="frame" x="105.66666666666666" y="0.0" width="52" height="30.666666666666668"/>
+                            <fontDescription key="fontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서브타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-c0-rLu">
+                            <rect key="frame" x="97" y="40.666666666666671" width="69.333333333333314" height="19.333333333333329"/>
+                            <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="16"/>
+                            <color key="textColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="G36-r8-Pj4">
+                    <rect key="frame" x="32" y="116" width="263" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akO-RZ-VLy" customClass="RoundedButton" customModule="LiveGodLife" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="128" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="FRL-Hq-nis"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="didTapNegativeButton:" destination="-1" eventType="touchUpInside" id="mRy-3N-tWX"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VR-jg-fQy" customClass="RoundedButton" customModule="LiveGodLife" customModuleProvider="target">
+                            <rect key="frame" x="135" y="0.0" width="128" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="VpF-LN-GpC"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="didTapPositiveButton:" destination="-1" eventType="touchUpInside" id="S1t-4J-pnZ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ebQ-y5-iRc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="2W4-Go-xhW"/>
+                <constraint firstAttribute="bottom" secondItem="G36-r8-Pj4" secondAttribute="bottom" constant="24" id="DrA-de-2AQ"/>
+                <constraint firstItem="G36-r8-Pj4" firstAttribute="top" secondItem="ebQ-y5-iRc" secondAttribute="bottom" constant="32" id="L3q-xz-veN"/>
+                <constraint firstAttribute="trailing" secondItem="ebQ-y5-iRc" secondAttribute="trailing" constant="32" id="PdC-mZ-8xp"/>
+                <constraint firstItem="ebQ-y5-iRc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="cEH-r5-tbA"/>
+                <constraint firstAttribute="trailing" secondItem="G36-r8-Pj4" secondAttribute="trailing" constant="32" id="ojv-2g-wyW"/>
+                <constraint firstItem="G36-r8-Pj4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="xBJ-gU-QcD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="135.1145038167939" y="19.718309859154932"/>
+        </view>
+    </objects>
+</document>

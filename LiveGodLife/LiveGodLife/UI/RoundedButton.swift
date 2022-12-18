@@ -10,13 +10,12 @@ import UIKit
 final class RoundedButton: UIButton {
 
     func configure(title: String = "완료",
-                   titleColor: UIColor = .label,
+                   titleColor: UIColor = .background,
                    backgroundColor: UIColor = .green) {
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
-        titleLabel?.font = UIFont(name: "Pretendard", size: 18)
         self.backgroundColor = backgroundColor
-        titleLabel?.font = UIFont(name: "Pretendard", size: 18)
+        titleLabel?.font = .bold(with: 18)
         clipsToBounds = true
         layer.cornerRadius = self.frame.height / 2
     }

@@ -9,6 +9,11 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol FeedTableViewCellDelegate: AnyObject {
+
+    func bookmark(feedID: Int, status: Bool)
+}
+
 final class FeedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var feedImageView: UIImageView!
@@ -24,6 +29,10 @@ final class FeedTableViewCell: UITableViewCell {
 
     static let identifier = "FeedTableViewCell"
 
+    weak var delegate: FeedTableViewCellDelegate?
+
+    private var id: Int?
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -38,6 +47,7 @@ final class FeedTableViewCell: UITableViewCell {
     }
 
     func configure(with feed: Feed) {
+        id = feed.id
         feedImageView.contentMode = .scaleAspectFill
         feedImageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
@@ -49,7 +59,11 @@ final class FeedTableViewCell: UITableViewCell {
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
     }
 
-    @IBAction func didTapBookmarkButton(_ sendser: UIButton) {
+    @IBAction func didTapBookmarkButton(_ sender: UIButton) {
+        // throttle?
+        guard let id = id else { return }
         bookmarkButton.isSelected = !bookmarkButton.isSelected
+        print(bookmarkButton.isSelected)
+        delegate?.bookmark(feedID: id, status: bookmarkButton.isSelected)
     }
 }

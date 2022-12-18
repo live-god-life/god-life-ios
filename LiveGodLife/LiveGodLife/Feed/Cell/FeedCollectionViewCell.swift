@@ -50,7 +50,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
     }
 
-    @IBAction func didTapBookmarkButton(_ sendser: UIButton) {
+    @IBAction func didTapBookmarkButton(_ sender: UIButton) {
         bookmarkButton.isSelected = !bookmarkButton.isSelected
     }
 }

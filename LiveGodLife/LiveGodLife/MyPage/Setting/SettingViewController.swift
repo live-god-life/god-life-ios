@@ -46,6 +46,7 @@ final class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: SettingTableViewCell.indentifier, bundle: nil), forCellReuseIdentifier: SettingTableViewCell.indentifier)
         tableView.backgroundColor = .black
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.leading.trailing.top.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
@@ -86,8 +87,9 @@ extension SettingViewController: UITableViewDataSource {
 extension SettingViewController: SettingTableViewCellDelegate {
 
     func didTapActionButton(with index: Int) {
+        typealias cell = SettingTableViewCellViewModel
         switch index {
-        case SettingTableViewCellViewModel.logout.rawValue:
+        case cell.logout.rawValue:
             DefaultUserRepository().request(endpoint: .logout)
                 .sink { completion in
                     switch completion {
@@ -103,9 +105,14 @@ extension SettingViewController: SettingTableViewCellDelegate {
                 }
                 .store(in: &cancellable)
             
-        case SettingTableViewCellViewModel.unregister.rawValue:
+        case cell.unregister.rawValue:
             let vc = UnregisterViewController.instance()!
             navigationController?.pushViewController(vc, animated: true)
+        case cell.termsOfService.rawValue, cell.privacyPolicy.rawValue:
+            guard let url = URL(string: "https://knowing-amount-d01.notion.site/e758966ec3d44c4f9f9a5c6be91d758e") else {
+                return
+            }
+            UIApplication.shared.open(url)
         default:
             break
         }
