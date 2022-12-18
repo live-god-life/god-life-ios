@@ -88,7 +88,7 @@ final class LoginViewController: UIViewController {
         buttonStackView.addArrangedSubview(kakaoLoginButton)
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints {
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(48)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
             $0.height.equalTo(132)
         }

@@ -35,7 +35,6 @@
 		CCA802E6293F388F00D9579F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA802E5293F388F00D9579F /* PopupView.swift */; };
 		CCA802E8293F393C00D9579F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA802E7293F393C00D9579F /* PopupView.xib */; };
 		D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */; };
-		D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46EF28F7BDC200A18FE7 /* OnboardingViewModel.swift */; };
 		D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */; };
 		D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01E2639292A72F300FBFF5B /* UserAPI.swift */; };
 		D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01E263D292AFCC300FBFF5B /* UserRepository.swift */; };
@@ -156,7 +155,6 @@
 		CCA802E5293F388F00D9579F /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		CCA802E7293F393C00D9579F /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
 		D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		D00E46EF28F7BDC200A18FE7 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		D01E2639292A72F300FBFF5B /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		D01E263D292AFCC300FBFF5B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 		D00E46EB28F7BDC200A18FE7 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				D00E46EF28F7BDC200A18FE7 /* OnboardingViewModel.swift */,
 				D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */,
 				D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */,
 				D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */,
@@ -852,7 +849,6 @@
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
 				C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */,
-				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
 				D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */,
