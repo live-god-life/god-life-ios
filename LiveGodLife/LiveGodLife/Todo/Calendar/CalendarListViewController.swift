@@ -7,11 +7,13 @@
 
 import Foundation
 import UIKit
+import Moya
 
 class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
     var model:[MainCalendarModel] = []
+//    private let authLookProvider = MoyaProvider<NetworkService>()
 
     var listView: ListViewController<MainCalendarModel,CalendarListCell> = {
         let node = ListViewController<MainCalendarModel,CalendarListCell>()
@@ -60,61 +62,43 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
-
+        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         model.removeAll()
-        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubCalendarModel(
-                                    title: "컨셉잡기",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "WEEK",
-                                    repetitionParams: [
-                                        "월",
-                                        "목",
-                                        "토"
-                                    ],
-                                    totalTodoTaskScheduleCount: 39,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48),
-                                SubCalendarModel(
-                                    title: "컨셉잡기1",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "WEEK",
-                                    repetitionParams: [
-                                        "월",
-                                        "목",
-                                        "토"
-                                    ],
-                                    totalTodoTaskScheduleCount: 39,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48),
-                            ]
-                          )
-        )
-        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubCalendarModel(
-                                    title: "테스트",
-                                    completionStatus: false,
-                                    taskType: "D-999",
-                                    repetitionType: "DAY",
-                                    repetitionParams: nil,
-                                    totalTodoTaskScheduleCount: 91,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48)
-                            ]
-                          )
-        )
+            
+        let parameter: [String: Any] = [
+            "date": "20221001",//Date.today,
+            "size": 5,
+            "completionStatus": "false",
+        ] as [String : Any]
+        
+       
+        NetworkManager().provider.request(.todos(parameter)) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                do {
 
-        self.listView.model = model
-        self.listView.collectionView.reloadData()
-
+                    let json = try result.mapJSON()
+                    let jsonData = json as? [String:Any] ?? [:]
+//                    let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
+                       let model = try? JSONDecoder().decode([MainCalendarModel].self, from: jsonData) {
+                        self.listView.model = model
+                        print(self.model)
+                        self.listView.collectionView.reloadData()
+                    }
+//                     = try! JSONDecoder().decode([MainCalendarModel].self, from: data)
+                } catch(let err) {
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 
 }
@@ -162,8 +146,10 @@ extension CalendarListViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CalendarListHeaderView", for: indexPath)
             if let headerView = headerView as? CalendarListHeaderView {
-                headerView.titleLabel.text = model[indexPath.section].title
-                headerView.delegate = self
+                if self.listView.model.count > 0 {
+                    headerView.titleLabel.text = self.listView.model[indexPath.section].title
+                    headerView.delegate = self
+                }
             }
             return headerView
         default:

@@ -47,6 +47,6 @@ class CalendarCell: CommonCell {
     }
     override func setUpModel() {
         super.setUpModel()
-        dataModel = super.model as? SubCalendarModel ?? SubCalendarModel(title: "", completionStatus: nil, taskType: "", repetitionType: "", totalTodoTaskScheduleCount: 0, completedTodoTaskScheduleCount: 0, todoDay: 0)
+        dataModel = super.model as? SubCalendarModel ?? nil
     }
 }

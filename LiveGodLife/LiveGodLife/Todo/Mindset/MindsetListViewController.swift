@@ -45,24 +45,36 @@ class MindsetListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        model.removeAll()
-        model.append(.init(goalId: 1, title: "이직하기", mindsets:
-                            [
-                                .init(mindsetId: 0, content: "사는건 레벨업이 아닌 스펙트럼을 넓히는거란 얘길 들었다. 어떤 말보다 용기가 된다.")
+//        let parameter: [String: Any] = [
+//            "date": "20221001",//Date.today,
+//            "size": 5,
+//            "completionStatus": "false",
+//        ] as [String : Any]
         
-                            ]
-                          )
-        )
-        model.append(.init(goalId: 2, title: "1년안에 5000만원 모으기", mindsets:
-                            [
-                                .init(mindsetId: 1, content: "충분한 현금을 보유해라"),
-                                .init(mindsetId: 2, content: "잠자는 동안에도 돈이 들어오는 방법을 찾아내지 못한다면 당신은 죽을 때까지 일을 해야만 할 것이다."),
-        
-                            ]
-                          )
-        )
-        self.listView.model = model
-        self.listView.collectionView.reloadData()
+        let parameter: [String: Any] = [:]
+        NetworkManager().provider.request(.mindsets(parameter)) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                do {
+
+                    let json = try result.mapJSON()
+                    let jsonData = json as? [String:Any] ?? [:]
+//                    let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
+                       let model = try? JSONDecoder().decode([MindSetModel].self, from: jsonData) {
+                        self.listView.model = model
+                        print(self.model)
+                        self.listView.collectionView.reloadData()
+                    }
+//                     = try! JSONDecoder().decode([MainCalendarModel].self, from: data)
+                } catch(let err) {
+                    print(err)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 
 }
@@ -109,7 +121,7 @@ extension MindsetListViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "MindsetListHeadersView", for: indexPath)
             if let headerView = headerView as? MindsetListHeadersView {
-                headerView.titleLabel.text = model[indexPath.section].title
+                headerView.titleLabel.text = self.listView.model[indexPath.section].title
                 headerView.delegate = self
             }
             return headerView

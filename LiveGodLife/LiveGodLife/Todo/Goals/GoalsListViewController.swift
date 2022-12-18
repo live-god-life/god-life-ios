@@ -47,8 +47,35 @@ class GoalsListViewController: UIViewController {
         super.viewWillAppear(animated)
         model.removeAll()
         
-        self.listView.model = model
-        self.listView.collectionView.reloadData()
+        let parameter: [String: Any] = [
+            "date": "20221001",//Date.today,
+            "size": 5,
+            "completionStatus": "false",
+        ] as [String : Any]
+        
+       
+        NetworkManager().provider.request(.goals(parameter)) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                do {
+
+                    let json = try result.mapJSON()
+                    let jsonData = json as? [String:Any] ?? [:]
+//                    let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
+                       let model = try? JSONDecoder().decode([GoalsModel].self, from: jsonData) {
+                        self.listView.model = model
+                        print(self.model)
+                        self.listView.collectionView.reloadData()
+                    }
+//                     = try! JSONDecoder().decode([MainCalendarModel].self, from: data)
+                } catch(let err) {
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 
 }
@@ -69,15 +96,11 @@ extension GoalsListViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         //comment 동일한 셀 반복 횟수
-//        return self.listView.model.count
-        return 3
+        return self.listView.model.count
 
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-//        print("section:\(self.listView.model[section].mindsets.count)")
-//        return self.listView.model[section].mindsets.count
-//        return self.listView.model.count
         return 1
 
     }
@@ -86,8 +109,8 @@ extension GoalsListViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalsListCell.identifier, for: indexPath) as? GoalsListCell else {
             return UICollectionViewCell()
         }
-//        cell.model = self.listView.model[indexPath.row].mindsets
-//        cell.dataModel = self.listView.model[indexPath.section].mindsets[indexPath.row]
+        cell.model = self.listView.model[indexPath.row]
+        cell.dataModel = self.listView.model[indexPath.section]
         cell.setUpModel()
        
         return cell

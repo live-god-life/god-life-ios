@@ -7,7 +7,6 @@
 
 import Foundation
 import Moya
-import Alamofire
 import SwiftyJSON
 import PopupDialog
 import SystemConfiguration
@@ -23,7 +22,7 @@ enum LGLService{
     case join(Dictionary<String,Any>)
     case otherDetail(String, Int)
     case login(Dictionary<String,Any>)
-   
+    case todos(Dictionary<String,Any>)
     
     struct Error: Swift.Error, LocalizedError{}
 }
@@ -45,6 +44,8 @@ extension LGLService: TargetType{
             return "/users"
         case .login(_):
             return "/login"
+        case .todos(_):
+            return "/goals/todos"
         }
     }
 
@@ -58,6 +59,8 @@ extension LGLService: TargetType{
             return .post
         case .login(_):
             return .post
+        case .todos:
+            return .get
         }
     }
 
@@ -69,61 +72,63 @@ extension LGLService: TargetType{
         switch self {
         case .nickname:
             return .requestPlain
-
-//            return .requestParameters(parameters: ["nickname":"hun"], encoding: URLEncoding.default)
         case .otherDetail(_, _):
             return .requestPlain
         case .join(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
-//            let encoder = JSONEncoder()
-//            encoder.outputFormatting = .prettyPrinted
-//            let encodedData = try? encoder.encode(data)
             return .requestData(data)
-            //            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .todos(let parameter):
+            return .requestParameters(parameters: parameter, encoding: URLEncoding.default)
+
+//            let data = try! JSONSerialization.data(withJSONObject: parameter)
+//            return .requestData(data)
         }
     }
     
-//    var headers: [String: String]? {
-//        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-//        switch self {
-//        default:
-//            return ["Content-Type": "application/json",
-//                    "token": accessToken] // GeneralAPI.token
-//        }
-//    }
-
-    var headers: [String : String]? {
-        return ["Content-Type": "application/json"]
+    var headers: [String: String]? {
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        switch self {
+        default:
+            return ["Content-Type": "application/json",
+                    "Authorization": "Bearer test"] // GeneralAPI.token
+        }
     }
+
+//    var headers: [String : String]? {
+//        return ["Content-Type": "application/json"]
+//    }
     
     public var validationType: ValidationType {
         return .successCodes
     }
 }
-
 class LGLServiceAuth: PluginType{
     
     let authHeaderKey = "authorization"
 
     func prepare(_ urlRequest: URLRequest, target: TargetType) -> URLRequest {
         
-        if UserDefaults.standard.string(forKey: "accessToken")?.isEmpty ?? true {
-            return urlRequest
-        }
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+//        if UserDefaults.standard.string(forKey: "accessToken")?.isEmpty ?? true {
+//            return urlRequest
+//        }
+//        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+//        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
 
         var request = urlRequest
+//        request.setValue("Bearer test", forHTTPHeaderField: "Authorization")
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
         
-        if request.allHTTPHeaderFields?.keys.contains(authHeaderKey) ?? false{
-            request.setValue(refreshToken, forHTTPHeaderField: authHeaderKey)
-        }
-        else {
-            request.addValue(accessToken,  forHTTPHeaderField: "X-Auth-Token")
-            request.addValue(refreshToken, forHTTPHeaderField: "X-AUTH-RT")
-        }
+//        if request.allHTTPHeaderFields?.keys.contains(authHeaderKey) ?? false{
+//            request.setValue(refreshToken, forHTTPHeaderField: authHeaderKey)
+//        }
+//        else {
+//            request.addValue(accessToken,  forHTTPHeaderField: "Authorization")
+//            request.addValue(refreshToken, forHTTPHeaderField: "X-AUTH-RT")
+//        }
         return request
     }
     
@@ -154,7 +159,7 @@ class LGLServiceAuth: PluginType{
         case .failure(let error):
             LGLLog.log("didReceive\n[실패] \(target)\n[에러] \(error.localizedDescription)", category: "Network")
         }
-        #endif 
+        #endif
     }
     
     func process(_ result: Result<Response, MoyaError>, target: TargetType) -> Result<Response, MoyaError> {

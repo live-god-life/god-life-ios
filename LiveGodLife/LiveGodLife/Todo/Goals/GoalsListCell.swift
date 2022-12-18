@@ -152,12 +152,14 @@ class GoalsListCell: CommonCell {
         totalTodoCountLabel.text = "진행중:\(ProceedingCount)"
         let completeCount = self.dataModel?.totalMindsetCount ?? 0
         completedTodoCount.text = "완료:\(completeCount)"
-        dDayLabel.text = "D-24"
         let startDate = self.dataModel?.startDate ?? (Date.today.date?.toString() ?? "")
         let endDate = self.dataModel?.endDate ?? (Date.today.date?.toString() ?? "")
         datelabel.text = "\(startDate) ~ \(endDate)"
-        
-//        dDayLabel.text = self.dataModel?.dDay ??"D-24"
+        let dDay = Int(Date.today) ?? 0 - (Int(self.dataModel?.endDate ?? "0") ?? 0)
+        let today = Date.today.intValue ?? 0
+        let lastDay = self.dataModel?.endDate.intValue ?? 0
+        let test = today - lastDay
+        dDayLabel.text = "D-\(test)"
     }
     
     override func setUpModel() {
