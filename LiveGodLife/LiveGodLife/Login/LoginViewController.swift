@@ -111,20 +111,16 @@ final class LoginViewController: UIViewController {
                     print("카카오 계정으로 로그인 성공")
                 }
                 UserApi.shared.me { (user, error) in
-                    let name = user?.id
+                    let name = user?.id ?? 0
                     let token = user?.kakaoAccount
 
-                    print("name : \(name) - \(token)\n")
-//                    print("idToken : \(idToken)\n")
 
                     var parameter = Dictionary<String,Any>()
-//                    “identifier” : “key”
-//                      “type” : “apple, kakao”
                     print("identifier: \(name)")
                     parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
-
+                    self.user = UserModel.init(nickname: "", type: .kakao, identifier: String(name), email: "",image: "" )
                     self.login(param: parameter)
 
                 }
@@ -141,20 +137,15 @@ final class LoginViewController: UIViewController {
                     // 관련 메소드 추가
                 }
                 UserApi.shared.me { (user, error) in
-                    let name = user?.id
+                    let name = user?.id ?? 0
                     let token = user?.kakaoAccount
 
-                    print("name : \(name) - \(token)\n")
-                    print("idToken : \(idToken)\n")
-
                     var parameter = Dictionary<String,Any>()
-//                    “identifier” : “key”
-//                      “type” : “apple, kakao”
                     print("identifier: \(name)")
                     parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
-
+                    self.user = UserModel.init(nickname: "", type: .kakao, identifier: String(name), email: "",image: "" )
                     self.login(param: parameter)
 
                 }
@@ -176,7 +167,7 @@ final class LoginViewController: UIViewController {
                     print(json)
                     print("response:\(response)")
                     print("message:\(jsonData["message"] ?? "")")
-
+                    
                     guard let user = self.user else { return }
                     self.navigationController?.pushViewController(UserInfoViewController(user), animated: false)
                 

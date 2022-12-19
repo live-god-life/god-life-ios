@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    static func gradientImage(bounds: CGRect, colors: [UIColor]) -> UIImage {
+    func gradientImage(bounds: CGRect, colors: [UIColor]) -> UIImage {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         gradientLayer.colors = colors.map(\.cgColor)
