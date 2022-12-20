@@ -24,6 +24,8 @@ final class SegmentControlButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        titleLabel?.font = .regular(with: 16)
+
         addSubview(highlightView)
         highlightView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()

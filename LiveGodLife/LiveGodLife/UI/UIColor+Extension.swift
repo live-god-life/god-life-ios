@@ -21,12 +21,19 @@ extension UIColor {
     /// 디자인시스템에 없는 컬러
     /// #BBBBBB
     static let BBBBBB = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
+    /// #DDDDDD
+    static let DDDDDD = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
+
     /// #537CFF
     static let blue = UIColor(red: 83/255, green: 124/255, blue: 1, alpha: 1)
     /// #111111
     static let background = UIColor(red: 17/255, green: 17/255, blue: 17/255, alpha: 1)
     /// #333333
     static let `default` = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+    /// #666666
+    static let gray3 = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
     /// #444444
-    static let gray = UIColor(red: 68/255, green: 68/255, blue: 68/255, alpha: 1)
+    static let gray4 = UIColor(red: 68/255, green: 68/255, blue: 68/255, alpha: 1)
+    /// #222222
+    static let gray5 = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,7 +35,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Af-pN-7SN">
-                                    <rect key="frame" x="24" y="18.000000000000004" width="97" height="44.333333333333343"/>
+                                    <rect key="frame" x="24" y="18.000000000000004" width="301" height="44.333333333333343"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="포트폴리오완성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4q-3F-ht3">
                                             <rect key="frame" x="0.0" y="0.0" width="97" height="19.333333333333332"/>
@@ -141,10 +141,10 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPM-ZG-xdg">
-                    <rect key="frame" x="330" y="28" width="24" height="24"/>
+                    <rect key="frame" x="340" y="36" width="14" height="8"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="24" id="Gbx-Pd-lkQ"/>
-                        <constraint firstAttribute="width" constant="24" id="vPb-IV-aTS"/>
+                        <constraint firstAttribute="height" constant="8" id="Gbx-Pd-lkQ"/>
+                        <constraint firstAttribute="width" constant="14" id="vPb-IV-aTS"/>
                     </constraints>
                     <color key="tintColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Button"/>
@@ -156,6 +156,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="CPM-ZG-xdg" firstAttribute="leading" secondItem="7Af-pN-7SN" secondAttribute="trailing" constant="15" id="CL8-mq-VsV"/>
                 <constraint firstItem="ZBR-fl-mv7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Eva-QS-YY8"/>
                 <constraint firstItem="ZBR-fl-mv7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XZ8-SU-RXA"/>
                 <constraint firstItem="CPM-ZG-xdg" firstAttribute="centerY" secondItem="G50-QE-wLH" secondAttribute="centerY" id="YOw-MG-aWW"/>

@@ -10,10 +10,14 @@ import Combine
 
 final class ProfileUpdateViewController: UIViewController {
 
+    @IBOutlet weak var profileImageContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameTextField: TextFieldView!
     @IBOutlet weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var dimmedView: UIView!
+
+    var userProfileImage: String?
 
     private var isHiddenImageContainerView: Bool = true
     private var imageCollectionViewModel = ImageCollectionViewModel()
@@ -23,13 +27,15 @@ final class ProfileUpdateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .background
 
         title = "프로필 수정"
 
         setupProfileImageView()
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
+        dimmedView.addGestureRecognizer(gesture)
         nicknameTextField.delegate = self
 
         requestImages()
@@ -40,12 +46,13 @@ final class ProfileUpdateViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = false
     }
-    
+
     private func setupProfileImageView() {
-        let radius = profileImageView.frame.height / 2
+        let radius = profileImageContainerView.frame.height / 2
+        profileImageContainerView.layer.cornerRadius = radius
+        profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.contentMode = .scaleAspectFit
-        profileImageView.layer.cornerRadius = radius
-        profileImageView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
+        profileImageView.image = UIImage(named: userProfileImage ?? "")
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
         profileImageView.addGestureRecognizer(gesture)
@@ -57,15 +64,28 @@ final class ProfileUpdateViewController: UIViewController {
         imageCollectionView.dataSource = self
     }
 
-    @objc func showProfileImageSelectView() {
+    @objc private func showProfileImageSelectView() {
         guard isHiddenImageContainerView else { return }
 
         isHiddenImageContainerView = false
         DispatchQueue.main.async { [weak self] in
+            self?.dimmedView.isHidden = false
+            self?.imageContainerViewBottomConstraint.constant = 0
             UIView.animate(withDuration: 0.4) {
-                self?.imageContainerViewBottomConstraint.constant = 0
                 self?.view.layoutIfNeeded()
             }
+        }
+    }
+
+    @objc private func hideProfileImageSelectView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.imageContainerViewBottomConstraint.constant = 400
+            UIView.animate(withDuration: 0.4, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion: { _ in
+                self?.dimmedView.isHidden = true
+                self?.isHiddenImageContainerView = true
+            })
         }
     }
 
@@ -95,28 +115,23 @@ final class ProfileUpdateViewController: UIViewController {
     }
 
     @IBAction func didTapImageContainerViewClose() {
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.4, animations: {
-                self?.imageContainerViewBottomConstraint.constant = 400
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self?.isHiddenImageContainerView = true
-            })
-        }
+        hideProfileImageSelectView()
     }
 
     @IBAction func didTapCompleteButton() {
         let nickname = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
-        let param: [String: String] = ["nickname": nickname]
+        let param: [String: String] = ["nickname": nickname,
+                                       "image": imageCollectionViewModel.selectedImage]
         DefaultUserRepository().updateProfile(endpoint: .profileUpdate(param))
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     // 프로필 업데이트 실패
                     print(error)
                 case .finished:
-                    // 성공 팝업
-                    print("finished")
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             } receiveValue: { user in
                 //
@@ -143,7 +158,9 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        profileImageView.image = UIImage(named: "frog")
+        let imageName = imageCollectionViewModel.data[indexPath.item].name
+        imageCollectionViewModel.selectedImage = imageName
+        profileImageView.image = UIImage(named: imageName)
     }
 }
 

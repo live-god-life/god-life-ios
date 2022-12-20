@@ -83,30 +83,31 @@ class TodoMainTabBarController: UITabBarController {
     lazy var tabBarView: UIStackView =  {
         let stack = UIStackView()
         
-        self.calendarButton.setTitleColor(UIColor.black, for: .normal)
+        self.calendarButton.setTitleColor(UIColor.darkGray, for: .normal)
+        self.calendarButton.setTitleColor(UIColor.black, for: .selected)
         self.calendarButton.setTitle("캘린더", for: .normal)
+        
         self.calendarButton.tag = 0
         self.calendarButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
         self.mindsetButton.setTitleColor(UIColor.darkGray, for: .normal)
+        self.mindsetButton.setTitleColor(UIColor.black, for: .selected)
         self.mindsetButton.setTitle("마인드셋", for: .normal)
         self.mindsetButton.tag = 1
         self.mindsetButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
         self.goalButton.setTitleColor(UIColor.darkGray, for: .normal)
+        self.goalButton.setTitleColor(UIColor.black, for: .selected)
         self.goalButton.setTitle("목표", for: .normal)
         self.goalButton.tag = 2
         self.goalButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
 
-        
-        self.calendarButton.setBackgroundColor(.green, for: .normal)
+        self.calendarButton.setBackgroundColor(.clear, for: .normal)
         self.calendarButton.setBackgroundColor(.green, for: .selected)
 
         self.mindsetButton.setBackgroundColor(.clear, for: .normal)
         self.mindsetButton.setBackgroundColor(.green, for: .selected)
-        self.mindsetButton.setBackgroundColor(.darkGray, for: .disabled)
         
         self.goalButton.setBackgroundColor(.clear, for: .normal)
         self.goalButton.setBackgroundColor(.green, for: .selected)
-        self.goalButton.setBackgroundColor(.darkGray, for: .disabled)
         
         stack.axis = .horizontal
         stack.alignment = .fill
@@ -114,7 +115,6 @@ class TodoMainTabBarController: UITabBarController {
         stack.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         stack.isLayoutMarginsRelativeArrangement = true
         stack.spacing = 5
-        
         
         stack.addArrangedSubview(self.calendarButton)
         stack.addArrangedSubview(self.mindsetButton)
@@ -156,7 +156,8 @@ class TodoMainTabBarController: UITabBarController {
             $0.right.equalTo(self.view).offset(-10)
             $0.height.equalTo(60)
         }
-
+        selectedIndex = 0
+        calendarButton.isSelected = true
     }
     //comment 여러번 초기화 되는 함수
     override func viewWillAppear(_ animated: Bool) {
@@ -164,6 +165,16 @@ class TodoMainTabBarController: UITabBarController {
     }
 
     @objc func seletedView(_ sender: UIButton) {
+        var isSelected = false
+        [calendarButton, mindsetButton, goalButton].enumerated().forEach { (index, button) in
+            if (index != selectedIndex) {
+                isSelected = true
+            } else {
+                button.isSelected = index != selectedIndex
+            }
+       
+        }
+        sender.isSelected = isSelected
         selectedIndex = sender.tag
     }
    

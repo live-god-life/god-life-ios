@@ -67,8 +67,16 @@ class MindsetListCell: CommonCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
-        let gradient = UIImage.gradientImage(bounds: self.bounds, colors: [.green , .blue])
-        let gradientColor = UIColor(patternImage: gradient)
+        let gradient = UIImage()
+        let gradientColor = UIColor(patternImage: gradient
+            .gradientImage(
+                bounds: self.bounds,
+                colors: [
+                    .green,
+                    .blue
+                ]
+            )
+        )
         self.layer.borderColor = gradientColor.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 20
