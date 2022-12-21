@@ -22,6 +22,7 @@ enum NetworkService {
     case todos(Dictionary<String,Any>)
     case mindsets(Dictionary<String,Any>)
     case goals(Dictionary<String,Any>)
+    case addGoals(CreateGoalsModel)
 }
 extension NetworkService: TargetType {
     public var baseURL: URL {
@@ -44,6 +45,8 @@ extension NetworkService: TargetType {
             return "/goals/mindsets"
         case .goals(_):
             return "/goals"
+        case .addGoals(_):
+            return "/goals"
             
         }
     }
@@ -60,11 +63,12 @@ extension NetworkService: TargetType {
             fallthrough
         case .goals:
             return .get
+        case .addGoals:
+            fallthrough
         case .join(_):
             return .post
         case .login(_):
             return .post
-            
         }
     }
     
@@ -86,6 +90,14 @@ extension NetworkService: TargetType {
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .goals(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .addGoals(let parameter):
+            var param: [String:Any] = [:]
+            param.updateValue(parameter.title, forKey: "title")
+            param.updateValue(parameter.categoryCode, forKey: "categoryCode")
+            param.updateValue(parameter.mindsets, forKey: "mindsets")
+            param.updateValue(parameter.todos, forKey: "todos")
+    
+            return .requestParameters(parameters: param, encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
             //            let encoder = JSONEncoder()

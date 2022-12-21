@@ -144,17 +144,28 @@ class TodoMainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("TodoMainViewLoad")
+        let addButton = UIButton()
         setViewControllers(tabs, animated: true)
         self.delegate = self
         tabBar.isHidden = true
 
         view.addSubview(self.tabBarView)
+        self.view.addSubview(addButton)
+        
+        addButton.setImage(UIImage(named: "addButton"), for: .normal)
+        addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
+
         self.tabBarView.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
             $0.left.equalTo(self.view).offset(10)
             $0.right.equalTo(self.view).offset(-10)
             $0.height.equalTo(60)
+        }
+        addButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-90)
+            make.height.equalTo(48)
+            make.width.equalTo(48)
+            make.right.equalTo(self.view).offset(-16)
         }
         selectedIndex = 0
         calendarButton.isSelected = true
@@ -177,7 +188,10 @@ class TodoMainTabBarController: UITabBarController {
         sender.isSelected = isSelected
         selectedIndex = sender.tag
     }
-   
+    
+    @objc func add(_ sender: UIButton) {
+        self.navigationController?.pushViewController(GoalsCreateViewController(), animated: true)
+    }
 }
 
 extension TodoMainTabBarController: UITabBarControllerDelegate {

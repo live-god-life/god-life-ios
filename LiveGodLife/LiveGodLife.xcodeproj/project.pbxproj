@@ -20,10 +20,11 @@
 		B92C311829377CEA000DA2D7 /* Utill+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */; };
 		B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312429491819000DA2D7 /* NetworkManger.swift */; };
 		B92C312729491868000DA2D7 /* LGLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312629491868000DA2D7 /* LGLService.swift */; };
+		B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */; };
 		C9152E9B29397F4400C6C025 /* GoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9A29397F4400C6C025 /* GoalsModel.swift */; };
 		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
-		C9D48CC4294BD2FC00F66265 /* GoalCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalCreateViewController.swift */; };
+		C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
 		C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */; };
@@ -138,10 +139,11 @@
 		B92C311729377CEA000DA2D7 /* Utill+Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utill+Formatter.swift"; sourceTree = "<group>"; };
 		B92C312429491819000DA2D7 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
 		B92C312629491868000DA2D7 /* LGLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGLService.swift; sourceTree = "<group>"; };
+		B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsModel.swift; sourceTree = "<group>"; };
 		C9152E9A29397F4400C6C025 /* GoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsModel.swift; sourceTree = "<group>"; };
 		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
-		C9D48CC3294BD2FC00F66265 /* GoalCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCreateViewController.swift; sourceTree = "<group>"; };
+		C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateViewController.swift; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */,
+				B9B3F0CA2952372C00A1387C /* Create */,
 				B92C310529377CAD000DA2D7 /* Calendar */,
 				B92C310B29377CAD000DA2D7 /* Mindset */,
 				C9152E9929397F1700C6C025 /* Goals */,
@@ -289,7 +292,6 @@
 				B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */,
 				B92C310729377CAD000DA2D7 /* CalendarListCell.swift */,
 				B92C310929377CAD000DA2D7 /* CalendarCell.swift */,
-				C9D48CC3294BD2FC00F66265 /* GoalCreateViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -302,6 +304,15 @@
 				B92C310E29377CAD000DA2D7 /* MindsetModel.swift */,
 			);
 			path = Mindset;
+			sourceTree = "<group>";
+		};
+		B9B3F0CA2952372C00A1387C /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */,
+				B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		C9152E9929397F1700C6C025 /* Goals */ = {
@@ -775,7 +786,7 @@
 			files = (
 				B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */,
 				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
-				C9D48CC4294BD2FC00F66265 /* GoalCreateViewController.swift in Sources */,
+				C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */,
 				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
@@ -812,6 +823,7 @@
 				B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */,
 				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
+				B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
 				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
 				C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */,

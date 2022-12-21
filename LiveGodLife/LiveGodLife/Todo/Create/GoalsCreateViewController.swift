@@ -1,5 +1,5 @@
 //
-//  GoalCreateViewController.swift
+//  GoalsCreateViewController.swift
 //  LiveGodLife
 //
 //  Created by khAhn on 2022/12/16.
@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class GoalCreateViewController: UIViewController {
+class GoalsCreateViewController: UIViewController {
+    var requestParameter: CreateGoalsModel?
     let inputGoal = UITextField()
     let textView = UIView()
     lazy var mindSetView: UIView = {
@@ -27,7 +28,6 @@ class GoalCreateViewController: UIViewController {
         leftImageView.image = UIImage(named: "leftQuote")
         rightImageView.image = UIImage(named: "rightQuote")
         
-//        view.makeBorderGradation(startColor: .green, endColor: .blue, radius: 20)
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
@@ -70,9 +70,18 @@ class GoalCreateViewController: UIViewController {
         self.view.backgroundColor = .black
         let inputGoalsImage = UIImageView()
         let spaceView = UIView()
+        let completeButton = UIButton()
+        
         spaceView.backgroundColor = .darkGray
+        self.view.addSubview(inputGoal)
         self.view.addSubview(spaceView)
         self.view.addSubview(mindSetView)
+        self.view.addSubview(completeButton)
+        
+        completeButton.addTarget(self, action: #selector(complete(_:)), for: .touchUpInside)
+        completeButton.layer.cornerRadius = 20
+        completeButton.backgroundColor = .green
+        completeButton.setTitle("완료", for: .normal)
         
         spaceView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(36)
@@ -86,13 +95,74 @@ class GoalCreateViewController: UIViewController {
             make.right.equalTo(self.view).offset(-16)
             
         }
-
-
+        completeButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.height.equalTo(56)
+            make.right.equalTo(self.view)
+            make.left.equalTo(self.view)
+        }
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        navigationItem.backButtonTitle = "목표추가"
+        navigationItem.title = "목표추가"
+        navigationItem.titleView?.backgroundColor = .white
+    }
+    
+    @objc func complete(_ sender: UIButton) {
+        let testNumber = Int.random(in: 1...5)
+        requestParameter = .init(
+            title: "test\(testNumber)",
+            categoryCode: "CAREER",
+            mindsets: [SubMindSetModel(mindsetId: testNumber, content: "test\(testNumber)")]
+           )
+        var todos:[TodosModel] = []
+        for index in 0...testNumber {
+             var todo = TodosModel(
+                title: "test\(testNumber)",
+                type: "CAREER",
+                deoth: index,
+                orderNumber: index)
+            var childTodos:[ChildTodo] = []
+            for subIdx in 1...3 {
+                let subTodo = ChildTodo(
+                    title:  "test Child \(testNumber)",
+                    type: "test Child \(testNumber)",
+                    deoth: subIdx,
+                    orderNumber: subIdx,
+                    startDate: Date.today,
+                    endDate: Date.today,
+                    repetitionType:  "DAY",
+                    repetitionParams: nil,
+                    notification: Date.today.date?.hour24Represent
+                )
+                childTodos.append(subTodo)
+            }
+            todo.todos = childTodos
+            todos.append(todo)
+        }
+        requestParameter?.todos = todos
+        
+        guard let parameter = requestParameter else {
+            return
+        }
+        NetworkManager().provider.request(.addGoals(parameter)) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                do {
+
+                    let json = try result.mapJSON()
+                    let jsonData = json as? [String:Any] ?? [:]
+                    print(jsonData)
+                } catch(let err) {
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }
 

@@ -13,7 +13,6 @@ class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
     var model:[MainCalendarModel] = []
-//    private let authLookProvider = MoyaProvider<NetworkService>()
 
     var listView: ListViewController<MainCalendarModel,CalendarListCell> = {
         let node = ListViewController<MainCalendarModel,CalendarListCell>()
@@ -24,13 +23,11 @@ class CalendarListViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         let todayLabel = UILabel()
-        let addButton = UIButton()
         
         todayLabel.text = Date.today
         todayLabel.textColor = .white
         
         self.view.addSubview(todayLabel)
-        self.view.addSubview(addButton)
         self.view.addSubview(self.listView.view)
         todayLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(90)
@@ -42,15 +39,9 @@ class CalendarListViewController: UIViewController {
             $0.top.equalTo(todayLabel.snp.bottom).offset(16)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
-            $0.bottom.equalTo(addButton.snp.top).offset(-40)
+            $0.bottom.equalTo(self.view).offset(-25)
         }
-        addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-90)
-            make.height.equalTo(48)
-            make.width.equalTo(48)
-            make.right.equalTo(self.view).offset(-16)
-
-        }
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 10.0
@@ -58,8 +49,6 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.collectionViewLayout = layout
         self.listView.collectionView.backgroundColor = .black
 
-        addButton.setImage(UIImage(named: "addButton"), for: .normal)
-        addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
@@ -101,9 +90,6 @@ class CalendarListViewController: UIViewController {
             }
         }
     }
-    @objc func add(_ sender: UIButton) {
-        self.navigationController?.pushViewController(GoalCreateViewController(), animated: true)
-    }
 }
 
 extension CalendarListViewController: UICollectionViewDelegate {
@@ -141,6 +127,7 @@ extension CalendarListViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("click")
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
