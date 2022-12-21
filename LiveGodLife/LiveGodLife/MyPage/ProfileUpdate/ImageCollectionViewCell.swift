@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 
 final class ImageCollectionViewCell: UICollectionViewCell {
@@ -23,18 +24,9 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
+    func configure(_ image: String) {
         contentView.addSubview(imageView)
         contentView.makeBorderGradation(startColor: .green, endColor: .blue, radius: frame.height / 2)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func configure(_ image: String) {
-        imageView.image = UIImage(named: image)
+        imageView.kf.setImage(with: URL(string: image))
     }
 }

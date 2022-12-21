@@ -52,7 +52,9 @@ final class ProfileUpdateViewController: UIViewController {
         profileImageContainerView.layer.cornerRadius = radius
         profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.contentMode = .scaleAspectFit
-        profileImageView.image = UIImage(named: userProfileImage ?? "")
+        if let image = userProfileImage, let url = URL(string: image) {
+            profileImageView.kf.setImage(with: url)
+        }
         profileImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
         profileImageView.addGestureRecognizer(gesture)
@@ -94,19 +96,12 @@ final class ProfileUpdateViewController: UIViewController {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print(error)
                 case .finished:
                     print("finished")
                 }
-            } receiveValue: { [weak self] data in
-                let images = data.compactMap { ImageAsset(name: $0) }
-                let defaultImages = [ImageAsset(name: "frog1"),
-                                     ImageAsset(name: "frog2"),
-                                     ImageAsset(name: "frog3"),
-                                     ImageAsset(name: "frog4"),
-                                     ImageAsset(name: "frog5"),
-                                     ImageAsset(name: "frog6")]
-                self?.imageCollectionViewModel.data = images.isEmpty ? defaultImages : images
+            } receiveValue: { [weak self] asset in
+                self?.imageCollectionViewModel.data = asset
                 DispatchQueue.main.async {
                     self?.imageCollectionView.reloadData()
                 }
@@ -153,14 +148,17 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
-        cell.configure(imageCollectionViewModel.data[indexPath.item].name)
+        guard let url = imageCollectionViewModel.data[indexPath.item].url else { return cell }
+        cell.configure(url)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageName = imageCollectionViewModel.data[indexPath.item].name
-        imageCollectionViewModel.selectedImage = imageName
-        profileImageView.image = UIImage(named: imageName)
+        guard let url = imageCollectionViewModel.data[indexPath.item].url else {
+            return
+        }
+        imageCollectionViewModel.selectedImage = url
+        profileImageView.kf.setImage(with: URL(string: url))
     }
 }
 

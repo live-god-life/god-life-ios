@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct ImageAsset {
-    let name: String
+struct ImageAsset: Decodable {
+
+    let url: String?
 }
 
 struct ImageCollectionViewModel {
