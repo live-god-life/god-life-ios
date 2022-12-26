@@ -20,6 +20,11 @@ extension LoginViewController: AppleLoginServiceDelegate {
             self?.navigationController?.pushViewController(UserInfoViewController(user), animated: true)
         }
     }
+
+    func login() {
+        self.dismiss(animated: true)
+        NotificationCenter.default.post(name: .moveToHome, object: self)
+    }
 }
 
 final class LoginViewController: UIViewController {
