@@ -12,6 +12,7 @@ class GoalsCreateViewController: UIViewController {
     var requestParameter: CreateGoalsModel?
     let inputGoal = UITextField()
     let textView = UIView()
+    
     lazy var mindSetView: UIView = {
         let view = UIView()
         let title = UILabel()
@@ -65,43 +66,84 @@ class GoalsCreateViewController: UIViewController {
         return view
     }()
     
+    var TodoListView: ListViewController<CreateGoalsModel,GoalOfTodoCell> = {
+        let node = ListViewController<CreateGoalsModel,GoalOfTodoCell>()
+        return node
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         let inputGoalsImage = UIImageView()
         let spaceView = UIView()
         let completeButton = UIButton()
+        let scollView = UIScrollView()
+        
+       
         
         spaceView.backgroundColor = .darkGray
+        self.view.addSubview(scollView)
         self.view.addSubview(inputGoal)
         self.view.addSubview(spaceView)
-        self.view.addSubview(mindSetView)
+        scollView.addSubview(mindSetView)
+        scollView.addSubview(self.TodoListView.view)
         self.view.addSubview(completeButton)
         
+        inputGoal.attributedPlaceholder = "목표작성".title26BoldGray6
         completeButton.addTarget(self, action: #selector(complete(_:)), for: .touchUpInside)
         completeButton.layer.cornerRadius = 20
         completeButton.backgroundColor = .green
         completeButton.setTitle("완료", for: .normal)
         
+        inputGoal.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(46)
+            make.centerX.equalTo(self.view)
+            make.height.equalTo(40)
+        }
+        
         spaceView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(36)
+            make.top.equalTo(self.inputGoal.snp.bottom).offset(36)
             make.left.right.equalTo(self.view)
             make.height.equalTo(16)
         }
         
-        mindSetView.snp.makeConstraints { make in
+        scollView.snp.makeConstraints { make in
             make.top.equalTo(spaceView).offset(32)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
+        mindSetView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(32)
             make.left.equalTo(self.view).offset(16)
             make.right.equalTo(self.view).offset(-16)
             
         }
+        self.TodoListView.view.snp.makeConstraints {
+            $0.top.equalTo(mindSetView.snp.bottom).offset(16)
+            $0.left.equalTo(self.view)
+            $0.right.equalTo(self.view)
+            $0.bottom.equalTo(self.view).offset(-25)
+        }
         completeButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(self.TodoListView.view.snp.bottom).offset(-30)
             make.height.equalTo(56)
-            make.right.equalTo(self.view)
-            make.left.equalTo(self.view)
+            make.right.equalTo(self.view).offset(-16)
+            make.left.equalTo(self.view).offset(16)
         }
         
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10.0
+        layout.minimumLineSpacing = 5.0
+        
+        self.TodoListView.collectionView.collectionViewLayout = layout
+        self.TodoListView.collectionView.backgroundColor = .black
+
+        self.TodoListView.collectionView.delegate = self
+        self.TodoListView.collectionView.dataSource = self
+        self.TodoListView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,21 +158,21 @@ class GoalsCreateViewController: UIViewController {
         requestParameter = .init(
             title: "test\(testNumber)",
             categoryCode: "CAREER",
-            mindsets: [SubMindSetModel(mindsetId: testNumber, content: "test\(testNumber)")]
+            mindsets: [GoalsMindset(content: "test\(testNumber)")]
            )
         var todos:[TodosModel] = []
         for index in 0...testNumber {
              var todo = TodosModel(
                 title: "test\(testNumber)",
                 type: "CAREER",
-                deoth: index,
+                depth: index,
                 orderNumber: index)
             var childTodos:[ChildTodo] = []
             for subIdx in 1...3 {
                 let subTodo = ChildTodo(
                     title:  "test Child \(testNumber)",
                     type: "test Child \(testNumber)",
-                    deoth: subIdx,
+                    depth: subIdx,
                     orderNumber: subIdx,
                     startDate: Date.today,
                     endDate: Date.today,
@@ -166,23 +208,67 @@ class GoalsCreateViewController: UIViewController {
     }
 }
 
-class GradientView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        let gradient = UIImage()
-        let gradientColor = UIColor(patternImage: gradient
-            .gradientImage(
-                bounds: self.bounds,
-                colors: [
-                    .green,
-                    .blue
-                ]
-            )
-        )
-        self.layer.borderColor = gradientColor.cgColor
+
+extension GoalsCreateViewController: UICollectionViewDelegate {
+    
+}
+extension GoalsCreateViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let itemHeightSize = 128.0
+        return CGSize(width: self.view.frame.width , height: itemHeightSize)
+    }
+
+}
+
+extension GoalsCreateViewController: UICollectionViewDataSource {
+    // MARK: UICollectionViewDataSource
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 5
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Configure the cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalOfTodoCell.identifier, for: indexPath) as? GoalOfTodoCell else {
+            return UICollectionViewCell()
+        }
+//        cell.model = self.listView.model[indexPath.row].todoSchedules
+//        cell.dataModel = self.TodoListView.model[indexPath.section].todoSchedules[indexPath.row]
+        cell.button[0].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
+        cell.button[1].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
+        cell.button[2].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
+
+        cell.setUpModel()
+       
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("click")
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CalendarListHeaderView", for: indexPath)
+//            if let headerView = headerView as? CalendarListHeaderView {
+//                if self.TodoListView.model.count > 0 {
+//                    headerView.titleLabel.text = self.listView.model[indexPath.section].title
+//                    headerView.delegate = self
+//                }
+//            }
+            return headerView
+        default:
+            assert(false, "")
+        }
+        return UICollectionReusableView()
+    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: self.view.frame.width, height: 30)
+//    }
 }

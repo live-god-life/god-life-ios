@@ -53,7 +53,6 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
         
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,17 +71,14 @@ class CalendarListViewController: UIViewController {
             switch response {
             case .success(let result):
                 do {
-
                     let json = try result.mapJSON()
                     let jsonData = json as? [String:Any] ?? [:]
-//                    let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
                     if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
                        let model = try? JSONDecoder().decode([MainCalendarModel].self, from: jsonData) {
                         self.listView.model = model
                         print(self.model)
                         self.listView.collectionView.reloadData()
                     }
-//                     = try! JSONDecoder().decode([MainCalendarModel].self, from: data)
                 } catch(let err) {
                 }
             case .failure(let err):

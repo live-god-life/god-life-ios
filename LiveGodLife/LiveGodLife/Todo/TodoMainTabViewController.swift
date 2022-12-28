@@ -162,7 +162,7 @@ class TodoMainTabBarController: UITabBarController {
             $0.height.equalTo(60)
         }
         addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-90)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-120)
             make.height.equalTo(48)
             make.width.equalTo(48)
             make.right.equalTo(self.view).offset(-16)

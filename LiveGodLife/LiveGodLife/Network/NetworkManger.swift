@@ -95,9 +95,10 @@ extension NetworkService: TargetType {
             param.updateValue(parameter.title, forKey: "title")
             param.updateValue(parameter.categoryCode, forKey: "categoryCode")
             param.updateValue(parameter.mindsets, forKey: "mindsets")
-            param.updateValue(parameter.todos, forKey: "todos")
-    
-            return .requestParameters(parameters: param, encoding: URLEncoding.queryString)
+            param.updateValue(parameter.todos ?? [], forKey: "todos")
+            return .requestJSONEncodable(parameter)
+
+//            return .requestData(parameters: param, encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
             //            let encoder = JSONEncoder()

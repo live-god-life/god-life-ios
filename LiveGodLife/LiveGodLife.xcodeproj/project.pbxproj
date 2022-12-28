@@ -24,6 +24,7 @@
 		C9152E9B29397F4400C6C025 /* GoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9A29397F4400C6C025 /* GoalsModel.swift */; };
 		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
+		C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */; };
 		C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
@@ -143,6 +144,7 @@
 		C9152E9A29397F4400C6C025 /* GoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsModel.swift; sourceTree = "<group>"; };
 		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
+		C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalOfTodoCell.swift; sourceTree = "<group>"; };
 		C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateViewController.swift; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */,
 				B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */,
+				C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -845,6 +848,7 @@
 				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
+				C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */,
 				D00E46F428F7BDC200A18FE7 /* OnboardingViewModel.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
