@@ -40,8 +40,9 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
             let identifier = credential.user
-            let email = credential.email
+            let email = credential.email ?? ""
             let data = ["identifier": identifier,
+                        "email": email,
                         "type": LoginType.apple.rawValue]
 
             DefaultUserRepository().login(endpoint: .login(data))
@@ -61,8 +62,8 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
                 }
 
                 // 회원이면 홈으로
-                if let data = value.data {
-                    UserDefaults.standard.set(data.authorization, forKey: "token")
+                if let token = value.data?.authorization {
+                    UserDefaults.standard.set(token, forKey: "token")
                     self?.delegate?.login()
                 }
             }

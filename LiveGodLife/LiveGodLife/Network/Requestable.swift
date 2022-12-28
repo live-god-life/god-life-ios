@@ -15,17 +15,19 @@ protocol Requestable {
 
 enum APIError: Error {
 
-//    case apiError
 //    case unauthorized
 //    case badRequest
 //    case serverError
 //    case noResponse
-    case decodingFail(Error)
+    case httpError // http 응답 200대가 아님
+    case decoding
     case unknown
+    case error(Error)
 }
 
 extension Requestable {
 
+    // 일반 조회 API 요청
     func request<T: Decodable>(_ endpoint: APIEndpoint) -> AnyPublisher<T, APIError> {
 
         var request = endpoint.request
@@ -34,18 +36,20 @@ extension Requestable {
 
         return URLSession.shared
             .dataTaskPublisher(for: request)
-            .tryMap { output in
-                guard output.response is HTTPURLResponse else {
-                    throw APIError.unknown
+            .tryFilter {
+                guard let response = $0.response as? HTTPURLResponse,
+                      (200..<300).contains(response.statusCode) else {
+                    throw APIError.httpError
                 }
-                return output.data
+                return true
             }
+            .map(\.data)
             .decode(type: APIResponse<T>.self, decoder: JSONDecoder())
             .compactMap { response in
                 return response.data
             }
             .mapError { error in
-                return APIError.decodingFail(error)
+                return APIError.error(error)
             }
             .eraseToAnyPublisher()
     }

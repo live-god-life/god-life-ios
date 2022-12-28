@@ -14,6 +14,7 @@ enum UserAPI: APIEndpoint {
     case signup(UserModel)
     case user
     case bookmark([String: Any])
+    case nickname(String)
     case profileUpdate([String: Any])
     case logout
 
@@ -21,10 +22,10 @@ enum UserAPI: APIEndpoint {
         switch self {
         case .login, .signup, .logout:
             return .post
-        case .user:
-            return .get
         case .bookmark, .profileUpdate:
             return .patch
+        default:
+            return .get
         }
     }
 
@@ -39,6 +40,8 @@ enum UserAPI: APIEndpoint {
                 return "/users/feeds/\(id)/bookmark"
             }
             return ""
+        case .nickname(let value):
+            return "/nickname/\(value)"
         case .profileUpdate:
             return "/users"
         case .logout:

@@ -22,8 +22,12 @@ extension LoginViewController: AppleLoginServiceDelegate {
     }
 
     func login() {
-        self.dismiss(animated: true)
-        NotificationCenter.default.post(name: .moveToHome, object: self)
+        // 로그인 성공
+        DispatchQueue.main.async { [weak self] in
+            UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
+            self?.dismiss(animated: true)
+            NotificationCenter.default.post(name: .moveToHome, object: self)
+        }
     }
 }
 

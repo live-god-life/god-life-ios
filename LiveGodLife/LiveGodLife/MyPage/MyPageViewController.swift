@@ -97,7 +97,7 @@ private extension MyPageViewController {
     }
 
     func requestData() {
-        DefaultUserRepository().updateProfile(endpoint: .user)
+        DefaultUserRepository().fetchProfile(endpoint: .user)
             .sink { completion in
                 switch completion {
                 case .failure(let error):

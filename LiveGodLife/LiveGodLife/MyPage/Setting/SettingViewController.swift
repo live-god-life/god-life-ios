@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import SnapKit
 
+struct Empty: Decodable { }
+
 enum SettingTableViewSection {
 
     case first([SettingTableViewCellViewModel])
@@ -90,7 +92,7 @@ extension SettingViewController: SettingTableViewCellDelegate {
         typealias cell = SettingTableViewCellViewModel
         switch index {
         case cell.logout.rawValue:
-            DefaultUserRepository().request(endpoint: .logout)
+            DefaultUserRepository().request(UserAPI.logout)
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
@@ -100,7 +102,7 @@ extension SettingViewController: SettingTableViewCellDelegate {
                         // 로그인 화면으로 이동
                         NotificationCenter.default.post(name: .moveToLogin, object: self)
                     }
-                } receiveValue: { user in
+                } receiveValue: { (value: Empty) in
                     //
                 }
                 .store(in: &cancellable)

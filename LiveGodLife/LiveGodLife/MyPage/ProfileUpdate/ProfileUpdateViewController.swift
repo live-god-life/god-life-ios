@@ -20,6 +20,7 @@ final class ProfileUpdateViewController: UIViewController {
     var userProfileImage: String?
 
     private var isHiddenImageContainerView: Bool = true
+    private let repository: UserRepository = DefaultUserRepository()
     private var imageCollectionViewModel = ImageCollectionViewModel()
 
     private var cancellable = Set<AnyCancellable>()
@@ -114,24 +115,61 @@ final class ProfileUpdateViewController: UIViewController {
     }
 
     @IBAction func didTapCompleteButton() {
+        // 닉네임 중복 체크
         let nickname = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
-        let param: [String: String] = ["nickname": nickname,
-                                       "image": imageCollectionViewModel.selectedImage]
-        DefaultUserRepository().updateProfile(endpoint: .profileUpdate(param))
-            .sink { [weak self] completion in
+        let data = ["nickname": nickname,
+                    "image": imageCollectionViewModel.selectedImage]
+
+        repository.validateNickname(endpoint: .nickname(nickname))
+            .sink(receiveCompletion: { completion in
+                print("nickname: \(completion)")
+                switch completion {
+                case .failure(_):
+                    self.showPopup()
+                case .finished:
+                    self.updateUserInfo(with: data)
+                }
+            }, receiveValue: { value in
+                print(value)
+
+            })
+            .store(in: &cancellable)
+    }
+
+    func updateUserInfo(with data: [String: String]) {
+        repository.updateProfile(endpoint: .profileUpdate(data))
+            .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    // 프로필 업데이트 실패
                     print(error)
                 case .finished:
                     DispatchQueue.main.async {
-                        self?.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
-            } receiveValue: { user in
-                //
+            } receiveValue: { _ in
+                
             }
             .store(in: &cancellable)
+    }
+
+    // TODO: 공통 로직으로 분리
+    func showPopup() {
+        DispatchQueue.main.async { [weak self] in
+            let popup = PopupView()
+            popup.negativeButton.isHidden = true
+            popup.configure(title: "중복된 닉네임입니다.",
+                            negativeHandler: { },
+                            positiveHandler: {
+                popup.removeFromSuperview()
+            })
+            self?.view.addSubview(popup)
+            popup.snp.makeConstraints {
+                $0.width.equalTo(327)
+                $0.height.equalTo(188)
+                $0.center.equalToSuperview()
+            }
+        }
     }
 }
 
