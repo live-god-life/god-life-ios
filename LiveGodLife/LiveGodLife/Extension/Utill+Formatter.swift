@@ -49,7 +49,7 @@ enum Format: String {
     case OnlyMonthPresent = "MMMM"
     case DayOfWeekPresent = "E"
     case TimeAndMinutesPresent = "HH:mm"
-    case Time24AndMinutesPresent = "kk:mm"
+    case Time24AndMinutesPresent = "kkmm"
     
     var formatter: DateFormatter {
         let formatter = Format.dateFormatter.copy() as! DateFormatter

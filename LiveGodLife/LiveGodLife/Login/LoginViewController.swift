@@ -104,7 +104,7 @@ final class LoginViewController: UIViewController {
 //                    _ = oauthToken
 //                    /// 로그인 관련 메소드 추가
 //                }
-                let idToken = oauthToken?.idToken
+//                let idToken = oauthToken?.idToken
                 if let error = error {
                     print(error)
                 } else {
@@ -114,13 +114,11 @@ final class LoginViewController: UIViewController {
                     let name = user?.id ?? 0
                     let token = user?.kakaoAccount
 
-
                     var parameter = Dictionary<String,Any>()
-                    print("identifier: \(name)")
                     parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
-                    self.user = UserModel.init(nickname: "", type: .kakao, identifier: String(name), email: "",image: "" )
+                    self.user = .init(nickname: user?.kakaoAccount?.name ?? "", type: .kakao, identifier: String(name), email: self.email, image: "")
                     self.login(param: parameter)
 
                 }
@@ -141,11 +139,12 @@ final class LoginViewController: UIViewController {
                     let token = user?.kakaoAccount
 
                     var parameter = Dictionary<String,Any>()
-                    print("identifier: \(name)")
+//                    “identifier” : “key”
+//                      “type” : “apple, kakao”
                     parameter.updateValue(name ?? "", forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
-                    self.user = UserModel.init(nickname: "", type: .kakao, identifier: String(name), email: "",image: "" )
+                    self.user = .init(nickname: user?.kakaoAccount?.name ?? "", type: .kakao, identifier: String(name), email: self.email, image: "")
                     self.login(param: parameter)
 
                 }
@@ -188,76 +187,3 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
         return view.window ?? ASPresentationAnchor()
     }
 }
-enum NetworkService {
-    case nickname
-    case join(Dictionary<String,Any>)
-    case otherDetail(String, Int)
-    case login(Dictionary<String,Any>)
-    
-}
-extension NetworkService: TargetType {
-    public var baseURL: URL {
-    // GeneralAPI 라는 구조체 파일에 서버 도메인이나 토큰 값을 적어두고 불러왔습니다.
-        return URL(string:  "http://101.101.208.221:80")!
-    }
-
-    var path: String {
-        switch self {
-        case .nickname:
-            return "/nickname/hun"
-        case .otherDetail(let userID, let index):
-            return "/other/detail/\(userID)/\(index)"
-        case .join(_):
-            return "/users"
-        case .login(_):
-            return "/login"
-        }
-    }
-
-    var method: Moya.Method {
-        switch self {
-        case .nickname:
-            return .get
-        case .otherDetail:
-            return .get
-        case .join(_):
-            return .post
-        case .login(_):
-            return .post
-        }
-    }
-
-    var sampleData: Data {
-        return "@@".data(using: .utf8)!
-    }
-
-    var task: Task {
-        switch self {
-        case .nickname:
-            return .requestPlain
-
-//            return .requestParameters(parameters: ["nickname":"hun"], encoding: URLEncoding.default)
-        case .otherDetail(_, _):
-            return .requestPlain
-        case .join(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .login(let parameter):
-            let data = try! JSONSerialization.data(withJSONObject: parameter)
-//            let encoder = JSONEncoder()
-//            encoder.outputFormatting = .prettyPrinted
-//            let encodedData = try? encoder.encode(data)
-            return .requestData(data)
-            //            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        }
-    }
-    
-    var headers: [String: String]? {
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-        switch self {
-        default:
-            return ["Content-Type": "application/json",
-                    "token": accessToken] // GeneralAPI.token
-        }
-    }
-}
-

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Moya
 
 class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
@@ -22,13 +23,11 @@ class CalendarListViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         let todayLabel = UILabel()
-        let addButton = UIButton()
         
         todayLabel.text = Date.today
         todayLabel.textColor = .white
         
         self.view.addSubview(todayLabel)
-        self.view.addSubview(addButton)
         self.view.addSubview(self.listView.view)
         todayLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(90)
@@ -40,15 +39,9 @@ class CalendarListViewController: UIViewController {
             $0.top.equalTo(todayLabel.snp.bottom).offset(16)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
-            $0.bottom.equalTo(addButton.snp.top).offset(-40)
+            $0.bottom.equalTo(self.view).offset(-25)
         }
-        addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-90)
-            make.height.equalTo(48)
-            make.width.equalTo(48)
-            make.right.equalTo(self.view).offset(-16)
-
-        }
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 10.0
@@ -56,69 +49,42 @@ class CalendarListViewController: UIViewController {
         self.listView.collectionView.collectionViewLayout = layout
         self.listView.collectionView.backgroundColor = .black
 
-        addButton.setImage(UIImage(named: "addButton"), for: .normal)
-        addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         model.removeAll()
-        model.append(.init(title: "스케치", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubCalendarModel(
-                                    title: "컨셉잡기",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "WEEK",
-                                    repetitionParams: [
-                                        "월",
-                                        "목",
-                                        "토"
-                                    ],
-                                    totalTodoTaskScheduleCount: 39,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48),
-                                SubCalendarModel(
-                                    title: "컨셉잡기1",
-                                    completionStatus: false,
-                                    taskType: "Todo",
-                                    repetitionType: "WEEK",
-                                    repetitionParams: [
-                                        "월",
-                                        "목",
-                                        "토"
-                                    ],
-                                    totalTodoTaskScheduleCount: 39,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48),
-                            ]
-                          )
-        )
-        model.append(.init(title: "이직하기", goalId: 1, rawValue: "", todoSchedules:
-                            [
-                                SubCalendarModel(
-                                    title: "테스트",
-                                    completionStatus: false,
-                                    taskType: "D-999",
-                                    repetitionType: "DAY",
-                                    repetitionParams: nil,
-                                    totalTodoTaskScheduleCount: 91,
-                                    completedTodoTaskScheduleCount: 0,
-                                    todoDay: -48)
-                            ]
-                          )
-        )
-
-        self.listView.model = model
-        self.listView.collectionView.reloadData()
-
-    }
-    @objc func add(_ sender: UIButton) {
-        self.navigationController?.pushViewController(GoalCreateViewController(), animated: true)
+            
+        let parameter: [String: Any] = [
+            "date": "20221001",//Date.today,
+            "size": 5,
+            "completionStatus": "false",
+        ] as [String : Any]
+        
+       
+        NetworkManager().provider.request(.todos(parameter)) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                do {
+                    let json = try result.mapJSON()
+                    let jsonData = json as? [String:Any] ?? [:]
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
+                       let model = try? JSONDecoder().decode([MainCalendarModel].self, from: jsonData) {
+                        self.listView.model = model
+                        print(self.model)
+                        self.listView.collectionView.reloadData()
+                    }
+                } catch(let err) {
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }
 
@@ -157,6 +123,7 @@ extension CalendarListViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("click")
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -164,8 +131,10 @@ extension CalendarListViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CalendarListHeaderView", for: indexPath)
             if let headerView = headerView as? CalendarListHeaderView {
-                headerView.titleLabel.text = model[indexPath.section].title
-                headerView.delegate = self
+                if self.listView.model.count > 0 {
+                    headerView.titleLabel.text = self.listView.model[indexPath.section].title
+                    headerView.delegate = self
+                }
             }
             return headerView
         default:
