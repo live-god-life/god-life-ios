@@ -13,6 +13,20 @@ class GoalsCreateViewController: UIViewController {
     let inputGoal = UITextField()
     let textView = UIView()
     
+    enum GoalType: Int {
+        case task
+        case folder
+        
+        var name: String {
+            switch self {
+            case .folder:
+                return "FOLDER"
+            case .task:
+                return "TASK"
+            }
+        }
+    }
+    
     lazy var mindSetView: UIView = {
         let view = UIView()
         let title = UILabel()
@@ -66,13 +80,58 @@ class GoalsCreateViewController: UIViewController {
         return view
     }()
     
-    var TodoListView: ListViewController<CreateGoalsModel,GoalOfTodoCell> = {
-        let node = ListViewController<CreateGoalsModel,GoalOfTodoCell>()
+    var todoListView: ListViewController<TodosModel,GoalOfTodoCell> = {
+        let node = ListViewController<TodosModel,GoalOfTodoCell>()
         return node
+    }()
+
+    var todoHeaderView: UIView = {
+        let view = UIView()
+        let titleLabel = UILabel()
+        let addTodoButton = UIButton()
+        let addFolderButton = UIButton()
+        
+        view.addSubview(titleLabel)
+        view.addSubview(addTodoButton)
+        view.addSubview(addFolderButton)
+        
+        titleLabel.attributedText = "Todo".title16White
+        
+        addTodoButton.setImage(UIImage(named: "addTodo"), for: .normal)
+        addTodoButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
+        addTodoButton.tag = GoalType.task.rawValue
+        addFolderButton.setImage(UIImage(named: "addFolder"), for: .normal)
+        addFolderButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
+        addFolderButton.tag = GoalType.folder.rawValue
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+        }
+        addTodoButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.width.equalTo(32)
+            make.height.equalTo(32)
+            make.right.equalToSuperview()
+        }
+        addFolderButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.width.equalTo(32)
+            make.height.equalTo(32)
+            make.right.equalTo(addTodoButton.snp.left).offset(-8)
+        }
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let testNumber = Int.random(in: 1...5)
+        requestParameter = .init(
+            title: "test\(testNumber)",
+            categoryCode: "CAREER",
+            mindsets: [GoalsMindset(content: "test\(testNumber)")],
+            todos: []
+           )
         self.view.backgroundColor = .black
         let inputGoalsImage = UIImageView()
         let spaceView = UIView()
@@ -86,10 +145,14 @@ class GoalsCreateViewController: UIViewController {
         self.view.addSubview(inputGoal)
         self.view.addSubview(spaceView)
         scollView.addSubview(mindSetView)
-        scollView.addSubview(self.TodoListView.view)
+        scollView.addSubview(todoHeaderView)
+        scollView.addSubview(self.todoListView.view)
         self.view.addSubview(completeButton)
         
         inputGoal.attributedPlaceholder = "목표작성".title26BoldGray6
+        inputGoal.textColor = .gray6
+        inputGoal.font = .title26Bold
+        
         completeButton.addTarget(self, action: #selector(complete(_:)), for: .touchUpInside)
         completeButton.layer.cornerRadius = 20
         completeButton.backgroundColor = .green
@@ -120,14 +183,21 @@ class GoalsCreateViewController: UIViewController {
             make.right.equalTo(self.view).offset(-16)
             
         }
-        self.TodoListView.view.snp.makeConstraints {
-            $0.top.equalTo(mindSetView.snp.bottom).offset(16)
+        
+        todoHeaderView.snp.makeConstraints { make in
+            make.top.equalTo(mindSetView.snp.bottom).offset(16)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
+            make.height.equalTo(30)
+        }
+        self.todoListView.view.snp.makeConstraints {
+            $0.top.equalTo(todoHeaderView.snp.bottom).offset(17)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)
             $0.bottom.equalTo(self.view).offset(-25)
         }
         completeButton.snp.makeConstraints { make in
-            make.top.equalTo(self.TodoListView.view.snp.bottom).offset(-30)
+            make.top.equalTo(self.todoListView.view.snp.bottom).offset(-30)
             make.height.equalTo(56)
             make.right.equalTo(self.view).offset(-16)
             make.left.equalTo(self.view).offset(16)
@@ -138,12 +208,12 @@ class GoalsCreateViewController: UIViewController {
         layout.minimumInteritemSpacing = 10.0
         layout.minimumLineSpacing = 5.0
         
-        self.TodoListView.collectionView.collectionViewLayout = layout
-        self.TodoListView.collectionView.backgroundColor = .black
+        self.todoListView.collectionView.collectionViewLayout = layout
+        self.todoListView.collectionView.backgroundColor = .black
 
-        self.TodoListView.collectionView.delegate = self
-        self.TodoListView.collectionView.dataSource = self
-        self.TodoListView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
+        self.todoListView.collectionView.delegate = self
+        self.todoListView.collectionView.dataSource = self
+        self.todoListView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,11 +225,7 @@ class GoalsCreateViewController: UIViewController {
     
     @objc func complete(_ sender: UIButton) {
         let testNumber = Int.random(in: 1...5)
-        requestParameter = .init(
-            title: "test\(testNumber)",
-            categoryCode: "CAREER",
-            mindsets: [GoalsMindset(content: "test\(testNumber)")]
-           )
+        
         var todos:[TodosModel] = []
         for index in 0...testNumber {
              var todo = TodosModel(
@@ -208,14 +274,46 @@ class GoalsCreateViewController: UIViewController {
     }
 }
 
+extension GoalsCreateViewController {
+    @objc func add(_ sender: UIButton) {
+        let type = GoalType(rawValue: sender.tag) ?? .task
+        let testNumber = Int.random(in: 1...5)
+
+        var todo = TodosModel(
+           title: "test\(testNumber)",
+           type: "CAREER",
+           depth: testNumber,
+           orderNumber: testNumber,
+           todos: []
+        )
+        let subTodo = ChildTodo(
+            title:  "test Child \(testNumber)",
+            type: type.name,
+            depth: testNumber,
+            orderNumber: testNumber,
+            startDate: Date.today,
+            endDate: Date.today,
+            repetitionType:  "DAY",
+            repetitionParams: nil,
+            notification: Date.today.date?.hour24Represent
+        )
+        todo.todos?.append(subTodo)
+        requestParameter?.todos?.append(todo)
+        todoListView.model = requestParameter?.todos ?? []
+        todoListView.collectionView.reloadData()
+    }
+}
+
 
 extension GoalsCreateViewController: UICollectionViewDelegate {
     
 }
 extension GoalsCreateViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let itemHeightSize = 128.0
+        
+//        let type = "FOLDER"
+        let type = self.todoListView.model[indexPath.section].todos?[indexPath.row].type ?? "FOLDER"
+        let itemHeightSize = type == "FOLDER" ? 176.0 : 152.0
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
 
@@ -224,7 +322,7 @@ extension GoalsCreateViewController: UICollectionViewDelegateFlowLayout {
 extension GoalsCreateViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return self.todoListView.model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -237,8 +335,8 @@ extension GoalsCreateViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalOfTodoCell.identifier, for: indexPath) as? GoalOfTodoCell else {
             return UICollectionViewCell()
         }
-//        cell.model = self.listView.model[indexPath.row].todoSchedules
-//        cell.dataModel = self.TodoListView.model[indexPath.section].todoSchedules[indexPath.row]
+        cell.model = self.todoListView.model[indexPath.row]
+        cell.dataModel = self.todoListView.model[indexPath.section].todos?[indexPath.row]
         cell.button[0].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
         cell.button[1].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
         cell.button[2].addTarget(self, action: #selector(cell.change(_:)), for: .touchUpInside)
@@ -271,4 +369,58 @@ extension GoalsCreateViewController: UICollectionViewDataSource {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 //        return CGSize(width: self.view.frame.width, height: 30)
 //    }
+}
+
+extension GoalsCreateViewController: TodoListHeaderViewDelegate {
+    func calendarListHeaderView(_ view: TodoListHeaderView, go: Bool) {
+        // 상세화면 처리하기
+    }}
+protocol TodoListHeaderViewDelegate: AnyObject {
+    func calendarListHeaderView(_ view: TodoListHeaderView, go: Bool)
+}
+class TodoListHeaderView: UICollectionReusableView {
+    
+    /// 버튼 액션 델리게이트
+    weak var delegate: TodoListHeaderViewDelegate? = nil
+    var titleLabel = UILabel()
+    lazy var detailButton: UIButton = {
+        let button = UIButton()
+//        button.setImage(#imageLiteral(resourceName: "icon-close-20.pdf"), for: .normal)
+//        button.addTarget(self, action: #selector(self.closeAction(_:)), for: .touchUpInside)
+        return button
+    }()
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    deinit {
+    }
+    
+    func setUpView() {
+        self.backgroundColor = .black
+        self.titleLabel.textColor = .white
+        
+        self.addSubview(titleLabel)
+        self.addSubview(detailButton)
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview().offset(16)
+            $0.height.equalTo(24)
+        }
+        detailButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(titleLabel.snp.right).offset(10)
+            make.right.equalToSuperview()
+            make.height.equalTo(24)
+        }
+    }
+    // MARK: - Button Action
+    @objc func closeAction(_ sender: UIButton) {
+//        delegate?.sideMenuHeaderView(self, selectedClose: true)
+    }
 }

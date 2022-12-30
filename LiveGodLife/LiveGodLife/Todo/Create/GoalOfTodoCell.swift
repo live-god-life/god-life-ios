@@ -58,7 +58,7 @@ enum TodoSetting: CaseIterable {
 
 class GoalOfTodoCell: CommonCell {
     // MARK: - Variable
-    var dataModel:TodosModel? {
+    var dataModel:ChildTodo? {
         didSet {
             update()
         }
@@ -89,7 +89,7 @@ class GoalOfTodoCell: CommonCell {
     lazy var contentsView:UIView = {
         let view = UIView()
         let settingStackView = UIStackView()
-        settingStackView.spacing = 30
+        settingStackView.spacing = 32
         settingStackView.axis = .vertical
         view.addSubview(settingStackView)
        
@@ -140,9 +140,10 @@ class GoalOfTodoCell: CommonCell {
         }
         
         settingStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-10)
+            make.top.equalTo(view)
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-10)
+            make.height.equalTo(62)
         }
         
        
@@ -155,6 +156,8 @@ class GoalOfTodoCell: CommonCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 1
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -170,40 +173,61 @@ class GoalOfTodoCell: CommonCell {
         
         checkImage.image = UIImage(named: "checked")
         titleTextField.attributedPlaceholder = "컨셉잡기".title16White
+        titleTextField.font = .title16
+        titleTextField.textColor = .white
         
-        self.addSubview(checkImage)
-        self.addSubview(titleTextField)
+
+        self.addSubview(self.checkImage)
+        self.addSubview(self.titleTextField)
         self.addSubview(self.contentsView)
-        
-        
+    
     }
     
     func update() {
-        checkImage.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.left.equalToSuperview().offset(16)
-        }
-        titleTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.left.equalToSuperview().offset(16)
-        }
-        
-        if dataModel?.type == "CAREER" {
-            self.contentsView.snp.makeConstraints { make in
-                make.top.equalTo(titleTextField.snp.bottom).offset(16)
-                make.top.equalToSuperview().offset(5)
-                make.bottom.equalToSuperview().offset(-5)
-                make.left.equalToSuperview()
-                make.right.equalToSuperview()
+        if dataModel?.type == "FOLDER" {
+            checkImage.snp.makeConstraints { make in
+                make.top.equalTo(self).offset(28)
+                make.left.equalTo(self).offset(16)
+                make.width.equalTo(24)
+                make.height.equalTo(24)
             }
+            titleTextField.snp.makeConstraints { make in
+                make.top.equalTo(self).offset(24)
+                make.left.equalTo(checkImage.snp.right).offset(16)
+                make.height.equalTo(24)
+            }
+            self.contentsView.snp.makeConstraints { make in
+                make.top.equalTo(self.titleTextField.snp.bottom).offset(24)
+                make.left.equalTo(self)
+                make.right.equalTo(self)
+                make.height.equalTo(96)
+            }
+            self.setNeedsDisplay()
         } else {
             self.contentsView.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(5)
-                make.bottom.equalToSuperview().offset(-5)
+                make.top.equalToSuperview().offset(20)
+                make.height.equalTo(96)
                 make.left.equalToSuperview()
                 make.right.equalToSuperview()
             }
         }
+        
+//        if dataModel?.type == "CAREER" {
+//            self.contentsView.snp.makeConstraints { make in
+//                make.top.equalTo(titleTextField.snp.bottom).offset(16)
+//                make.top.equalToSuperview().offset(5)
+//                make.bottom.equalToSuperview().offset(-5)
+//                make.left.equalToSuperview()
+//                make.right.equalToSuperview()
+//            }
+//        } else {
+//            self.contentsView.snp.makeConstraints { make in
+//                make.top.equalToSuperview()
+//                make.bottom.equalToSuperview()
+//                make.left.equalToSuperview()
+//                make.right.equalToSuperview()
+//            }
+//        }
         
     }
     
