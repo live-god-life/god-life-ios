@@ -10,12 +10,12 @@ import Combine
 
 protocol MyPageRepository: Requestable {
 
-    func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[String], APIError>
+    func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[ImageAsset], APIError>
 }
 
 struct DefaultMyPageRepository: MyPageRepository {
 
-    func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[String], APIError> {
+    func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[ImageAsset], APIError> {
         request(endpoint)
     }
 }

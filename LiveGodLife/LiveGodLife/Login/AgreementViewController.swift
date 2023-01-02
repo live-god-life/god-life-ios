@@ -126,21 +126,16 @@ class AgreementViewController: UIViewController {
     
     @objc func next(_ sender: UIButton) {
         // 회원가입
-        DefaultUserRepository().request(endpoint: .signup(user))
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    // error 처리 필요
-                case .finished:
-                    guard let self else { return }
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(JoinCompleteViewController(self.user), animated: true)
-                    }
-                }
-            } receiveValue: { token in
+        DefaultUserRepository().signup(endpoint: .signup(user))
+            .sink(receiveCompletion: {
+                print("completion: \($0)")
+            }, receiveValue: { [weak self] token in
                 print(token)
-            }
+                guard let self else { return }
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(JoinCompleteViewController(self.user), animated: true)
+                }
+            })
             .store(in: &cancellable)
     }
 }

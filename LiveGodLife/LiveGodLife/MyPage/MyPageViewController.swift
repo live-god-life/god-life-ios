@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 import SnapKit
 
 final class MyPageViewController: UIViewController {
@@ -96,7 +97,7 @@ private extension MyPageViewController {
     }
 
     func requestData() {
-        DefaultUserRepository().updateProfile(endpoint: .user)
+        DefaultUserRepository().fetchProfile(endpoint: .user)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -108,8 +109,10 @@ private extension MyPageViewController {
             } receiveValue: { [weak self] user in
                 DispatchQueue.main.async {
                     self?.nicknameLabel.text = user.nickname
-                    self?.profileImageView.image = UIImage(named: user.image ?? "")
-                    self?.userProfileImage = user.image
+                    if let image = user.image {
+                        self?.profileImageView.kf.setImage(with: URL(string: image))
+                        self?.userProfileImage = image
+                    }
                 }
             }
             .store(in: &cancellable)

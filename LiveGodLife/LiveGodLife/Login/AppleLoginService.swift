@@ -12,6 +12,7 @@ import Combine
 protocol AppleLoginServiceDelegate: AnyObject {
 
     func signup(_ user: UserModel)
+    func login()
 }
 
 final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
@@ -39,8 +40,9 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
             let identifier = credential.user
-            let email = credential.email
+            let email = credential.email ?? ""
             let data = ["identifier": identifier,
+                        "email": email,
                         "type": LoginType.apple.rawValue]
 
             DefaultUserRepository().login(endpoint: .login(data))
@@ -51,14 +53,19 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
                 case .finished:
                     print("finished")
                 }
-            } receiveValue: { [weak self] data in
+            } receiveValue: { [weak self] value in
                 // 회원이 아니면 회원가입
                 let user = UserModel(nickname: "", type: .apple, identifier: identifier, email: email, image: nil)
-                if data.code == 401 {
+                if value.code == 401 {
                     self?.delegate?.signup(user)
                     return
                 }
-                NotificationCenter.default.post(name: .moveToHome, object: self)
+
+                // 회원이면 홈으로
+                if let token = value.data?.authorization {
+                    UserDefaults.standard.set(token, forKey: "token")
+                    self?.delegate?.login()
+                }
             }
             .store(in: &cancellable)
         }
