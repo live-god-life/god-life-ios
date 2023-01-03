@@ -28,7 +28,7 @@ final class MyPageViewController: UIViewController {
 
     private var pageViewController: UIPageViewController!
     private var selectedPageIndex: Int = 0
-    private var userProfileImage: String?
+    private var user: UserModel?
 
     private let feedViewController = FeedViewController()
     private var myArticleViewController = {
@@ -92,7 +92,7 @@ private extension MyPageViewController {
 
     @objc func moveToProfileUpdateView(_ sender: UIButton) {
         let profileUpdateViewController = ProfileUpdateViewController.instance()!
-        profileUpdateViewController.userProfileImage = userProfileImage
+        profileUpdateViewController.configure(user)
         navigationController?.pushViewController(profileUpdateViewController, animated: true)
     }
 
@@ -107,11 +107,11 @@ private extension MyPageViewController {
                     print("finished")
                 }
             } receiveValue: { [weak self] user in
+                self?.user = user
                 DispatchQueue.main.async {
                     self?.nicknameLabel.text = user.nickname
                     if let image = user.image {
                         self?.profileImageView.kf.setImage(with: URL(string: image))
-                        self?.userProfileImage = image
                     }
                 }
             }
