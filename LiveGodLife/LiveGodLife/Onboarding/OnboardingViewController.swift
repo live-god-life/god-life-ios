@@ -37,8 +37,6 @@ final class OnboardingViewController: UIViewController {
 extension OnboardingViewController: OnboardingViewDelegate {
 
     func didTapActionButton() {
-        let loginViewController = LoginViewController()
-        loginViewController.modalPresentationStyle = .overCurrentContext
-        present(loginViewController, animated: true)
+        self.dismiss(animated: true)
     }
 }
