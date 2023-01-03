@@ -20,6 +20,15 @@ extension LoginViewController: AppleLoginServiceDelegate {
             self?.navigationController?.pushViewController(UserInfoViewController(user), animated: true)
         }
     }
+
+    func login() {
+        // 로그인 성공
+        DispatchQueue.main.async { [weak self] in
+            UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
+            self?.dismiss(animated: true)
+            NotificationCenter.default.post(name: .moveToHome, object: self)
+        }
+    }
 }
 
 final class LoginViewController: UIViewController {
@@ -79,7 +88,7 @@ final class LoginViewController: UIViewController {
         buttonStackView.addArrangedSubview(kakaoLoginButton)
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints {
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(48)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
             $0.height.equalTo(132)
         }

@@ -9,37 +9,17 @@ import UIKit
 
 protocol OnboardingViewDelegate: AnyObject {
 
-    func didTapActionButton(from page: Int)
-}
-
-protocol OnboardingViewModelType {
-
-    var title: String { get }
-    var subtitle: String { get }
-    var description: String { get }
-    var buttonTitle: String { get }
+    func didTapActionButton()
 }
 
 final class OnboardingView: UIView {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var actionButton: RoundedButton!
 
     weak var delegate: OnboardingViewDelegate?
 
-    private let page: Int
-
-    func configure(with viewModel: OnboardingViewModelType) {
-        titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.subtitle
-        descriptionLabel.text = viewModel.description
-        actionButton.configure(title: viewModel.buttonTitle)
-    }
-
-    init(frame: CGRect, page: Int) {
-        self.page = page
+    override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
@@ -56,7 +36,19 @@ final class OnboardingView: UIView {
         addSubview(view)
     }
 
+    func configure(image: String) {
+        imageView.image = UIImage(named: image)
+        actionButton.configure(title: "시작하기", titleColor: .white)
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [UIColor.green.cgColor, UIColor.blue.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.frame = bounds
+        actionButton.layer.addSublayer(gradient)
+    }
+
     @IBAction func didTapActionButton(_ sender: UIButton) {
-        delegate?.didTapActionButton(from: page)
+        delegate?.didTapActionButton()
     }
 }
