@@ -30,12 +30,7 @@ struct DisplayTodo:Codable {
     
 }
 
-
-
 class GoalsCreateViewController: UIViewController {
-//    var requestParameter: CreateGoalsModel?
-   
-    
     let inputGoal = UITextField()
     let mindSetTextField = UITextField()
     let textView = UIView()
@@ -96,44 +91,6 @@ class GoalsCreateViewController: UIViewController {
         let node = ListViewController<DisplayTodo,GoalOfTodoCell>()
         return node
     }()
-
-//    lazy var todoHeaderView: UIView = {
-//        let view = UIView()
-//        let titleLabel = UILabel()
-//        let addTodoButton = UIButton()
-//        let addFolderButton = UIButton()
-//
-//        view.addSubview(titleLabel)
-//        view.addSubview(addTodoButton)
-//        view.addSubview(addFolderButton)
-//
-//        titleLabel.attributedText = "Todo".title16White
-//
-//        addTodoButton.setImage(UIImage(named: "addTodo"), for: .normal)
-//        addTodoButton.addTarget(self, action: #selector(addTASK(_:)), for: .touchUpInside)
-//        addTodoButton.tag = GoalType.task.rawValue
-//        addFolderButton.setImage(UIImage(named: "addFolder"), for: .normal)
-//        addFolderButton.addTarget(self, action: #selector(addFolder(_:)), for: .touchUpInside)
-//        addFolderButton.tag = GoalType.folder.rawValue
-//
-//        titleLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.left.equalToSuperview()
-//        }
-//        addTodoButton.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.width.equalTo(32)
-//            make.height.equalTo(32)
-//            make.right.equalToSuperview()
-//        }
-//        addFolderButton.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.width.equalTo(32)
-//            make.height.equalTo(32)
-//            make.right.equalTo(addTodoButton.snp.left).offset(-8)
-//        }
-//        return view
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +108,6 @@ class GoalsCreateViewController: UIViewController {
         
 
         self.todoListView.view.snp.makeConstraints {
-//            $0.top.equalTo(todoHeaderView.snp.bottom).offset(17)
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(17)
             $0.left.equalTo(self.view)
             $0.right.equalTo(self.view)

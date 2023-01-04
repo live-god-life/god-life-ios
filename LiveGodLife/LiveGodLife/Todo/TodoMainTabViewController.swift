@@ -5,8 +5,9 @@
 //  Created by Quintet on 2022/11/28.
 //
 
-import Foundation
 import UIKit
+import SnapKit
+import Then
 
 enum TodoMainTab: CaseIterable {
     case calendar
@@ -47,6 +48,7 @@ enum TodoMainTab: CaseIterable {
             return tabBarItem
         }
     }
+    
     var configured: UIViewController {
         let viewController = self.viewController
         viewController.title = self.title
@@ -54,84 +56,80 @@ enum TodoMainTab: CaseIterable {
         viewController.tabBarItem = self.tabBarItem
         return viewController
     }
-    
 }
 
 protocol TodoTabBarViewDelegate: AnyObject {
-
     func setViewController(with index: Int)
 }
 
-
-
 class TodoMainTabBarController: UITabBarController {
-    var commonButton:UIButton {
-        let button = UIButton()
-        button.backgroundColor = .black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 50
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
-        button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        return button
+    var commonButton = UIButton().then {
+        $0.backgroundColor = .black
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 50
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
     let calendarButton = UIButton()
     let mindsetButton = UIButton()
     let goalButton = UIButton()
+    let titleLabel = UILabel().then {
+        $0.text = "TODO"
+        $0.textColor = .white
+        $0.font = .montserrat(with: 20, weight: .bold)
+    }
     
-    lazy var tabBarView: UIStackView =  {
-        let stack = UIStackView()
-        
-        self.calendarButton.setTitleColor(UIColor.darkGray, for: .normal)
-        self.calendarButton.setTitleColor(UIColor.black, for: .selected)
-        self.calendarButton.setTitle("캘린더", for: .normal)
-        
+    lazy var tabBarView = UIStackView().then {
         self.calendarButton.tag = 0
-        self.calendarButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-        self.mindsetButton.setTitleColor(UIColor.darkGray, for: .normal)
-        self.mindsetButton.setTitleColor(UIColor.black, for: .selected)
-        self.mindsetButton.setTitle("마인드셋", for: .normal)
-        self.mindsetButton.tag = 1
-        self.mindsetButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-        self.goalButton.setTitleColor(UIColor.darkGray, for: .normal)
-        self.goalButton.setTitleColor(UIColor.black, for: .selected)
-        self.goalButton.setTitle("목표", for: .normal)
-        self.goalButton.tag = 2
-        self.goalButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-
+        self.calendarButton.clipsToBounds = true
+        self.calendarButton.layer.cornerRadius = 17
+        self.calendarButton.setTitle("캘린더", for: .normal)
+        self.calendarButton.titleLabel?.font = .bold(with: 14)
         self.calendarButton.setBackgroundColor(.clear, for: .normal)
-        self.calendarButton.setBackgroundColor(.green, for: .selected)
+        self.calendarButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
+        self.calendarButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
+        self.calendarButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
+        self.calendarButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
 
+        self.mindsetButton.tag = 1
+        self.mindsetButton.clipsToBounds = true
+        self.mindsetButton.layer.cornerRadius = 17
+        self.mindsetButton.setTitle("마인드셋", for: .normal)
+        self.mindsetButton.titleLabel?.font = .bold(with: 14)
         self.mindsetButton.setBackgroundColor(.clear, for: .normal)
-        self.mindsetButton.setBackgroundColor(.green, for: .selected)
+        self.mindsetButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
+        self.mindsetButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
+        self.mindsetButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
+        self.mindsetButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
         
+        self.goalButton.tag = 2
+        self.goalButton.clipsToBounds = true
+        self.goalButton.layer.cornerRadius = 17
+        self.goalButton.setTitle("목표", for: .normal)
+        self.goalButton.titleLabel?.font = .bold(with: 14)
         self.goalButton.setBackgroundColor(.clear, for: .normal)
-        self.goalButton.setBackgroundColor(.green, for: .selected)
+        self.goalButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
+        self.goalButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
+        self.goalButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
+        self.goalButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
         
-        stack.axis = .horizontal
-        stack.alignment = .fill
-        stack.distribution = .fillEqually
-        stack.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        stack.isLayoutMarginsRelativeArrangement = true
-        stack.spacing = 5
+        $0.spacing = .zero
+        $0.alignment = .fill
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.layoutMargins = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        $0.isLayoutMarginsRelativeArrangement = true
         
-        stack.addArrangedSubview(self.calendarButton)
-        stack.addArrangedSubview(self.mindsetButton)
-        stack.addArrangedSubview(self.goalButton)
+        $0.addArrangedSubview(self.calendarButton)
+        $0.addArrangedSubview(self.mindsetButton)
+        $0.addArrangedSubview(self.goalButton)
         
-        stack.layer.masksToBounds = true
-        stack.layer.cornerRadius = 30
-        stack.layer.borderWidth = 1
-        stack.layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
-//        stack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-       
-        for v in stack.arrangedSubviews {
-            v.layer.cornerRadius = 20
-            v.clipsToBounds = true
-        }
-        return stack
-    }()
+        $0.layer.cornerRadius = 23
+        $0.layer.masksToBounds = true
+        $0.backgroundColor = UIColor(sharpString: "333333")
+    }
     
     var tabs: [UIViewController]? = {
         var viewControllers: [UIViewController] = []
@@ -141,32 +139,39 @@ class TodoMainTabBarController: UITabBarController {
         return viewControllers
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let addButton = UIButton()
         setViewControllers(tabs, animated: true)
+        
         self.delegate = self
+        
         tabBar.isHidden = true
 
-        view.addSubview(self.tabBarView)
-        self.view.addSubview(addButton)
+        view.addSubview(titleLabel)
+        view.addSubview(tabBarView)
+        view.addSubview(addButton)
         
         addButton.setImage(UIImage(named: "addButton"), for: .normal)
         addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
 
-        self.tabBarView.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
-            $0.left.equalTo(self.view).offset(10)
-            $0.right.equalTo(self.view).offset(-10)
-            $0.height.equalTo(60)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            $0.left.equalToSuperview().offset(24)
+            $0.height.equalTo(30)
         }
-        addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-120)
-            make.height.equalTo(48)
-            make.width.equalTo(48)
-            make.right.equalTo(self.view).offset(-16)
+        tabBarView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(28)
+            $0.horizontalEdges.equalToSuperview().inset(10)
+            $0.height.equalTo(46)
         }
+        addButton.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-16)
+            $0.bottom.equalToSuperview().offset(-128)
+            $0.size.equalTo(48)
+        }
+        
         selectedIndex = 0
         calendarButton.isSelected = true
     }
@@ -196,7 +201,6 @@ class TodoMainTabBarController: UITabBarController {
 
 extension TodoMainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        
         return true
     }
 }

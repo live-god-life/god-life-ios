@@ -5,7 +5,6 @@
 //  Created by khAhn on 2022/12/26.
 //
 
-import Foundation
 import UIKit
 
 enum TodoSetting: CaseIterable {
@@ -35,24 +34,23 @@ enum TodoSetting: CaseIterable {
         }
     }
     
-    var imageView:UIImageView {
+    var imageView: UIImageView {
         let imageView = UIImageView()
         var image = UIImage()
+        
         switch self {
         case .period:
             image = UIImage(named: "period") ?? UIImage()
             imageView.image = image
-            return imageView
         case .repetition:
             image = UIImage(named: "repetition") ?? UIImage()
             imageView.image = image
-            return imageView
-            
         case .alarm:
             image = UIImage(named: "alarm") ?? UIImage()
             imageView.image = image
-            return imageView
         }
+        
+        return imageView
     }
 }
 
@@ -121,7 +119,6 @@ class GoalOfTodoCell: CommonCell {
                 let typeLabel = UILabel()
                 let imageView = item.imageView
                 
-                //                labels[index].text = ite
                 typeLabel.text = item.type
                 typeLabel.textColor = .BBBBBB
                 labels[index].text = item.defaultText
@@ -138,25 +135,20 @@ class GoalOfTodoCell: CommonCell {
                     make.top.equalTo(view).offset(4)
                     make.left.equalTo(view).offset(44)
                     make.width.equalTo(16)
-//                    make.height.equalTo(16)
                 }
                 typeLabel.snp.makeConstraints { make in
                     make.top.equalTo(view)
                     make.left.equalTo(imageView.snp.right).offset(7)
-//                    make.height.equalTo(22)
-
                 }
                 labels[index].snp.makeConstraints { make in
                     make.top.equalTo(view)
                     make.right.equalTo(button[index].snp.left).offset(-4)
-//                    make.height.equalTo(22)
                 }
                 button[index].snp.makeConstraints { make in
                     make.top.equalTo(view)
                     make.right.equalTo(view).offset(-16)
                     make.width.equalTo(24)
                     make.bottom.equalTo(view).offset(-4)
-//                    make.height.equalTo(24)
                 }
                 index = index + 1
                 return view
