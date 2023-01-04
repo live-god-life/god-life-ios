@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E66984FFCAA5074CDF59CF5 /* Pods_LiveGodLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EEE71511ED933C1BD92C18 /* Pods_LiveGodLife.framework */; };
 		B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310229377C97000DA2D7 /* ListViewController.swift */; };
 		B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310629377CAD000DA2D7 /* CalendarModel.swift */; };
 		B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310729377CAD000DA2D7 /* CalendarListCell.swift */; };
@@ -136,12 +135,17 @@
 		D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */; };
 		D0E4AE472917D8A700549BC0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE462917D8A700549BC0 /* String+Extension.swift */; };
 		D0E4AE492917E72600549BC0 /* SegmentControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */; };
+		E96364DE297FAE6B005F16CD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E96364DD297FAE6B005F16CD /* Moya */; };
+		E96364E1297FAE97005F16CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E0297FAE97005F16CD /* SnapKit */; };
+		E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E3297FAF1F005F16CD /* PopupDialog */; };
+		E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E6297FAF57005F16CD /* KakaoSDKAuth */; };
+		E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E8297FAF57005F16CD /* KakaoSDKUser */; };
+		E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E96364EB297FAF90005F16CD /* Kingfisher */; };
+		E96364EF297FAFCD005F16CD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E96364EE297FAFCD005F16CD /* Then */; };
+		E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E96364F1297FB05E005F16CD /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		161CB2CC40D6EE90A19D80D3 /* Pods-LiveGodLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.release.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.release.xcconfig"; sourceTree = "<group>"; };
-		66A3E2AB6DCB7660679636CD /* Pods-LiveGodLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveGodLife.debug.xcconfig"; path = "Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife.debug.xcconfig"; sourceTree = "<group>"; };
-		93EEE71511ED933C1BD92C18 /* Pods_LiveGodLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveGodLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92C310229377C97000DA2D7 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B92C310629377CAD000DA2D7 /* CalendarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		B92C310729377CAD000DA2D7 /* CalendarListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarListCell.swift; sourceTree = "<group>"; };
@@ -272,7 +276,7 @@
 		D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E4AE462917D8A700549BC0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlButton.swift; sourceTree = "<group>"; };
-		D0F7B05D292E4310006178FC /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E96364F3297FB07F005F16CD /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,7 +284,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E66984FFCAA5074CDF59CF5 /* Pods_LiveGodLife.framework in Frameworks */,
+				E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */,
+				E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */,
+				E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */,
+				E96364DE297FAE6B005F16CD /* Moya in Frameworks */,
+				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
+				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
+				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
+				E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,9 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				D08B66C428D5A3B9000998DC /* LiveGodLife */,
-				E1E82C2940AD0B069EF9CCAC /* Pods */,
-				D0F7B05D292E4310006178FC /* LiveGodLife.app */,
-				F20C9CC21CBD7B0F18C4AF18 /* Frameworks */,
+				E96364F3297FB07F005F16CD /* LiveGodLife.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -674,23 +683,6 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		E1E82C2940AD0B069EF9CCAC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				66A3E2AB6DCB7660679636CD /* Pods-LiveGodLife.debug.xcconfig */,
-				161CB2CC40D6EE90A19D80D3 /* Pods-LiveGodLife.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		F20C9CC21CBD7B0F18C4AF18 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				93EEE71511ED933C1BD92C18 /* Pods_LiveGodLife.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -698,19 +690,27 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D08B66D628D5A3BA000998DC /* Build configuration list for PBXNativeTarget "LiveGodLife" */;
 			buildPhases = (
-				A53D42C0C727213C4230C0D5 /* [CP] Check Pods Manifest.lock */,
 				D08B66BE28D5A3B9000998DC /* Sources */,
 				D08B66BF28D5A3B9000998DC /* Frameworks */,
 				D08B66C028D5A3B9000998DC /* Resources */,
-				B6E5098D64FF002E9F8A4219 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = LiveGodLife;
+			packageProductDependencies = (
+				E96364DD297FAE6B005F16CD /* Moya */,
+				E96364E0297FAE97005F16CD /* SnapKit */,
+				E96364E3297FAF1F005F16CD /* PopupDialog */,
+				E96364E6297FAF57005F16CD /* KakaoSDKAuth */,
+				E96364E8297FAF57005F16CD /* KakaoSDKUser */,
+				E96364EB297FAF90005F16CD /* Kingfisher */,
+				E96364EE297FAFCD005F16CD /* Then */,
+				E96364F1297FB05E005F16CD /* SwiftyJSON */,
+			);
 			productName = LiveGodLife;
-			productReference = D0F7B05D292E4310006178FC /* LiveGodLife.app */;
+			productReference = E96364F3297FB07F005F16CD /* LiveGodLife.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -737,6 +737,15 @@
 				Base,
 			);
 			mainGroup = D08B66B928D5A3B9000998DC;
+			packageReferences = (
+				E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
+				E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */,
+				E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				E96364EA297FAF90005F16CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */,
+				E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
 			projectRoot = "";
@@ -793,48 +802,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A53D42C0C727213C4230C0D5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LiveGodLife-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B6E5098D64FF002E9F8A4219 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveGodLife/Pods-LiveGodLife-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D08B66BE28D5A3B9000998DC /* Sources */ = {
@@ -1066,7 +1033,6 @@
 		};
 		D08B66D728D5A3BA000998DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66A3E2AB6DCB7660679636CD /* Pods-LiveGodLife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1097,7 +1063,6 @@
 		};
 		D08B66D828D5A3BA000998DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 161CB2CC40D6EE90A19D80D3 /* Pods-LiveGodLife.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1148,6 +1113,108 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+		E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Orderella/PopupDialog";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		E96364EA297FAF90005F16CD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.5.0;
+			};
+		};
+		E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E96364DD297FAE6B005F16CD /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		E96364E0297FAE97005F16CD /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		E96364E3297FAF1F005F16CD /* PopupDialog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */;
+			productName = PopupDialog;
+		};
+		E96364E6297FAF57005F16CD /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		E96364E8297FAF57005F16CD /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+		E96364EB297FAF90005F16CD /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364EA297FAF90005F16CD /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		E96364EE297FAFCD005F16CD /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		E96364F1297FB05E005F16CD /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D08B66BA28D5A3B9000998DC /* Project object */;
 }
