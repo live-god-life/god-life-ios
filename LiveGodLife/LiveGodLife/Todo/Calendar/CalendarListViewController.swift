@@ -13,7 +13,7 @@ class CalendarListViewController: UIViewController {
     var baseNavigationController: UINavigationController?
     static var reMindUrl:String = ""
     var model:[MainCalendarModel] = []
-
+    
     var listView: ListViewController<MainCalendarModel,CalendarListCell> = {
         let node = ListViewController<MainCalendarModel,CalendarListCell>()
         return node
@@ -48,7 +48,7 @@ class CalendarListViewController: UIViewController {
         layout.minimumLineSpacing = 5.0
         self.listView.collectionView.collectionViewLayout = layout
         self.listView.collectionView.backgroundColor = .black
-
+        
         self.listView.collectionView.delegate = self
         self.listView.collectionView.dataSource = self
         self.listView.collectionView.register( CalendarListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CalendarListHeaderView")
@@ -58,33 +58,34 @@ class CalendarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         model.removeAll()
-            
+        
         let parameter: [String: Any] = [
             "date": "20221001",//Date.today,
             "size": 5,
             "completionStatus": "false",
         ] as [String : Any]
         
-       
-        NetworkManager().provider.request(.todos(parameter)) { [weak self] response in
-            guard let self else { return }
-            switch response {
-            case .success(let result):
-                do {
-                    let json = try result.mapJSON()
-                    let jsonData = json as? [String:Any] ?? [:]
-                    if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
-                       let model = try? JSONDecoder().decode([MainCalendarModel].self, from: jsonData) {
-                        self.listView.model = model
-                        print(self.model)
-                        self.listView.collectionView.reloadData()
+        
+        NetworkManager.shared.provider
+            .request(.todos(parameter)) { [weak self] response in
+                guard let self else { return }
+                switch response {
+                case .success(let result):
+                    do {
+                        let json = try result.mapJSON()
+                        let jsonData = json as? [String:Any] ?? [:]
+                        if let jsonData = try? JSONSerialization.data(withJSONObject: jsonData["data"], options: .prettyPrinted),
+                           let model = try? JSONDecoder().decode([MainCalendarModel].self, from: jsonData) {
+                            self.listView.model = model
+                            print(self.model)
+                            self.listView.collectionView.reloadData()
+                        }
+                    } catch(let err) {
                     }
-                } catch(let err) {
+                case .failure(let err):
+                    print(err.localizedDescription)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
             }
-        }
     }
 }
 
@@ -97,7 +98,7 @@ extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
         let itemHeightSize = 75.0
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
-
+    
 }
 
 
@@ -116,10 +117,10 @@ extension CalendarListViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarListCell.identifier, for: indexPath) as? CalendarListCell else {
             return UICollectionViewCell()
         }
-//        cell.model = self.listView.model[indexPath.row].todoSchedules
+        //        cell.model = self.listView.model[indexPath.row].todoSchedules
         cell.dataModel = self.listView.model[indexPath.section].todoSchedules[indexPath.row]
         cell.setUpModel()
-       
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -160,8 +161,8 @@ class CalendarListHeaderView: UICollectionReusableView {
     var titleLabel = UILabel()
     lazy var detailButton: UIButton = {
         let button = UIButton()
-//        button.setImage(#imageLiteral(resourceName: "icon-close-20.pdf"), for: .normal)
-//        button.addTarget(self, action: #selector(self.closeAction(_:)), for: .touchUpInside)
+        //        button.setImage(#imageLiteral(resourceName: "icon-close-20.pdf"), for: .normal)
+        //        button.addTarget(self, action: #selector(self.closeAction(_:)), for: .touchUpInside)
         return button
     }()
     // MARK: - Init
@@ -196,6 +197,6 @@ class CalendarListHeaderView: UICollectionReusableView {
     }
     // MARK: - Button Action
     @objc func closeAction(_ sender: UIButton) {
-//        delegate?.sideMenuHeaderView(self, selectedClose: true)
+        //        delegate?.sideMenuHeaderView(self, selectedClose: true)
     }
 }

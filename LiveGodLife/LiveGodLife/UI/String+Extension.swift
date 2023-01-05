@@ -19,6 +19,12 @@ extension String {
 }
 
 extension String {
+    func toDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.date(from: self)
+    }
+    
     var range: Range<String.Index> {
         return self.range(of: self) ?? Range<String.Index>(uncheckedBounds: (lower: self.startIndex, upper: self.endIndex))
     }

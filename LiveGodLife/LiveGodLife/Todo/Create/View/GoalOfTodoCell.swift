@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 enum TodoSetting: CaseIterable {
     case period
@@ -54,7 +56,7 @@ enum TodoSetting: CaseIterable {
     }
 }
 
-class GoalOfTodoCell: CommonCell {
+final class GoalOfTodoCell: CommonCell {
     // MARK: - Variable
     var dataModel:TodosModel? {
         didSet {
@@ -84,36 +86,37 @@ class GoalOfTodoCell: CommonCell {
         self.alarmButton,
     ]
     
-    lazy var contentsView:UIView = {
-        let view = UIView()
+    lazy var contentsView = UIView().then {
         checkImage.image = UIImage(named: "checked")
         titleTextField.attributedPlaceholder = "컨셉잡기".title16White
         titleTextField.font = .title16
         titleTextField.textColor = .white
         
-        
         self.addSubview(self.checkImage)
         self.addSubview(self.titleTextField)
-        checkImage.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(28)
-            make.left.equalTo(self).offset(16)
-            make.width.equalTo(24)
-            make.height.equalTo(24)
+        
+        checkImage.snp.makeConstraints {
+            $0.top.equalTo(self).offset(28)
+            $0.left.equalTo(self).offset(16)
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
         }
-        titleTextField.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(24)
-            make.left.equalTo(checkImage.snp.right).offset(16)
-            make.right.equalTo(self)
-            make.height.equalTo(24)
+        
+        titleTextField.snp.makeConstraints {
+            $0.top.equalTo(self).offset(24)
+            $0.left.equalTo(checkImage.snp.right).offset(16)
+            $0.right.equalTo(self)
+            $0.height.equalTo(24)
         }
         
         let settingStackView = UIStackView()
         settingStackView.spacing = 10
         settingStackView.axis = .vertical
-        view.addSubview(settingStackView)
+        $0.addSubview(settingStackView)
         
         var index = 0
-        TodoSetting.allCases.forEach {(item) in
+        
+        TodoSetting.allCases.forEach { (item) in
             var settingView: UIView {
                 let view = UIView()
                 let typeLabel = UILabel()
@@ -156,17 +159,13 @@ class GoalOfTodoCell: CommonCell {
             settingStackView.addArrangedSubview(settingView)
         }
         
-        settingStackView.snp.makeConstraints { make in
-            make.top.equalTo(view)
-            make.left.equalTo(view).offset(16)
-            make.right.equalTo(view).offset(-10)
-            make.height.equalTo(108)
+        settingStackView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-10)
+            $0.height.equalTo(108)
         }
-        
-        return view
-    }()
-    
-    
+    }
     
     // MARK: - Lifecycle
     override init(frame: CGRect) {
@@ -177,6 +176,7 @@ class GoalOfTodoCell: CommonCell {
         self.layer.cornerRadius = 10
 
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         fatalError("init(coder:) has not been implemented")
@@ -188,9 +188,7 @@ class GoalOfTodoCell: CommonCell {
     }
     
     func addViews(){
-        
         self.addSubview(self.contentsView)
-        
     }
     
     func update() {
@@ -198,7 +196,6 @@ class GoalOfTodoCell: CommonCell {
             make.top.equalTo(self.titleTextField.snp.bottom).offset(24)
             make.left.equalTo(self)
             make.right.equalTo(self)
-//            make.height.equalTo(108)
             make.bottom.equalTo(self)
         }
         

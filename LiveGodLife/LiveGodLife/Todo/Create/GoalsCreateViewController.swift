@@ -134,20 +134,21 @@ final class GoalsCreateViewController: UIViewController {
         }
         TodoListHeaderView.requestParameter.updateValue(todos, forKey: "todos")
         
-        NetworkManager().provider.request(.addGoals(TodoListHeaderView.requestParameter)) { response in
-            switch response {
-            case .success(let result):
-                do {
-                    let json = try result.mapJSON()
-                    let jsonData = json as? [String:Any] ?? [:]
-                    print(jsonData)
-                } catch(let err) {
-                    print(err)
+        NetworkManager.shared.provider
+            .request(.addGoals(TodoListHeaderView.requestParameter)) { response in
+                switch response {
+                case .success(let result):
+                    do {
+                        let json = try result.mapJSON()
+                        let jsonData = json as? [String:Any] ?? [:]
+                        print(jsonData)
+                    } catch(let err) {
+                        print(err)
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
             }
-        }
     }
 }
 

@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class ListViewController<Model:Codable, Cell: CommonCell>:
+enum DiffableSection {
+    case main
+}
+
+class ListViewController<Model:Decodable, Cell: CommonCell>:
     UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     var model: [Model] = []
     var id:String = ""
@@ -84,9 +88,9 @@ class ListViewController<Model:Codable, Cell: CommonCell>:
     
 }
 
-class CommonCell:UICollectionViewCell {
+class CommonCell: UICollectionViewCell {
 
-    var model:Codable?
+    var model: Decodable?
     
     static var identifier: String {
         return String(describing: self)

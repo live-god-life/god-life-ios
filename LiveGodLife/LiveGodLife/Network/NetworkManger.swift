@@ -10,7 +10,9 @@ import Alamofire
 import Moya
 import SwiftyJSON
 
-struct NetworkManager {
+final class NetworkManager {
+    static let shared = NetworkManager()
+    private init() {}
     let provider = MoyaProvider<NetworkService>()
 }
 
@@ -91,17 +93,10 @@ extension NetworkService: TargetType {
         case .goals(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .addGoals(let parameter):
-//            return .requestJSONEncodable(parameter)
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-
-//            return .requestData(parameters: param, encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
-            //            let encoder = JSONEncoder()
-            //            encoder.outputFormatting = .prettyPrinted
-            //            let encodedData = try? encoder.encode(data)
             return .requestData(data)
-            //            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         }
     }
     

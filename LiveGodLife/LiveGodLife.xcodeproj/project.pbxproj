@@ -20,8 +20,8 @@
 		B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312429491819000DA2D7 /* NetworkManger.swift */; };
 		B92C312729491868000DA2D7 /* LGLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312629491868000DA2D7 /* LGLService.swift */; };
 		B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */; };
-		C9152E9B29397F4400C6C025 /* GoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9A29397F4400C6C025 /* GoalsModel.swift */; };
-		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
+		C9152E9B29397F4400C6C025 /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9A29397F4400C6C025 /* GoalModel.swift */; };
+		C9152E9D29397F6100C6C025 /* GoalsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListVC.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
 		C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */; };
 		C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */; };
@@ -134,7 +134,6 @@
 		D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */; };
 		D0E4AE472917D8A700549BC0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE462917D8A700549BC0 /* String+Extension.swift */; };
 		D0E4AE492917E72600549BC0 /* SegmentControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */; };
-		E96364DE297FAE6B005F16CD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E96364DD297FAE6B005F16CD /* Moya */; };
 		E96364E1297FAE97005F16CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E0297FAE97005F16CD /* SnapKit */; };
 		E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E3297FAF1F005F16CD /* PopupDialog */; };
 		E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E6297FAF57005F16CD /* KakaoSDKAuth */; };
@@ -145,6 +144,12 @@
 		E96364F6297FB632005F16CD /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F5297FB632005F16CD /* UIColor+.swift */; };
 		E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F7297FB9AF005F16CD /* UIButton+.swift */; };
 		E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E96364FA297FC07A005F16CD /* CombineCocoa */; };
+		E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364FE297FC70D005F16CD /* GradientProgressView.swift */; };
+		E9636505297FCF50005F16CD /* GoalsListHeadersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636504297FCF50005F16CD /* GoalsListHeadersView.swift */; };
+		E9636507297FD242005F16CD /* GoalsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636506297FD242005F16CD /* GoalsListViewModel.swift */; };
+		E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636508297FD48E005F16CD /* UIReusable+.swift */; };
+		E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = E9636510297FDE6A005F16CD /* CombineMoya */; };
+		E9636513297FDE6A005F16CD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E9636512297FDE6A005F16CD /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,8 +166,8 @@
 		B92C312429491819000DA2D7 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
 		B92C312629491868000DA2D7 /* LGLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGLService.swift; sourceTree = "<group>"; };
 		B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsModel.swift; sourceTree = "<group>"; };
-		C9152E9A29397F4400C6C025 /* GoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsModel.swift; sourceTree = "<group>"; };
-		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
+		C9152E9A29397F4400C6C025 /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
+		C9152E9C29397F6100C6C025 /* GoalsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListVC.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
 		C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalOfTodoCell.swift; sourceTree = "<group>"; };
 		C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +285,10 @@
 		E96364F3297FB07F005F16CD /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96364F5297FB632005F16CD /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		E96364F7297FB9AF005F16CD /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		E96364FE297FC70D005F16CD /* GradientProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressView.swift; sourceTree = "<group>"; };
+		E9636504297FCF50005F16CD /* GoalsListHeadersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListHeadersView.swift; sourceTree = "<group>"; };
+		E9636506297FD242005F16CD /* GoalsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewModel.swift; sourceTree = "<group>"; };
+		E9636508297FD48E005F16CD /* UIReusable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIReusable+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,12 +298,13 @@
 			files = (
 				E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */,
 				E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */,
+				E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */,
 				E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */,
-				E96364DE297FAE6B005F16CD /* Moya in Frameworks */,
 				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
 				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
 				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
 				E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */,
+				E9636513297FDE6A005F16CD /* Moya in Frameworks */,
 				E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +343,7 @@
 		B92C310529377CAD000DA2D7 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				B92C310629377CAD000DA2D7 /* CalendarModel.swift */,
+				E9636500297FC7D4005F16CD /* Model */,
 				B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */,
 				B92C310729377CAD000DA2D7 /* CalendarListCell.swift */,
 				B92C310929377CAD000DA2D7 /* CalendarCell.swift */,
@@ -344,9 +354,9 @@
 		B92C310B29377CAD000DA2D7 /* Mindset */ = {
 			isa = PBXGroup;
 			children = (
+				E9636501297FC7D8005F16CD /* Model */,
 				B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */,
 				B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */,
-				B92C310E29377CAD000DA2D7 /* MindsetModel.swift */,
 			);
 			path = Mindset;
 			sourceTree = "<group>";
@@ -364,9 +374,10 @@
 		C9152E9929397F1700C6C025 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
-				C9152E9A29397F4400C6C025 /* GoalsModel.swift */,
-				C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */,
-				C9152E9E29397F7800C6C025 /* GoalsListCell.swift */,
+				E9636502297FC7DD005F16CD /* Models */,
+				E9636503297FCF3E005F16CD /* Views */,
+				C9152E9C29397F6100C6C025 /* GoalsListVC.swift */,
+				E9636506297FD242005F16CD /* GoalsListViewModel.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -401,6 +412,7 @@
 				D0C97A6229379444001EC122 /* UIView+Extension.swift */,
 				CCA802E5293F388F00D9579F /* PopupView.swift */,
 				CCA802E7293F393C00D9579F /* PopupView.xib */,
+				E96364FE297FC70D005F16CD /* GradientProgressView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -456,6 +468,7 @@
 				D0340F4E29384FAF00D2A5A6 /* UIApplication+.swift */,
 				E96364F5297FB632005F16CD /* UIColor+.swift */,
 				E96364F7297FB9AF005F16CD /* UIButton+.swift */,
+				E9636508297FD48E005F16CD /* UIReusable+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -704,6 +717,39 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E9636500297FC7D4005F16CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310629377CAD000DA2D7 /* CalendarModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E9636501297FC7D8005F16CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B92C310E29377CAD000DA2D7 /* MindsetModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E9636502297FC7DD005F16CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9152E9A29397F4400C6C025 /* GoalModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E9636503297FCF3E005F16CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9636504297FCF50005F16CD /* GoalsListHeadersView.swift */,
+				C9152E9E29397F7800C6C025 /* GoalsListCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -721,7 +767,6 @@
 			);
 			name = LiveGodLife;
 			packageProductDependencies = (
-				E96364DD297FAE6B005F16CD /* Moya */,
 				E96364E0297FAE97005F16CD /* SnapKit */,
 				E96364E3297FAF1F005F16CD /* PopupDialog */,
 				E96364E6297FAF57005F16CD /* KakaoSDKAuth */,
@@ -730,6 +775,8 @@
 				E96364EE297FAFCD005F16CD /* Then */,
 				E96364F1297FB05E005F16CD /* SwiftyJSON */,
 				E96364FA297FC07A005F16CD /* CombineCocoa */,
+				E9636510297FDE6A005F16CD /* CombineMoya */,
+				E9636512297FDE6A005F16CD /* Moya */,
 			);
 			productName = LiveGodLife;
 			productReference = E96364F3297FB07F005F16CD /* LiveGodLife.app */;
@@ -760,7 +807,6 @@
 			);
 			mainGroup = D08B66B928D5A3B9000998DC;
 			packageReferences = (
-				E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
 				E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */,
 				E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
@@ -768,6 +814,7 @@
 				E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */,
 				E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
@@ -846,6 +893,7 @@
 				D0C97A612937932B001EC122 /* UIImage+.swift in Sources */,
 				D0E3B2C1292123DD00601936 /* FeedRepository.swift in Sources */,
 				D0E3B2A7291D1CDF00601936 /* FeedViewController.swift in Sources */,
+				E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */,
 				CC0113EE29684E04009CAC95 /* TaskViewController.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				D0E3B2D529288F3A00601936 /* FeedAPI.swift in Sources */,
@@ -862,7 +910,7 @@
 				D0E3B2CB2924C8A200601936 /* TodoDropDownView.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
-				C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */,
+				C9152E9D29397F6100C6C025 /* GoalsListVC.swift in Sources */,
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+.swift in Sources */,
@@ -874,6 +922,7 @@
 				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
 				B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */,
+				E9636507297FD242005F16CD /* GoalsListViewModel.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
 				CC0113F429685466009CAC95 /* TodoProgressView.swift in Sources */,
 				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
@@ -902,9 +951,11 @@
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
 				C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */,
+				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
+				E9636505297FCF50005F16CD /* GoalsListHeadersView.swift in Sources */,
 				D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */,
-				C9152E9B29397F4400C6C025 /* GoalsModel.swift in Sources */,
+				C9152E9B29397F4400C6C025 /* GoalModel.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				CC0113F82968592F009CAC95 /* PaddingLabel.swift in Sources */,
 				D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */,
@@ -1139,14 +1190,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 15.0.0;
-			};
-		};
 		E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1203,14 +1246,17 @@
 				minimumVersion = 0.4.1;
 			};
 		};
+		E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E96364DD297FAE6B005F16CD /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E96364DC297FAE6B005F16CD /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
-		};
 		E96364E0297FAE97005F16CD /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -1250,6 +1296,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		E9636510297FDE6A005F16CD /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		E9636512297FDE6A005F16CD /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

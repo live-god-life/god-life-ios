@@ -18,6 +18,8 @@ extension UIColor {
 
 extension UIColor {
     /// 디자인시스템에 없는 컬러
+    /// #AAAAAA
+    static let AAAAAA = UIColor(sharpString: "#AAAAAA")!
     /// #BBBBBB
     static let BBBBBB = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
     /// #DDDDDD

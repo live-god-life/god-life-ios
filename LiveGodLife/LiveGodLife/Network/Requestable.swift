@@ -9,16 +9,10 @@ import Foundation
 import Combine
 
 protocol Requestable {
-
     func request<T: Decodable>(_ endpoint: APIEndpoint) -> AnyPublisher<T, APIError>
 }
 
 enum APIError: Error {
-
-//    case unauthorized
-//    case badRequest
-//    case serverError
-//    case noResponse
     case httpError // http 응답 200대가 아님
     case decoding
     case unknown

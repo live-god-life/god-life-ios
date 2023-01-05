@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class CalendarCell: CommonCell {
-    
     var dataModel:SubCalendarModel? {
         didSet {
             update()
@@ -17,10 +16,6 @@ class CalendarCell: CommonCell {
     }
     let titleLabel: UILabel = {
         let label = UILabel()
-//        label.font = .title14
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.8
-//        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
