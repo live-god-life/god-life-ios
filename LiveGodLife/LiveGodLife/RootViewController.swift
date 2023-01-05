@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RootViewController: UITabBarController, TabBarViewDelegate {
+final class RootViewController: UITabBarController, TabBarViewDelegate {
 
     private let tabBarView = TabBarView()
 

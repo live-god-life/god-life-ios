@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIColor {
-
     /// #7CFC00
     static let green = UIColor(red: 124/255, green: 1, blue: 0, alpha: 1)
     /// #CCCCCC
@@ -23,7 +22,6 @@ extension UIColor {
     static let BBBBBB = UIColor(red: 187/255, green: 187/255, blue: 187/255, alpha: 1)
     /// #DDDDDD
     static let DDDDDD = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
-
     /// #537CFF
     static let blue = UIColor(red: 83/255, green: 124/255, blue: 1, alpha: 1)
     /// #111111
@@ -38,5 +36,4 @@ extension UIColor {
     static let gray5 = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
     /// #88888
     static let gray6 = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
-    
 }

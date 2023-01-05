@@ -7,6 +7,27 @@
 
 import Foundation
 
+enum GoalType: Int {
+    case task
+    case folder
+    
+    var name: String {
+        switch self {
+        case .folder:
+            return "FOLDER"
+        case .task:
+            return "TASK"
+        }
+    }
+}
+
+struct DisplayTodo: Codable {
+    var type: String
+    var index: Int
+    var taskModel: ChildTodo?
+    var folderModel: TodosModel?
+}
+
 struct TodosModel: Codable {
     let title: String
     let type: String

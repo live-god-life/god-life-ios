@@ -24,7 +24,6 @@
 		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
 		C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */; };
-		C9C6E3F9296BC86F0023EE96 /* popUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */; };
 		C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
@@ -144,6 +143,8 @@
 		E96364EF297FAFCD005F16CD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E96364EE297FAFCD005F16CD /* Then */; };
 		E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E96364F1297FB05E005F16CD /* SwiftyJSON */; };
 		E96364F6297FB632005F16CD /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F5297FB632005F16CD /* UIColor+.swift */; };
+		E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F7297FB9AF005F16CD /* UIButton+.swift */; };
+		E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E96364FA297FC07A005F16CD /* CombineCocoa */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,7 +165,6 @@
 		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
 		C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalOfTodoCell.swift; sourceTree = "<group>"; };
-		C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popUpViewController.swift; sourceTree = "<group>"; };
 		C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateViewController.swift; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +279,7 @@
 		D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlButton.swift; sourceTree = "<group>"; };
 		E96364F3297FB07F005F16CD /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96364F5297FB632005F16CD /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		E96364F7297FB9AF005F16CD /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +294,7 @@
 				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
 				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
 				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
+				E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */,
 				E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,10 +354,9 @@
 		B9B3F0CA2952372C00A1387C /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				E96364FC297FC299005F16CD /* Model */,
+				E96364FD297FC303005F16CD /* View */,
 				C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */,
-				B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */,
-				C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */,
-				C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -454,6 +455,7 @@
 				D023B076290AB12100387C5C /* UIViewController+.swift */,
 				D0340F4E29384FAF00D2A5A6 /* UIApplication+.swift */,
 				E96364F5297FB632005F16CD /* UIColor+.swift */,
+				E96364F7297FB9AF005F16CD /* UIButton+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -686,6 +688,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		E96364FC297FC299005F16CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E96364FD297FC303005F16CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -711,6 +729,7 @@
 				E96364EB297FAF90005F16CD /* Kingfisher */,
 				E96364EE297FAFCD005F16CD /* Then */,
 				E96364F1297FB05E005F16CD /* SwiftyJSON */,
+				E96364FA297FC07A005F16CD /* CombineCocoa */,
 			);
 			productName = LiveGodLife;
 			productReference = E96364F3297FB07F005F16CD /* LiveGodLife.app */;
@@ -748,6 +767,7 @@
 				E96364EA297FAF90005F16CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */,
 				E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
@@ -896,10 +916,10 @@
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,
 				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,
+				E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */,
 				D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */,
 				D0B0584429365F7F0014F88E /* FeedCollectionViewCell.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
-				C9C6E3F9296BC86F0023EE96 /* popUpViewController.swift in Sources */,
 				D0E3B2A3291D1CDF00601936 /* CategoryFilterView.swift in Sources */,
 				C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */,
 			);
@@ -1175,6 +1195,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1217,6 +1245,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		E96364FA297FC07A005F16CD /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

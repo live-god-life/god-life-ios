@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import Combine
+import CombineCocoa
 
 enum TodoMainTab: CaseIterable {
     case calendar
@@ -62,8 +64,10 @@ protocol TodoTabBarViewDelegate: AnyObject {
     func setViewController(with index: Int)
 }
 
-class TodoMainTabBarController: UITabBarController {
-    var commonButton = UIButton().then {
+final class TodoMainTabBarController: UITabBarController {
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
+    private var commonButton = UIButton().then {
         $0.backgroundColor = .black
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 50
@@ -71,50 +75,48 @@ class TodoMainTabBarController: UITabBarController {
         $0.layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
-    
-    let calendarButton = UIButton()
-    let mindsetButton = UIButton()
-    let goalButton = UIButton()
-    let titleLabel = UILabel().then {
+    private lazy var calendarButton = UIButton().then {
+        $0.tag = 0
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 17
+        $0.setTitle("캘린더", for: .normal)
+        $0.titleLabel?.font = .bold(with: 14)
+        $0.setTitleColor(.gray2, for: .normal)
+        $0.setTitleColor(.background, for: .selected)
+        $0.setBackgroundColor(.clear, for: .normal)
+        $0.setBackgroundColor(.green, for: .selected)
+        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+    }
+    private lazy var mindsetButton = UIButton().then {
+        $0.tag = 1
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 17
+        $0.setTitle("마인드셋", for: .normal)
+        $0.titleLabel?.font = .bold(with: 14)
+        $0.setTitleColor(.gray2, for: .normal)
+        $0.setTitleColor(.background, for: .selected)
+        $0.setBackgroundColor(.clear, for: .normal)
+        $0.setBackgroundColor(.green, for: .selected)
+        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+    }
+    private lazy var goalButton = UIButton().then {
+        $0.tag = 2
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 17
+        $0.setTitle("목표", for: .normal)
+        $0.titleLabel?.font = .bold(with: 14)
+        $0.setTitleColor(.gray2, for: .normal)
+        $0.setTitleColor(.background, for: .selected)
+        $0.setBackgroundColor(.clear, for: .normal)
+        $0.setBackgroundColor(.green, for: .selected)
+        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+    }
+    private let titleLabel = UILabel().then {
         $0.text = "TODO"
         $0.textColor = .white
         $0.font = .montserrat(with: 20, weight: .bold)
     }
-    
-    lazy var tabBarView = UIStackView().then {
-        self.calendarButton.tag = 0
-        self.calendarButton.clipsToBounds = true
-        self.calendarButton.layer.cornerRadius = 17
-        self.calendarButton.setTitle("캘린더", for: .normal)
-        self.calendarButton.titleLabel?.font = .bold(with: 14)
-        self.calendarButton.setBackgroundColor(.clear, for: .normal)
-        self.calendarButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
-        self.calendarButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
-        self.calendarButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
-        self.calendarButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-
-        self.mindsetButton.tag = 1
-        self.mindsetButton.clipsToBounds = true
-        self.mindsetButton.layer.cornerRadius = 17
-        self.mindsetButton.setTitle("마인드셋", for: .normal)
-        self.mindsetButton.titleLabel?.font = .bold(with: 14)
-        self.mindsetButton.setBackgroundColor(.clear, for: .normal)
-        self.mindsetButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
-        self.mindsetButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
-        self.mindsetButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
-        self.mindsetButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-        
-        self.goalButton.tag = 2
-        self.goalButton.clipsToBounds = true
-        self.goalButton.layer.cornerRadius = 17
-        self.goalButton.setTitle("목표", for: .normal)
-        self.goalButton.titleLabel?.font = .bold(with: 14)
-        self.goalButton.setBackgroundColor(.clear, for: .normal)
-        self.goalButton.setTitleColor(UIColor(sharpString: "999999")!, for: .normal)
-        self.goalButton.setTitleColor(UIColor(sharpString: "#111111")!, for: .selected)
-        self.goalButton.setBackgroundColor(UIColor(sharpString: "7CFC00")!, for: .selected)
-        self.goalButton.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
-        
+    private lazy var tabBarView = UIStackView().then {
         $0.spacing = .zero
         $0.alignment = .fill
         $0.axis = .horizontal
@@ -128,10 +130,12 @@ class TodoMainTabBarController: UITabBarController {
         
         $0.layer.cornerRadius = 23
         $0.layer.masksToBounds = true
-        $0.backgroundColor = UIColor(sharpString: "333333")
+        $0.backgroundColor = .default
     }
-    
-    var tabs: [UIViewController]? = {
+    private let addButton = UIButton().then {
+        $0.setImage(UIImage(named: "addButton"), for: .normal)
+    }
+    private var tabs = {
         var viewControllers: [UIViewController] = []
         for viewController in TodoMainTab.allCases {
             viewControllers.append(viewController.configured)
@@ -142,19 +146,20 @@ class TodoMainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addButton = UIButton()
+        delegate = self
+        makeUI()
+        bind()
+    }
+    
+    private func makeUI() {
+        selectedIndex = 0
+        tabBar.isHidden = true
+        calendarButton.isSelected = true
         setViewControllers(tabs, animated: true)
         
-        self.delegate = self
-        
-        tabBar.isHidden = true
-
         view.addSubview(titleLabel)
         view.addSubview(tabBarView)
         view.addSubview(addButton)
-        
-        addButton.setImage(UIImage(named: "addButton"), for: .normal)
-        addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
 
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
@@ -171,49 +176,29 @@ class TodoMainTabBarController: UITabBarController {
             $0.bottom.equalToSuperview().offset(-128)
             $0.size.equalTo(48)
         }
-        
-        selectedIndex = 0
-        calendarButton.isSelected = true
-    }
-    //comment 여러번 초기화 되는 함수
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    @objc func seletedView(_ sender: UIButton) {
-        var isSelected = false
-        [calendarButton, mindsetButton, goalButton].enumerated().forEach { (index, button) in
-            if (index != selectedIndex) {
-                isSelected = true
-            } else {
-                button.isSelected = index != selectedIndex
-            }
-       
-        }
-        sender.isSelected = isSelected
-        selectedIndex = sender.tag
     }
     
-    @objc func add(_ sender: UIButton) {
-        self.navigationController?.pushViewController(GoalsCreateViewController(), animated: true)
+    private func bind() {
+        addButton
+            .tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.navigationController?.pushViewController(GoalsCreateViewController(), animated: true)
+            }
+            .store(in: &bag)
+    }
+    
+    @objc
+    func seletedView(_ sender: UIButton) {
+        selectedIndex = sender.tag
+        goalButton.isSelected = sender.tag == goalButton.tag
+        mindsetButton.isSelected = sender.tag == mindsetButton.tag
+        calendarButton.isSelected = sender.tag == calendarButton.tag
     }
 }
 
 extension TodoMainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         return true
-    }
-}
-extension UIButton {
-    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
-        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setFillColor(color.cgColor)
-        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
-        
-        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-         
-        self.setBackgroundImage(backgroundImage, for: state)
     }
 }
