@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct MindSetModel: Decodable {
-    var goalId: Int
-    var title: String
-    var mindsets: [SubMindSetModel]
+struct MindSetsModel: Decodable, Hashable {
+    var goalId: Int?
+    var title: String?
+    var mindsets: [MindSetModel]?
     
     enum Codingkeys: String, CodingKey {
         case title
@@ -18,18 +18,12 @@ struct MindSetModel: Decodable {
     }
 }
 
-struct SubMindSetModel: Decodable {
-    var mindsetId: Int
-    var content: String
+struct MindSetModel: Decodable, Hashable {
+    var mindsetId: Int?
+    var content: String?
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case mindsetId
         case content
-    }
-    
-    func encode(to encoder: Encoder) throws{
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(mindsetId, forKey: .mindsetId)
-        try container.encode(content, forKey: .content)
     }
 }

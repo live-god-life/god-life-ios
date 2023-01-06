@@ -65,6 +65,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    public func toParameterString() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+    
     public var year: Int {
         return Calendar.current.component(.year, from: self)
     }

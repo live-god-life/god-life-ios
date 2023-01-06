@@ -8,7 +8,7 @@
 import UIKit
 
 final class GoalsVC: UIViewController {
-    private let viewModel = GoalsViewModel()
+    private let viewModel = TodoListViewModel()
     private var snapshot: GoalsSnapshot!
     private var dataSource: GoalsDataSource!
     
@@ -76,12 +76,8 @@ extension GoalsVC: UICollectionViewDelegate {
 }
 
 extension GoalsVC {
-    typealias GoalsSnapshot = NSDiffableDataSourceSnapshot<GoalsVC.Section, GoalModel>
-    typealias GoalsDataSource = UICollectionViewDiffableDataSource<GoalsVC.Section, GoalModel>
-    
-    enum Section {
-        case goal
-    }
+    typealias GoalsSnapshot = NSDiffableDataSourceSnapshot<TodoListViewModel.Section, GoalModel>
+    typealias GoalsDataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, GoalModel>
     
     private func configureDataSource() {
         dataSource = GoalsDataSource(collectionView: goalsCollectionView) { collectionView, indexPath, goal in
@@ -97,7 +93,8 @@ extension GoalsVC {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                              withReuseIdentifier: GoalsHeadersView.id,
                                                                              for: indexPath) as? GoalsHeadersView
-            let itemCount = self.dataSource.snapshot().numberOfItems(inSection: .goal)
+            
+            let itemCount = self.dataSource.snapshot().numberOfItems(inSection: .main)
             headerView?.configure(with: "\(itemCount) List")
             
             return headerView
@@ -106,7 +103,7 @@ extension GoalsVC {
     
     private func updateDataSnapshot(with goals: [GoalModel]) {
         snapshot = GoalsSnapshot()
-        snapshot.appendSections([.goal])
+        snapshot.appendSections([.main])
         snapshot.appendItems(goals)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -120,7 +117,7 @@ extension GoalsVC {
                                                                  alignment: .top)
         // Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(162.0))
+                                              heightDimension: .absolute(146.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let height = UIScreen.main.bounds.height - 40 - 116 - view.safeAreaInsets.top
         
@@ -130,11 +127,11 @@ extension GoalsVC {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                      subitems: [item])
         group.interItemSpacing = .fixed(16.0)
+        group.contentInsets = NSDirectionalEdgeInsets(top: .zero, leading: .zero, bottom: 88.0, trailing: .zero)
         
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [header]
-        section.contentInsets = NSDirectionalEdgeInsets(top: .zero, leading: .zero, bottom: 88.0, trailing: .zero)
         section.interGroupSpacing = 16.0
         
         return UICollectionViewCompositionalLayout(section: section)

@@ -11,7 +11,6 @@ import UIKit
 //MARK: Todo -> 목표 header
 final class GoalsHeadersView: UICollectionReusableView {
     // MARK: - Properties
-    weak var delegate: TodoListHeadersViewDelegate? = nil
     private var logoImageView = UIImageView().then {
         $0.image = UIImage(named: "headerLogo")
     }
@@ -58,7 +57,7 @@ final class GoalsHeadersView: UICollectionReusableView {
             $0.height.equalTo(15)
         }
         titleLabel.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-16)
+            $0.centerY.equalTo(statusLabel.snp.centerY)
             $0.left.equalTo(logoImageView.snp.right).offset(7.1)
             $0.height.equalTo(20)
         }

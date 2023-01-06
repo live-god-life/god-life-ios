@@ -32,7 +32,7 @@ enum TodoMainTab: CaseIterable {
         case .calendar:
             return CalendarListViewController()
         case .mindset:
-            return MindsetListViewController()
+            return MindsetsVC()
         case .goal:
             return GoalsVC()
         }

@@ -8,6 +8,7 @@
 import UIKit
 
 final class GoalCell: UICollectionViewCell {
+    //MARK: - Properties
     private let datelabel = UILabel().then {
         $0.font = .regular(with: 14)
         $0.textColor = .AAAAAA

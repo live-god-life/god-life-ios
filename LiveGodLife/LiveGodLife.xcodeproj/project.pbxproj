@@ -13,8 +13,8 @@
 		B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */; };
 		B92C311229377CAD000DA2D7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310929377CAD000DA2D7 /* CalendarCell.swift */; };
 		B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */; };
-		B92C311429377CAD000DA2D7 /* MindsetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */; };
-		B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */; };
+		B92C311429377CAD000DA2D7 /* MindsetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */; };
+		B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */; };
 		B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310E29377CAD000DA2D7 /* MindsetModel.swift */; };
 		B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C311729377CEA000DA2D7 /* Utill+.swift */; };
 		B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C312429491819000DA2D7 /* NetworkManger.swift */; };
@@ -146,11 +146,14 @@
 		E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E96364FA297FC07A005F16CD /* CombineCocoa */; };
 		E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364FE297FC70D005F16CD /* GradientProgressView.swift */; };
 		E9636505297FCF50005F16CD /* GoalsHeadersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636504297FCF50005F16CD /* GoalsHeadersView.swift */; };
-		E9636507297FD242005F16CD /* GoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636506297FD242005F16CD /* GoalsViewModel.swift */; };
+		E9636507297FD242005F16CD /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636506297FD242005F16CD /* TodoListViewModel.swift */; };
 		E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636508297FD48E005F16CD /* UIReusable+.swift */; };
 		E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = E9636510297FDE6A005F16CD /* CombineMoya */; };
 		E9636513297FDE6A005F16CD /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E9636512297FDE6A005F16CD /* Moya */; };
 		E9636515297FE05C005F16CD /* LogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636514297FE05C005F16CD /* LogUtil.swift */; };
+		E963651829800062005F16CD /* MindsetsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651729800062005F16CD /* MindsetsHeaderView.swift */; };
+		E963651A29800EC0005F16CD /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651929800EC0005F16CD /* UILabel+.swift */; };
+		E963651C29801E81005F16CD /* MindsetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651B29801E81005F16CD /* MindsetCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,8 +163,8 @@
 		B92C310829377CAD000DA2D7 /* CalendarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarListViewController.swift; sourceTree = "<group>"; };
 		B92C310929377CAD000DA2D7 /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainTabViewController.swift; sourceTree = "<group>"; };
-		B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListViewController.swift; sourceTree = "<group>"; };
-		B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetListCell.swift; sourceTree = "<group>"; };
+		B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsVC.swift; sourceTree = "<group>"; };
+		B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsCell.swift; sourceTree = "<group>"; };
 		B92C310E29377CAD000DA2D7 /* MindsetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetModel.swift; sourceTree = "<group>"; };
 		B92C311729377CEA000DA2D7 /* Utill+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Utill+.swift"; sourceTree = "<group>"; };
 		B92C312429491819000DA2D7 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
@@ -288,9 +291,12 @@
 		E96364F7297FB9AF005F16CD /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		E96364FE297FC70D005F16CD /* GradientProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressView.swift; sourceTree = "<group>"; };
 		E9636504297FCF50005F16CD /* GoalsHeadersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsHeadersView.swift; sourceTree = "<group>"; };
-		E9636506297FD242005F16CD /* GoalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewModel.swift; sourceTree = "<group>"; };
+		E9636506297FD242005F16CD /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		E9636508297FD48E005F16CD /* UIReusable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIReusable+.swift"; sourceTree = "<group>"; };
 		E9636514297FE05C005F16CD /* LogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUtil.swift; sourceTree = "<group>"; };
+		E963651729800062005F16CD /* MindsetsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetsHeaderView.swift; sourceTree = "<group>"; };
+		E963651929800EC0005F16CD /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		E963651B29801E81005F16CD /* MindsetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */,
+				E9636506297FD242005F16CD /* TodoListViewModel.swift */,
 				B9B3F0CA2952372C00A1387C /* Create */,
 				B92C310529377CAD000DA2D7 /* Calendar */,
 				B92C310B29377CAD000DA2D7 /* Mindset */,
@@ -357,8 +364,8 @@
 			isa = PBXGroup;
 			children = (
 				E9636501297FC7D8005F16CD /* Model */,
-				B92C310C29377CAD000DA2D7 /* MindsetListViewController.swift */,
-				B92C310D29377CAD000DA2D7 /* MindsetListCell.swift */,
+				E96365162980004B005F16CD /* Views */,
+				B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */,
 			);
 			path = Mindset;
 			sourceTree = "<group>";
@@ -379,7 +386,6 @@
 				E9636502297FC7DD005F16CD /* Models */,
 				E9636503297FCF3E005F16CD /* Views */,
 				C9152E9C29397F6100C6C025 /* GoalsVC.swift */,
-				E9636506297FD242005F16CD /* GoalsViewModel.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 				E96364F7297FB9AF005F16CD /* UIButton+.swift */,
 				E9636508297FD48E005F16CD /* UIReusable+.swift */,
 				E9636514297FE05C005F16CD /* LogUtil.swift */,
+				E963651929800EC0005F16CD /* UILabel+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -753,6 +760,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E96365162980004B005F16CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E963651729800062005F16CD /* MindsetsHeaderView.swift */,
+				B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */,
+				E963651B29801E81005F16CD /* MindsetCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -884,6 +901,7 @@
 				B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */,
 				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
 				C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */,
+				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
@@ -903,6 +921,7 @@
 				D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+.swift in Sources */,
 				D0BB5B6D2906D3D000E46063 /* ProfileUpdateViewController.swift in Sources */,
+				E963651829800062005F16CD /* MindsetsHeaderView.swift in Sources */,
 				D01E2641292B16F100FBFF5B /* SettingTableViewSection.swift in Sources */,
 				D0E4AE472917D8A700549BC0 /* String+Extension.swift in Sources */,
 				D0E4AE492917E72600549BC0 /* SegmentControlButton.swift in Sources */,
@@ -926,7 +945,8 @@
 				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
 				D0E3B2CF29250C0C00601936 /* MindsetView.swift in Sources */,
 				B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */,
-				E9636507297FD242005F16CD /* GoalsViewModel.swift in Sources */,
+				E963651A29800EC0005F16CD /* UILabel+.swift in Sources */,
+				E9636507297FD242005F16CD /* TodoListViewModel.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
 				CC0113F429685466009CAC95 /* TodoProgressView.swift in Sources */,
 				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
@@ -938,13 +958,13 @@
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* UserModel.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
-				B92C311429377CAD000DA2D7 /* MindsetListViewController.swift in Sources */,
+				B92C311429377CAD000DA2D7 /* MindsetsVC.swift in Sources */,
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
 				D0D42D3F2938C91E00211317 /* MyPageAPI.swift in Sources */,
 				C9152E9F29397F7800C6C025 /* GoalCell.swift in Sources */,
 				D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */,
 				CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */,
-				B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */,
+				B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				E96364F6297FB632005F16CD /* UIColor+.swift in Sources */,
 				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
