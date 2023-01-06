@@ -1,5 +1,5 @@
 //
-//  GoalsListHeadersView.swift
+//  GoalsHeadersView.swift
 //  LiveGodLife
 //
 //  Created by wargi on 2023/01/24.
@@ -9,7 +9,7 @@ import Then
 import SnapKit
 import UIKit
 //MARK: Todo -> 목표 header
-final class GoalsListHeadersView: UICollectionReusableView {
+final class GoalsHeadersView: UICollectionReusableView {
     // MARK: - Properties
     weak var delegate: TodoListHeadersViewDelegate? = nil
     private var logoImageView = UIImageView().then {
@@ -42,7 +42,7 @@ final class GoalsListHeadersView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func makeUI() {
+    private func makeUI() {
         backgroundColor = .black
         
         addSubview(logoImageView)
@@ -52,18 +52,18 @@ final class GoalsListHeadersView: UICollectionReusableView {
         addSubview(popupButton)
         
         logoImageView.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
+            $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.left.equalToSuperview().offset(27.1)
             $0.width.equalTo(9.8)
             $0.height.equalTo(15)
         }
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-16)
             $0.left.equalTo(logoImageView.snp.right).offset(7.1)
             $0.height.equalTo(20)
         }
         statusLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-16)
             $0.right.equalTo(buttonImage.snp.left).offset(-7)
             $0.height.equalTo(24)
         }

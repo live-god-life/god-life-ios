@@ -1,5 +1,5 @@
 //
-//  GoalsListCell.swift
+//  GoalCell.swift
 //  LiveGodLife
 //
 //  Created by wargi on 2023/01/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GoalsListCell: UICollectionViewCell {
+final class GoalCell: UICollectionViewCell {
     private let datelabel = UILabel().then {
         $0.font = .regular(with: 14)
         $0.textColor = .AAAAAA
@@ -153,10 +153,11 @@ final class GoalsListCell: UICollectionViewCell {
         let endDate = model.endDate?.toDate()?.toString() ?? (Date.today.date?.toString() ?? "")
         datelabel.text = "\(startDate) - \(endDate)"
         // D-Day
-        let today = Date.today.intValue ?? 0
-        let lastDay = model.endDate?.intValue ?? 0
-        let dDay = today - lastDay
-        dDayLabel.text = "  D-\(dDay)  "
+        let today = Date().timeIntervalSince1970
+        let lastDay = model.endDate?.toDate()?.timeIntervalSince1970 ?? 0.0
+        let dDay = Int((today - lastDay) / 60.0 / 60.0 / 24.0)
+        let dDayString = dDay < 0 ? "  D-\(abs(dDay))  " : "  D+\(dDay)  "
+        dDayLabel.text = dDayString
         // Progress
         progress.progress = Float(completeCount) / Float(proceedingCount + completeCount)
         progress.layer.cornerRadius = 4.0
