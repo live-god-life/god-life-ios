@@ -9,6 +9,8 @@ import UIKit
 
 class TodoProgressView: UIView {
 
+    @IBOutlet weak var progressView: UIView!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

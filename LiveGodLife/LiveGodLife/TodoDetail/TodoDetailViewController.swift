@@ -13,6 +13,7 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
 
     private var taskInfoView: TaskInfoView!
+    private var progressView: TodoProgressView?
     private var segmentControlView: SegmentControlView!
     private var pageViewController: UIPageViewController!
     private let upcomingTaskViewController = TaskViewController()
@@ -61,7 +62,14 @@ class TodoDetailViewController: UIViewController {
     }
 
     private func setupProgressView() {
-
+        let progressView = TodoProgressView()
+        view.addSubview(progressView)
+        progressView.snp.makeConstraints {
+            $0.top.equalTo(taskInfoView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(200)
+        }
+        self.progressView = progressView
     }
 
     private func setupSegmentControlView() {
@@ -72,6 +80,15 @@ class TodoDetailViewController: UIViewController {
                                                 items: items, highlightColor: .blue)
         segmentControlView.delegate = self
         view.addSubview(segmentControlView)
+
+        if let progressView = progressView {
+            segmentControlView.snp.makeConstraints {
+                $0.top.equalTo(progressView.snp.bottom)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(56)
+            }
+            return
+        }
         segmentControlView.snp.makeConstraints {
             $0.top.equalTo(taskInfoView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
