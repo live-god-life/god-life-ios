@@ -43,6 +43,11 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
         navigationController?.navigationBar.isHidden = true
     }
+
+    @IBAction func detail() {
+        let vc = TodoDetailViewController.instance()!
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: - Private
