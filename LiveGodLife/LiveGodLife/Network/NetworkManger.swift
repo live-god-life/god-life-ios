@@ -24,6 +24,7 @@ enum NetworkService {
     case todos(Dictionary<String,Any>)
     case mindsets(Dictionary<String,Any>)
     case goals(Dictionary<String,Any>)
+    case deatilGoals(Int)
     case addGoals(Dictionary<String,Any>)
 }
 extension NetworkService: TargetType {
@@ -47,6 +48,8 @@ extension NetworkService: TargetType {
             return "/goals/mindsets"
         case .goals(_):
             return "/goals"
+        case .deatilGoals(let goalsID):
+            return "/goals/\(goalsID)"
         case .addGoals(_):
             return "/goals"
             
@@ -55,21 +58,10 @@ extension NetworkService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .nickname:
-            fallthrough
-        case .otherDetail:
-            fallthrough
-        case .todos:
-            fallthrough
-        case .mindsets:
-            fallthrough
-        case .goals:
+        case .nickname, .otherDetail, .todos,
+             .mindsets, .goals, .deatilGoals:
             return .get
-        case .addGoals:
-            fallthrough
-        case .join(_):
-            return .post
-        case .login(_):
+        case .addGoals, .join, .login:
             return .post
         }
     }
@@ -94,6 +86,8 @@ extension NetworkService: TargetType {
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .addGoals(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .deatilGoals:
+            return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
             return .requestData(data)

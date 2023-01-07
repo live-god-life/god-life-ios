@@ -7,7 +7,19 @@
 
 import Foundation
 
-struct GoalModel: Decodable, Hashable {
+protocol GoalProtocol: Decodable {
+    var goalId: Int? { get set }
+    var category: String? { get set }
+    var title: String? { get set }
+    var startDate: String? { get set }
+    var endDate: String? { get set }
+    var totalMindsetCount: Int? { get set }
+    var totalTodoCount: Int? { get set }
+    var completedTodoCount: Int? { get set }
+    var totalTodoTaskScheduleCount: Int? { get set }
+}
+
+struct GoalModel: Hashable, GoalProtocol {
     var goalId: Int?
     var category: String?
     var title: String?

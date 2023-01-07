@@ -8,6 +8,11 @@
 import UIKit
 
 final class GoalCell: UICollectionViewCell {
+    enum CellType {
+        case list
+        case title
+    }
+    
     //MARK: - Properties
     private let datelabel = UILabel().then {
         $0.font = .regular(with: 14)
@@ -50,11 +55,8 @@ final class GoalCell: UICollectionViewCell {
         $0.gradientColors = [UIColor.green.cgColor,
                              UIColor.blue.cgColor]
     }
-    lazy var contentsView = UIView().then {
-        $0.backgroundColor = .default
+    let contentsView = UIView().then {
         $0.layer.cornerRadius = 16
-        $0.layer.borderColor = UIColor.gray3.cgColor
-        $0.layer.borderWidth = 1
     }
     
     override init(frame: CGRect) {
@@ -98,7 +100,7 @@ final class GoalCell: UICollectionViewCell {
         }
         mindsetImageView.snp.makeConstraints {
             $0.centerY.equalTo(mindsetCountLabel.snp.centerY)
-            $0.left.equalToSuperview().offset(16)
+            $0.left.equalTo(titleLabel.snp.left)
             $0.size.equalTo(16)
         }
         mindsetCountLabel.snp.makeConstraints {
@@ -128,20 +130,36 @@ final class GoalCell: UICollectionViewCell {
         }
         progress.snp.makeConstraints {
             $0.top.equalTo(self.mindsetImageView.snp.bottom).offset(16)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.left.equalTo(titleLabel.snp.left)
+            $0.right.equalTo(dDayLabel.snp.right)
             $0.height.equalTo(8)
         }
         datelabel.snp.makeConstraints {
             $0.top.equalTo(progress.snp.bottom).offset(8)
-            $0.left.equalToSuperview().offset(16)
+            $0.left.equalTo(titleLabel.snp.left)
             $0.height.equalTo(22)
         }
     }
 
-    func configure(with data: GoalModel?) {
+    func configure(with data: (some GoalProtocol)?, type: CellType = .list) {
         guard let model = data else { return }
         
-        titleLabel.text = model.title ?? "데일리 코딩"
+        contentsView.backgroundColor = type == .list ? .default : .clear
+        contentsView.snp.updateConstraints {
+            $0.left.right.equalToSuperview().inset(type == .list ? 16 : 0)
+        }
+        
+        titleLabel.text = model.title
+        titleLabel.font = type == .list ? .bold(with: 20) : .bold(with: 26)
+        titleLabel.snp.updateConstraints {
+            $0.height.equalTo(type == .list ? 30 : 34)
+            $0.left.equalToSuperview().offset(type == .list ? 16 : 24)
+        }
+
+        dDayLabel.snp.updateConstraints {
+            $0.right.equalToSuperview().offset(type == .list ? -16 : -24)
+        }
+        
         // CountLabel
         let minsetCount = model.totalMindsetCount ?? 0
         mindsetCountLabel.text = "마인드셋:\(minsetCount)"

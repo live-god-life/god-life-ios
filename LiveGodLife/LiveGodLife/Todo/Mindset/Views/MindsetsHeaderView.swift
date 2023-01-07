@@ -13,7 +13,7 @@ final class MindsetListHeadersView: UIView {
         $0.textColor = .white
         $0.font = .bold(with: 20)
     }
-    private let detailButton = UIButton().then {
+    let detailButton = UIButton().then {
         $0.layer.cornerRadius = 16
         $0.setImage(UIImage(named: "arrowRight"), for: .normal)
         $0.setImage(UIImage(named: "arrowRight"), for: .highlighted)

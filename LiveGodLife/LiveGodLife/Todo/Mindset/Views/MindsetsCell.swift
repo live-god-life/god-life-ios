@@ -8,6 +8,11 @@
 import UIKit
 
 final class MindsetsCell: UICollectionViewCell {
+    enum CellType {
+        case list
+        case title
+    }
+    
     // MARK: - Properties
     private var mindsets = [MindSetModel]()
     private var snapshot: MindsetsSnapshot!
@@ -37,7 +42,7 @@ final class MindsetsCell: UICollectionViewCell {
     }
 
     // MARK: - Func
-    private func makeUI(){
+    private func makeUI() {
         backgroundColor = .black
         
         contentView.addSubview(headerView)
@@ -58,11 +63,12 @@ final class MindsetsCell: UICollectionViewCell {
         configureDataSource()
     }
 
-    func configure(with list: MindSetsModel) {
+    func configure(with list: MindSetsModel, type: CellType = .list) {
         headerView.configure(with: list.title)
         
         mindsets = list.mindsets ?? []
         updateDataSnapshot(with: list.mindsets ?? [])
+        headerView.detailButton.isHidden = type == .title
     }
     
     static func height(with list: MindSetsModel) -> CGFloat {

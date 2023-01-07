@@ -100,7 +100,7 @@ extension TodoListViewModel {
         let parameters: [String: Any] = [
             "date": Date().toString(),
             "size": size,
-            "completionStatus": "true",
+            "completionStatus": "false",
         ]
         
         NetworkManager.shared.provider

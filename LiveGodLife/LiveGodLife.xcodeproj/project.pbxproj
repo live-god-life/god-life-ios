@@ -154,6 +154,10 @@
 		E963651829800062005F16CD /* MindsetsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651729800062005F16CD /* MindsetsHeaderView.swift */; };
 		E963651A29800EC0005F16CD /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651929800EC0005F16CD /* UILabel+.swift */; };
 		E963651C29801E81005F16CD /* MindsetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651B29801E81005F16CD /* MindsetCell.swift */; };
+		E963651F2982B501005F16CD /* DetailGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651E2982B501005F16CD /* DetailGoalVC.swift */; };
+		E96365222982B6BB005F16CD /* DetailGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365212982B6BB005F16CD /* DetailGoalModel.swift */; };
+		E96365242982BA22005F16CD /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365232982BA22005F16CD /* DetailViewModel.swift */; };
+		E96365272982CBFE005F16CD /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365262982CBFE005F16CD /* DefaultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -297,6 +301,10 @@
 		E963651729800062005F16CD /* MindsetsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetsHeaderView.swift; sourceTree = "<group>"; };
 		E963651929800EC0005F16CD /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		E963651B29801E81005F16CD /* MindsetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetCell.swift; sourceTree = "<group>"; };
+		E963651E2982B501005F16CD /* DetailGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalVC.swift; sourceTree = "<group>"; };
+		E96365212982B6BB005F16CD /* DetailGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalModel.swift; sourceTree = "<group>"; };
+		E96365232982BA22005F16CD /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		E96365262982CBFE005F16CD /* DefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +353,7 @@
 				B92C310529377CAD000DA2D7 /* Calendar */,
 				B92C310B29377CAD000DA2D7 /* Mindset */,
 				C9152E9929397F1700C6C025 /* Goals */,
+				E963651D2982B4D0005F16CD /* Detail */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -770,6 +779,33 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E963651D2982B4D0005F16CD /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E96365202982B67D005F16CD /* Models */,
+				E96365252982CBEA005F16CD /* Views */,
+				E963651E2982B501005F16CD /* DetailGoalVC.swift */,
+				E96365232982BA22005F16CD /* DetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E96365202982B67D005F16CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E96365212982B6BB005F16CD /* DetailGoalModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E96365252982CBEA005F16CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E96365262982CBFE005F16CD /* DefaultCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -898,6 +934,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E96365222982B6BB005F16CD /* DetailGoalModel.swift in Sources */,
 				B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */,
 				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
 				C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */,
@@ -955,6 +992,7 @@
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */,
+				E96365242982BA22005F16CD /* DetailViewModel.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* UserModel.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Extension.swift in Sources */,
@@ -962,6 +1000,7 @@
 				D0BF16CC28F9AC1000CDA6CE /* OnboardingViewController.swift in Sources */,
 				D0D42D3F2938C91E00211317 /* MyPageAPI.swift in Sources */,
 				C9152E9F29397F7800C6C025 /* GoalCell.swift in Sources */,
+				E963651F2982B501005F16CD /* DetailGoalVC.swift in Sources */,
 				D0E3B2B6291FC15A00601936 /* FeedDetailViewController.swift in Sources */,
 				CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */,
 				B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */,
@@ -982,6 +1021,7 @@
 				C9152E9B29397F4400C6C025 /* GoalModel.swift in Sources */,
 				D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */,
 				CC0113F82968592F009CAC95 /* PaddingLabel.swift in Sources */,
+				E96365272982CBFE005F16CD /* DefaultCell.swift in Sources */,
 				D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */,
 				D0BB5B652906C59E00E46063 /* SettingViewController.swift in Sources */,
 				CC819B58295C5F62004ED428 /* UserToken.swift in Sources */,

@@ -71,7 +71,9 @@ final class GoalsVC: UIViewController {
 // MARK: UICollectionViewDataSource
 extension GoalsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let goalID = dataSource.itemIdentifier(for: indexPath)?.goalId else { return }
         
+        present(DetailGoalVC(id: goalID), animated: true)
     }
 }
 
