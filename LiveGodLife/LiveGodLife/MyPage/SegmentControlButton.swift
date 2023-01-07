@@ -11,13 +11,14 @@ import SnapKit
 final class SegmentControlButton: UIButton {
 
     let highlightView = UIView()
+    var highlightViewColor: UIColor = .green
 
     override var isSelected: Bool {
         didSet {
             let selected = UIFont(name: "Pretendard-Bold", size: 16)
             let normal = UIFont(name: "Pretendard", size: 16)
             titleLabel?.font = isSelected ? selected : normal
-            highlightView.backgroundColor = isSelected ? .green : .clear
+            highlightView.backgroundColor = isSelected ? highlightViewColor : .clear
         }
     }
 

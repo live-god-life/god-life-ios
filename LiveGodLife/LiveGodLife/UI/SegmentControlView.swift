@@ -18,10 +18,21 @@ protocol SegmentControlViewDelegate: AnyObject {
     func didTapItem(index: Int)
 }
 
+/// items 2개인 경우에만 동작
 class SegmentControlView: UIView {
 
     weak var delegate: SegmentControlViewDelegate?
 
+    // TODO: 관리 방법 개선
+    var deselectedIndex: Int = 0 {
+        didSet {
+            buttons.enumerated().forEach { (offset, element) in
+                if offset != deselectedIndex {
+                    selectedIndex = offset
+                }
+            }
+        }
+    }
     private var selectedIndex: Int = 0 {
         didSet {
             buttons.forEach { $0.isSelected = false }
@@ -39,11 +50,12 @@ class SegmentControlView: UIView {
         return stackView
     }()
 
-    init(frame: CGRect, items: [SegmentItem]) {
+    init(frame: CGRect, items: [SegmentItem], highlightColor: UIColor = .green) {
         super.init(frame: frame)
 
         items.enumerated().forEach { index, item in
             let button = SegmentControlButton()
+            button.highlightViewColor = highlightColor
             button.setTitle(item.title, for: .normal)
             button.setTitleColor(.gray2, for: .normal)
             button.setTitleColor(.white, for: .selected)
