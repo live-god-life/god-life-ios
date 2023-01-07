@@ -64,7 +64,7 @@ class TaskTableViewCell: UITableViewCell {
         completeLabel.font = .bold(with: 12)
     }
 
-    func configure(isRepeated: Bool = false) {
+    func configure(_ data: TodoScheduleViewModel, isRepeated: Bool = false) {
         // 반복타입이 없으면 d-day, 아니면 todo: 나중에 모델로 변경하기
         if isRepeated {
             contentView.layer.borderColor = UIColor.green.cgColor
@@ -76,6 +76,11 @@ class TaskTableViewCell: UITableViewCell {
             statusLabel.backgroundColor = .blue
             completeLabel.backgroundColor = .blue
             checkButton.configure(selectImage: "btn_toggle_checkbox_on_dday")
+        }
+
+        titleLabel.text = data.title
+        if data.completionStatus {
+            didTapCheck()
         }
     }
 }

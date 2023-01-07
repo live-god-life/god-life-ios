@@ -8,6 +8,29 @@
 import UIKit
 import SnapKit
 
+struct TodoScheduleViewModel: Decodable {
+
+    let todoScheduleID: Int
+    let title: String
+    let scheduleDate: String
+    let dayOfWeek: String
+    let completionStatus: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case todoScheduleID = "todoScheduleId"
+        case title, scheduleDate, dayOfWeek, completionStatus
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        todoScheduleID = try container.decode(Int.self, forKey: .todoScheduleID)
+        title = try container.decode(String.self, forKey: .title)
+        scheduleDate = try container.decode(String.self, forKey: .scheduleDate)
+        dayOfWeek = try container.decode(String.self, forKey: .dayOfWeek)
+        completionStatus = try container.decode(Bool.self, forKey: .completionStatus)
+    }
+}
+
 class TaskViewController: UIViewController {
 
     private let tableView = UITableView(frame: .zero, style: .grouped)
@@ -21,6 +44,7 @@ class TaskViewController: UIViewController {
     }()
 
     private var taskViewModel: TaskViewModel?
+    private var dataSource: [TodoScheduleViewModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +75,14 @@ class TaskViewController: UIViewController {
         tableView.isHidden = true
     }
 
+    // FIXME: 네이밍과 구조
     func configure(with: TaskViewModel) {
         emptyLabel.isHidden = true
         tableView.isHidden = false
+    }
+
+    func configure(with data: [TodoScheduleViewModel]) {
+        dataSource = data
         tableView.reloadData()
     }
 }
@@ -61,22 +90,22 @@ class TaskViewController: UIViewController {
 extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return dataSource.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configure()
+        cell.configure(dataSource[indexPath.section])
         return cell
     }
 
     // section header
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "금요일"
+        return dataSource[section].scheduleDate
     }
 
     // 섹션 헤더의 타이틀 색상 변경

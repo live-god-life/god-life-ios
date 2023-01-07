@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class TodoDetailViewController: UIViewController {
 
@@ -19,6 +20,8 @@ class TodoDetailViewController: UIViewController {
     private let upcomingTaskViewController = TaskViewController()
     private let pastTaskViewController = TaskViewController()
     private lazy var pageViewControllers: [UIViewController] = [upcomingTaskViewController, pastTaskViewController]
+
+    private var cancellable = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +43,30 @@ class TodoDetailViewController: UIViewController {
     }
 
     private func requestData() {
-        // API 응답이 오면
-        upcomingTaskViewController.configure(with: TaskViewModel())
+        DefaultHomeRepository().request(HomeAPI.todoDetail("2"))
+            .receive(on: DispatchQueue.main)
+            .sink {
+                print($0)
+            } receiveValue: { (data: TaskViewModel) in
+                if data.repetitionType == .none {
+
+                } else {
+                    self.upcomingTaskViewController.configure(with: data)
+                    self.taskInfoView.configure(TaskInfoViewModel(data: data))
+                    self.progressView?.configure(completedCount: data.completedCount, totalCount: data.totalCount)
+                }
+            }
+            .store(in: &cancellable)
+
+        DefaultHomeRepository().request(HomeAPI.todoSchedules("2", ["criteria": "before"]))
+            .receive(on: DispatchQueue.main)
+            .sink {
+                print($0)
+            } receiveValue: { (data: [TodoScheduleViewModel]) in
+                print(data)
+                self.upcomingTaskViewController.configure(with: data)
+            }
+            .store(in: &cancellable)
     }
 
     private func setupUI() {

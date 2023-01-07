@@ -7,7 +7,41 @@
 
 import UIKit
 
+struct TaskInfoViewModel {
+
+    let period: String
+    let repetition: String
+    let notification: String
+
+    init(data: TaskViewModel) {
+        self.period = "\(data.startDate) ~ \(data.endDate)"
+        switch data.repetitionType {
+        case .day:
+            repetition = "매일"
+        case .week:
+            var value = "매주"
+            data.repetitionParams.forEach {
+                value.append($0)
+            }
+            repetition = value
+        case .month:
+            var value = ""
+            data.repetitionParams.forEach {
+                value.append("\($0)일")
+            }
+            repetition = value
+        case .none:
+            repetition = "없음"
+        }
+        notification = "매일 오전 9시" // TODO: - 0900
+    }
+}
+
 class TaskInfoView: UIView {
+
+    @IBOutlet weak var periodLabel: UILabel!
+    @IBOutlet weak var repetitionLabel: UILabel!
+    @IBOutlet weak var notificationLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,5 +59,11 @@ class TaskInfoView: UIView {
         }
         view.frame = self.bounds
         addSubview(view)
+    }
+
+    func configure(_ viewModel: TaskInfoViewModel) {
+        periodLabel.text = viewModel.period
+        repetitionLabel.text = viewModel.repetition
+        notificationLabel.text = viewModel.notification
     }
 }
