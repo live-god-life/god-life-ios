@@ -93,7 +93,7 @@ extension CalendarListViewController: UICollectionViewDelegate {
 }
 extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        self.listView.model[indexPath.section].todoSchedules[indexPath.row]
         let itemHeightSize = 75.0
         return CGSize(width: self.view.frame.width , height: itemHeightSize)
     }
