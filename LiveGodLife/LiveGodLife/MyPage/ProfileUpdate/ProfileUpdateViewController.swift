@@ -17,7 +17,7 @@ final class ProfileUpdateViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var dimmedView: UIView!
 
-    var userProfileImage: String?
+    private var user: UserModel?
 
     private var isHiddenImageContainerView: Bool = true
     private let repository: UserRepository = DefaultUserRepository()
@@ -32,12 +32,13 @@ final class ProfileUpdateViewController: UIViewController {
 
         title = "프로필 수정"
 
+        nicknameTextField.delegate = self
+
         setupProfileImageView()
         setupImageCollectionView()
         imageContainerViewBottomConstraint.constant = 400
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
         dimmedView.addGestureRecognizer(gesture)
-        nicknameTextField.delegate = self
 
         requestImages()
     }
@@ -48,12 +49,18 @@ final class ProfileUpdateViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
+    func configure(_ user: UserModel?) {
+        self.user = user
+    }
+
     private func setupProfileImageView() {
+        nicknameTextField.text = user?.nickname
+
         let radius = profileImageContainerView.frame.height / 2
         profileImageContainerView.layer.cornerRadius = radius
         profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
         profileImageView.contentMode = .scaleAspectFit
-        if let image = userProfileImage, let url = URL(string: image) {
+        if let image = user?.image, let url = URL(string: image) {
             profileImageView.kf.setImage(with: url)
         }
         profileImageView.isUserInteractionEnabled = true
@@ -115,25 +122,29 @@ final class ProfileUpdateViewController: UIViewController {
     }
 
     @IBAction func didTapCompleteButton() {
-        // 닉네임 중복 체크
-        let nickname = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
-        let data = ["nickname": nickname,
-                    "image": imageCollectionViewModel.selectedImage]
+        validateNickname()
+    }
 
-        repository.validateNickname(endpoint: .nickname(nickname))
-            .sink(receiveCompletion: { completion in
-                print("nickname: \(completion)")
-                switch completion {
-                case .failure(_):
-                    self.showPopup()
-                case .finished:
-                    self.updateUserInfo(with: data)
-                }
-            }, receiveValue: { value in
-                print(value)
+    func validateNickname() {
+        let text = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        var data = ["image": imageCollectionViewModel.selectedImage]
 
-            })
-            .store(in: &cancellable)
+        if let nickname = user?.nickname, nickname != text {
+            data["nickname"] = text
+            repository.validateNickname(endpoint: .nickname(nickname))
+                .sink(receiveCompletion: { [weak self] completion in
+                    print("nickname: \(completion)")
+                    switch completion {
+                    case .failure(_):
+                        self?.showPopup()
+                    case .finished:
+                        self?.updateUserInfo(with: data)
+                    }
+                }, receiveValue: { _ in })
+                .store(in: &cancellable)
+        } else {
+            updateUserInfo(with: data)
+        }
     }
 
     func updateUserInfo(with data: [String: String]) {
@@ -147,9 +158,7 @@ final class ProfileUpdateViewController: UIViewController {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
-            } receiveValue: { _ in
-                
-            }
+            } receiveValue: { _ in }
             .store(in: &cancellable)
     }
 

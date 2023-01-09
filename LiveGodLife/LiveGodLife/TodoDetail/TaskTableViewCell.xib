@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" id="KGk-i7-Jjw" customClass="TaskTableViewCell" customModule="LiveGodLife" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNb-Eg-4Lk" customClass="TaskCheckButton" customModule="LiveGodLife" customModuleProvider="target">
+                        <rect key="frame" x="16" y="26" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="43i-c9-m0x"/>
+                            <constraint firstAttribute="height" constant="20" id="l5Y-Lk-q86"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="btn_toggle_checkbox_off"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3년 안에 결혼하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nom-IC-cSF">
+                        <rect key="frame" x="46" y="26.333333333333336" width="115" height="19.333333333333336"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D-50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxt-Lt-KhJ" customClass="PaddingLabel" customModule="LiveGodLife" customModuleProvider="target">
+                        <rect key="frame" x="274.33333333333331" y="24" width="29.666666666666686" height="24"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="sv7-zy-UcN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="완료됨" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-C8-ApQ" userLabel="Completed Label" customClass="PaddingLabel" customModule="LiveGodLife" customModuleProvider="target">
+                        <rect key="frame" x="273.66666666666669" y="28.999999999999996" width="31.333333333333314" height="14.333333333333332"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="zNb-Eg-4Lk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1Ws-GT-vRX"/>
+                    <constraint firstItem="5rh-C8-ApQ" firstAttribute="centerX" secondItem="gxt-Lt-KhJ" secondAttribute="centerX" id="6uo-nw-JtX"/>
+                    <constraint firstItem="gxt-Lt-KhJ" firstAttribute="centerY" secondItem="nom-IC-cSF" secondAttribute="centerY" id="7HN-h4-go6"/>
+                    <constraint firstAttribute="trailing" secondItem="gxt-Lt-KhJ" secondAttribute="trailing" constant="16" id="M5X-ie-l5O"/>
+                    <constraint firstItem="5rh-C8-ApQ" firstAttribute="centerY" secondItem="gxt-Lt-KhJ" secondAttribute="centerY" id="SiE-Sh-VwC"/>
+                    <constraint firstItem="zNb-Eg-4Lk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YtO-LO-IAd"/>
+                    <constraint firstItem="gxt-Lt-KhJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nom-IC-cSF" secondAttribute="trailing" constant="10" id="bkk-0U-joh"/>
+                    <constraint firstItem="nom-IC-cSF" firstAttribute="centerY" secondItem="zNb-Eg-4Lk" secondAttribute="centerY" id="cJI-Iv-Fs3"/>
+                    <constraint firstItem="nom-IC-cSF" firstAttribute="leading" secondItem="zNb-Eg-4Lk" secondAttribute="trailing" constant="10" id="rG4-jn-2Hv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="checkButton" destination="zNb-Eg-4Lk" id="KlR-Av-gpB"/>
+                <outlet property="completeLabel" destination="5rh-C8-ApQ" id="UoT-Qf-jnC"/>
+                <outlet property="statusLabel" destination="gxt-Lt-KhJ" id="Ymg-cS-ygE"/>
+                <outlet property="titleLabel" destination="nom-IC-cSF" id="zDP-wy-HQm"/>
+            </connections>
+            <point key="canvasLocation" x="80.916030534351137" y="19.718309859154932"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="5rh-C8-ApQ">
+            <size key="intrinsicContentSize" width="31.333333333333332" height="14.333333333333334"/>
+        </designable>
+        <designable name="gxt-Lt-KhJ">
+            <size key="intrinsicContentSize" width="29.666666666666668" height="14.333333333333334"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="btn_toggle_checkbox_off" width="24" height="24"/>
+    </resources>
+</document>

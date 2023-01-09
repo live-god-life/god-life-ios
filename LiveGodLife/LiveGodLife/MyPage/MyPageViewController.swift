@@ -18,6 +18,7 @@ final class MyPageViewController: UIViewController {
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
 
+    private var segmentControlView: SegmentControlView!
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -27,8 +28,7 @@ final class MyPageViewController: UIViewController {
     }()
 
     private var pageViewController: UIPageViewController!
-    private var selectedPageIndex: Int = 0
-    private var userProfileImage: String?
+    private var user: UserModel?
 
     private let feedViewController = FeedViewController()
     private var myArticleViewController = {
@@ -92,7 +92,7 @@ private extension MyPageViewController {
 
     @objc func moveToProfileUpdateView(_ sender: UIButton) {
         let profileUpdateViewController = ProfileUpdateViewController.instance()!
-        profileUpdateViewController.userProfileImage = userProfileImage
+        profileUpdateViewController.configure(user)
         navigationController?.pushViewController(profileUpdateViewController, animated: true)
     }
 
@@ -107,11 +107,11 @@ private extension MyPageViewController {
                     print("finished")
                 }
             } receiveValue: { [weak self] user in
+                self?.user = user
                 DispatchQueue.main.async {
                     self?.nicknameLabel.text = user.nickname
                     if let image = user.image {
                         self?.profileImageView.kf.setImage(with: URL(string: image))
-                        self?.userProfileImage = image
                     }
                 }
             }
@@ -168,15 +168,16 @@ extension MyPageViewController {
 
     private func setupSegmentView() {
         let items = [SegmentItem(title: "찜한글"), SegmentItem(title: "내 작성글")]
-        let segmentView = SegmentControlView(frame: segmentControlContainerView.bounds, items: items)
-        segmentView.delegate = self
-        segmentControlContainerView.addSubview(segmentView)
+        segmentControlView = SegmentControlView(frame: segmentControlContainerView.bounds, items: items)
+        segmentControlView.delegate = self
+        segmentControlContainerView.addSubview(segmentControlView)
     }
 
     private func setupPageView() {
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         pageViewController.setViewControllers([feedViewController], direction: .forward, animated: true)
         pageViewController.dataSource = self
+        pageViewController.delegate = self
 
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
@@ -197,7 +198,6 @@ extension MyPageViewController: UIPageViewControllerDataSource {
         if previous < 0 {
             return nil
         }
-        selectedPageIndex = current
         return pageViewControllers[previous]
     }
 
@@ -207,7 +207,6 @@ extension MyPageViewController: UIPageViewControllerDataSource {
         if next == pageViewControllers.count {
             return nil
         }
-        selectedPageIndex = current
         return pageViewControllers[next]
     }
 }
@@ -217,7 +216,18 @@ extension MyPageViewController: SegmentControlViewDelegate {
     func didTapItem(index: Int) {
         guard index < pageViewControllers.count else { return }
 
-        let direction: UIPageViewController.NavigationDirection = selectedPageIndex < index ? .forward : .reverse
+        // FIXME: page item이 두개일 때만 정상동작
+        let direction: UIPageViewController.NavigationDirection = index == 0 ? .reverse : .forward
         pageViewController.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
+    }
+}
+
+extension MyPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            if let previous = previousViewControllers.first, let index = pageViewControllers.firstIndex(of: previous) {
+                segmentControlView.deselectedIndex = index
+            }
+        }
     }
 }
