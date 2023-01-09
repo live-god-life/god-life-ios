@@ -158,6 +158,10 @@
 		E96365222982B6BB005F16CD /* DetailGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365212982B6BB005F16CD /* DetailGoalModel.swift */; };
 		E96365242982BA22005F16CD /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365232982BA22005F16CD /* DetailViewModel.swift */; };
 		E96365272982CBFE005F16CD /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365262982CBFE005F16CD /* DefaultCell.swift */; };
+		E963652A298426E3005F16CD /* CommonNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636529298426E3005F16CD /* CommonNavigationView.swift */; };
+		E963652D2984299B005F16CD /* DetailTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963652C2984299B005F16CD /* DetailTodosCell.swift */; };
+		E963653129843B92005F16CD /* CircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653029843B92005F16CD /* CircleProgressView.swift */; };
+		E963653329843BD8005F16CD /* AppTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653229843BD8005F16CD /* AppTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -305,6 +309,10 @@
 		E96365212982B6BB005F16CD /* DetailGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalModel.swift; sourceTree = "<group>"; };
 		E96365232982BA22005F16CD /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		E96365262982CBFE005F16CD /* DefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
+		E9636529298426E3005F16CD /* CommonNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNavigationView.swift; sourceTree = "<group>"; };
+		E963652C2984299B005F16CD /* DetailTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodosCell.swift; sourceTree = "<group>"; };
+		E963653029843B92005F16CD /* CircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressView.swift; sourceTree = "<group>"; };
+		E963653229843BD8005F16CD /* AppTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +339,7 @@
 		B92C310029377C97000DA2D7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E9636528298426D5005F16CD /* Views */,
 				B92C310129377C97000DA2D7 /* CollectionViewController */,
 			);
 			path = Common;
@@ -430,6 +439,8 @@
 				CCA802E5293F388F00D9579F /* PopupView.swift */,
 				CCA802E7293F393C00D9579F /* PopupView.xib */,
 				E96364FE297FC70D005F16CD /* GradientProgressView.swift */,
+				E963653029843B92005F16CD /* CircleProgressView.swift */,
+				E963653229843BD8005F16CD /* AppTimer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -802,6 +813,15 @@
 			isa = PBXGroup;
 			children = (
 				E96365262982CBFE005F16CD /* DefaultCell.swift */,
+				E963652C2984299B005F16CD /* DetailTodosCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E9636528298426D5005F16CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9636529298426E3005F16CD /* CommonNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -954,6 +974,7 @@
 				E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */,
 				CC0113EE29684E04009CAC95 /* TaskViewController.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
+				E963653129843B92005F16CD /* CircleProgressView.swift in Sources */,
 				D0E3B2D529288F3A00601936 /* FeedAPI.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageViewController.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+.swift in Sources */,
@@ -968,6 +989,7 @@
 				D0B0583F293659A40014F88E /* TodoCollectionViewCell.swift in Sources */,
 				D0E3B2CB2924C8A200601936 /* TodoDropDownView.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootViewController.swift in Sources */,
+				E963653329843BD8005F16CD /* AppTimer.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+Extension.swift in Sources */,
 				C9152E9D29397F6100C6C025 /* GoalsVC.swift in Sources */,
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
@@ -1013,6 +1035,7 @@
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
 				C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */,
+				E963652D2984299B005F16CD /* DetailTodosCell.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeViewController.swift in Sources */,
 				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
@@ -1031,6 +1054,7 @@
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,
 				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,
+				E963652A298426E3005F16CD /* CommonNavigationView.swift in Sources */,
 				E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */,
 				D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */,
 				D0B0584429365F7F0014F88E /* FeedCollectionViewCell.swift in Sources */,

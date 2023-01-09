@@ -45,7 +45,7 @@ class SegmentControlView: UIView {
     private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -65,8 +65,12 @@ class SegmentControlView: UIView {
             stackView.addArrangedSubview(button)
             buttons.append(button)
         }
-        stackView.frame = bounds
+        
         addSubview(stackView)
+        
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
     required init?(coder: NSCoder) {

@@ -135,7 +135,7 @@ class TodoDetailViewController: UIViewController {
         view.addSubview(pageViewController.view)
         pageViewController.view.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(segmentControlView.snp.bottom).offset(30)
+            $0.top.equalTo(segmentControlView.snp.bottom)
         }
         didMove(toParent: self)
     }

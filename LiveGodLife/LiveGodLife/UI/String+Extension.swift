@@ -22,7 +22,12 @@ extension String {
     func toDate() -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        return dateFormatter.date(from: self)
+        if let date = dateFormatter.date(from: self) {
+            return date
+        } else {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.date(from: self)
+        }
     }
     
     var range: Range<String.Index> {
