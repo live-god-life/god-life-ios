@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import Combine
+import CombineCocoa
+
+protocol MindsetsCellDelegate: AnyObject {
+    func selectDetail(id: Int)
+}
 
 final class MindsetsCell: UICollectionViewCell {
     enum CellType {
@@ -14,7 +20,9 @@ final class MindsetsCell: UICollectionViewCell {
     }
     
     // MARK: - Properties
-    private var mindsets = [MindSetModel]()
+    weak var delegate: MindsetsCellDelegate?
+    var bag = Set<AnyCancellable>()
+    private var list: MindSetsModel?
     private var snapshot: MindsetsSnapshot!
     private var dataSource: MindsetsDataSource!
     private let headerView = MindsetListHeadersView()
@@ -34,6 +42,7 @@ final class MindsetsCell: UICollectionViewCell {
         super.init(frame: frame)
         
         makeUI()
+        bind()
     }
 
     required init?(coder: NSCoder) {
@@ -62,11 +71,24 @@ final class MindsetsCell: UICollectionViewCell {
         
         configureDataSource()
     }
+    
+    private func bind() {
+        headerView
+            .detailButton
+            .tapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let id = self?.list?.goalId else { return }
+                
+                self?.delegate?.selectDetail(id: id)
+            }
+            .store(in: &bag)
+    }
 
     func configure(with list: MindSetsModel, type: CellType = .list) {
         headerView.configure(with: list.title)
         
-        mindsets = list.mindsets ?? []
+        self.list = list
         updateDataSnapshot(with: list.mindsets ?? [])
         headerView.detailButton.isHidden = type == .title
     }
@@ -120,10 +142,10 @@ extension MindsetsCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        guard indexPath.item < mindsets.count else { return .zero }
+        guard let list = list?.mindsets,
+              indexPath.item < list.count else { return .zero }
         
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: MindsetCell.height(with: mindsets[indexPath.item].content))
+        return CGSize(width: width, height: MindsetCell.height(with: list[indexPath.item].content))
     }
 }

@@ -76,6 +76,7 @@ extension MindsetsVC {
         dataSource = MindsetsListDataSource(collectionView: mindsetsCollectionView) { collectionView, indexPath, mindsets in
             let cell: MindsetsCell = collectionView.dequeueReusableCell(indexPath: indexPath)
             
+            cell.delegate = self
             cell.configure(with: mindsets)
         
             return cell
@@ -108,5 +109,11 @@ extension MindsetsVC: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
         return CGSize(width: width, height: MindsetsCell.height(with: model[indexPath.item]))
+    }
+}
+
+extension MindsetsVC: MindsetsCellDelegate {
+    func selectDetail(id: Int) {
+        navigationController?.pushViewController(DetailGoalVC(id: id), animated: true)
     }
 }
