@@ -25,6 +25,7 @@
 		C9152E9D29397F6100C6C025 /* GoalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */; };
 		C9152E9F29397F7800C6C025 /* GoalsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9152E9E29397F7800C6C025 /* GoalsListCell.swift */; };
 		C9B08C1D2958C19F0057E147 /* GoalOfTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */; };
+		C9C6E3F9296BC86F0023EE96 /* popUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */; };
 		C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */; };
 		C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */; };
@@ -156,6 +157,7 @@
 		C9152E9C29397F6100C6C025 /* GoalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListViewController.swift; sourceTree = "<group>"; };
 		C9152E9E29397F7800C6C025 /* GoalsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsListCell.swift; sourceTree = "<group>"; };
 		C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalOfTodoCell.swift; sourceTree = "<group>"; };
+		C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popUpViewController.swift; sourceTree = "<group>"; };
 		C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateViewController.swift; sourceTree = "<group>"; };
 		C9D8D6E6291BAD940098DD09 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				C9D48CC3294BD2FC00F66265 /* GoalsCreateViewController.swift */,
 				B9B3F0CB29523A5A00A1387C /* CreateGoalsModel.swift */,
 				C9B08C1C2958C19F0057E147 /* GoalOfTodoCell.swift */,
+				C9C6E3F8296BC86F0023EE96 /* popUpViewController.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -917,6 +920,7 @@
 				D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */,
 				D0B0584429365F7F0014F88E /* FeedCollectionViewCell.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,
+				C9C6E3F9296BC86F0023EE96 /* popUpViewController.swift in Sources */,
 				D0E3B2A3291D1CDF00601936 /* CategoryFilterView.swift in Sources */,
 				C9D8D6E7291BAD940098DD09 /* UserInfoViewController.swift in Sources */,
 			);
