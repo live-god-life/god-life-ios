@@ -76,13 +76,7 @@ private extension HomeViewController {
         let mindset = repository.requestGoals(endpoint: .mindsets)
 
         todos.zip(mindset)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] (todos, goals) in
                 self?.headerView.configure(viewModel: HomeHeaderViewModel(todos: todos, goals: goals))
             }
@@ -93,13 +87,7 @@ private extension HomeViewController {
         let categories = repository.requestCategory(endpoint: .category)
         let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds())
         categories.zip(feeds)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] (categories, feeds) in
                 guard let self = self else { return }
                 self.categories = categories
@@ -115,13 +103,7 @@ extension HomeViewController {
     func filtered(from category: String) {
         let param = ["category": category]
         DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    self.isFiltered = true
-                }
+            .sink { _ in
             } receiveValue: { [weak self] feeds in
                 guard let self = self else { return }
                 self.feeds = feeds
@@ -199,16 +181,8 @@ extension HomeViewController: FeedTableViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
         repository.request(UserAPI.bookmark(param))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
-            } receiveValue: { (feed: String?) in
-
-            }
+            .sink { _ in
+            } receiveValue: { (feed: String?) in }
             .store(in: &cancellable)
     }
 }

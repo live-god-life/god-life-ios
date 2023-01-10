@@ -83,13 +83,7 @@ final class FeedDetailViewController: UIViewController {
         setupUI()
 
         repository.requestFeed(endpoint: .feed(feedID))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] feed in
                 guard let self = self else { return }
                 self.feed = feed

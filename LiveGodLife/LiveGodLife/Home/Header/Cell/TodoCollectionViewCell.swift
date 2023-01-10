@@ -30,8 +30,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
 
         layer.cornerRadius = 51
         layer.borderWidth = 1
-        layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
-        contentView.backgroundColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        layer.borderColor = UIColor.gray3.cgColor
+        contentView.backgroundColor = UIColor.default
         checkButton.setImage(UIImage(named: "btn_toggle_checkbox_on_todo"), for: .normal)
     }
 

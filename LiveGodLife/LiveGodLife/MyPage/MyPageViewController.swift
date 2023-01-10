@@ -118,13 +118,7 @@ private extension MyPageViewController {
             .store(in: &cancellable)
 
         DefaultFeedRepository().requestFeeds(endpoint: .heartFeeds)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] feeds in
                 let isHidden = !feeds.isEmpty
                 self?.update(isHidden: isHidden)

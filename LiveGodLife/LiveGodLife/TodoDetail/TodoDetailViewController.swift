@@ -45,8 +45,7 @@ class TodoDetailViewController: UIViewController {
     private func requestData() {
         DefaultHomeRepository().request(HomeAPI.todoDetail("2"))
             .receive(on: DispatchQueue.main)
-            .sink {
-                print($0)
+            .sink { _ in
             } receiveValue: { (data: TaskViewModel) in
                 if data.repetitionType == .none {
 
@@ -60,11 +59,9 @@ class TodoDetailViewController: UIViewController {
 
         DefaultHomeRepository().request(HomeAPI.todoSchedules("2", ["criteria": "before"]))
             .receive(on: DispatchQueue.main)
-            .sink {
-                print($0)
-            } receiveValue: { (data: [TodoScheduleViewModel]) in
-                print(data)
-                self.upcomingTaskViewController.configure(with: data)
+            .sink { _ in
+            } receiveValue: { [weak self] (data: [TodoScheduleViewModel]) in
+                self?.upcomingTaskViewController.configure(with: data)
             }
             .store(in: &cancellable)
     }

@@ -101,13 +101,7 @@ final class ProfileUpdateViewController: UIViewController {
 
     func requestImages() {
         DefaultMyPageRepository().requestImages(endpoint: .images)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] asset in
                 self?.imageCollectionViewModel.data = asset
                 DispatchQueue.main.async {
