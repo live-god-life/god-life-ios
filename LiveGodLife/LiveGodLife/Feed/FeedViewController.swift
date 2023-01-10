@@ -59,6 +59,18 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell
         cell.configure(with: feeds[indexPath.item])
+        cell.delegate = self
         return cell
+    }
+}
+
+extension FeedViewController: FeedCollectionViewCellDelegate {
+
+    func bookmark(feedID: Int, status: Bool) {
+        let param: [String: Any] = ["id": feedID, "status": status]
+        DefaultMyPageRepository().request(UserAPI.bookmark(param))
+            .sink { _ in
+            } receiveValue: { (feed: String?) in }
+            .store(in: &cancellable)
     }
 }
