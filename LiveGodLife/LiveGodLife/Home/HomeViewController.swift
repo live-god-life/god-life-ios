@@ -32,6 +32,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
         filterHeaderView.categoryFilterView.delegate = self
 
+        headerView.delegate = self
         setupTableView()
 
         requestTodos()
@@ -208,6 +209,16 @@ extension HomeViewController: FeedTableViewCellDelegate {
             } receiveValue: { (feed: String?) in
 
             }
+            .store(in: &cancellable)
+    }
+}
+
+extension HomeViewController: HomeHeaderViewDelegate {
+
+    func completeTodo(id: Int) {
+        repository.request(HomeAPI.completeTodo(id))
+            .sink { _ in
+            } receiveValue: { (value: Empty) in }
             .store(in: &cancellable)
     }
 }
