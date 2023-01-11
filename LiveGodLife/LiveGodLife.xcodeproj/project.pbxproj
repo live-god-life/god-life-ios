@@ -46,6 +46,7 @@
 		CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* RoundedButton.swift */; };
 		CCA802E6293F388F00D9579F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA802E5293F388F00D9579F /* PopupView.swift */; };
 		CCA802E8293F393C00D9579F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA802E7293F393C00D9579F /* PopupView.xib */; };
+		CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB882C3296DA528009284FF /* CircularProgressBar.swift */; };
 		D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */; };
 		D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */; };
 		D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01E2639292A72F300FBFF5B /* UserAPI.swift */; };
@@ -178,6 +179,7 @@
 		CC9C195428F6562700C53152 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CCA802E5293F388F00D9579F /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		CCA802E7293F393C00D9579F /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
+		CCB882C3296DA528009284FF /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		D01E2639292A72F300FBFF5B /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				CC0113F529685491009CAC95 /* TodoProgressView.xib */,
 				CC0113F72968592F009CAC95 /* PaddingLabel.swift */,
 				CC0113F929690092009CAC95 /* TaskViewModel.swift */,
+				CCB882C3296DA528009284FF /* CircularProgressBar.swift */,
 			);
 			path = TodoDetail;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */,
 				B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
+				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
 				B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */,
 				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,
