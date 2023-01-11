@@ -23,6 +23,12 @@ class TodoDetailViewController: UIViewController {
 
     private var cancellable = Set<AnyCancellable>()
 
+    private var id: Int?
+
+    func configure(id: Int) {
+        self.id = id
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,20 +49,25 @@ class TodoDetailViewController: UIViewController {
     }
 
     private func requestData() {
-        let detail: AnyPublisher<TaskViewModel, APIError> = DefaultHomeRepository().request(HomeAPI.todoDetail("2"))
-        let schedules: AnyPublisher<[TodoScheduleViewModel], APIError> = DefaultHomeRepository().request(HomeAPI.todoSchedules("2", ["criteria": "before"]))
+        guard let id = id else { return }
 
-        detail.zip(schedules)
+        let detail: AnyPublisher<TaskViewModel, APIError> = DefaultHomeRepository().request(HomeAPI.todoDetail(id))
+        let afterSchedules: AnyPublisher<[TodoScheduleViewModel], APIError> = DefaultHomeRepository().request(HomeAPI.todoSchedules(id, ["criteria": "after"]))
+        let beforeSchedules: AnyPublisher<[TodoScheduleViewModel], APIError> = DefaultHomeRepository().request(HomeAPI.todoSchedules(id, ["criteria": "before"]))
+
+        detail.zip(afterSchedules, beforeSchedules)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { [weak self] (detail, schedules) in
+            } receiveValue: { [weak self] (detail, afterSchedules, beforeSchedules) in
                 self?.taskInfoView.configure(TaskInfoViewModel(data: detail))
                 self?.progressView.configure(completedCount: detail.completedCount, totalCount: detail.totalCount)
                 if detail.repetitionType == .none {
-                    self?.upcomingTaskViewController.configure(with: schedules, isRepeated: false)
+                    self?.upcomingTaskViewController.configure(with: afterSchedules, isRepeated: false)
+                    self?.pastTaskViewController.configure(with: beforeSchedules, isRepeated: false)
                     self?.updateUI()
                 } else {
-                    self?.upcomingTaskViewController.configure(with: schedules, isRepeated: true)
+                    self?.upcomingTaskViewController.configure(with: afterSchedules, isRepeated: true)
+                    self?.pastTaskViewController.configure(with: beforeSchedules, isRepeated: true)
                 }
             }
             .store(in: &cancellable)

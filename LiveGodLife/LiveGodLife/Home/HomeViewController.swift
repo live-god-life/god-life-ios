@@ -47,6 +47,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
     @IBAction func detail() {
         let vc = TodoDetailViewController.instance()!
+        vc.configure(id: 2)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
