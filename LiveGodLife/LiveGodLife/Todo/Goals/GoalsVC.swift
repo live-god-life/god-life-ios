@@ -13,7 +13,7 @@ final class GoalsVC: UIViewController {
     private var dataSource: GoalsDataSource!
     
     private lazy var goalsCollectionView = UICollectionView(frame: .zero,
-                                                            collectionViewLayout: createLayout()).then {
+                                                            collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
         $0.backgroundColor = .clear
         $0.alwaysBounceHorizontal = false
@@ -22,7 +22,7 @@ final class GoalsVC: UIViewController {
         $0.showsHorizontalScrollIndicator = false
         GoalCell.register($0)
         $0.register(GoalsHeadersView.self,
-                    forSupplementaryViewOfKind: GoalsHeadersView.id,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: GoalsHeadersView.id)
     }
     
@@ -70,6 +70,7 @@ final class GoalsVC: UIViewController {
 
 // MARK: UICollectionViewDataSource
 extension GoalsVC: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let goalID = dataSource.itemIdentifier(for: indexPath)?.goalId else { return }
         
@@ -90,7 +91,7 @@ extension GoalsVC {
         }
         
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == GoalsHeadersView.id else { return nil }
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                              withReuseIdentifier: GoalsHeadersView.id,
@@ -109,33 +110,29 @@ extension GoalsVC {
         snapshot.appendItems(goals)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+}
+
+extension GoalsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = UIScreen.main.bounds.width
+        return CGSize(width: width, height: 66.0)
+    }
+    private func setupFlowLayout() -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: .zero,
+                                               left: .zero,
+                                               bottom: 88,
+                                               right: .zero)
+        flowLayout.minimumLineSpacing = 16.0
+        flowLayout.minimumInteritemSpacing = .zero
+        flowLayout.scrollDirection = .vertical
+        return flowLayout
+    }
     
-    private func createLayout() -> UICollectionViewLayout {
-        // Header
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(66.0))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: GoalsHeadersView.id,
-                                                                 alignment: .top)
-        // Item
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(146.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let height = UIScreen.main.bounds.height - 40 - 116 - view.safeAreaInsets.top
-        
-        // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                     subitems: [item])
-        group.interItemSpacing = .fixed(16.0)
-        group.contentInsets = NSDirectionalEdgeInsets(top: .zero, leading: .zero, bottom: 88.0, trailing: .zero)
-        
-        // Section
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [header]
-        section.interGroupSpacing = 16.0
-        
-        return UICollectionViewCompositionalLayout(section: section)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.width
+        return CGSize(width: width, height: 146.0)
     }
 }

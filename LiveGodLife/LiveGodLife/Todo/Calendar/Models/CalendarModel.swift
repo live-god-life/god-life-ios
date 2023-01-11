@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct DayModel: Decodable {
+    var date: String?
+    var todoCount: Int?
+    var dDayCount: Int?
+}
+
 struct MainCalendarModel: Decodable {
     var title:String
     var goalId:Int
