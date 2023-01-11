@@ -9,10 +9,9 @@ import UIKit
 
 class TodoProgressView: UIView {
 
-    @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var progressView: CircularProgressBar!
     @IBOutlet weak var rateLabel: UILabel!
-    @IBOutlet weak var completedCountLabel: UILabel!
-    @IBOutlet weak var totalCountLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,9 +32,9 @@ class TodoProgressView: UIView {
     }
 
     func configure(completedCount: Int, totalCount: Int) {
-        completedCountLabel.text = "\(completedCount)회"
-        totalCountLabel.text = "/ \(totalCount)회"
-        let rate = ceil(Double(totalCount / completedCount))
+        countLabel.text = "\(completedCount)회 / \(totalCount)회"
+        let rate = ceil(Double(completedCount) / Double(totalCount) * 100)
         rateLabel.text = "\(rate)"
+        progressView.value = rate
     }
 }

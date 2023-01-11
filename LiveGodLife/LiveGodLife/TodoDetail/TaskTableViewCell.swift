@@ -64,21 +64,16 @@ class TaskTableViewCell: UITableViewCell {
         completeLabel.font = .bold(with: 12)
     }
 
-    func configure(_ data: TodoScheduleViewModel, isRepeated: Bool = false) {
-        // 반복타입이 없으면 d-day, 아니면 todo: 나중에 모델로 변경하기
-        if isRepeated {
-            contentView.layer.borderColor = UIColor.green.cgColor
-            statusLabel.backgroundColor = .green
-            completeLabel.backgroundColor = .green
-            checkButton.configure(selectImage: "btn_toggle_checkbox_on_todo")
-        } else {
-            contentView.layer.borderColor = UIColor.blue.cgColor
-            statusLabel.backgroundColor = .blue
-            completeLabel.backgroundColor = .blue
-            checkButton.configure(selectImage: "btn_toggle_checkbox_on_dday")
-        }
+    func configure(_ data: TodoScheduleViewModel, isRepeated: Bool) {
+        let color = isRepeated ? UIColor.green : UIColor.blue
+        let buttonImage = isRepeated ? "btn_toggle_checkbox_on_todo" : "btn_toggle_checkbox_on_dday"
 
+        contentView.layer.borderColor = color.cgColor
+        statusLabel.backgroundColor = color
+        completeLabel.backgroundColor = color
+        checkButton.configure(selectImage: buttonImage)
         titleLabel.text = data.title
+
         if data.completionStatus {
             didTapCheck()
         }

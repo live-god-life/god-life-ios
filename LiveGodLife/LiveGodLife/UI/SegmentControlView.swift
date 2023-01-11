@@ -73,6 +73,14 @@ class SegmentControlView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // FIXME: 개선
+    func update(highlightColor: UIColor) {
+        buttons.forEach {
+            $0.highlightViewColor = highlightColor
+        }
+        buttons.first?.isSelected = true
+    }
+
     @objc private func didTapItem(_ sender: UIButton) {
         guard sender.tag != selectedIndex else {
             return

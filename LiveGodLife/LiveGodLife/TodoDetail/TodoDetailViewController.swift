@@ -14,7 +14,7 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
 
     private var taskInfoView: TaskInfoView!
-    private var progressView: TodoProgressView?
+    private var progressView: TodoProgressView!
     private var segmentControlView: SegmentControlView!
     private var pageViewController: UIPageViewController!
     private let upcomingTaskViewController = TaskViewController()
@@ -43,25 +43,21 @@ class TodoDetailViewController: UIViewController {
     }
 
     private func requestData() {
-        DefaultHomeRepository().request(HomeAPI.todoDetail("2"))
+        let detail: AnyPublisher<TaskViewModel, APIError> = DefaultHomeRepository().request(HomeAPI.todoDetail("2"))
+        let schedules: AnyPublisher<[TodoScheduleViewModel], APIError> = DefaultHomeRepository().request(HomeAPI.todoSchedules("2", ["criteria": "before"]))
+
+        detail.zip(schedules)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { (data: TaskViewModel) in
-                if data.repetitionType == .none {
-
+            } receiveValue: { [weak self] (detail, schedules) in
+                self?.taskInfoView.configure(TaskInfoViewModel(data: detail))
+                self?.progressView.configure(completedCount: detail.completedCount, totalCount: detail.totalCount)
+                if detail.repetitionType == .none {
+                    self?.upcomingTaskViewController.configure(with: schedules, isRepeated: false)
+                    self?.updateUI()
                 } else {
-                    self.upcomingTaskViewController.configure(with: data)
-                    self.taskInfoView.configure(TaskInfoViewModel(data: data))
-                    self.progressView?.configure(completedCount: data.completedCount, totalCount: data.totalCount)
+                    self?.upcomingTaskViewController.configure(with: schedules, isRepeated: true)
                 }
-            }
-            .store(in: &cancellable)
-
-        DefaultHomeRepository().request(HomeAPI.todoSchedules("2", ["criteria": "before"]))
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [weak self] (data: [TodoScheduleViewModel]) in
-                self?.upcomingTaskViewController.configure(with: data)
             }
             .store(in: &cancellable)
     }
@@ -95,23 +91,23 @@ class TodoDetailViewController: UIViewController {
     }
 
     private func setupSegmentControlView() {
-        // TODO: TODO의 repetitionType에 따라 highlightColor 지정 로직 변경
         let items = [SegmentItem(title: "앞으로 일정"), SegmentItem(title: "지난 일정")]
         segmentControlView = SegmentControlView(frame: CGRect(origin: .zero,
                                                               size: CGSize(width: view.frame.width, height: 56)),
-                                                items: items, highlightColor: .blue)
+                                                items: items)
         segmentControlView.delegate = self
         view.addSubview(segmentControlView)
-
-        if let progressView = progressView {
-            segmentControlView.snp.makeConstraints {
-                $0.top.equalTo(progressView.snp.bottom)
-                $0.leading.trailing.equalToSuperview()
-                $0.height.equalTo(56)
-            }
-            return
-        }
         segmentControlView.snp.makeConstraints {
+            $0.top.equalTo(progressView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(56)
+        }
+    }
+
+    private func updateUI() {
+        self.progressView.isHidden = true
+        segmentControlView.update(highlightColor: .blue)
+        segmentControlView.snp.remakeConstraints {
             $0.top.equalTo(taskInfoView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(56)

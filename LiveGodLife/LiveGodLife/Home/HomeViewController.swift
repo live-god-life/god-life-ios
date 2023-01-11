@@ -114,15 +114,7 @@ extension HomeViewController {
 
     func updateTodoStatus(id: Int) {
         repository.updateTodoStatus(endpoint: .completeTodo(id))
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    DispatchQueue.main.async {
-                        //
-                    }
-                }
+            .sink { _ in
             } receiveValue: { _ in
                 print("complete")
             }
