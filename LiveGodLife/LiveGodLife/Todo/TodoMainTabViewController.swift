@@ -30,7 +30,7 @@ enum TodoMainTab: CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .calendar:
-            return CalendarListViewController()
+            return CalendarListVC()
         case .mindset:
             return MindsetsVC()
         case .goal:

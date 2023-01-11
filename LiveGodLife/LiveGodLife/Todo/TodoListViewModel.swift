@@ -23,6 +23,13 @@ final class TodoListViewModel {
     
     //MARK: RxBinding..
     private func bind() {
+        //Calendar
+        input
+            .requestCalendar
+            .sink { [weak self] dateString in
+                self?.requestCalendar(dateString: dateString)
+            }
+            .store(in: &bag)
         //Goals
         input
             .requestGoals
@@ -59,11 +66,13 @@ extension TodoListViewModel {
     }
     
     struct Input {
+        var requestCalendar = PassthroughSubject<String, Never>()
         var requestGoals = PassthroughSubject<Int?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
     }
     
     struct Output {
+        var requestCalendar = PassthroughSubject<[DayModel], Never>()
         var requestGoals = PassthroughSubject<[GoalModel], Never>()
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
     }
@@ -71,6 +80,29 @@ extension TodoListViewModel {
 
 //MARK: - Method
 extension TodoListViewModel {
+    func requestCalendar(dateString: String) {
+        let parameters: [String: Any] = [
+            "date": dateString
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.calendar(parameters)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        guard let model = try result.map(APIResponse<[DayModel]>.self).data else {
+                            throw APIError.decoding
+                        }
+                        self?.output.requestCalendar.send(model)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                    }
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    
     func requestMindsets(size: Int = 100) {
         let parameters: [String: Any] = [
             "date": Date().toString(),
