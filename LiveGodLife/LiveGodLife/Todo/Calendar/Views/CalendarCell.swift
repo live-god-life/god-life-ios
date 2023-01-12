@@ -11,6 +11,11 @@ import UIKit
 import Combine
 import CombineCocoa
 
+protocol CalendarCellDelegate: AnyObject {
+    func prevMonth()
+    func nextMonth()
+}
+
 //MARK: CalendarView
 final class CalendarCell: UICollectionViewCell {
     enum CellType: Int, CaseIterable {
@@ -18,24 +23,32 @@ final class CalendarCell: UICollectionViewCell {
         case day
     }
     //MARK: - Properties
-    private var model = [DayModel]()
-    private var bag = Set<AnyCancellable>()
-    private let today = Date()
-    private let calendar = Calendar.current
-    private let weekend = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
-    private var days = [String]()
-    private var daysCountInMonth = 0
-    private var weekdayAdding = 0
-    private let dateFormatter = DateFormatter().then {
-        $0.dateFormat = "yyyy년 MM월"
+    weak var delegate: CalendarCellDelegate?
+    var selectedDate: Date? = Date()
+    private var selectedIndexPath: IndexPath? {
+        didSet {
+            guard let oldValue else { return }
+            calendarCollectionView.reloadItems(at: [oldValue])
+        }
     }
-    private lazy var components: DateComponents = {
-        var comp = DateComponents()
-        comp.year = calendar.component(.year, from: today)
-        comp.month = calendar.component(.month, from: today)
-        comp.day = 1
-        return comp
-    }()
+    private var model = [DayModel]()
+    private var days = [String]()
+    private let calendar = Calendar.current
+    private var components = DateComponents()
+    private var bag = Set<AnyCancellable>()
+    private let weekend = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+    private lazy var calendarCollectionView = UICollectionView(frame: .zero,
+                                                               collectionViewLayout: setupFlowLayout()).then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.backgroundColor = .clear
+        $0.alwaysBounceHorizontal = false
+        $0.allowsMultipleSelection = false
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+        CalendarDayCell.register($0)
+        CalendarWeekCell.register($0)
+    }
     private let monthLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .bold(with: 24)
@@ -51,6 +64,7 @@ final class CalendarCell: UICollectionViewCell {
         $0.setTitleColor(UIColor.DDDDDD, for: .normal)
         $0.setTitleColor(UIColor.DDDDDD, for: .highlighted)
         $0.titleLabel?.font = .bold(with: 14)
+        $0.layer.cornerRadius = 17.0
         $0.backgroundColor = .default
     }
     private let todoGuideView = UIView().then {
@@ -60,6 +74,7 @@ final class CalendarCell: UICollectionViewCell {
     private let todoGuideLabel = UILabel().then {
         $0.text = "Todo"
         $0.textColor = .white
+        $0.font = .medium(with: 16)
     }
     private let dDayGuideView = UIView().then {
         $0.backgroundColor = .blue
@@ -68,28 +83,19 @@ final class CalendarCell: UICollectionViewCell {
     private let dDayGuideLabel = UILabel().then {
         $0.text = "D-day"
         $0.textColor = .white
+        $0.font = .medium(with: 16)
     }
     private let dayFormatter = DateFormatter().then {
-        $0.dateFormat = "yyyyMMDD"
+        $0.dateFormat = "yyyyMMdd"
     }
-    private lazy var calendarCollectionView = UICollectionView(frame: .zero,
-                                                               collectionViewLayout: setupFlowLayout()).then {
-        $0.delegate = self
-        $0.dataSource = self
-        $0.backgroundColor = .clear
-        $0.alwaysBounceHorizontal = false
-        $0.allowsMultipleSelection = false
-        $0.showsVerticalScrollIndicator = false
-        $0.showsHorizontalScrollIndicator = false
-        CalendarDayCell.register($0)
-        CalendarWeekCell.register($0)
+    private let lineView = UIView().then {
+        $0.backgroundColor = .gray4
     }
     
     //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        calculation()
         bind()
         makeUI()
     }
@@ -109,9 +115,11 @@ final class CalendarCell: UICollectionViewCell {
         contentView.addSubview(dDayGuideView)
         contentView.addSubview(todoGuideLabel)
         contentView.addSubview(todoGuideView)
+        contentView.addSubview(lineView)
         
         nextButton.snp.makeConstraints {
-            $0.top.right.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.right.equalToSuperview().offset(-23)
             $0.width.equalTo(61)
             $0.height.equalTo(34)
         }
@@ -123,17 +131,16 @@ final class CalendarCell: UICollectionViewCell {
         }
         monthLabel.snp.makeConstraints {
             $0.centerY.equalTo(monthLabel)
-            $0.left.equalToSuperview()
+            $0.left.equalToSuperview().offset(24)
             $0.height.equalTo(32)
         }
         calendarCollectionView.snp.makeConstraints {
             $0.top.equalTo(nextButton.snp.bottom).offset(9)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(height())
+            $0.left.right.equalToSuperview().inset(24)
         }
         dDayGuideLabel.snp.makeConstraints {
             $0.top.equalTo(calendarCollectionView.snp.bottom).offset(8)
-            $0.right.equalToSuperview().offset(-9)
+            $0.right.equalToSuperview().offset(-32)
             $0.height.equalTo(24)
         }
         dDayGuideView.snp.makeConstraints {
@@ -151,26 +158,12 @@ final class CalendarCell: UICollectionViewCell {
             $0.right.equalTo(todoGuideLabel.snp.left).offset(-4)
             $0.size.equalTo(8)
         }
-    }
-    
-    private func calculation() {
-        let firstDayOfMonth = calendar.date(from: components) ?? Date()
-        let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
-        daysCountInMonth = calendar.range(of: .day, in: .month, for: firstDayOfMonth)?.count ?? 0
-        weekdayAdding = 2 - firstWeekday
-        
-        monthLabel.text = dateFormatter.string(from: firstDayOfMonth)
-        days.removeAll()
-        
-        for day in weekdayAdding ... daysCountInMonth {
-            if day < 1 {
-                days.append(" ")
-            } else {
-                days.append("\(day)")
-            }
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(dDayGuideLabel.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(1)
         }
-        
-        calendarCollectionView.reloadData()
     }
     
     private func bind() {
@@ -178,8 +171,7 @@ final class CalendarCell: UICollectionViewCell {
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.components.month = (self?.components.month ?? 0) - 1
-                self?.calculation()
+                self?.delegate?.prevMonth()
             }
             .store(in: &bag)
         
@@ -187,18 +179,32 @@ final class CalendarCell: UICollectionViewCell {
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.components.month = (self?.components.month ?? 0) + 1
-                self?.calculation()
+                self?.delegate?.nextMonth()
             }
             .store(in: &bag)
     }
     
-    func configure(with days: [DayModel]) {
+    private func isEqual(to d: Date?) -> Bool {
+        guard let lhs = selectedDate, let rhs = d else { return false }
+        return lhs.toParameterString() == rhs.toParameterString()
+    }
+    
+    func configure(with model: [DayModel],
+                   components: DateComponents,
+                   month: String?,
+                   days: [String],
+                   selectedDay: Date? = Date()) {
+        self.model = model
+        self.days = days
+        self.components = components
+        self.monthLabel.text = month
+        self.selectedDate = selectedDay
         
+        self.calendarCollectionView.reloadData()
     }
 }
 
-extension CalendarView: UICollectionViewDataSource {
+extension CalendarCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return CellType.allCases.count
     }
@@ -230,30 +236,39 @@ extension CalendarView: UICollectionViewDataSource {
             comp.month = components.month
             comp.day = Int(days[indexPath.item])
             
-            if let date = comp.date,
+            let date = calendar.date(from: comp)
+            let isEqual = isEqual(to: date)
+            if isEqual { selectedIndexPath = indexPath }
+            var isTodo = false
+            var isDDay = false
+            
+            if days[indexPath.item] != "", let date,
                let dayModel = model.first(where: { $0.date == dayFormatter.string(from: date) }) {
-                cell.configure(with: days[indexPath.item],
-                               isTodo: (dayModel.todoCount ?? 0) > 0,
-                               isDDay: (dayModel.dDayCount ?? 0) > 0)
-            } else {
-                cell.configure(with: days[indexPath.item], isTodo: false, isDDay: false)
+                isTodo = (dayModel.todoCount ?? 0) > 0
+                isDDay = (dayModel.dDayCount ?? 0) > 0
             }
+            
+            cell.configure(with: date,
+                           day: days[indexPath.item],
+                           isTodo: isTodo,
+                           isDDay: isDDay,
+                           isSelected: isEqual)
             
             return cell
         }
     }
 }
 
-extension CalendarView: UICollectionViewDelegateFlowLayout {
-    func height() -> CGFloat {
-        let width = (UIScreen.main.bounds.width - 96) / 7
-        let count = CGFloat(days.count / 7 + 1)
-        var height = 20.0
-        height += count * width
-        height += count * 8
-        return height
+extension CalendarCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell else { return }
+        selectedDate = cell.date
+        selectedIndexPath = indexPath
+        collectionView.reloadItems(at: [indexPath])
     }
-    
+}
+
+extension CalendarCell: UICollectionViewDelegateFlowLayout {    
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = .zero
@@ -272,7 +287,7 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
         
         switch type {
         case .week:
-            return CGSize(width: width, height: 20.0)
+            return CGSize(width: width, height: 28.0)
         case .day:
             return CGSize(width: width, height: width)
         }
