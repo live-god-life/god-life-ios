@@ -5,4 +5,115 @@
 //  Created by wargi on 2023/01/28.
 //
 
-import Foundation
+import Then
+import SnapKit
+import UIKit
+//MARK: CalendarDayCell
+final class CalendarDayCell: UICollectionViewCell {
+    //MARK: - Properties
+    var date: Date?
+    let vStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.distribution = .equalCentering
+    }
+    let hStackView = UIStackView().then {
+        $0.spacing = -1
+        $0.axis = .horizontal
+        $0.alignment = .center
+        $0.distribution = .equalCentering
+        $0.isHidden = true
+    }
+    private let dayLabel = UILabel().then {
+        $0.textColor = .gray6
+        $0.textAlignment = .center
+        $0.font = .montserrat(with: 14, weight: .bold)
+    }
+    private let todoGuideView = UIView().then {
+        $0.backgroundColor = .green
+        $0.layer.cornerRadius = 4.0
+        $0.isHidden = true
+    }
+    private let dDayGuideView = UIView().then {
+        $0.backgroundColor = .blue
+        $0.layer.cornerRadius = 4.0
+        $0.isHidden = true
+    }
+    private let statusLabel = UILabel().then {
+        $0.textColor = .black
+        $0.font = .bold(with: 10)
+        $0.isHidden = true
+    }
+    
+    //MARK: - Initializer
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        makeUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Not Created View")
+    }
+    
+    //MARK: - Make UI
+    private func makeUI() {
+        contentView.addSubview(vStackView)
+        vStackView.addArrangedSubview(dayLabel)
+        vStackView.addArrangedSubview(hStackView)
+        hStackView.addArrangedSubview(todoGuideView)
+        hStackView.addArrangedSubview(dDayGuideView)
+        hStackView.addArrangedSubview(statusLabel)
+        
+        vStackView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        dayLabel.snp.makeConstraints {
+            $0.height.equalTo(16)
+        }
+        todoGuideView.snp.makeConstraints {
+            $0.size.equalTo(8)
+        }
+        dDayGuideView.snp.makeConstraints {
+            $0.size.equalTo(8)
+        }
+        statusLabel.snp.makeConstraints {
+            $0.height.equalTo(12)
+        }
+    }
+    
+    func configure(with date: Date?, day: String?, isTodo: Bool, isDDay: Bool, isSelected: Bool) {
+        self.date = date
+        dayLabel.text = day
+        let isToday = (date?.toParameterString() ?? " ") == Date().toParameterString()
+        guard !isSelected else {
+            dayLabel.textColor = .black
+            contentView.backgroundColor = .green
+            contentView.layer.borderWidth = .zero
+            contentView.layer.cornerRadius = 12.0
+            hStackView.isHidden = false
+            todoGuideView.isHidden = true
+            dDayGuideView.isHidden = true
+            statusLabel.text = isToday ? "오늘" : "보는중"
+            statusLabel.isHidden = false
+            return
+        }
+        
+        contentView.backgroundColor = isTodo || isDDay ? .default : .black
+        contentView.layer.borderWidth = isTodo || isDDay ? 1.0 : .zero
+        contentView.layer.cornerRadius = isTodo || isDDay ? 12.0 : .zero
+        contentView.layer.borderColor = isTodo || isDDay ? UIColor.gray3.cgColor : UIColor.black.cgColor
+        
+        dayLabel.textColor = isTodo || isDDay ? .DDDDDD : .gray6
+        hStackView.isHidden = !isTodo && !isDDay && !isToday
+        todoGuideView.isHidden = !isTodo || isToday
+        dDayGuideView.isHidden = !isDDay || isToday
+        statusLabel.isHidden = !isToday
+        
+        if isToday {
+            statusLabel.text = "오늘"
+            statusLabel.textColor = .white
+        }
+    }
+}
