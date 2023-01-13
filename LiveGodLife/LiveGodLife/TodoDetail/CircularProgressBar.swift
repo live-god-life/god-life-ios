@@ -11,6 +11,8 @@ import UIKit
 class CircularProgressBar: UIView {
 
     var lineWidth: CGFloat = 10
+    var gradientColor: [CGColor] = [UIColor.green.withAlphaComponent(0.1).cgColor,
+                                    UIColor.green.cgColor]
 
     var value: Double? {
         didSet {
@@ -57,8 +59,7 @@ class CircularProgressBar: UIView {
         gradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
 
-        gradientLayer.colors = [UIColor.green.withAlphaComponent(0.1).cgColor,
-                                UIColor.green.cgColor]
+        gradientLayer.colors = gradientColor
         gradientLayer.frame = bounds
         gradientLayer.mask = shapeLayer
 

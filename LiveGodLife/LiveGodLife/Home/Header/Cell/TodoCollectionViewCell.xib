@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -70,6 +70,14 @@
                             </button>
                         </subviews>
                     </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvU-n3-Fk6" customClass="CircularProgressBar" customModule="LiveGodLife" customModuleProvider="target">
+                        <rect key="frame" x="14.666666666666664" y="23" width="55.999999999999993" height="56"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="33S-Uh-PGd"/>
+                            <constraint firstAttribute="height" constant="56" id="M5s-WT-Vg0"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,6 +85,8 @@
                 <constraint firstItem="rQb-WD-fVG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DBI-ay-frs"/>
                 <constraint firstAttribute="trailing" secondItem="rQb-WD-fVG" secondAttribute="trailing" constant="20" id="E9v-qo-fIg"/>
                 <constraint firstAttribute="bottom" secondItem="rQb-WD-fVG" secondAttribute="bottom" id="F4h-eS-mg8"/>
+                <constraint firstItem="gvU-n3-Fk6" firstAttribute="centerY" secondItem="Zt4-Z9-Zx0" secondAttribute="centerY" id="bHX-R9-mUz"/>
+                <constraint firstItem="gvU-n3-Fk6" firstAttribute="centerX" secondItem="Zt4-Z9-Zx0" secondAttribute="centerX" id="fhS-rl-oZg"/>
                 <constraint firstItem="rQb-WD-fVG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="k0V-38-uhN"/>
             </constraints>
             <size key="customSize" width="310" height="124"/>
@@ -84,6 +94,7 @@
                 <outlet property="checkButton" destination="jzL-Up-44i" id="Rck-tF-JDG"/>
                 <outlet property="contentLabel" destination="RTN-1e-2fP" id="enE-ew-wKx"/>
                 <outlet property="dDayLabel" destination="Zt4-Z9-Zx0" id="FRt-Py-lN2"/>
+                <outlet property="progressBar" destination="gvU-n3-Fk6" id="ERt-jB-jan"/>
                 <outlet property="repetitionLabel" destination="LnK-Ds-1Wd" id="Rbo-gD-PAQ"/>
             </connections>
             <point key="canvasLocation" x="292.30769230769232" y="46.919431279620852"/>

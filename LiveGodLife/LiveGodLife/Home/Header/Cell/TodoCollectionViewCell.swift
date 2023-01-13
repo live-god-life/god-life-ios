@@ -16,6 +16,7 @@ final class TodoCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "TodoCollectionViewCell"
 
+    @IBOutlet weak var progressBar: CircularProgressBar!
     @IBOutlet weak var dDayLabel: UILabel!
     @IBOutlet weak var repetitionLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
@@ -28,6 +29,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        progressBar.lineWidth = 5
+        progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
         layer.cornerRadius = 51
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray3.cgColor
@@ -49,6 +52,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         repetitionLabel.text = todo.repetitions.joined(separator: ",")
         repetitionLabel.isHidden = todo.repetitions.isEmpty
         contentLabel.text = todo.title
+        let rate = (Double(todo.completedCount) / Double(todo.totalCount)) * 100
+        progressBar.value = rate
     }
 
     @IBAction func didTapCheckButton(_ sneder: UIButton) {
