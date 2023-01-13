@@ -104,7 +104,13 @@ extension HomeViewController {
     func filtered(from category: String) {
         let param = ["category": category]
         DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
-            .sink { _ in
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    self.isFiltered = true
+                }
             } receiveValue: { [weak self] feeds in
                 guard let self = self else { return }
                 self.feeds = feeds
