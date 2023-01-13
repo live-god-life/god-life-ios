@@ -41,6 +41,7 @@
 		CC3181E52965C19000016A77 /* TodoDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */; };
 		CC3181E82965D7D600016A77 /* TaskInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E72965D7D600016A77 /* TaskInfoView.xib */; };
 		CC3181EA2965D7DB00016A77 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E92965D7DB00016A77 /* TaskInfoView.swift */; };
+		CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */; };
 		CC819B58295C5F62004ED428 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC819B57295C5F62004ED428 /* UserToken.swift */; };
 		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
 		CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* RoundedButton.swift */; };
@@ -174,6 +175,7 @@
 		CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodoDetailViewController.storyboard; sourceTree = "<group>"; };
 		CC3181E72965D7D600016A77 /* TaskInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskInfoView.xib; sourceTree = "<group>"; };
 		CC3181E92965D7DB00016A77 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
+		CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		CC819B57295C5F62004ED428 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC9C195428F6562700C53152 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */,
 				D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */,
 				D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */,
+				CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+Extension.swift in Sources */,
+				CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				CCA802E6293F388F00D9579F /* PopupView.swift in Sources */,
