@@ -31,13 +31,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="282"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="목표" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKD-JR-EuQ">
-                                            <rect key="frame" x="24" y="55" width="316" height="17"/>
+                                            <rect key="frame" x="24" y="54" width="316" height="17"/>
                                             <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
                                             <color key="textColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="더 끝까지 밀어 붙여! 인생은" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
-                                            <rect key="frame" x="24" y="82" width="299" height="66"/>
+                                            <rect key="frame" x="24" y="79" width="304" height="69"/>
                                             <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="26"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -58,7 +58,7 @@
                                             <cells/>
                                         </collectionView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5T-jf-mMG">
-                                            <rect key="frame" x="335" y="108" width="40" height="40"/>
+                                            <rect key="frame" x="340" y="108" width="40" height="40"/>
                                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="VRf-mU-yRV"/>
@@ -78,18 +78,18 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="55" id="3E6-bz-VpZ"/>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="54" id="3E6-bz-VpZ"/>
                                         <constraint firstItem="Tg7-k3-QMK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" id="7el-cq-UzE"/>
                                         <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="o5T-jf-mMG" secondAttribute="bottom" constant="32" id="A86-Aw-bJD"/>
                                         <constraint firstItem="SKD-JR-EuQ" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="E1Z-nv-QIu"/>
                                         <constraint firstAttribute="trailing" secondItem="SKD-JR-EuQ" secondAttribute="trailing" constant="50" id="Vax-zg-H65"/>
                                         <constraint firstItem="CSz-Dp-RSK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="Znt-Ag-aey"/>
-                                        <constraint firstAttribute="trailing" secondItem="o5T-jf-mMG" secondAttribute="trailing" constant="15" id="bkW-uc-2Mq"/>
+                                        <constraint firstAttribute="trailing" secondItem="o5T-jf-mMG" secondAttribute="trailing" constant="10" id="bkW-uc-2Mq"/>
                                         <constraint firstAttribute="trailing" secondItem="Tg7-k3-QMK" secondAttribute="trailing" id="eru-gf-QR0"/>
                                         <constraint firstAttribute="bottom" secondItem="Tg7-k3-QMK" secondAttribute="bottom" id="ncX-zL-c6E"/>
                                         <constraint firstItem="o5T-jf-mMG" firstAttribute="leading" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="12" id="rlP-CJ-Eb4"/>
                                         <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="32" id="sjs-Tc-wce"/>
-                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="top" secondItem="SKD-JR-EuQ" secondAttribute="bottom" constant="10" id="taS-wH-oHf"/>
+                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="top" secondItem="SKD-JR-EuQ" secondAttribute="bottom" constant="8" id="taS-wH-oHf"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="collectionView" destination="Tg7-k3-QMK" id="kgb-sg-039"/>
