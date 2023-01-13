@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class FilterHeaderView: UIView {
+final class FilterHeaderView: UIView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()

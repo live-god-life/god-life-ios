@@ -32,6 +32,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
         filterHeaderView.categoryFilterView.delegate = self
 
+        headerView.delegate = self
         setupTableView()
 
         requestTodos()
@@ -46,6 +47,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 
     @IBAction func detail() {
         let vc = TodoDetailViewController.instance()!
+        vc.configure(id: 2)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -75,13 +77,7 @@ private extension HomeViewController {
         let mindset = repository.requestGoals(endpoint: .mindsets)
 
         todos.zip(mindset)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] (todos, goals) in
                 self?.headerView.configure(viewModel: HomeHeaderViewModel(todos: todos, goals: goals))
             }
@@ -92,13 +88,7 @@ private extension HomeViewController {
         let categories = repository.requestCategory(endpoint: .category)
         let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds())
         categories.zip(feeds)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
+            .sink { _ in
             } receiveValue: { [weak self] (categories, feeds) in
                 guard let self = self else { return }
                 self.categories = categories
@@ -114,13 +104,7 @@ extension HomeViewController {
     func filtered(from category: String) {
         let param = ["category": category]
         DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    self.isFiltered = true
-                }
+            .sink { _ in
             } receiveValue: { [weak self] feeds in
                 guard let self = self else { return }
                 self.feeds = feeds
@@ -131,15 +115,7 @@ extension HomeViewController {
 
     func updateTodoStatus(id: Int) {
         repository.updateTodoStatus(endpoint: .completeTodo(id))
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    DispatchQueue.main.async {
-                        //
-                    }
-                }
+            .sink { _ in
             } receiveValue: { _ in
                 print("complete")
             }
@@ -198,16 +174,18 @@ extension HomeViewController: FeedTableViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
         repository.request(UserAPI.bookmark(param))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    print("finished")
-                }
-            } receiveValue: { (feed: String?) in
+            .sink { _ in
+            } receiveValue: { (feed: String?) in }
+            .store(in: &cancellable)
+    }
+}
 
-            }
+extension HomeViewController: HomeHeaderViewDelegate {
+
+    func completeTodo(id: Int) {
+        repository.request(HomeAPI.completeTodo(id))
+            .sink { _ in
+            } receiveValue: { (value: Empty) in }
             .store(in: &cancellable)
     }
 }

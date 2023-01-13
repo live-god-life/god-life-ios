@@ -43,7 +43,7 @@ class TaskViewController: UIViewController {
         return label
     }()
 
-    private var taskViewModel: TaskViewModel?
+    private var isRepeated: Bool = false
     private var dataSource: [TodoScheduleViewModel] = []
 
     override func viewDidLoad() {
@@ -71,17 +71,16 @@ class TaskViewController: UIViewController {
         tableView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
-
-        tableView.isHidden = true
     }
 
-    // FIXME: 네이밍과 구조
-    func configure(with: TaskViewModel) {
+    func configure(with data: [TodoScheduleViewModel], isRepeated: Bool) {
+        guard !data.isEmpty else {
+            emptyLabel.isHidden = false
+            tableView.isHidden = true
+            return
+        }
         emptyLabel.isHidden = true
-        tableView.isHidden = false
-    }
-
-    func configure(with data: [TodoScheduleViewModel]) {
+        self.isRepeated = isRepeated
         dataSource = data
         tableView.reloadData()
     }
@@ -99,7 +98,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.configure(dataSource[indexPath.section])
+        cell.configure(dataSource[indexPath.section], isRepeated: isRepeated)
         return cell
     }
 

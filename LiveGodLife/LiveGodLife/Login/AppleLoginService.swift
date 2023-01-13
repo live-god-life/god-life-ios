@@ -46,13 +46,7 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
                         "type": LoginType.apple.rawValue]
 
             DefaultUserRepository().login(endpoint: .login(data))
-                .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error)
-                case .finished:
-                    print("finished")
-                }
+                .sink { _ in
             } receiveValue: { [weak self] value in
                 // 회원이 아니면 회원가입
                 let user = UserModel(nickname: "", type: .apple, identifier: identifier, email: email, image: nil)

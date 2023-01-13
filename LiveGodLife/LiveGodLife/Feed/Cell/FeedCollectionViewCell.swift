@@ -9,6 +9,11 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol FeedCollectionViewCellDelegate: AnyObject {
+
+    func bookmark(feedID: Int, status: Bool)
+}
+
 final class FeedCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -23,6 +28,10 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var feedInfoView: UIView!
 
     static let identifier = "FeedCollectionViewCell"
+
+    private var id: Int?
+
+    var delegate: FeedCollectionViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +49,7 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with feed: Feed) {
+        id = feed.id
         imageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
         titleLabel.text = feed.title
@@ -51,6 +61,8 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     }
 
     @IBAction func didTapBookmarkButton(_ sender: UIButton) {
+        guard let id else { return }
         bookmarkButton.isSelected = !bookmarkButton.isSelected
+        delegate?.bookmark(feedID: id, status: bookmarkButton.isSelected)
     }
 }

@@ -13,6 +13,11 @@ struct HomeHeaderViewModel {
     let goals: [Goal]
 }
 
+protocol HomeHeaderViewDelegate: AnyObject {
+
+    func completeTodo(id: Int)
+}
+
 class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
 
     @IBOutlet weak var title: UILabel!
@@ -20,6 +25,7 @@ class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
 
     private var todos: [Todo.Schedule] = []
+    var delegate: HomeHeaderViewDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,6 +66,7 @@ extension HomeHeaderView {
         if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
             todos.remove(at: index)
             collectionView.reloadData()
+            delegate?.completeTodo(id: id)
         }
     }
 }

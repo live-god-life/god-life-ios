@@ -127,8 +127,7 @@ class AgreementViewController: UIViewController {
     @objc func next(_ sender: UIButton) {
         // 회원가입
         DefaultUserRepository().signup(endpoint: .signup(user))
-            .sink(receiveCompletion: {
-                print("completion: \($0)")
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] token in
                 print(token)
                 guard let self else { return }

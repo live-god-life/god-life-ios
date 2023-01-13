@@ -9,11 +9,13 @@ import UIKit
 
 struct TaskInfoViewModel {
 
+    let title: String
     let period: String
     let repetition: String
     let notification: String
 
     init(data: TaskViewModel) {
+        title = data.title
         self.period = "\(data.startDate) ~ \(data.endDate)"
         switch data.repetitionType {
         case .day:
@@ -39,6 +41,7 @@ struct TaskInfoViewModel {
 
 class TaskInfoView: UIView {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var periodLabel: UILabel!
     @IBOutlet weak var repetitionLabel: UILabel!
     @IBOutlet weak var notificationLabel: UILabel!
@@ -62,6 +65,7 @@ class TaskInfoView: UIView {
     }
 
     func configure(_ viewModel: TaskInfoViewModel) {
+        titleLabel.text = viewModel.title
         periodLabel.text = viewModel.period
         repetitionLabel.text = viewModel.repetition
         notificationLabel.text = viewModel.notification

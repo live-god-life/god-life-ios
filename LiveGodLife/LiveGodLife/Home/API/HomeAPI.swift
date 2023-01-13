@@ -12,8 +12,8 @@ enum HomeAPI: APIEndpoint {
 
     case mindsets
     case todos([String: Any])
-    case todoDetail(String)
-    case todoSchedules(String, [String: Any])
+    case todoDetail(Int)
+    case todoSchedules(Int, [String: Any])
     case category
     case completeTodo(Int)
 

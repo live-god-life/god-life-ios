@@ -41,11 +41,13 @@
 		CC3181E52965C19000016A77 /* TodoDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */; };
 		CC3181E82965D7D600016A77 /* TaskInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E72965D7D600016A77 /* TaskInfoView.xib */; };
 		CC3181EA2965D7DB00016A77 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E92965D7DB00016A77 /* TaskInfoView.swift */; };
+		CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */; };
 		CC819B58295C5F62004ED428 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC819B57295C5F62004ED428 /* UserToken.swift */; };
 		CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginViewController.swift */; };
 		CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* RoundedButton.swift */; };
 		CCA802E6293F388F00D9579F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA802E5293F388F00D9579F /* PopupView.swift */; };
 		CCA802E8293F393C00D9579F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA802E7293F393C00D9579F /* PopupView.xib */; };
+		CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB882C3296DA528009284FF /* CircularProgressBar.swift */; };
 		D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */; };
 		D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */; };
 		D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01E2639292A72F300FBFF5B /* UserAPI.swift */; };
@@ -173,11 +175,13 @@
 		CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodoDetailViewController.storyboard; sourceTree = "<group>"; };
 		CC3181E72965D7D600016A77 /* TaskInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskInfoView.xib; sourceTree = "<group>"; };
 		CC3181E92965D7DB00016A77 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
+		CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		CC819B57295C5F62004ED428 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		CC9C195028F651C100C53152 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC9C195428F6562700C53152 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CCA802E5293F388F00D9579F /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		CCA802E7293F393C00D9579F /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
+		CCB882C3296DA528009284FF /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		D00E46ED28F7BDC200A18FE7 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		D01E2639292A72F300FBFF5B /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				CC0113F529685491009CAC95 /* TodoProgressView.xib */,
 				CC0113F72968592F009CAC95 /* PaddingLabel.swift */,
 				CC0113F929690092009CAC95 /* TaskViewModel.swift */,
+				CCB882C3296DA528009284FF /* CircularProgressBar.swift */,
 			);
 			path = TodoDetail;
 			sourceTree = "<group>";
@@ -393,6 +398,7 @@
 				D00E46F028F7BDC200A18FE7 /* OnboardingView.xib */,
 				D0BF16CB28F9AC1000CDA6CE /* OnboardingViewController.swift */,
 				D0BF16CD28F9AF2D00CDA6CE /* OnboardingViewController.storyboard */,
+				CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -870,6 +876,7 @@
 				B92C311129377CAD000DA2D7 /* CalendarListViewController.swift in Sources */,
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+Extension.swift in Sources */,
+				CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				CCA802E6293F388F00D9579F /* PopupView.swift in Sources */,
@@ -896,6 +903,7 @@
 				CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */,
 				B92C311529377CAD000DA2D7 /* MindsetListCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
+				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
 				B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */,
 				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,
