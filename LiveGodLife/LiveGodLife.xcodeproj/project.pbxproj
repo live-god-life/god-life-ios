@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310229377C97000DA2D7 /* ListViewController.swift */; };
 		B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310629377CAD000DA2D7 /* CalendarModel.swift */; };
-		B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310729377CAD000DA2D7 /* CalendarListCell.swift */; };
 		B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */; };
 		B92C311429377CAD000DA2D7 /* MindsetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */; };
 		B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */; };
@@ -165,12 +164,12 @@
 		E963653A29852E4A005F16CD /* CalendarWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653929852E4A005F16CD /* CalendarWeekCell.swift */; };
 		E963653C29852FC4005F16CD /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653B29852FC4005F16CD /* CalendarDayCell.swift */; };
 		E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653D29869EA5005F16CD /* DayTodosCell.swift */; };
+		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B92C310229377C97000DA2D7 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B92C310629377CAD000DA2D7 /* CalendarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
-		B92C310729377CAD000DA2D7 /* CalendarListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarListCell.swift; sourceTree = "<group>"; };
 		B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainTabViewController.swift; sourceTree = "<group>"; };
 		B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsVC.swift; sourceTree = "<group>"; };
 		B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsCell.swift; sourceTree = "<group>"; };
@@ -319,6 +318,7 @@
 		E963653929852E4A005F16CD /* CalendarWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekCell.swift; sourceTree = "<group>"; };
 		E963653B29852FC4005F16CD /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
 		E963653D29869EA5005F16CD /* DayTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodosCell.swift; sourceTree = "<group>"; };
+		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,7 +379,6 @@
 				E9636500297FC7D4005F16CD /* Models */,
 				E963653629851D46005F16CD /* Views */,
 				E9636534298517CC005F16CD /* CalendarListVC.swift */,
-				B92C310729377CAD000DA2D7 /* CalendarListCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -839,6 +838,7 @@
 				E963653929852E4A005F16CD /* CalendarWeekCell.swift */,
 				E963653B29852FC4005F16CD /* CalendarDayCell.swift */,
 				E963653D29869EA5005F16CD /* DayTodosCell.swift */,
+				E963653F29869F74005F16CD /* DayTodoCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1048,7 +1048,6 @@
 				E96364F6297FB632005F16CD /* UIColor+.swift in Sources */,
 				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteViewController.swift in Sources */,
-				B92C311029377CAD000DA2D7 /* CalendarListCell.swift in Sources */,
 				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,
 				D06181BB28F1621400B40E32 /* LoginType.swift in Sources */,
 				D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */,
@@ -1070,6 +1069,7 @@
 				D0C97A6329379444001EC122 /* UIView+Extension.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
 				CC3181E32965C0F500016A77 /* TodoDetailViewController.swift in Sources */,
+				E963654029869F74005F16CD /* DayTodoCell.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginViewController.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,
 				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,

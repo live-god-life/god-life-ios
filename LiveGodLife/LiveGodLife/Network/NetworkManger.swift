@@ -23,6 +23,7 @@ enum NetworkService {
     case login(Dictionary<String,Any>)
     case month(Dictionary<String,Any>)
     case day(Dictionary<String,Any>)
+    case status(Int, Dictionary<String,Any>)
     case mindsets(Dictionary<String,Any>)
     case goals(Dictionary<String,Any>)
     case deatilGoals(Int)
@@ -47,6 +48,8 @@ extension NetworkService: TargetType {
             return "/goals/todos/counts"
         case .day:
             return "/goals/todos"
+        case .status(let id, _):
+            return "/goals/todoSchedules/\(id)"
         case .mindsets:
             return "/goals/mindsets"
         case .goals:
@@ -64,6 +67,8 @@ extension NetworkService: TargetType {
         case .nickname, .otherDetail, .day, .month,
              .mindsets, .goals, .deatilGoals:
             return .get
+        case .status:
+            return .patch
         case .addGoals, .join, .login:
             return .post
         }
@@ -85,6 +90,9 @@ extension NetworkService: TargetType {
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .day(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .status(_, let parameter):
+            let data = try! JSONSerialization.data(withJSONObject: parameter)
+            return .requestData(data)
         case .mindsets(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .goals(let parameter):

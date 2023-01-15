@@ -13,10 +13,10 @@ struct DayModel: Decodable {
     var dDayCount: Int?
 }
 
-struct MainCalendarModel: Decodable {
-    var title:String
-    var goalId:Int
-    var todoSchedules:[SubCalendarModel]
+struct MainCalendarModel: Decodable, Hashable {
+    var title: String?
+    var goalId: Int?
+    var todoSchedules: [SubCalendarModel]?
     
     enum Codingkeys: Int,CodingKey{
         case title
@@ -24,15 +24,16 @@ struct MainCalendarModel: Decodable {
     }
 }
 
-struct SubCalendarModel: Decodable {
-    var title:String
+struct SubCalendarModel: Decodable, Hashable {
+    var todoScheduleId: Int?
+    var title: String?
     var completionStatus: Bool?
-    var taskType: String
-    var repetitionType: String
+    var taskType: String?
+    var repetitionType: String?
     var repetitionParams: [String]?
-    var totalTodoTaskScheduleCount: Int
-    var completedTodoTaskScheduleCount: Int
-    var todoDay: Int
+    var totalTodoTaskScheduleCount: Int?
+    var completedTodoTaskScheduleCount: Int?
+    var todoDay: Int?
     
     enum Codingkeys: Int,CodingKey{
         case title
