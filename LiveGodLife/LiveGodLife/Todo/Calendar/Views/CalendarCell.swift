@@ -14,6 +14,7 @@ import CombineCocoa
 protocol CalendarCellDelegate: AnyObject {
     func prevMonth()
     func nextMonth()
+    func selected(date: Date?)
 }
 
 //MARK: CalendarView
@@ -124,19 +125,20 @@ final class CalendarCell: UICollectionViewCell {
             $0.height.equalTo(34)
         }
         prevButton.snp.makeConstraints {
-            $0.centerY.equalTo(monthLabel)
+            $0.centerY.equalTo(nextButton)
             $0.right.equalTo(nextButton.snp.left).offset(-5)
             $0.width.equalTo(61)
             $0.height.equalTo(34)
         }
         monthLabel.snp.makeConstraints {
-            $0.centerY.equalTo(monthLabel)
+            $0.centerY.equalTo(nextButton)
             $0.left.equalToSuperview().offset(24)
             $0.height.equalTo(32)
         }
         calendarCollectionView.snp.makeConstraints {
             $0.top.equalTo(nextButton.snp.bottom).offset(9)
-            $0.left.right.equalToSuperview().inset(24)
+            $0.left.equalTo(monthLabel.snp.left)
+            $0.right.equalTo(nextButton.snp.right).offset(-1)
         }
         dDayGuideLabel.snp.makeConstraints {
             $0.top.equalTo(calendarCollectionView.snp.bottom).offset(8)
@@ -238,7 +240,10 @@ extension CalendarCell: UICollectionViewDataSource {
             
             let date = calendar.date(from: comp)
             let isEqual = isEqual(to: date)
-            if isEqual { selectedIndexPath = indexPath }
+            if isEqual && selectedIndexPath != indexPath {
+                selectedIndexPath = indexPath
+                delegate?.selected(date: date)
+            }
             var isTodo = false
             var isDDay = false
             
@@ -261,9 +266,13 @@ extension CalendarCell: UICollectionViewDataSource {
 
 extension CalendarCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell else { return }
-        selectedDate = cell.date
-        selectedIndexPath = indexPath
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell,
+              let selectedDate = cell.date else { return }
+        
+        self.selectedDate = selectedDate
+        self.selectedIndexPath = indexPath
+        self.delegate?.selected(date: selectedDate)
+        
         collectionView.reloadItems(at: [indexPath])
     }
 }

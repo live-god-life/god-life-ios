@@ -21,8 +21,8 @@ enum NetworkService {
     case join(Dictionary<String,Any>)
     case otherDetail(String, Int)
     case login(Dictionary<String,Any>)
-    case calendar(Dictionary<String,Any>)
-    case todos(Dictionary<String,Any>)
+    case month(Dictionary<String,Any>)
+    case day(Dictionary<String,Any>)
     case mindsets(Dictionary<String,Any>)
     case goals(Dictionary<String,Any>)
     case deatilGoals(Int)
@@ -43,9 +43,9 @@ extension NetworkService: TargetType {
             return "/users"
         case .login:
             return "/login"
-        case .calendar:
+        case .month:
             return "/goals/todos/counts"
-        case .todos:
+        case .day:
             return "/goals/todos"
         case .mindsets:
             return "/goals/mindsets"
@@ -61,7 +61,7 @@ extension NetworkService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .nickname, .otherDetail, .todos, .calendar,
+        case .nickname, .otherDetail, .day, .month,
              .mindsets, .goals, .deatilGoals:
             return .get
         case .addGoals, .join, .login:
@@ -81,9 +81,9 @@ extension NetworkService: TargetType {
             return .requestPlain
         case .join(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .calendar(let parameter):
+        case .month(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .todos(let parameter):
+        case .day(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .mindsets(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)

@@ -23,11 +23,18 @@ final class TodoListViewModel {
     
     //MARK: RxBinding..
     private func bind() {
-        //Calendar
+        //Month
         input
-            .requestCalendar
+            .requestMonth
             .sink { [weak self] dateString in
-                self?.requestCalendar(dateString: dateString)
+                self?.requestMonth(dateString: dateString)
+            }
+            .store(in: &bag)
+        //Day
+        input
+            .requestDay
+            .sink { [weak self] dateString in
+                self?.requestDay(dateString: dateString)
             }
             .store(in: &bag)
         //Goals
@@ -66,13 +73,15 @@ extension TodoListViewModel {
     }
     
     struct Input {
-        var requestCalendar = PassthroughSubject<String, Never>()
+        var requestMonth = PassthroughSubject<String, Never>()
+        var requestDay = PassthroughSubject<String, Never>()
         var requestGoals = PassthroughSubject<Int?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
     }
     
     struct Output {
-        var requestCalendar = PassthroughSubject<[DayModel], Never>()
+        var requestMonth = PassthroughSubject<[DayModel], Never>()
+        var requestDay = PassthroughSubject<[MainCalendarModel], Never>()
         var requestGoals = PassthroughSubject<[GoalModel], Never>()
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
     }
@@ -80,20 +89,45 @@ extension TodoListViewModel {
 
 //MARK: - Method
 extension TodoListViewModel {
-    func requestCalendar(dateString: String) {
+    func requestMonth(dateString: String) {
         let parameters: [String: Any] = [
             "date": dateString
         ]
         
         NetworkManager.shared.provider
-            .request(.calendar(parameters)) { [weak self] response in
+            .request(.month(parameters)) { [weak self] response in
                 switch response {
                 case .success(let result):
                     do {
                         guard let model = try result.map(APIResponse<[DayModel]>.self).data else {
                             throw APIError.decoding
                         }
-                        self?.output.requestCalendar.send(model)
+                        self?.output.requestMonth.send(model)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                    }
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    
+    func requestDay(dateString: String) {
+        let parameters: [String: Any] = [
+            "date": dateString,
+            "page": 0,
+            "size": 100
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.day(parameters)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        guard let model = try result.map(APIResponse<[MainCalendarModel]>.self).data else {
+                            throw APIError.decoding
+                        }
+                        self?.output.requestDay.send(model)
                     } catch {
                         LogUtil.e(error.localizedDescription)
                     }

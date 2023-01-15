@@ -164,6 +164,7 @@
 		E963653829851D5C005F16CD /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653729851D5C005F16CD /* CalendarCell.swift */; };
 		E963653A29852E4A005F16CD /* CalendarWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653929852E4A005F16CD /* CalendarWeekCell.swift */; };
 		E963653C29852FC4005F16CD /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653B29852FC4005F16CD /* CalendarDayCell.swift */; };
+		E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653D29869EA5005F16CD /* DayTodosCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -317,6 +318,7 @@
 		E963653729851D5C005F16CD /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E963653929852E4A005F16CD /* CalendarWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekCell.swift; sourceTree = "<group>"; };
 		E963653B29852FC4005F16CD /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
+		E963653D29869EA5005F16CD /* DayTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodosCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -836,6 +838,7 @@
 				E963653729851D5C005F16CD /* CalendarCell.swift */,
 				E963653929852E4A005F16CD /* CalendarWeekCell.swift */,
 				E963653B29852FC4005F16CD /* CalendarDayCell.swift */,
+				E963653D29869EA5005F16CD /* DayTodosCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,
 				E963652A298426E3005F16CD /* CommonNavigationView.swift in Sources */,
 				E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */,
+				E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */,
 				D0E3B2B0291D1CDF00601936 /* CategoryButton.swift in Sources */,
 				D0B0584429365F7F0014F88E /* FeedCollectionViewCell.swift in Sources */,
 				D00E46F228F7BDC200A18FE7 /* OnboardingView.swift in Sources */,

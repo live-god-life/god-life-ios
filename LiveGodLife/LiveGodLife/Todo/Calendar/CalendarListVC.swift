@@ -14,15 +14,17 @@ import Combine
 final class CalendarListVC: UIViewController {
     //MARK: - Properties
     private let viewModel = TodoListViewModel()
-    private var calendarModel = [DayModel]()
+    private var monthModel = [DayModel]()
+    private var dayModel = [MainCalendarModel]()
     private let today = Date()
     private let calendar = Calendar.current
     private var days = [String]()
     private var daysCountInMonth = 0
     private var weekdayAdding = 0
     private var currentMonth: String?
+    private var selectedDate: Date? = Date()
     private let dateFormatter = DateFormatter().then {
-        $0.dateFormat = "yyyy년 MM월"
+        $0.locale = Locale(identifier: "ko_KR")
     }
     private lazy var components: DateComponents = {
         var comp = DateComponents()
@@ -36,10 +38,14 @@ final class CalendarListVC: UIViewController {
         $0.delegate = self
         $0.dataSource = self
         $0.backgroundColor = .clear
+        $0.alwaysBounceVertical = true
         $0.alwaysBounceHorizontal = false
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = UIEdgeInsets(top: 30, left: .zero,
+                                       bottom: 88, right: .zero)
+        DefaultCell.register($0)
         CalendarCell.register($0)
     }
     
@@ -47,8 +53,8 @@ final class CalendarListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeUI()
         bind()
+        makeUI()
     }
     
     //MARK: - Make UI
@@ -70,21 +76,23 @@ final class CalendarListVC: UIViewController {
         
         viewModel
             .output
-            .requestCalendar
+            .requestMonth
             .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
-                self?.calendarModel = model
-                self?.calendarCollectionView.reloadSections(IndexSet(0...0))
+                self?.monthModel = model
+                self?.calendarCollectionView.reloadSections(IndexSet(0...1))
             }
             .store(in: &viewModel.bag)
     }
     
     private func calculation() {
+        self.selectedDate = nil
         let firstDayOfMonth = calendar.date(from: components) ?? Date()
         let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
         daysCountInMonth = calendar.range(of: .day, in: .month, for: firstDayOfMonth)?.count ?? 0
         weekdayAdding = 2 - firstWeekday
         
+        dateFormatter.dateFormat = "yy년 MM월"
         currentMonth = dateFormatter.string(from: firstDayOfMonth)
         days.removeAll()
         
@@ -96,11 +104,9 @@ final class CalendarListVC: UIViewController {
             }
         }
         
-        
-        
         viewModel
             .input
-            .requestCalendar
+            .requestMonth
             .send(firstDayOfMonth.toRequestString())
     }
 }
@@ -108,6 +114,7 @@ final class CalendarListVC: UIViewController {
 extension CalendarListVC: UICollectionViewDataSource {
     enum CellType: Int, CaseIterable {
         case calendar = 0
+        case dateHeader
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -119,23 +126,36 @@ extension CalendarListVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: CalendarCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        cell.delegate = self
-        cell.configure(with: calendarModel,
-                       components: components,
-                       month: currentMonth,
-                       days: days)
-        return cell
+        let type = CellType(rawValue: indexPath.section) ?? .dateHeader
+        
+        switch type {
+            
+        case .calendar:
+            let cell: CalendarCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            cell.delegate = self
+            cell.configure(with: monthModel,
+                           components: components,
+                           month: currentMonth,
+                           days: days)
+            return cell
+        case .dateHeader:
+            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            cell.titleLabel.text = ""
+            if let date = selectedDate {
+                dateFormatter.dateFormat = "yy년 MM월 dd일 EEEE"
+                cell.titleLabel.text = dateFormatter.string(from: date)
+            }
+            cell.titleLabel.isHidden = false
+            cell.contentView.backgroundColor = .black
+            return cell
+        }
     }
 }
 
 extension CalendarListVC: UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 30,
-                                               left: .zero,
-                                               bottom: 44,
-                                               right: .zero)
+        flowLayout.sectionInset = .zero
         flowLayout.minimumLineSpacing = 32.0
         flowLayout.minimumInteritemSpacing = .zero
         flowLayout.scrollDirection = .vertical
@@ -155,11 +175,26 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: calendarCellHeight())
+        let type = CellType(rawValue: indexPath.section) ?? .dateHeader
+        
+        switch type {
+        case .calendar:
+            return CGSize(width: width, height: calendarCellHeight())
+        case .dateHeader:
+            return CGSize(width: width, height: 61.0)
+        }
     }
 }
 
 extension CalendarListVC: CalendarCellDelegate {
+    func selected(date: Date?) {
+        guard let date else { return }
+        selectedDate = date
+        dateFormatter.dateFormat = "yyyyMMdd"
+        viewModel.input.requestDay.send(dateFormatter.string(from: date))
+        self.calendarCollectionView.reloadSections(IndexSet(1...1))
+    }
+    
     func prevMonth() {
         components.month = (components.month ?? 0) - 1
         calculation()

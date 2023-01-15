@@ -34,7 +34,7 @@ final class DetailGoalVC: UIViewController {
         GoalCell.register($0)
         MindsetsCell.register($0)
         DetailTodosCell.register($0)
-        DefaultCollectionViewCell.register($0)
+        DefaultCell.register($0)
     }
     
     //MARK: - Life Cycle
@@ -111,13 +111,14 @@ extension DetailGoalVC: UICollectionViewDataSource {
         case title = 0
         case line
         case mindset
+        case todoHeader
         case todo
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let model = viewModel.deatilModel else { return .zero }
         
-        return 3 + (model.todos?.count ?? 0)
+        return 4 + (model.todos?.count ?? 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -127,7 +128,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
         
         switch cellType {
         case .todo:
-            let index = section - 3
+            let index = section - 4
             if selectedIndexPaths.contains(index) {
                 let cellCount = model.todos?[index].childTodos?.count ?? 0
                 return cellCount + 1
@@ -149,7 +150,8 @@ extension DetailGoalVC: UICollectionViewDataSource {
             cell.configure(with: viewModel.deatilModel, type: .title)
             return cell
         case .line:
-            let cell: DefaultCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            cell.titleLabel.isHidden = true
             cell.contentView.backgroundColor = .gray5
             return cell
         case .mindset:
@@ -158,9 +160,15 @@ extension DetailGoalVC: UICollectionViewDataSource {
                                                title: "마인드셋",
                                                mindsets: model.mindsets), type: .title)
             return cell
+        case .todoHeader:
+            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            cell.titleLabel.text = "ToDo"
+            cell.titleLabel.isHidden = false
+            cell.contentView.backgroundColor = .black
+            return cell
         case .todo:
             let cell: DetailTodosCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-            let index = indexPath.section - 3
+            let index = indexPath.section - 4
             
             if indexPath.item == 0 {
                 let isChild = !(model.todos?[index].childTodos?.isEmpty ?? true)
@@ -194,7 +202,7 @@ extension DetailGoalVC: UICollectionViewDelegate {
         
         guard let model = viewModel.deatilModel, cellType == .todo else { return }
         
-        let index = indexPath.section - 3
+        let index = indexPath.section - 4
         let todo = indexPath.item == 0 ? model.todos?[index] : model.todos?[index].childTodos?[indexPath.item - 1]
         let isFolder = todo?.type == "folder"
         
@@ -238,6 +246,8 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: MindsetsCell.height(with: MindSetsModel(goalId: model.goalId,
                                                                                         title: model.title,
                                                                                         mindsets: model.mindsets)))
+        case .todoHeader:
+            return CGSize(width: width, height: 39.0)
         case .todo:
             return CGSize(width: width, height: 100)
         }
@@ -254,8 +264,10 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: 32.0)
         case .mindset:
             return CGSize(width: width, height: 56.0)
+        case .todoHeader:
+            return CGSize(width: width, height: 17.0)
         default:
-            return CGSize(width: width, height: 16)
+            return CGSize(width: width, height: 16.0)
         }
     }
 }
