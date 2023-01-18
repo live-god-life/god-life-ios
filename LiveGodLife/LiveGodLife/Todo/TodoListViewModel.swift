@@ -15,6 +15,7 @@ final class TodoListViewModel {
     var bag = Set<AnyCancellable>()
     let input = Input()
     let output = Output()
+    var completedList = [Int:Bool]()
     
     //MARK: Initializer
     init() {
@@ -35,6 +36,13 @@ final class TodoListViewModel {
             .requestDay
             .sink { [weak self] dateString in
                 self?.requestDay(dateString: dateString)
+            }
+            .store(in: &bag)
+        //Status
+        input
+            .requestStatus
+            .sink { [weak self] id, status in
+                self?.requestStatus(id: id, status: status)
             }
             .store(in: &bag)
         //Goals
@@ -75,6 +83,7 @@ extension TodoListViewModel {
     struct Input {
         var requestMonth = PassthroughSubject<String, Never>()
         var requestDay = PassthroughSubject<String, Never>()
+        var requestStatus = PassthroughSubject<(Int, Bool), Never>()
         var requestGoals = PassthroughSubject<Int?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
     }
@@ -89,6 +98,7 @@ extension TodoListViewModel {
 
 //MARK: - Method
 extension TodoListViewModel {
+    //MARK: MyList(캘린더) 달력 조회
     func requestMonth(dateString: String) {
         let parameters: [String: Any] = [
             "date": dateString
@@ -111,7 +121,7 @@ extension TodoListViewModel {
                 }
             }
     }
-    
+    //MARK: MyList(캘린더/특정일의TODO리스트) 조회
     func requestDay(dateString: String) {
         let parameters: [String: Any] = [
             "date": dateString,
@@ -136,7 +146,23 @@ extension TodoListViewModel {
                 }
             }
     }
-    
+    //MARK: TODO 완료체크
+    func requestStatus(id: Int, status: Bool) {
+        let parameters: [String: Any] = [
+            "completionStatus": status
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.status(id, parameters)) { response in
+                switch response {
+                case .success:
+                    LogUtil.e("TODO 완료체크")
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    //MARK: MyList(마인드셋) 조회
     func requestMindsets(size: Int = 100) {
         let parameters: [String: Any] = [
             "date": Date().toString(),
@@ -161,7 +187,7 @@ extension TodoListViewModel {
                 }
             }
     }
-    
+    //MARK: MyList(목표) 조회
     func requestGoals(size: Int = 100) {
         let parameters: [String: Any] = [
             "date": Date().toString(),
