@@ -7,34 +7,37 @@
 
 import UIKit
 import Combine
+import CombineCocoa
 
 protocol DayTodosCellDelegate: AnyObject {
     func selectDetail(id: Int)
 }
 
 final class DayTodosCell: UICollectionViewCell {
-    enum CellType {
-        case list
-        case title
-    }
-    
     // MARK: - Properties
-    weak var delegate: MindsetsCellDelegate?
-    var bag = Set<AnyCancellable>()
-    private var list: MindSetsModel?
-    private var snapshot: MindsetsSnapshot!
-    private var dataSource: MindsetsDataSource!
-    private let headerView = MindsetListHeadersView()
-    private lazy var mindsetCollectionView = UICollectionView(frame: .zero,
-                                                              collectionViewLayout: setupFlowLayout()).then {
+    weak var delegate: DayTodosCellDelegate?
+    private let viewModel = TodoListViewModel()
+    private var list: MainCalendarModel?
+    private var snapshot: TodosSnapshot!
+    private var dataSource: TodosDataSource!
+    private lazy var todoCollectionView = UICollectionView(frame: .zero,
+                                                           collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
         $0.backgroundColor = .clear
         $0.alwaysBounceHorizontal = false
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
-        MindsetCell.register($0)
+        DayTodoCell.register($0)
     }
+    private let titleLabel = UILabel().then {
+        $0.font = .medium(with: 16)
+        $0.textColor = .white
+    }
+    private let infoImageView = UIImageView().then {
+        $0.image = UIImage(named: "arrow-right")
+    }
+    private let headerButton = UIButton()
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -53,17 +56,28 @@ final class DayTodosCell: UICollectionViewCell {
     private func makeUI() {
         backgroundColor = .black
         
-        contentView.addSubview(headerView)
-        contentView.addSubview(mindsetCollectionView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(infoImageView)
+        contentView.addSubview(headerButton)
+        contentView.addSubview(todoCollectionView)
         
-        headerView.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview().offset(24)
-            $0.right.equalToSuperview().offset(-16)
-            $0.height.equalTo(32)
+            $0.height.equalTo(24)
         }
-        mindsetCollectionView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(14)
+        infoImageView.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.left.equalTo(titleLabel.snp.right).offset(4)
+            $0.size.equalTo(16)
+        }
+        headerButton.snp.makeConstraints {
+            $0.left.top.equalToSuperview()
+            $0.right.equalTo(infoImageView.snp.right)
+            $0.bottom.equalTo(titleLabel.snp.bottom)
+        }
+        todoCollectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -72,58 +86,58 @@ final class DayTodosCell: UICollectionViewCell {
     }
     
     private func bind() {
-        headerView
-            .detailButton
+        headerButton
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let id = self?.list?.goalId else { return }
-                
                 self?.delegate?.selectDetail(id: id)
             }
-            .store(in: &bag)
+            .store(in: &viewModel.bag)
     }
 
-    func configure(with list: MindSetsModel, type: CellType = .list) {
-        headerView.configure(with: list.title)
-        
+    func configure(with list: MainCalendarModel) {
         self.list = list
-        updateDataSnapshot(with: list.mindsets ?? [])
-        headerView.detailButton.isHidden = type == .title
+        self.titleLabel.text = list.title
+        
+        updateDataSnapshot(with: list.todoSchedules ?? [])
     }
     
-    static func height(with list: MindSetsModel) -> CGFloat {
-        guard let mindsets = list.mindsets,
-              !mindsets.isEmpty else { return .zero }
+    static func height(with list: MainCalendarModel) -> CGFloat {
+        guard let todos = list.todoSchedules,
+              !todos.isEmpty else { return .zero }
         
-        var height = 46.0
-        height += mindsets.reduce(CGFloat.zero) { result, mindset in
-            result + MindsetCell.height(with: mindset.content)
-        }
+        let count = CGFloat(todos.count)
         
-        let spacingCount = Double(mindsets.count - 1)
-        return height + (spacingCount * 16.0)
+        var height = 36.0
+        height += count * 72.0
+        height += (count - 1.0) * 16.0
+        
+        return height
     }
 }
 
 extension DayTodosCell {
-    typealias MindsetsSnapshot = NSDiffableDataSourceSnapshot<TodoListViewModel.Section, MindSetModel>
-    typealias MindsetsDataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, MindSetModel>
+    typealias TodosSnapshot = NSDiffableDataSourceSnapshot<TodoListViewModel.Section, SubCalendarModel>
+    typealias TodosDataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, SubCalendarModel>
     
     private func configureDataSource() {
-        dataSource = MindsetsDataSource(collectionView: mindsetCollectionView) { collectionView, indexPath, mindset in
-            let cell: MindsetCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+        dataSource = TodosDataSource(collectionView: todoCollectionView) { collectionView, indexPath, todo in
+            let cell: DayTodoCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let status = self.viewModel.completedList[todo.todoScheduleId ?? -1] ?? false
             
-            cell.configure(with: mindset)
+            cell.delegate = self
+            cell.configure(with: todo,
+                           completionStatus: status)
             
             return cell
         }
     }
     
-    private func updateDataSnapshot(with mindsets: [MindSetModel]) {
-        snapshot = MindsetsSnapshot()
+    private func updateDataSnapshot(with todos: [SubCalendarModel]) {
+        snapshot = TodosSnapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(mindsets, toSection: .main)
+        snapshot.appendItems(todos, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -133,7 +147,7 @@ extension DayTodosCell: UICollectionViewDelegateFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = .zero
         flowLayout.minimumLineSpacing = 16.0
-        flowLayout.minimumInteritemSpacing = 16.0
+        flowLayout.minimumInteritemSpacing = .zero
         flowLayout.scrollDirection = .vertical
         return flowLayout
     }
@@ -141,10 +155,16 @@ extension DayTodosCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let list = list?.mindsets,
-              indexPath.item < list.count else { return .zero }
-        
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: MindsetCell.height(with: list[indexPath.item].content))
+        return CGSize(width: width, height: 72.0)
+    }
+}
+
+extension DayTodosCell: DayTodoCellDelegate {
+    func selectedTodo(id: Int?, isCompleted: Bool) {
+        guard let id else { return }
+        
+        viewModel.completedList.updateValue(isCompleted, forKey: id)
+        viewModel.input.requestStatus.send((id, isCompleted))
     }
 }
