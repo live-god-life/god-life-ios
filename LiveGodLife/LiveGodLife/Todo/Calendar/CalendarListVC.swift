@@ -155,7 +155,8 @@ extension CalendarListVC: UICollectionViewDataSource {
             cell.configure(with: monthModel,
                            components: components,
                            month: currentMonth,
-                           days: days)
+                           days: days,
+                           selectedDay: selectedDate)
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)

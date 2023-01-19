@@ -195,12 +195,12 @@ final class CalendarCell: UICollectionViewCell {
                    components: DateComponents,
                    month: String?,
                    days: [String],
-                   selectedDay: Date? = Date()) {
+                   selectedDay: Date?) {
         self.model = model
         self.days = days
         self.components = components
         self.monthLabel.text = month
-        self.selectedDate = selectedDay
+        self.selectedDate = selectedDay ?? Date()
         
         self.calendarCollectionView.reloadData()
     }

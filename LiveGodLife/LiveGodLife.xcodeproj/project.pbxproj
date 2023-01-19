@@ -165,6 +165,7 @@
 		E963653C29852FC4005F16CD /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653B29852FC4005F16CD /* CalendarDayCell.swift */; };
 		E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653D29869EA5005F16CD /* DayTodosCell.swift */; };
 		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
+		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -319,6 +320,7 @@
 		E963653B29852FC4005F16CD /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
 		E963653D29869EA5005F16CD /* DayTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodosCell.swift; sourceTree = "<group>"; };
 		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
+		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -781,6 +783,7 @@
 			children = (
 				E9636504297FCF50005F16CD /* GoalsHeadersView.swift */,
 				C9152E9E29397F7800C6C025 /* GoalCell.swift */,
+				E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -976,6 +979,7 @@
 				E963653829851D5C005F16CD /* CalendarCell.swift in Sources */,
 				E9636535298517CC005F16CD /* CalendarListVC.swift in Sources */,
 				D0340F4D29384E7100D2A5A6 /* SegmentControlView.swift in Sources */,
+				E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */,
 				C9D48CC4294BD2FC00F66265 /* GoalsCreateViewController.swift in Sources */,
 				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				B92C310329377C97000DA2D7 /* ListViewController.swift in Sources */,

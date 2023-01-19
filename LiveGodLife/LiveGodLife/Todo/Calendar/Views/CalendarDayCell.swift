@@ -83,10 +83,26 @@ final class CalendarDayCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        contentView.backgroundColor = .black
+        contentView.layer.borderWidth = .zero
+        contentView.layer.cornerRadius = .zero
+        contentView.layer.borderColor = UIColor.black.cgColor
+        
+        dayLabel.text = nil
+        dayLabel.textColor = .gray6
+        hStackView.isHidden = true
+        statusLabel.isHidden = true
+        todoGuideView.isHidden = true
+        dDayGuideView.isHidden = true
+    }
+    
     func configure(with date: Date?, day: String?, isTodo: Bool, isDDay: Bool, isSelected: Bool) {
+        guard let date, let day, !day.isEmpty else { return }
+        
         self.date = date
         dayLabel.text = day
-        let isToday = (date?.toParameterString() ?? " ") == Date().toParameterString()
+        let isToday = date.toParameterString() == Date().toParameterString()
         guard !isSelected else {
             dayLabel.textColor = .black
             contentView.backgroundColor = .green
@@ -100,16 +116,19 @@ final class CalendarDayCell: UICollectionViewCell {
             return
         }
         
-        contentView.backgroundColor = isTodo || isDDay ? .default : .black
-        contentView.layer.borderWidth = isTodo || isDDay ? 1.0 : .zero
-        contentView.layer.cornerRadius = isTodo || isDDay ? 12.0 : .zero
-        contentView.layer.borderColor = isTodo || isDDay ? UIColor.gray3.cgColor : UIColor.black.cgColor
+        if isTodo || isDDay {
+            contentView.backgroundColor = .default
+            contentView.layer.borderWidth = 1.0
+            contentView.layer.cornerRadius = 12.0
+            contentView.layer.borderColor = UIColor.gray3.cgColor
+            
+            dayLabel.textColor = .DDDDDD
+        }
         
-        dayLabel.textColor = isTodo || isDDay ? .DDDDDD : .gray6
         hStackView.isHidden = !isTodo && !isDDay && !isToday
+        statusLabel.isHidden = !isToday
         todoGuideView.isHidden = !isTodo || isToday
         dDayGuideView.isHidden = !isDDay || isToday
-        statusLabel.isHidden = !isToday
         
         if isToday {
             statusLabel.text = "오늘"
