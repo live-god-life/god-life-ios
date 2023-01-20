@@ -8,9 +8,15 @@
 import Then
 import SnapKit
 import UIKit
+
+protocol GoalsHeadersViewDelegate: AnyObject {
+    func selectStatus()
+}
+
 //MARK: Todo -> 목표 header
 final class GoalsHeadersView: UICollectionReusableView {
     // MARK: - Properties
+    weak var delegate: GoalsHeadersViewDelegate?
     private var logoImageView = UIImageView().then {
         $0.image = UIImage(named: "headerLogo")
     }
@@ -78,9 +84,22 @@ final class GoalsHeadersView: UICollectionReusableView {
             $0.right.equalTo(buttonImage.snp.right)
             $0.bottom.equalToSuperview()
         }
+        
+        popupButton.addTarget(self, action: #selector(touchedStatus), for: .touchUpInside)
     }
     
-    func configure(with title: String?) {
+    func configure(title: String?, status: Bool?) {
         self.titleLabel.text = title
+        
+        var statusString = "전체"
+        if let status {
+            statusString = status ? "완료됨" : "진행중"
+        }
+        self.statusLabel.text = statusString
+    }
+    
+    @objc
+    private func touchedStatus() {
+        delegate?.selectStatus()
     }
 }

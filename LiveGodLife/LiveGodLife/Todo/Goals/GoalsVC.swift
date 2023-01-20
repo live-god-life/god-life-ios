@@ -8,10 +8,15 @@
 import UIKit
 
 final class GoalsVC: UIViewController {
+    private var status: Bool?
     private let viewModel = TodoListViewModel()
     private var snapshot: GoalsSnapshot!
     private var dataSource: GoalsDataSource!
     
+    private lazy var popupView = GoalStatusPopupView().then {
+        $0.delegate = self
+        $0.isHidden = true
+    }
     private lazy var goalsCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
@@ -39,18 +44,25 @@ final class GoalsVC: UIViewController {
         viewModel
             .input
             .requestGoals
-            .send(nil)
+            .send(status)
     }
     
     private func makeUI() {
         view.backgroundColor = .black
         
         view.addSubview(goalsCollectionView)
+        view.addSubview(popupView)
         
         goalsCollectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(116)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-40)
+        }
+        popupView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(178)
+            $0.right.equalToSuperview().offset(-16)
+            $0.width.equalTo(98)
+            $0.height.equalTo(136)
         }
         
         configureDataSource()
@@ -70,7 +82,6 @@ final class GoalsVC: UIViewController {
 
 // MARK: UICollectionViewDataSource
 extension GoalsVC: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let goalID = dataSource.itemIdentifier(for: indexPath)?.goalId else { return }
         
@@ -98,7 +109,9 @@ extension GoalsVC {
                                                                              for: indexPath) as? GoalsHeadersView
             
             let itemCount = self.dataSource.snapshot().numberOfItems(inSection: .main)
-            headerView?.configure(with: "\(itemCount) List")
+            
+            headerView?.delegate = self
+            headerView?.configure(title: "\(itemCount) List", status: self.status)
             
             return headerView
         }
@@ -109,6 +122,7 @@ extension GoalsVC {
         snapshot.appendSections([.main])
         snapshot.appendItems(goals)
         dataSource.apply(snapshot, animatingDifferences: false)
+        goalsCollectionView.reloadData()
     }
 }
 
@@ -134,5 +148,24 @@ extension GoalsVC: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
         return CGSize(width: width, height: 146.0)
+    }
+}
+
+extension GoalsVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        popupView.isHidden = true
+    }
+}
+
+extension GoalsVC: GoalsHeadersViewDelegate {
+    func selectStatus() {
+        popupView.isHidden.toggle()
+    }
+}
+
+extension GoalsVC: GoalStatusPopupViewDelegate {
+    func selected(status: Bool?) {
+        self.status = status
+        viewModel.input.requestGoals.send(status)
     }
 }

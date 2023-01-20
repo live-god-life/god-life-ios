@@ -48,12 +48,8 @@ final class TodoListViewModel {
         //Goals
         input
             .requestGoals
-            .sink { [weak self] size in
-                guard let size else {
-                    self?.requestGoals()
-                    return
-                }
-                self?.requestGoals(size: size)
+            .sink { [weak self] status in
+                self?.requestGoals(completionStatus: status)
             }
             .store(in: &bag)
         //Mindsets
@@ -84,7 +80,7 @@ extension TodoListViewModel {
         var requestMonth = PassthroughSubject<String, Never>()
         var requestDay = PassthroughSubject<String, Never>()
         var requestStatus = PassthroughSubject<(Int, Bool), Never>()
-        var requestGoals = PassthroughSubject<Int?, Never>()
+        var requestGoals = PassthroughSubject<Bool?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
     }
     
@@ -188,12 +184,15 @@ extension TodoListViewModel {
             }
     }
     //MARK: MyList(목표) 조회
-    func requestGoals(size: Int = 100) {
-        let parameters: [String: Any] = [
+    func requestGoals(completionStatus: Bool? = nil) {
+        var parameters: [String: Any] = [
             "date": Date().toString(),
-            "size": size,
-            "completionStatus": "false",
+            "size": 100
         ]
+        
+        if let completionStatus {
+            parameters.updateValue(completionStatus, forKey: "completionStatus")
+        }
         
         NetworkManager.shared.provider
             .request(.goals(parameters)) { [weak self] response in
