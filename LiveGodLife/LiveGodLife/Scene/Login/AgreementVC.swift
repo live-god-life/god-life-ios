@@ -1,5 +1,5 @@
 //
-//  AgreementViewController.swift
+//  AgreementVC.swift
 //  LiveGodLife
 //
 //  Created by Quintet on 2022/11/09.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class AgreementViewController: UIViewController {
+class AgreementVC: UIViewController {
 
     let nextButton = UIButton()
 
@@ -132,7 +132,7 @@ class AgreementViewController: UIViewController {
                 print(token)
                 guard let self else { return }
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(JoinCompleteViewController(self.user), animated: true)
+                    self.navigationController?.pushViewController(JoinCompleteVC(self.user), animated: true)
                 }
             })
             .store(in: &cancellable)

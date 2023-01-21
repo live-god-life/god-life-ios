@@ -1,5 +1,5 @@
 //
-//  JoinCompleteViewController.swift
+//  JoinCompleteVC.swift
 //  LiveGodLife
 //
 //  Created by Quintet on 2022/11/09.
@@ -7,11 +7,10 @@
 
 import UIKit
 
-class JoinCompleteViewController: UIViewController {
-
-    private let homeButton = UIButton()
+class JoinCompleteVC: UIViewController {
 
     private var user: UserModel
+    private let homeButton = UIButton()
 
     init(_ user: UserModel) {
         self.user = user
@@ -75,5 +74,4 @@ class JoinCompleteViewController: UIViewController {
         UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
         NotificationCenter.default.post(name: .moveToHome, object: self)
     }
-
 }

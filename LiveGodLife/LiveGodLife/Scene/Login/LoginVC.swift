@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  LoginVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/12.
@@ -13,11 +13,11 @@ import KakaoSDKAuth
 import SwiftyJSON
 import Moya
 
-extension LoginViewController: AppleLoginServiceDelegate {
+extension LoginVC: AppleLoginServiceDelegate {
 
     func signup(_ user: UserModel) {
         DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(UserInfoViewController(user), animated: true)
+            self?.navigationController?.pushViewController(UserInfoVC(user), animated: true)
         }
     }
 
@@ -31,7 +31,7 @@ extension LoginViewController: AppleLoginServiceDelegate {
     }
 }
 
-final class LoginViewController: UIViewController {
+final class LoginVC: UIViewController {
 
     private var user: UserModel?
     private let titleLabel = UILabel()
@@ -177,7 +177,7 @@ final class LoginViewController: UIViewController {
                     print("message:\(jsonData["message"] ?? "")")
                     
                     guard let user = self.user else { return }
-                    self.navigationController?.pushViewController(UserInfoViewController(user), animated: false)
+                    self.navigationController?.pushViewController(UserInfoVC(user), animated: false)
                 
                 } catch(let err) {
                     print("nickname err:\(err.localizedDescription)")
@@ -191,7 +191,7 @@ final class LoginViewController: UIViewController {
 }
 
 
-extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window ?? ASPresentationAnchor()
     }

@@ -1,5 +1,5 @@
 //
-//  UserInfoViewController.swift
+//  UserInfoVC.swift
 //  LiveGodLife
 //
 //  Created by Quintet on 2022/11/09.
@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-class UserInfoViewController: UIViewController {
-
+class UserInfoVC: UIViewController {
     let nickNameTextField = TextFieldView()
     let nextButton = UIButton()
 
@@ -95,12 +94,11 @@ class UserInfoViewController: UIViewController {
     
     @objc func next(_ sender:UIButton) {
         user.nickname = nickNameTextField.text ?? ""
-        self.navigationController?.pushViewController(AgreementViewController(user), animated: true)
+        self.navigationController?.pushViewController(AgreementVC(user), animated: true)
     }
 }
 
-extension UserInfoViewController: UITextFieldDelegate {
-
+extension UserInfoVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

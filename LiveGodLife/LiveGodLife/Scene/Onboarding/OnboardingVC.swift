@@ -1,5 +1,5 @@
 //
-//  OnboardingViewController.swift
+//  OnboardingVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/14.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class OnboardingViewController: UIViewController {
+final class OnboardingVC: UIViewController {
 
     private var scrollView: UIScrollView!
     private var pageControl = CustomPageControl()
@@ -48,14 +48,14 @@ final class OnboardingViewController: UIViewController {
     }
 }
 
-extension OnboardingViewController: OnboardingViewDelegate {
+extension OnboardingVC: OnboardingViewDelegate {
 
     func didTapActionButton() {
         self.dismiss(animated: true)
     }
 }
 
-extension OnboardingViewController: UIScrollViewDelegate {
+extension OnboardingVC: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = view.frame.width

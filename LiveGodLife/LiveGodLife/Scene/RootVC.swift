@@ -28,9 +28,9 @@ final class RootVC: UITabBarController, TabBarViewDelegate {
         super.viewDidAppear(animated)
 
         if !UserDefaults.standard.bool(forKey: "LIVE_GOD_LIFE") {
-            let onboardingViewController = OnboardingViewController.instance()!
-            onboardingViewController.modalPresentationStyle = .fullScreen
-            present(onboardingViewController, animated: true)
+            let onboardingVC = OnboardingVC.instance()!
+            onboardingVC.modalPresentationStyle = .fullScreen
+            present(onboardingVC, animated: true)
             UserDefaults.standard.set(true, forKey: "LIVE_GOD_LIFE")
             return
         }
@@ -74,8 +74,8 @@ final class RootVC: UITabBarController, TabBarViewDelegate {
     }
 
     private func routeToLogin() {
-        let loginViewController = LoginViewController()
-        let nav = UINavigationController(rootViewController: loginViewController)
+        let loginVC = LoginVC()
+        let nav = UINavigationController(rootViewController: loginVC)
         nav.isNavigationBarHidden = true
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)

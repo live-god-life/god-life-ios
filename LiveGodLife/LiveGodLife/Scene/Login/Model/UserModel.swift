@@ -32,13 +32,3 @@ struct UserModel: Codable, Hashable {
         hasher.combine(identifier)
     }
 }
-
-
-extension Encodable {
-
-    var toDictionary : [String: Any]? {
-        guard let object = try? JSONEncoder().encode(self) else { return nil }
-        guard let dictionary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: String] else { return nil }
-        return dictionary
-    }
-}
