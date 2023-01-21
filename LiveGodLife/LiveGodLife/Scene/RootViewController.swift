@@ -1,5 +1,5 @@
 //
-//  RootViewController.swift
+//  RootVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/09/17.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class RootViewController: UITabBarController, TabBarViewDelegate {
+final class RootVC: UITabBarController, TabBarViewDelegate {
 
     private let tabBarView = TabBarView()
 

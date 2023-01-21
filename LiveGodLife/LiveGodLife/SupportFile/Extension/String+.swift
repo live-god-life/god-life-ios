@@ -1,5 +1,5 @@
 //
-//  String+Extension.swift
+//  String+.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/11/06.

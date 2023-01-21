@@ -104,7 +104,7 @@ final class CalendarListVC: UIViewController {
         daysCountInMonth = calendar.range(of: .day, in: .month, for: firstDayOfMonth)?.count ?? 0
         weekdayAdding = 2 - firstWeekday
         
-        dateFormatter.dateFormat = "yy년 MM월"
+        dateFormatter.dateFormat = "yyyy년 MM월"
         currentMonth = dateFormatter.string(from: firstDayOfMonth)
         days.removeAll()
         
@@ -162,7 +162,7 @@ extension CalendarListVC: UICollectionViewDataSource {
             let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
             cell.titleLabel.text = ""
             if let date = selectedDate {
-                dateFormatter.dateFormat = "yy년 MM월 dd일 EEEE"
+                dateFormatter.dateFormat = "MM월 dd일 EEEE"
                 cell.titleLabel.text = dateFormatter.string(from: date)
             }
             cell.titleLabel.isHidden = false

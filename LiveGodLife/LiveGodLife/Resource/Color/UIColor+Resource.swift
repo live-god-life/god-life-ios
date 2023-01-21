@@ -1,5 +1,5 @@
 //
-//  UIColor+Extension.swift
+//  UIColor+Resource.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/18.

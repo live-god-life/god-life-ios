@@ -183,7 +183,7 @@ final class TodoMainTabBarController: UITabBarController {
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.navigationController?.pushViewController(GoalsCreateViewController(), animated: true)
+                self?.navigationController?.pushViewController(GoalsCreateVC(), animated: true)
             }
             .store(in: &bag)
     }
