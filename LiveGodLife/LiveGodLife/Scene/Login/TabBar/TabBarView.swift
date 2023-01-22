@@ -8,29 +8,32 @@
 import UIKit
 
 protocol TabBarViewDelegate: AnyObject {
-
     func setViewController(with index: Int)
 }
 
 final class TabBarView: UIView {
-
+    //MARK: - Properties
+    weak var delegate: TabBarViewDelegate?
+    
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var todoButton: UIButton!
     @IBOutlet weak var mypageButton: UIButton!
 
-    weak var delegate: TabBarViewDelegate?
-
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         commonInit()
     }
-
-    func commonInit() {
+    
+    //MARK: - Functions...
+    private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("TabBarView", owner: self)?.first as? UIView else {
             fatalError("not found name of xib")
         }

@@ -14,7 +14,6 @@ import SwiftyJSON
 import Moya
 
 extension LoginVC: AppleLoginServiceDelegate {
-
     func signup(_ user: UserModel) {
         DispatchQueue.main.async { [weak self] in
             self?.navigationController?.pushViewController(UserInfoVC(user), animated: true)
@@ -32,7 +31,7 @@ extension LoginVC: AppleLoginServiceDelegate {
 }
 
 final class LoginVC: UIViewController {
-
+    //MARK: - Properties
     private var user: UserModel?
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
@@ -43,17 +42,19 @@ final class LoginVC: UIViewController {
     
     var email:String = ""
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        appleLoginService = AppleLoginService(presentationContextProvider: self)
-        appleLoginService?.delegate = self
 
-        view.backgroundColor = .black
-        navigationItem.backButtonTitle = ""
-        setupUI()
+        makeUI()
+        bind()
     }
 
-    private func setupUI() {
+    //MARK: - MakeUI
+    private func makeUI() {
+        view.backgroundColor = .black
+        navigationItem.backButtonTitle = ""
+        
         titleLabel.text = "갓생살기"
         titleLabel.textColor = .white
         titleLabel.font = .bold(with: 26)
@@ -72,6 +73,11 @@ final class LoginVC: UIViewController {
         }
 
         setupButtons()
+    }
+    
+    private func bind() {
+        appleLoginService = AppleLoginService(presentationContextProvider: self)
+        appleLoginService?.delegate = self
     }
 
     private func setupButtons() {
@@ -94,11 +100,13 @@ final class LoginVC: UIViewController {
         }
     }
 
-    @objc private func didTapAppleLoginButton() {
+    @objc
+    private func didTapAppleLoginButton() {
         appleLoginService?.login()
     }
 
-    @objc private func didTapKaKaoLoginButton() {
+    @objc
+    private func didTapKaKaoLoginButton() {
         // 카카오톡 설치 여부 확인
         // isKakaoTalkLoginAvailable() : 카톡 설치 되어있으면 true
         if (UserApi.isKakaoTalkLoginAvailable()) {
@@ -160,6 +168,7 @@ final class LoginVC: UIViewController {
             }
         }
     }
+    
     func login(param:Dictionary<String,Any>) {
         LogUtil.i("param: \(param)")
         

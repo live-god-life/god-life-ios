@@ -7,11 +7,12 @@
 
 import UIKit
 
-class JoinCompleteVC: UIViewController {
-
+final class JoinCompleteVC: UIViewController {
+    //MARK: - Properties
     private var user: UserModel
     private let homeButton = UIButton()
 
+    //MARK: - Initializer
     init(_ user: UserModel) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -21,14 +22,16 @@ class JoinCompleteVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
-        setupUI()
+        makeUI()
     }
 
-    private func setupUI() {
+    //MARK: - Functions...
+    private func makeUI() {
+        view.backgroundColor = .black
         let mainTitleLabel = UILabel()
         let subTitleLabel = UILabel()
         
@@ -68,7 +71,8 @@ class JoinCompleteVC: UIViewController {
         }
     }
     
-    @objc func home(_ sender:UIButton) {
+    @objc
+    private func home(_ sender:UIButton) {
         self.dismiss(animated: true)
         // 회원가입 성공
         UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함

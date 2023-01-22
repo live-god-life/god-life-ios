@@ -8,14 +8,13 @@
 import UIKit
 import Combine
 
-class AgreementVC: UIViewController {
-
+final class AgreementVC: UIViewController {
+    //MARK: - Properties
     let nextButton = UIButton()
-
     private var user: UserModel
-
     private var cancellable = Set<AnyCancellable>()
 
+    //MARK: - Initializer
     init(_ user: UserModel) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -25,16 +24,19 @@ class AgreementVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
-        navigationItem.backButtonTitle = ""
-        self.navigationController?.isNavigationBarHidden = false
-        setupUI()
+        makeUI()
     }
 
-    private func setupUI() {
+    //MARK: - Fuctions...
+    private func makeUI() {
+        view.backgroundColor = .black
+        navigationItem.backButtonTitle = ""
+        navigationController?.isNavigationBarHidden = false
+        
         let mainTitleLabel = UILabel()
         let allAgreementLabel = UILabel()
         let lineView = UIView()
@@ -124,7 +126,8 @@ class AgreementVC: UIViewController {
         }
     }
     
-    @objc func next(_ sender: UIButton) {
+    @objc
+    private func next(_ sender: UIButton) {
         // 회원가입
         DefaultUserRepository().signup(endpoint: .signup(user))
             .sink(receiveCompletion: { _ in

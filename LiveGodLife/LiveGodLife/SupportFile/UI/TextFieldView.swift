@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TextFieldView: UITextField {
-
+final class TextFieldView: UITextField {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

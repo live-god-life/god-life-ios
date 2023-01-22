@@ -8,12 +8,14 @@
 import UIKit
 import SnapKit
 
-class UserInfoVC: UIViewController {
+final class UserInfoVC: UIViewController {
+    //MARK: - Properties
     let nickNameTextField = TextFieldView()
     let nextButton = UIButton()
 
     private var user: UserModel
 
+    //MARK: - Initializer
     init(_ user: UserModel) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -23,18 +25,20 @@ class UserInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeUI()
+    }
+
+    //MARK: - Functions...
+    private func makeUI() {
         view.backgroundColor = .black
 
         navigationItem.backButtonTitle = ""
         self.navigationController?.isNavigationBarHidden = false
-
-        setupUI()
-    }
-
-    private func setupUI() {
+        
         let mainTitleLabel = UILabel()
         let subtitleLabel = UILabel()
         let lineView = UIView()
@@ -92,7 +96,8 @@ class UserInfoVC: UIViewController {
         }
     }
     
-    @objc func next(_ sender:UIButton) {
+    @objc
+    private func next(_ sender:UIButton) {
         user.nickname = nickNameTextField.text ?? ""
         self.navigationController?.pushViewController(AgreementVC(user), animated: true)
     }
