@@ -135,7 +135,7 @@ class LGLServiceAuth: PluginType{
     func willSend(_ request: RequestType, target: TargetType) {
         #if DEBUG
         if let absoluteString = request.request?.url?.absoluteString {
-            print("willSend\n** \(absoluteString) **\n\(target)")
+            LogUtil.d("willSend\n** \(absoluteString) **\n\(target)")
         }
         #endif
 
@@ -155,9 +155,9 @@ class LGLServiceAuth: PluginType{
         #if DEBUG
         switch result {
         case .success(_):
-            LGLLog.log("didReceive\n[성공] \(target)", category: "Network")
+            LogUtil.i("\(target)")
         case .failure(let error):
-            LGLLog.log("didReceive\n[실패] \(target)\n[에러] \(error.localizedDescription)", category: "Network")
+            LogUtil.e("\(error.localizedDescription)")
         }
         #endif
     }
@@ -165,75 +165,6 @@ class LGLServiceAuth: PluginType{
     func process(_ result: Result<Response, MoyaError>, target: TargetType) -> Result<Response, MoyaError> {
         return result
     }
-}
-
-class LGLLog {
-    static func log(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: category)
-            logger.trace("\(message)")
-        } else {
-            os_log("[%@] %@", log: .default, type: .default, category, message)
-        }
-#endif
-    }
-    
-    static func debug(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "debug")
-            logger.debug("[\(category)] \(message)")
-        } else {
-            os_log("[debug] [%@] %@", log: .default, type: .debug, category, message)
-        }
-#endif
-    }
-    
-    static func info(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "info")
-            logger.info("[\(category)] \(message)")
-        } else {
-            os_log("[info] [%@] %@", log: .default, type: .info, category, message)
-        }
-#endif
-    }
-    
-    static func warning(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "warning")
-            logger.warning("[\(category)] \(message)")
-        } else {
-            os_log("[warning] [%@] %@", log: .default, type: .error, category, message)
-        }
-#endif
-    }
-    
-    static func error(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "error")
-            logger.error("[\(category)] \(message)")
-        } else {
-            os_log("[error] [%@] %@", log: .default, type: .error, category, message)
-        }
-#endif
-    }
-    
-    static func critical(_ message: String, category: String = "Muffin") {
-#if DEBUG
-        if #available(iOS 14.0, *) {
-            let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "critical")
-            logger.critical("[\(category)] \(message)")
-        } else {
-            os_log("[critical] [%@] %@", log: .default, type: .fault, category, message)
-        }
-#endif
-    }
-      
 }
 
 

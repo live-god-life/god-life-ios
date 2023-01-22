@@ -107,7 +107,7 @@ extension HomeViewController {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    LogUtil.e(error.localizedDescription)
                 case .finished:
                     self.isFiltered = true
                 }
@@ -123,7 +123,7 @@ extension HomeViewController {
         repository.updateTodoStatus(endpoint: .completeTodo(id))
             .sink { _ in
             } receiveValue: { _ in
-                print("complete")
+                LogUtil.v("complete")
             }
             .store(in: &cancellable)
     }

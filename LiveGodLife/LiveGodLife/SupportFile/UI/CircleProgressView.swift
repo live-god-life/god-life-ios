@@ -141,7 +141,7 @@ extension CircleProgressBar {
     
     func startAnimation(duration: TimeInterval) {
         
-        print("Start animation")
+        LogUtil.v("Start animation")
         isAnimating = true
         
         progressLayer.removeAllAnimations()

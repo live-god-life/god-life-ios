@@ -9,17 +9,18 @@ import UIKit
 import SnapKit
 
 final class OnboardingVC: UIViewController {
-
+    //MARK: - Properties
     private var scrollView: UIScrollView!
     private var pageControl = CustomPageControl()
-
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupUI()
+        makeUI()
     }
 
-    private func setupUI() {
+    private func makeUI() {
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.isPagingEnabled = true
         scrollView.contentSize = CGSize(width: view.frame.width * 4, height: view.frame.height)
@@ -49,14 +50,12 @@ final class OnboardingVC: UIViewController {
 }
 
 extension OnboardingVC: OnboardingViewDelegate {
-
     func didTapActionButton() {
         self.dismiss(animated: true)
     }
 }
 
 extension OnboardingVC: UIScrollViewDelegate {
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = view.frame.width
         switch scrollView.contentOffset.x {

@@ -127,7 +127,7 @@ final class ProfileUpdateViewController: UIViewController {
             data["nickname"] = text
             repository.validateNickname(endpoint: .nickname(nickname))
                 .sink(receiveCompletion: { [weak self] completion in
-                    print("nickname: \(completion)")
+                    LogUtil.i("nickname: \(completion)")
                     switch completion {
                     case .failure(_):
                         self?.showPopup()
@@ -146,7 +146,7 @@ final class ProfileUpdateViewController: UIViewController {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    LogUtil.e(error)
                 case .finished:
                     DispatchQueue.main.async {
                         self.navigationController?.popViewController(animated: true)

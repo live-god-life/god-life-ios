@@ -67,6 +67,6 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // TODO: - 실패 후 동작
-        print("error")
+        LogUtil.e("error")
     }
 }

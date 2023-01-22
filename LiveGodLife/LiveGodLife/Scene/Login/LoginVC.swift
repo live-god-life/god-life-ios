@@ -115,9 +115,9 @@ final class LoginVC: UIViewController {
 //                }
 //                let idToken = oauthToken?.idToken
                 if let error = error {
-                    print(error)
+                    LogUtil.e(error)
                 } else {
-                    print("카카오 계정으로 로그인 성공")
+                    LogUtil.v("카카오 계정으로 로그인 성공")
                 }
                 UserApi.shared.me { (user, error) in
                     let name = user?.id ?? 0
@@ -137,9 +137,9 @@ final class LoginVC: UIViewController {
             UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
                 let idToken = oauthToken?.idToken
                 if let error = error {
-                    print(error)
+                    LogUtil.e(error)
                 } else {
-                    print("카카오 계정으로 로그인 성공")
+                    LogUtil.v("카카오 계정으로 로그인 성공")
                     
                     // 관련 메소드 추가
                 }
@@ -161,7 +161,7 @@ final class LoginVC: UIViewController {
         }
     }
     func login(param:Dictionary<String,Any>) {
-        print("param: \(param)")
+        LogUtil.i("param: \(param)")
         
         authLookProvider.request(.login(param)) { [weak self] response in
             guard let self else { return }
@@ -172,18 +172,16 @@ final class LoginVC: UIViewController {
                     let json = try result.mapJSON()
 //                    let json = try JSON(filteredResponse.mapJSON())
                     let jsonData = json as? [String:Any] ?? [:]
-                    print(json)
-                    print("response:\(response)")
-                    print("message:\(jsonData["message"] ?? "")")
+                    LogUtil.i("message:\(jsonData["message"] ?? "")")
                     
                     guard let user = self.user else { return }
                     self.navigationController?.pushViewController(UserInfoVC(user), animated: false)
                 
                 } catch(let err) {
-                    print("nickname err:\(err.localizedDescription)")
+                    LogUtil.e("nickname err:\(err.localizedDescription)")
                 }
             case .failure(let err):
-                print(err.localizedDescription)
+                LogUtil.e(err.localizedDescription)
             }
         }
     }

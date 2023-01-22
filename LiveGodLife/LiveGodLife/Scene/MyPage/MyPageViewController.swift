@@ -102,9 +102,9 @@ private extension MyPageViewController {
                 switch completion {
                 case .failure(let error):
                     // 프로필 조회 실패
-                    print(error)
+                    LogUtil.e(error)
                 case .finished:
-                    print("finished")
+                    LogUtil.v("finished")
                 }
             } receiveValue: { [weak self] user in
                 self?.user = user

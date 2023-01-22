@@ -63,7 +63,7 @@ final class FeedTableViewCell: UITableViewCell {
         // throttle?
         guard let id = id else { return }
         bookmarkButton.isSelected = !bookmarkButton.isSelected
-        print(bookmarkButton.isSelected)
+        LogUtil.d(bookmarkButton.isSelected)
         delegate?.bookmark(feedID: id, status: bookmarkButton.isSelected)
     }
 }

@@ -97,7 +97,7 @@ extension SettingViewController: SettingTableViewCellDelegate {
                     switch completion {
                     case .failure(let error):
                         // 로그아웃 실패
-                        print(error)
+                        LogUtil.e(error)
                     case .finished:
                         // 로그인 화면으로 이동
                         NotificationCenter.default.post(name: .moveToLogin, object: self)

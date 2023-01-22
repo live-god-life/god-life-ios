@@ -129,7 +129,7 @@ class AgreementVC: UIViewController {
         DefaultUserRepository().signup(endpoint: .signup(user))
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] token in
-                print(token)
+                LogUtil.i(token)
                 guard let self else { return }
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(JoinCompleteVC(self.user), animated: true)

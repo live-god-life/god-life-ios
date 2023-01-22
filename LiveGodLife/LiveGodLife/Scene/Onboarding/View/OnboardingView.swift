@@ -8,17 +8,17 @@
 import UIKit
 
 protocol OnboardingViewDelegate: AnyObject {
-
     func didTapActionButton()
 }
 
 final class OnboardingView: UIView {
-
+    //MARK: - Properties
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var actionButton: RoundedButton!
 
     weak var delegate: OnboardingViewDelegate?
 
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -28,7 +28,7 @@ final class OnboardingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func commonInit() {
+    private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("OnboardingView", owner: self)?.first as? UIView else {
             fatalError("not found name of xib")
         }
@@ -48,7 +48,8 @@ final class OnboardingView: UIView {
         actionButton.layer.addSublayer(gradient)
     }
 
-    @IBAction func didTapActionButton(_ sender: UIButton) {
+    @IBAction
+    private func didTapActionButton(_ sender: UIButton) {
         delegate?.didTapActionButton()
     }
 }

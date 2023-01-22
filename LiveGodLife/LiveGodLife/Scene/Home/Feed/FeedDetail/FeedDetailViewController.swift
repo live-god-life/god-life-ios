@@ -327,7 +327,7 @@ private extension FeedDetailViewController {
             .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    LogUtil.e(error.localizedDescription)
                 case .finished:
                     guard let self else { return }
                     self.isBookmarkStatus = !self.isBookmarkStatus

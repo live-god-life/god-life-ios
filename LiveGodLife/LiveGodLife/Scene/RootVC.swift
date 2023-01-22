@@ -8,10 +8,11 @@
 import UIKit
 import SnapKit
 
-final class RootVC: UITabBarController, TabBarViewDelegate {
-
+final class RootVC: UITabBarController {
+    //MARK: - Properties
     private let tabBarView = TabBarView()
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,13 +55,12 @@ final class RootVC: UITabBarController, TabBarViewDelegate {
             $0.height.equalTo(104)
         }
 
-        setViewControllers([HomeViewController.instance()!, TodoMainTabBarController(), MyPageViewController.instance()!], animated: true)
+        setViewControllers([HomeViewController.instance()!,
+                            TodoMainTabBarController(),
+                            MyPageViewController.instance()!],
+                           animated: true)
         selectedIndex = 0
         tabBarView.homeButton.isSelected = true
-    }
-
-    func setViewController(with index: Int) {
-        selectedIndex = index
     }
 
     private func addObservers() {
@@ -82,3 +82,8 @@ final class RootVC: UITabBarController, TabBarViewDelegate {
     }
 }
 
+extension RootVC: TabBarViewDelegate {
+    func setViewController(with index: Int) {
+        selectedIndex = index
+    }
+}
