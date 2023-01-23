@@ -8,7 +8,6 @@
 import UIKit
 
 extension String {
-
     func attributed() -> NSMutableAttributedString {
         let attributed = NSMutableAttributedString(string: self)
         let paragraphStyle = NSMutableParagraphStyle()

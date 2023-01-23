@@ -8,7 +8,7 @@
 import UIKit
 
 final class CircleProgressBar: UIView {
-    
+    //MARK: - Properties
     var backgroundCircleColor: UIColor
     var foregroundCircleColor: UIColor
     var startGradientColor: UIColor
@@ -22,22 +22,22 @@ final class CircleProgressBar: UIView {
     private var progressLayer: CAShapeLayer!
     private var textLayer: CATextLayer!
     
-    public var progress: CGFloat = 0 {
-        didSet {
-            didProgressUpdated()
-        }
-    }
-    
-    public var animationDidStarted: (()->())?
-    public var animationDidCanceled: (()->())?
-    public var animationDidStopped: (()->())?
+    var animationDidStarted: (()->())?
+    var animationDidCanceled: (()->())?
+    var animationDidStopped: (()->())?
     
     private var timer: AppTimer?
     private var isAnimating = false
     private let tickInterval = 0.1
     
-    public var maxDuration: Int = 3
+    var maxDuration: Int = 3
+    var progress: CGFloat = 0 {
+        didSet {
+            didProgressUpdated()
+        }
+    }
     
+    //MARK: - Initializer
     init(backgroundCircleColor: UIColor,
          foregroundCircleColor: UIColor,
          startGradientColor: UIColor,
@@ -59,10 +59,7 @@ final class CircleProgressBar: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        
-        guard layer.sublayers == nil else {
-            return
-        }
+        guard layer.sublayers == nil else { return }
         
         let lineWidth = min(frame.size.width, frame.size.height) * 0.1
         
@@ -86,8 +83,8 @@ final class CircleProgressBar: UIView {
         layer.addSublayer(textLayer)
     }
     
+    //MARK: - Functions...
     private func createCircularLayer(strokeColor: CGColor, fillColor: CGColor, lineWidth: CGFloat) -> CAShapeLayer {
-        
         let startAngle = -CGFloat.pi * 2
         let endAngle = 2 * CGFloat.pi + startAngle
         
@@ -112,7 +109,6 @@ final class CircleProgressBar: UIView {
     }
     
     private func createTextLayer(text: String? = nil, textColor: UIColor) -> CATextLayer {
-        
         let width = frame.size.width
         let height = frame.size.height
         
@@ -136,11 +132,9 @@ final class CircleProgressBar: UIView {
     }
 }
 
-// Animation
+//MARK: - Animation
 extension CircleProgressBar {
-    
     func startAnimation(duration: TimeInterval) {
-        
         LogUtil.v("Start animation")
         isAnimating = true
         
@@ -176,7 +170,6 @@ extension CircleProgressBar {
 }
 
 extension CircleProgressBar: CAAnimationDelegate {
-    
     func animationDidStart(_ anim: CAAnimation) {
         animationDidStarted?()
     }
@@ -185,5 +178,4 @@ extension CircleProgressBar: CAAnimationDelegate {
         isAnimating = false
         flag ? animationDidStopped?() : animationDidCanceled?()
     }
-    
 }

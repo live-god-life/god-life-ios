@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIView {
-
     func makeBorderGradation(startColor: UIColor, endColor: UIColor, radius: CGFloat) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [startColor.cgColor, endColor.cgColor]

@@ -117,7 +117,7 @@ class TodoDetailViewController: UIViewController {
 
     private func updateUI() {
         self.progressView.isHidden = true
-        segmentControlView.update(highlightColor: .blue)
+        segmentControlView.configure(highlightColor: .blue)
         segmentControlView.snp.remakeConstraints {
             $0.top.equalTo(taskInfoView.snp.bottom)
             $0.leading.trailing.equalToSuperview()

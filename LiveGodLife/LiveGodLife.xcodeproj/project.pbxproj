@@ -580,8 +580,7 @@
 		D0BB5B602906C57A00E46063 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				E9367D4E29882690002F016D /* SegmentControlView.swift */,
-				D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */,
+				E935D9C3298832B5001787D2 /* View */,
 				D0BB5B612906C58300E46063 /* Setting */,
 				D0A214EE2905604500D5FF59 /* MyPageViewController.swift */,
 				D0A215072905770300D5FF59 /* MyPageViewController.storyboard */,
@@ -683,6 +682,15 @@
 				D04D742528EB377A0013B5BB /* AppleLoginService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		E935D9C3298832B5001787D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9367D4E29882690002F016D /* SegmentControlView.swift */,
+				D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E9367D3029882592002F016D /* Common */ = {

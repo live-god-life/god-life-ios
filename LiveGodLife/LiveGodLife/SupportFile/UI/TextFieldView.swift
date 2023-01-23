@@ -8,7 +8,7 @@
 import UIKit
 
 final class TextFieldView: UITextField {
-    
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -45,7 +45,9 @@ final class TextFieldView: UITextField {
         return padding
     }
 
-    @objc func clear() {
+    //MARK: - Functions...
+    @objc
+    private func clear() {
         self.text = nil
     }
 }

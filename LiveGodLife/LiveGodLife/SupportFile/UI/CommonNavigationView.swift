@@ -36,7 +36,7 @@ final class CommonNavigationView: UIView {
         fatalError("Not Created View")
     }
     
-    //MARK: - Make UI
+    //MARK: - Functions...
     private func makeUI() {
         addSubview(leftBarButton)
         addSubview(titleLabel)

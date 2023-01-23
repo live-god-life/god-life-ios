@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CustomPageControl: UIPageControl {
-
+final class CustomPageControl: UIPageControl {
+    //MARK: - Properties
     static let currentPageImage = UIImage(named: "gradation_btn")
 
     override var currentPage: Int {

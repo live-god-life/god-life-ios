@@ -8,7 +8,18 @@
 import UIKit
 
 final class RoundedButton: UIButton {
+    //MARK: - Initializer
+    init() {
+        super.init(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 56)))
+        configure()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configure()
+    }
+    
+    //MARK: - Functions...
     func configure(title: String = "완료",
                    titleColor: UIColor = .background,
                    backgroundColor: UIColor = .green) {
@@ -18,15 +29,5 @@ final class RoundedButton: UIButton {
         titleLabel?.font = .bold(with: 18)
         clipsToBounds = true
         layer.cornerRadius = self.frame.height / 2
-    }
-
-    init() {
-        super.init(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 56)))
-        configure()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configure()
     }
 }
