@@ -1,5 +1,5 @@
 //
-//  ProfileUpdateViewController.swift
+//  ProfileUpdateVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/24.
@@ -8,8 +8,14 @@
 import UIKit
 import Combine
 
-final class ProfileUpdateViewController: UIViewController {
-
+final class ProfileUpdateVC: UIViewController {
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
+    private var user: UserModel?
+    private let repository = DefaultUserRepository()
+    private var isHiddenImageContainerView: Bool = true
+    private var imageCollectionViewModel = ImageCollectionViewModel()
+    
     @IBOutlet weak var profileImageContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameTextField: TextFieldView!
@@ -17,30 +23,12 @@ final class ProfileUpdateViewController: UIViewController {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var dimmedView: UIView!
 
-    private var user: UserModel?
-
-    private var isHiddenImageContainerView: Bool = true
-    private let repository: UserRepository = DefaultUserRepository()
-    private var imageCollectionViewModel = ImageCollectionViewModel()
-
-    private var cancellable = Set<AnyCancellable>()
-
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .background
-
-        title = "프로필 수정"
-
-        nicknameTextField.delegate = self
-
-        setupProfileImageView()
-        setupImageCollectionView()
-        imageContainerViewBottomConstraint.constant = 400
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
-        dimmedView.addGestureRecognizer(gesture)
-
-        requestImages()
+        makeUI()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,10 +37,118 @@ final class ProfileUpdateViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
+    //MARK: - Functions...
+    private func makeUI() {
+        view.backgroundColor = .background
+
+        title = "프로필 수정"
+        
+        setupProfileImageView()
+        setupImageCollectionView()
+        imageContainerViewBottomConstraint.constant = 400
+    }
+    
+    private func bind() {
+        nicknameTextField.delegate = self
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
+        dimmedView.addGestureRecognizer(gesture)
+
+        requestImages()
+    }
+    
     func configure(_ user: UserModel?) {
         self.user = user
     }
 
+    private func requestImages() {
+        DefaultMyPageRepository().requestImages(endpoint: .images)
+            .sink { _ in
+            } receiveValue: { [weak self] asset in
+                self?.imageCollectionViewModel.data = asset
+                DispatchQueue.main.async {
+                    self?.imageCollectionView.reloadData()
+                }
+            }
+            .store(in: &bag)
+    }
+
+    private func validateNickname() {
+        let text = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        var data = ["image": imageCollectionViewModel.selectedImage]
+
+        if let nickname = user?.nickname, nickname != text {
+            data["nickname"] = text
+            repository.validateNickname(endpoint: .nickname(nickname))
+                .sink(receiveCompletion: { [weak self] completion in
+                    LogUtil.i("nickname: \(completion)")
+                    switch completion {
+                    case .failure(_):
+                        self?.showPopup()
+                    case .finished:
+                        self?.updateUserInfo(with: data)
+                    }
+                }, receiveValue: { _ in })
+                .store(in: &bag)
+        } else {
+            updateUserInfo(with: data)
+        }
+    }
+
+    private func updateUserInfo(with data: [String: String]) {
+        repository.updateProfile(endpoint: .profileUpdate(data))
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    LogUtil.e(error)
+                case .finished:
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            } receiveValue: { _ in }
+            .store(in: &bag)
+    }
+    
+    @objc
+    private func showProfileImageSelectView() {
+        guard isHiddenImageContainerView else { return }
+
+        isHiddenImageContainerView = false
+        DispatchQueue.main.async { [weak self] in
+            self?.dimmedView.isHidden = false
+            self?.imageContainerViewBottomConstraint.constant = 0
+            UIView.animate(withDuration: 0.4) {
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc
+    private func hideProfileImageSelectView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.imageContainerViewBottomConstraint.constant = 400
+            UIView.animate(withDuration: 0.4, animations: {
+                self?.view.layoutIfNeeded()
+            }, completion: { _ in
+                self?.dimmedView.isHidden = true
+                self?.isHiddenImageContainerView = true
+            })
+        }
+    }
+    
+    @IBAction
+    private func didTapImageContainerViewClose() {
+        hideProfileImageSelectView()
+    }
+
+    @IBAction
+    private func didTapCompleteButton() {
+        validateNickname()
+    }
+}
+
+extension ProfileUpdateVC {
     private func setupProfileImageView() {
         nicknameTextField.text = user?.nickname
 
@@ -73,91 +169,9 @@ final class ProfileUpdateViewController: UIViewController {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
     }
-
-    @objc private func showProfileImageSelectView() {
-        guard isHiddenImageContainerView else { return }
-
-        isHiddenImageContainerView = false
-        DispatchQueue.main.async { [weak self] in
-            self?.dimmedView.isHidden = false
-            self?.imageContainerViewBottomConstraint.constant = 0
-            UIView.animate(withDuration: 0.4) {
-                self?.view.layoutIfNeeded()
-            }
-        }
-    }
-
-    @objc private func hideProfileImageSelectView() {
-        DispatchQueue.main.async { [weak self] in
-            self?.imageContainerViewBottomConstraint.constant = 400
-            UIView.animate(withDuration: 0.4, animations: {
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self?.dimmedView.isHidden = true
-                self?.isHiddenImageContainerView = true
-            })
-        }
-    }
-
-    func requestImages() {
-        DefaultMyPageRepository().requestImages(endpoint: .images)
-            .sink { _ in
-            } receiveValue: { [weak self] asset in
-                self?.imageCollectionViewModel.data = asset
-                DispatchQueue.main.async {
-                    self?.imageCollectionView.reloadData()
-                }
-            }
-            .store(in: &cancellable)
-    }
-
-    @IBAction func didTapImageContainerViewClose() {
-        hideProfileImageSelectView()
-    }
-
-    @IBAction func didTapCompleteButton() {
-        validateNickname()
-    }
-
-    func validateNickname() {
-        let text = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
-        var data = ["image": imageCollectionViewModel.selectedImage]
-
-        if let nickname = user?.nickname, nickname != text {
-            data["nickname"] = text
-            repository.validateNickname(endpoint: .nickname(nickname))
-                .sink(receiveCompletion: { [weak self] completion in
-                    LogUtil.i("nickname: \(completion)")
-                    switch completion {
-                    case .failure(_):
-                        self?.showPopup()
-                    case .finished:
-                        self?.updateUserInfo(with: data)
-                    }
-                }, receiveValue: { _ in })
-                .store(in: &cancellable)
-        } else {
-            updateUserInfo(with: data)
-        }
-    }
-
-    func updateUserInfo(with data: [String: String]) {
-        repository.updateProfile(endpoint: .profileUpdate(data))
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    LogUtil.e(error)
-                case .finished:
-                    DispatchQueue.main.async {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellable)
-    }
-
+    
     // TODO: 공통 로직으로 분리
-    func showPopup() {
+    private func showPopup() {
         DispatchQueue.main.async { [weak self] in
             let popup = PopupView()
             popup.negativeButton.isHidden = true
@@ -176,8 +190,7 @@ final class ProfileUpdateViewController: UIViewController {
     }
 }
 
-extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-
+extension ProfileUpdateVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width / 4
         return CGSize(width: width, height: width)
@@ -203,8 +216,7 @@ extension ProfileUpdateViewController: UICollectionViewDelegateFlowLayout, UICol
     }
 }
 
-extension ProfileUpdateViewController: UITextFieldDelegate {
-
+extension ProfileUpdateVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

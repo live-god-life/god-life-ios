@@ -8,12 +8,10 @@
 import Foundation
 
 struct ImageAsset: Decodable {
-
     let url: String?
 }
 
 struct ImageCollectionViewModel {
-
     var data: [ImageAsset] = []
     var selectedImage: String = ""
 }

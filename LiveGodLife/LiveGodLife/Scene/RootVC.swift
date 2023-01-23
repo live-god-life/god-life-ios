@@ -57,7 +57,7 @@ final class RootVC: UITabBarController {
 
         setViewControllers([HomeViewController.instance()!,
                             TodoMainTabBarController(),
-                            MyPageViewController.instance()!],
+                            MyPageVC.instance()!],
                            animated: true)
         selectedIndex = 0
         tabBarView.homeButton.isSelected = true

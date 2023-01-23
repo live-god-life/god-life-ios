@@ -25,7 +25,7 @@ final class SettingViewController: UIViewController {
         SettingTableViewSection(rawValue: 1)
     ]
 
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +105,7 @@ extension SettingViewController: SettingTableViewCellDelegate {
                 } receiveValue: { (value: Empty) in
                     //
                 }
-                .store(in: &cancellable)
+                .store(in: &bag)
             
         case cell.unregister.rawValue:
             let vc = UnregisterViewController.instance()!

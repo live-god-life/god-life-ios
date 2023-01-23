@@ -21,7 +21,7 @@ class TodoDetailViewController: UIViewController {
     private let pastTaskViewController = TaskViewController()
     private lazy var pageViewControllers: [UIViewController] = [upcomingTaskViewController, pastTaskViewController]
 
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     private var id: Int?
 
@@ -70,7 +70,7 @@ class TodoDetailViewController: UIViewController {
                     self?.pastTaskViewController.configure(with: beforeSchedules, isRepeated: true)
                 }
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
     private func setupUI() {

@@ -9,12 +9,10 @@ import Foundation
 import Combine
 
 protocol MyPageRepository: Requestable {
-
     func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[ImageAsset], APIError>
 }
 
 struct DefaultMyPageRepository: MyPageRepository {
-
     func requestImages(endpoint: MyPageAPI) -> AnyPublisher<[ImageAsset], APIError> {
         request(endpoint)
     }

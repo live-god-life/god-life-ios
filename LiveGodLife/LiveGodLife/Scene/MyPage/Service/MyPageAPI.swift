@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 
 enum MyPageAPI: APIEndpoint {
-
     case images
 
     var method: HTTPMethod {

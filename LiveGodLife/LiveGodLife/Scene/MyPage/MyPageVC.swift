@@ -1,5 +1,5 @@
 //
-//  MyPageViewController.swift
+//  MyPageVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/23.
@@ -10,59 +10,47 @@ import Combine
 import Kingfisher
 import SnapKit
 
-final class MyPageViewController: UIViewController {
-
+final class MyPageVC: UIViewController {
+    //MARK: - Properties
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var profileImageContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var segmentControlContainerView: UIView!
 
+    private var bag = Set<AnyCancellable>()
+    private lazy var pageViewControllers = [feedViewController, myArticleViewController]
     private var segmentControlView: SegmentControlView!
-    private let label: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .regular(with: 16)
-        label.text = "찜한 글이 없어요 👀"
-        return label
-    }()
+    private let emptyLabel = UILabel().then {
+        $0.textColor = .white
+        $0.font = .regular(with: 16)
+        $0.text = "찜한 글이 없어요 👀"
+    }
 
     private var pageViewController: UIPageViewController!
     private var user: UserModel?
 
     private let feedViewController = FeedViewController()
-    private var myArticleViewController = {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .background
+    private var myArticleViewController = UIViewController().then {
+        $0.view.backgroundColor = .background
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         label.numberOfLines = 0
         let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"
         label.attributedText = text.attributed()
         label.font = .regular(with: 16)
         label.textColor = .white
-        viewController.view.addSubview(label)
+        $0.view.addSubview(label)
         label.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(100)
         }
-        return viewController
-    }()
-    private lazy var pageViewControllers = [feedViewController, myArticleViewController]
-
-    private var cancellable = Set<AnyCancellable>()
-
+    }
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .background
-
-        setupUI()
-
-        feedViewController.view.addSubview(label)
-        label.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(100)
-        }
+        makeUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,12 +60,23 @@ final class MyPageViewController: UIViewController {
         setupNavigationBar()
         requestData()
     }
+    
+    private func makeUI() {
+        view.backgroundColor = .background
+
+        setupUI()
+
+        feedViewController.view.addSubview(emptyLabel)
+        emptyLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(100)
+        }
+    }
 }
 
 // MARK: - Private
-private extension MyPageViewController {
-
-    func setupUI() {
+private extension MyPageVC {
+    private func setupUI() {
         setupNavigationBar()
         setupProfileImageView()
         setupNavigationBar()
@@ -85,18 +84,20 @@ private extension MyPageViewController {
         setupPageView()
     }
 
-    @objc func moveToSettingView() {
+    @objc
+    private func moveToSettingView() {
         let settingViewController = SettingViewController()
         navigationController?.pushViewController(settingViewController, animated: true)
     }
 
-    @objc func moveToProfileUpdateView(_ sender: UIButton) {
-        let profileUpdateViewController = ProfileUpdateViewController.instance()!
-        profileUpdateViewController.configure(user)
-        navigationController?.pushViewController(profileUpdateViewController, animated: true)
+    @objc
+    private func moveToProfileUpdateView(_ sender: UIButton) {
+        let profileUpdateVC = ProfileUpdateVC.instance()!
+        profileUpdateVC.configure(user)
+        navigationController?.pushViewController(profileUpdateVC, animated: true)
     }
 
-    func requestData() {
+    private func requestData() {
         DefaultUserRepository().fetchProfile(endpoint: .user)
             .sink { completion in
                 switch completion {
@@ -115,29 +116,28 @@ private extension MyPageViewController {
                     }
                 }
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
 
         DefaultFeedRepository().requestFeeds(endpoint: .heartFeeds)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] feeds in
                 let isHidden = !feeds.isEmpty
-                self?.update(isHidden: isHidden)
+                self?.configure(isHidden: isHidden)
                 self?.feedViewController.updateView(with: feeds)
             })
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
-    func update(isHidden: Bool) {
+    func configure(isHidden: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.label.isHidden = isHidden
+            self.emptyLabel.isHidden = isHidden
         }
     }
 }
 
 // MARK: - Setup
-extension MyPageViewController {
-
+extension MyPageVC {
     private func setupProfileImageView() {
         let radius = profileImageContainerView.frame.height / 2
         profileImageContainerView.layer.cornerRadius = radius
@@ -184,8 +184,7 @@ extension MyPageViewController {
 }
 
 // MARK: - Delegate
-extension MyPageViewController: UIPageViewControllerDataSource {
-
+extension MyPageVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
         let previous = current - 1
@@ -205,8 +204,7 @@ extension MyPageViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension MyPageViewController: SegmentControlViewDelegate {
-
+extension MyPageVC: SegmentControlViewDelegate {
     func didTapItem(index: Int) {
         guard index < pageViewControllers.count else { return }
 
@@ -216,7 +214,7 @@ extension MyPageViewController: SegmentControlViewDelegate {
     }
 }
 
-extension MyPageViewController: UIPageViewControllerDelegate {
+extension MyPageVC: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             if let previous = previousViewControllers.first, let index = pageViewControllers.firstIndex(of: previous) {

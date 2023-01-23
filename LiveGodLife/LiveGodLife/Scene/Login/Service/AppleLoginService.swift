@@ -21,7 +21,7 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
 
     weak var delegate: AppleLoginServiceDelegate?
 
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
         self.presentationContextProvider = presentationContextProvider
@@ -61,7 +61,7 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
                     self?.delegate?.login()
                 }
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
         }
     }
 

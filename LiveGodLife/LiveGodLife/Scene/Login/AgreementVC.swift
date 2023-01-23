@@ -12,7 +12,7 @@ final class AgreementVC: UIViewController {
     //MARK: - Properties
     let nextButton = UIButton()
     private var user: UserModel
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     //MARK: - Initializer
     init(_ user: UserModel) {
@@ -138,6 +138,6 @@ final class AgreementVC: UIViewController {
                     self.navigationController?.pushViewController(JoinCompleteVC(self.user), animated: true)
                 }
             })
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }

@@ -52,7 +52,7 @@ final class FeedDetailViewController: UIViewController {
     }()
 
     private let repository = DefaultFeedRepository()
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     private var isBookmarkStatus: Bool = false
 
@@ -88,7 +88,7 @@ final class FeedDetailViewController: UIViewController {
                 guard let self = self else { return }
                 self.feed = feed
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
 }
@@ -338,7 +338,7 @@ private extension FeedDetailViewController {
             } receiveValue: { (feed: String?) in
 
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
     func updateBookmark() {

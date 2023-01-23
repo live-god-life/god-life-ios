@@ -15,7 +15,7 @@ final class FeedViewController: UIViewController {
 
     private var feeds: [Feed] = []
 
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +71,6 @@ extension FeedViewController: FeedCollectionViewCellDelegate {
         DefaultMyPageRepository().request(UserAPI.bookmark(param))
             .sink { _ in
             } receiveValue: { (feed: String?) in }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }

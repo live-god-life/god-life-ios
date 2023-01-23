@@ -20,7 +20,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
     private var feeds: [Feed] = []
     private var categories: [Category] = []
 
-    private var cancellable = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
 
     // TODO: 개선
     private var isFiltered: Bool = false
@@ -81,7 +81,7 @@ private extension HomeViewController {
             } receiveValue: { [weak self] (todos, goals) in
                 self?.headerView.configure(viewModel: HomeHeaderViewModel(todos: todos, goals: goals))
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
     func requestFeeds() {
@@ -95,7 +95,7 @@ private extension HomeViewController {
                 self.feeds = feeds
                 self.update()
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }
 
@@ -116,7 +116,7 @@ extension HomeViewController {
                 self.feeds = feeds
                 self.update()
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 
     func updateTodoStatus(id: Int) {
@@ -125,7 +125,7 @@ extension HomeViewController {
             } receiveValue: { _ in
                 LogUtil.v("complete")
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }
 
@@ -182,7 +182,7 @@ extension HomeViewController: FeedTableViewCellDelegate {
         repository.request(UserAPI.bookmark(param))
             .sink { _ in
             } receiveValue: { (feed: String?) in }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }
 
@@ -192,6 +192,6 @@ extension HomeViewController: HomeHeaderViewDelegate {
         repository.request(HomeAPI.completeTodo(id))
             .sink { _ in
             } receiveValue: { (value: Empty) in }
-            .store(in: &cancellable)
+            .store(in: &bag)
     }
 }
