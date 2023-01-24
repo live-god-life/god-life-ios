@@ -146,9 +146,8 @@ final class TodoMainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        delegate = self
-        makeUI()
         bind()
+        makeUI()
     }
     
     private func makeUI() {
@@ -179,6 +178,8 @@ final class TodoMainTabBarController: UITabBarController {
     }
     
     private func bind() {
+        delegate = self
+        
         addButton
             .tapPublisher
             .receive(on: DispatchQueue.main)

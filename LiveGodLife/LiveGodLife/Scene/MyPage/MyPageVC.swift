@@ -86,8 +86,8 @@ private extension MyPageVC {
 
     @objc
     private func moveToSettingView() {
-        let settingViewController = SettingViewController()
-        navigationController?.pushViewController(settingViewController, animated: true)
+        let settingVC = SettingVC()
+        navigationController?.pushViewController(settingVC, animated: true)
     }
 
     @objc

@@ -7,19 +7,26 @@
 
 import UIKit
 
-protocol SettingTableViewCellDelegate {
-
+protocol SettingTableViewCellDelegate: AnyObject {
     func didTapActionButton(with index: Int)
 }
 
 final class SettingTableViewCell: UITableViewCell {
+    //MARK: - Properties
     private var index: Int = -1
-
-    var delegate: SettingTableViewCellDelegate?
-
+    
+    weak var delegate: SettingTableViewCellDelegate?
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    
+    //MARK: - Life Cycle
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+    }
 
+    //MARK: - Functions...
     func configure(with viewModel: SettingTableViewCellViewModel) {
         index = viewModel.rawValue
         titleLabel.text = viewModel.title
@@ -29,13 +36,9 @@ final class SettingTableViewCell: UITableViewCell {
         button.tintColor = .BBBBBB
         button.setTitle(viewModel.subtitle, for: .normal)
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        titleLabel.text = ""
-    }
-
-    @IBAction func didTapActionButton(_ sender: UIButton) {
+    
+    @IBAction
+    private func didTapActionButton(_ sender: UIButton) {
         delegate?.didTapActionButton(with: index)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  SettingVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/24.
@@ -12,29 +12,24 @@ import SnapKit
 struct Empty: Decodable { }
 
 enum SettingTableViewSection {
-
     case first([SettingTableViewCellViewModel])
     case second([SettingTableViewCellViewModel])
 }
 
-final class SettingViewController: UIViewController {
-
+final class SettingVC: UIViewController {
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
     private let tableView = UITableView()
     private let sections: [SettingTableViewSection] = [
         SettingTableViewSection(rawValue: 0),
         SettingTableViewSection(rawValue: 1)
     ]
 
-    private var bag = Set<AnyCancellable>()
-
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
-
-        title = "설정"
-
-        setupTableView()
+        makeUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +38,15 @@ final class SettingViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
+    //MARK: - Functions...
+    private func makeUI() {
+        view.backgroundColor = .black
+
+        title = "설정"
+
+        setupTableView()
+    }
+    
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -57,15 +61,13 @@ final class SettingViewController: UIViewController {
     }
 }
 
-extension SettingViewController: UITableViewDelegate {
-
+extension SettingVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
 }
 
-extension SettingViewController: UITableViewDataSource {
-
+extension SettingVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -85,8 +87,7 @@ extension SettingViewController: UITableViewDataSource {
     }
 }
 
-extension SettingViewController: SettingTableViewCellDelegate {
-
+extension SettingVC: SettingTableViewCellDelegate {
     func didTapActionButton(with index: Int) {
         typealias cell = SettingTableViewCellViewModel
         switch index {
@@ -107,8 +108,8 @@ extension SettingViewController: SettingTableViewCellDelegate {
                 .store(in: &bag)
             
         case cell.unregister.rawValue:
-            let vc = UnregisterViewController.instance()!
-            navigationController?.pushViewController(vc, animated: true)
+            let unregisterVC = UnregisterVC.instance()!
+            navigationController?.pushViewController(unregisterVC, animated: true)
         case cell.termsOfService.rawValue, cell.privacyPolicy.rawValue:
             guard let url = URL(string: "https://knowing-amount-d01.notion.site/e758966ec3d44c4f9f9a5c6be91d758e") else {
                 return

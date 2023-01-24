@@ -1,5 +1,5 @@
 //
-//  UnregisterViewController.swift
+//  UnregisterVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/26.
@@ -8,16 +8,22 @@
 import UIKit
 import SnapKit
 
-class UnregisterViewController: UIViewController {
-
+final class UnregisterVC: UIViewController {
+    //MARK: - Properties
     @IBOutlet weak var contentStackView: UIStackView!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var unregisterButton: RoundedButton!
     @IBOutlet weak var dimmedView: UIView!
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeUI()
+    }
+    
+    //MARK: - Fuctions...
+    private func makeUI() {
         title = "회원탈퇴"
 
         let text = ["목표관리,포함하여 회원님이 설정한 모든 정보가 사라지고 복구할 수 없어요.",
@@ -40,13 +46,15 @@ class UnregisterViewController: UIViewController {
 
         unregisterButton.configure(title: "탈퇴하기")
     }
-
-    @IBAction func didTapCheckButton(_ sender: UIButton) {
+    
+    @IBAction
+    private func didTapCheckButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         unregisterButton.isEnabled = checkButton.isSelected
     }
 
-    @IBAction func didTapunregisterButton(_ sender: UIButton) {
+    @IBAction
+    private func didTapunregisterButton(_ sender: UIButton) {
         dimmedView.isHidden = false
         if !checkButton.isSelected {
             return

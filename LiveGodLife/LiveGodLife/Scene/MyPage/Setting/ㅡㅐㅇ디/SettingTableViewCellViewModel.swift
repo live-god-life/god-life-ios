@@ -8,7 +8,6 @@
 import Foundation
 
 enum SettingTableViewCellViewModel: Int, CaseIterable {
-
     case logout
     case unregister
     case termsOfService
