@@ -74,7 +74,7 @@ extension MindsetsVC {
     
     private func configureDataSource() {
         dataSource = MindsetsListDataSource(collectionView: mindsetsCollectionView) { collectionView, indexPath, mindsets in
-            let cell: MindsetsCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: MindsetsCell = collectionView.dequeueReusableCell(for: indexPath)
             
             cell.delegate = self
             cell.configure(with: mindsets)

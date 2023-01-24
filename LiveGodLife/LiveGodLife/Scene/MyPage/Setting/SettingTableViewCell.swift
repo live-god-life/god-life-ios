@@ -13,9 +13,6 @@ protocol SettingTableViewCellDelegate {
 }
 
 final class SettingTableViewCell: UITableViewCell {
-
-    static let indentifier = "SettingTableViewCell"
-
     private var index: Int = -1
 
     var delegate: SettingTableViewCellDelegate?

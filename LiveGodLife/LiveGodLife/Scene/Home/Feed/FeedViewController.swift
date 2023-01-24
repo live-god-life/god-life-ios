@@ -23,7 +23,7 @@ final class FeedViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 32
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UINib(nibName: FeedCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: FeedCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: FeedCollectionViewCell.id, bundle: nil), forCellWithReuseIdentifier: FeedCollectionViewCell.id)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .background
@@ -57,7 +57,7 @@ extension FeedViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.identifier, for: indexPath) as! FeedCollectionViewCell
+        let cell: FeedCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.configure(with: feeds[indexPath.item])
         cell.delegate = self
         return cell

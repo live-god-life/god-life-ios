@@ -165,7 +165,7 @@ extension ProfileUpdateVC {
     }
 
     private func setupImageCollectionView() {
-        imageCollectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        imageCollectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.id)
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
     }
@@ -201,7 +201,7 @@ extension ProfileUpdateVC: UICollectionViewDelegateFlowLayout, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         guard let url = imageCollectionViewModel.data[indexPath.item].url else { return cell }
         cell.configure(url)
         return cell

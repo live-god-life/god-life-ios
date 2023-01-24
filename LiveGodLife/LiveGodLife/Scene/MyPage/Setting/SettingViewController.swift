@@ -46,7 +46,8 @@ final class SettingViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: SettingTableViewCell.indentifier, bundle: nil), forCellReuseIdentifier: SettingTableViewCell.indentifier)
+        tableView.register(UINib(nibName: SettingTableViewCell.id, bundle: nil),
+                           forCellReuseIdentifier: SettingTableViewCell.id)
         tableView.backgroundColor = .black
         tableView.separatorStyle = .none
         view.addSubview(tableView)
@@ -74,9 +75,7 @@ extension SettingViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.indentifier, for: indexPath) as? SettingTableViewCell else {
-            preconditionFailure()
-        }
+        let cell: SettingTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         switch sections[indexPath.section] {
         case let .first(value), let .second(value):
             cell.configure(with: value[indexPath.row])

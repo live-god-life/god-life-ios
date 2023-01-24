@@ -95,7 +95,7 @@ extension GoalsVC {
     
     private func configureDataSource() {
         dataSource = GoalsDataSource(collectionView: goalsCollectionView) { collectionView, indexPath, goal in
-            let cell: GoalCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: GoalCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.configure(with: goal)
             
             return cell

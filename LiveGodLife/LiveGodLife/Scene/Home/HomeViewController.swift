@@ -136,7 +136,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
+        let cell: FeedTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         cell.selectionStyle = .none
         cell.delegate = self
         cell.configure(with: feeds[indexPath.row])

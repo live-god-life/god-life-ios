@@ -10,19 +10,15 @@ import Kingfisher
 import SnapKit
 
 final class ImageCollectionViewCell: UICollectionViewCell {
-
-    static let identifier = "ImageCollectionViewCell"
-
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    //MARK: - Properties
+    private lazy var imageView = UIImageView().then {
         let width = contentView.frame.width - 40
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = width / 2
-        imageView.frame.size = CGSize(width: width, height: width)
-        imageView.center = contentView.center
-        return imageView
-    }()
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = width / 2
+        $0.frame.size = CGSize(width: width, height: width)
+        $0.center = contentView.center
+    }
 
     func configure(_ image: String) {
         contentView.addSubview(imageView)

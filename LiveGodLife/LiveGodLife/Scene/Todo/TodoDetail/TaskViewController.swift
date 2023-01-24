@@ -97,7 +97,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
+        let cell: TaskTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configure(dataSource[indexPath.section], isRepeated: isRepeated)
         return cell
     }

@@ -113,7 +113,7 @@ extension MindsetsCell {
     
     private func configureDataSource() {
         dataSource = MindsetsDataSource(collectionView: mindsetCollectionView) { collectionView, indexPath, mindset in
-            let cell: MindsetCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: MindsetCell = collectionView.dequeueReusableCell(for: indexPath)
             
             cell.configure(with: mindset)
             

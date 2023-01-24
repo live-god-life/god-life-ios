@@ -227,11 +227,11 @@ extension CalendarCell: UICollectionViewDataSource {
         
         switch type {
         case .week:
-            let cell: CalendarWeekCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: CalendarWeekCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.configure(with: weekend[indexPath.item])
             return cell
         case .day:
-            let cell: CalendarDayCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: CalendarDayCell = collectionView.dequeueReusableCell(for: indexPath)
             
             var comp = DateComponents()
             comp.year = components.year

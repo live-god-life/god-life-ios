@@ -39,7 +39,7 @@ class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 63) // 우선 디자인 가이드대로
         collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
 
-        collectionView.register(UINib(nibName: TodoCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: TodoCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: TodoCollectionViewCell.id, bundle: nil), forCellWithReuseIdentifier: TodoCollectionViewCell.id)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -82,7 +82,7 @@ extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier, for: indexPath) as! TodoCollectionViewCell
+        let cell: TodoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.configure(todos[indexPath.item])
         cell.delegate = self
         return cell

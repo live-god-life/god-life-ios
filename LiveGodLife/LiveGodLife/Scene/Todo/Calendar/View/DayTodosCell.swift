@@ -123,7 +123,7 @@ extension DayTodosCell {
     
     private func configureDataSource() {
         dataSource = TodosDataSource(collectionView: todoCollectionView) { collectionView, indexPath, todo in
-            let cell: DayTodoCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DayTodoCell = collectionView.dequeueReusableCell(for: indexPath)
             let status = self.viewModel.completedList[todo.todoScheduleId ?? -1] ?? false
             
             cell.delegate = self

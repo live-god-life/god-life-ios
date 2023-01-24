@@ -150,7 +150,7 @@ extension CalendarListVC: UICollectionViewDataSource {
         
         switch type {
         case .calendar:
-            let cell: CalendarCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: CalendarCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
             cell.configure(with: monthModel,
                            components: components,
@@ -159,7 +159,7 @@ extension CalendarListVC: UICollectionViewDataSource {
                            selectedDay: selectedDate)
             return cell
         case .dateHeader:
-            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.titleLabel.text = ""
             if let date = selectedDate {
                 dateFormatter.dateFormat = "MM월 dd일 EEEE"
@@ -169,7 +169,7 @@ extension CalendarListVC: UICollectionViewDataSource {
             cell.contentView.backgroundColor = .black
             return cell
         case .todo:
-            let cell: DayTodosCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DayTodosCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
             cell.configure(with: dayModel[indexPath.item])
             return cell

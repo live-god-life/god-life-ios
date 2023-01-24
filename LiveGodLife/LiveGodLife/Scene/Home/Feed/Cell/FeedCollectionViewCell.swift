@@ -27,8 +27,6 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var todoScheduleDay: UILabel!
     @IBOutlet weak var feedInfoView: UIView!
 
-    static let identifier = "FeedCollectionViewCell"
-
     private var id: Int?
 
     var delegate: FeedCollectionViewCellDelegate?

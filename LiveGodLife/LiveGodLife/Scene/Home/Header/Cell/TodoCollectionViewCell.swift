@@ -14,8 +14,6 @@ protocol TodoCollectionViewCellDelegate: AnyObject {
 
 final class TodoCollectionViewCell: UICollectionViewCell {
 
-    static let identifier = "TodoCollectionViewCell"
-
     @IBOutlet weak var progressBar: CircularProgressBar!
     @IBOutlet weak var dDayLabel: UILabel!
     @IBOutlet weak var repetitionLabel: UILabel!

@@ -146,28 +146,28 @@ extension DetailGoalVC: UICollectionViewDataSource {
         
         switch cellType {
         case .title:
-            let cell: GoalCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: GoalCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.configure(with: viewModel.deatilModel, type: .title)
             return cell
         case .line:
-            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.titleLabel.isHidden = true
             cell.contentView.backgroundColor = .gray5
             return cell
         case .mindset:
-            let cell: MindsetsCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: MindsetsCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.configure(with: MindSetsModel(goalId: model.goalId,
                                                title: "마인드셋",
                                                mindsets: model.mindsets), type: .title)
             return cell
         case .todoHeader:
-            let cell: DefaultCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.titleLabel.text = "ToDo"
             cell.titleLabel.isHidden = false
             cell.contentView.backgroundColor = .black
             return cell
         case .todo:
-            let cell: DetailTodosCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let cell: DetailTodosCell = collectionView.dequeueReusableCell(for: indexPath)
             let index = indexPath.section - 4
             
             if indexPath.item == 0 {

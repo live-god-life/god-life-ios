@@ -27,8 +27,6 @@ final class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var todoScheduleDay: UILabel!
     @IBOutlet weak var feedInfoView: UIView!
 
-    static let identifier = "FeedTableViewCell"
-
     weak var delegate: FeedTableViewCellDelegate?
 
     private var id: Int?
