@@ -31,6 +31,7 @@ final class MindsetListHeadersView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions...
     private func makeUI() {
         backgroundColor = .black
         

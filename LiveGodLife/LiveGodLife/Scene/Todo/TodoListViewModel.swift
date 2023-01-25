@@ -15,7 +15,8 @@ final class TodoListViewModel {
     var bag = Set<AnyCancellable>()
     let input = Input()
     let output = Output()
-    var completedList = [Int:Bool]()
+    var completedList = [Int: Bool]()
+    private(set) var deatilModel: DetailGoalModel?
     
     //MARK: Initializer
     init() {
@@ -63,6 +64,13 @@ final class TodoListViewModel {
                 self?.requestMindsets(size: size)
             }
             .store(in: &bag)
+        //DetailGoals
+        input
+            .requestDetailGoal
+            .sink { [weak self] id in
+                self?.requestDetailGoals(id: id)
+            }
+            .store(in: &bag)
     }
 }
 
@@ -82,6 +90,7 @@ extension TodoListViewModel {
         var requestStatus = PassthroughSubject<(Int, Bool), Never>()
         var requestGoals = PassthroughSubject<Bool?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
+        var requestDetailGoal = PassthroughSubject<Int, Never>()
     }
     
     struct Output {
@@ -89,6 +98,7 @@ extension TodoListViewModel {
         var requestDay = PassthroughSubject<[MainCalendarModel], Never>()
         var requestGoals = PassthroughSubject<[GoalModel], Never>()
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
+        var requestDetailGoal = PassthroughSubject<Void?, Never>()
     }
 }
 
@@ -203,6 +213,26 @@ extension TodoListViewModel {
                             throw APIError.decoding
                         }
                         self?.output.requestGoals.send(model)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                    }
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    //MARK: MyList(목표) 상세 조회
+    private func requestDetailGoals(id: Int) {
+        NetworkManager.shared.provider
+            .request(.deatilGoals(id)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        guard let model = try result.map(APIResponse<DetailGoalModel>.self).data else {
+                            throw APIError.decoding
+                        }
+                        self?.deatilModel = model
+                        self?.output.requestDetailGoal.send(nil)
                     } catch {
                         LogUtil.e(error.localizedDescription)
                     }

@@ -25,7 +25,7 @@ final class CalendarCell: UICollectionViewCell {
     }
     //MARK: - Properties
     weak var delegate: CalendarCellDelegate?
-    var selectedDate: Date? = Date()
+    private var selectedDate: Date? = Date()
     private var selectedIndexPath: IndexPath? {
         didSet {
             guard let oldValue else { return }
@@ -168,6 +168,7 @@ final class CalendarCell: UICollectionViewCell {
         }
     }
     
+    //MARK: - Binding...
     private func bind() {
         prevButton
             .tapPublisher
@@ -186,6 +187,7 @@ final class CalendarCell: UICollectionViewCell {
             .store(in: &bag)
     }
     
+    //MARK: - Functions...
     private func isEqual(to d: Date?) -> Bool {
         guard let lhs = selectedDate, let rhs = d else { return false }
         return lhs.toParameterString() == rhs.toParameterString()
@@ -206,6 +208,7 @@ final class CalendarCell: UICollectionViewCell {
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension CalendarCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return CellType.allCases.count
@@ -264,6 +267,7 @@ extension CalendarCell: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension CalendarCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell,
@@ -277,6 +281,7 @@ extension CalendarCell: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension CalendarCell: UICollectionViewDelegateFlowLayout {    
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()

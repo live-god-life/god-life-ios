@@ -8,6 +8,7 @@
 import UIKit
 
 final class GoalsVC: UIViewController {
+    // MARK: - Properties
     private var status: Bool?
     private let viewModel = TodoListViewModel()
     private var snapshot: GoalsSnapshot!
@@ -31,6 +32,7 @@ final class GoalsVC: UIViewController {
                     withReuseIdentifier: GoalsHeadersView.id)
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +49,7 @@ final class GoalsVC: UIViewController {
             .send(status)
     }
     
+    // MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
         

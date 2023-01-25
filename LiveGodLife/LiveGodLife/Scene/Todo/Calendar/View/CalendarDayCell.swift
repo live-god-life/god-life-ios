@@ -11,14 +11,14 @@ import UIKit
 //MARK: CalendarDayCell
 final class CalendarDayCell: UICollectionViewCell {
     //MARK: - Properties
-    var date: Date?
-    let vStackView = UIStackView().then {
+    private(set) var date: Date?
+    private let vStackView = UIStackView().then {
         $0.spacing = 3
         $0.axis = .vertical
         $0.alignment = .center
         $0.distribution = .equalCentering
     }
-    let hStackView = UIStackView().then {
+    private let hStackView = UIStackView().then {
         $0.spacing = -1
         $0.axis = .horizontal
         $0.alignment = .center
@@ -57,6 +57,20 @@ final class CalendarDayCell: UICollectionViewCell {
         fatalError("Not Created View")
     }
     
+    override func prepareForReuse() {
+        contentView.backgroundColor = .black
+        contentView.layer.borderWidth = .zero
+        contentView.layer.cornerRadius = .zero
+        contentView.layer.borderColor = UIColor.black.cgColor
+        
+        dayLabel.text = nil
+        dayLabel.textColor = .gray6
+        hStackView.isHidden = true
+        statusLabel.isHidden = true
+        todoGuideView.isHidden = true
+        dDayGuideView.isHidden = true
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.addSubview(vStackView)
@@ -81,20 +95,6 @@ final class CalendarDayCell: UICollectionViewCell {
         statusLabel.snp.makeConstraints {
             $0.height.equalTo(12)
         }
-    }
-    
-    override func prepareForReuse() {
-        contentView.backgroundColor = .black
-        contentView.layer.borderWidth = .zero
-        contentView.layer.cornerRadius = .zero
-        contentView.layer.borderColor = UIColor.black.cgColor
-        
-        dayLabel.text = nil
-        dayLabel.textColor = .gray6
-        hStackView.isHidden = true
-        statusLabel.isHidden = true
-        todoGuideView.isHidden = true
-        dDayGuideView.isHidden = true
     }
     
     func configure(with date: Date?, day: String?, isTodo: Bool, isDDay: Bool, isSelected: Bool) {

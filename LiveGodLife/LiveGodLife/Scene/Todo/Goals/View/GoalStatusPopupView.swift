@@ -104,7 +104,7 @@ final class GoalStatusPopupView: UIView {
     }
     
     @objc
-    func touchedButton(sender: UIButton) {
+    private func touchedButton(sender: UIButton) {
         isHidden = true
         
         sender.isSelected = true

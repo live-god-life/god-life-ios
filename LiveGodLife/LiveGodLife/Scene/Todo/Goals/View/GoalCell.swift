@@ -59,6 +59,7 @@ final class GoalCell: UICollectionViewCell {
         $0.layer.cornerRadius = 16
     }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -70,6 +71,7 @@ final class GoalCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions...
     private func makeUI() {
         contentView.addSubview(self.contentsView)
         

@@ -50,7 +50,7 @@ final class MindsetsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Func
+    // MARK: - Functions...
     private func makeUI() {
         backgroundColor = .black
         

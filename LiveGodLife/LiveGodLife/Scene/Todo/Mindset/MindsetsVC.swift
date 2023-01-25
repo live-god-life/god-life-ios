@@ -24,6 +24,7 @@ final class MindsetsVC: UIViewController {
         MindsetsCell.register($0)
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +41,7 @@ final class MindsetsVC: UIViewController {
             .send(nil)
     }
     
+    // MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
         

@@ -123,6 +123,7 @@ final class CalendarListVC: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension CalendarListVC: UICollectionViewDataSource {
     enum CellType: Int, CaseIterable {
         case calendar = 0
@@ -160,13 +161,12 @@ extension CalendarListVC: UICollectionViewDataSource {
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.titleLabel.text = ""
+            var title = ""
             if let date = selectedDate {
                 dateFormatter.dateFormat = "MM월 dd일 EEEE"
-                cell.titleLabel.text = dateFormatter.string(from: date)
+                title = dateFormatter.string(from: date)
             }
-            cell.titleLabel.isHidden = false
-            cell.contentView.backgroundColor = .black
+            cell.configure(with: title)
             return cell
         case .todo:
             let cell: DayTodosCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -177,6 +177,7 @@ extension CalendarListVC: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension CalendarListVC: UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
@@ -222,6 +223,7 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - CalendarCellDelegate
 extension CalendarListVC: CalendarCellDelegate {
     func selected(date: Date?) {
         guard let date else { return }
@@ -241,6 +243,7 @@ extension CalendarListVC: CalendarCellDelegate {
     }
 }
 
+// MARK: - DayTodosCellDelegate
 extension CalendarListVC: DayTodosCellDelegate {
     func selectDetail(id: Int) {
         navigationController?.pushViewController(DetailGoalVC(id: id), animated: true)

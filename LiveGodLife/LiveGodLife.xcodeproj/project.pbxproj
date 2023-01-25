@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310629377CAD000DA2D7 /* CalendarModel.swift */; };
-		B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */; };
+		B92C311329377CAD000DA2D7 /* TodoMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310A29377CAD000DA2D7 /* TodoMainTabBarController.swift */; };
 		B92C311429377CAD000DA2D7 /* MindsetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */; };
 		B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */; };
 		B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92C310E29377CAD000DA2D7 /* MindsetModel.swift */; };
@@ -150,7 +150,6 @@
 		E963651C29801E81005F16CD /* MindsetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651B29801E81005F16CD /* MindsetCell.swift */; };
 		E963651F2982B501005F16CD /* DetailGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963651E2982B501005F16CD /* DetailGoalVC.swift */; };
 		E96365222982B6BB005F16CD /* DetailGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365212982B6BB005F16CD /* DetailGoalModel.swift */; };
-		E96365242982BA22005F16CD /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365232982BA22005F16CD /* DetailViewModel.swift */; };
 		E96365272982CBFE005F16CD /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96365262982CBFE005F16CD /* DefaultCell.swift */; };
 		E963652A298426E3005F16CD /* CommonNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636529298426E3005F16CD /* CommonNavigationView.swift */; };
 		E963652D2984299B005F16CD /* DetailTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963652C2984299B005F16CD /* DetailTodosCell.swift */; };
@@ -168,7 +167,7 @@
 
 /* Begin PBXFileReference section */
 		B92C310629377CAD000DA2D7 /* CalendarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
-		B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainTabViewController.swift; sourceTree = "<group>"; };
+		B92C310A29377CAD000DA2D7 /* TodoMainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainTabBarController.swift; sourceTree = "<group>"; };
 		B92C310C29377CAD000DA2D7 /* MindsetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsVC.swift; sourceTree = "<group>"; };
 		B92C310D29377CAD000DA2D7 /* MindsetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetsCell.swift; sourceTree = "<group>"; };
 		B92C310E29377CAD000DA2D7 /* MindsetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindsetModel.swift; sourceTree = "<group>"; };
@@ -303,7 +302,6 @@
 		E963651B29801E81005F16CD /* MindsetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetCell.swift; sourceTree = "<group>"; };
 		E963651E2982B501005F16CD /* DetailGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalVC.swift; sourceTree = "<group>"; };
 		E96365212982B6BB005F16CD /* DetailGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalModel.swift; sourceTree = "<group>"; };
-		E96365232982BA22005F16CD /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		E96365262982CBFE005F16CD /* DefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
 		E9636529298426E3005F16CD /* CommonNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNavigationView.swift; sourceTree = "<group>"; };
 		E963652C2984299B005F16CD /* DetailTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodosCell.swift; sourceTree = "<group>"; };
@@ -353,7 +351,7 @@
 		B92C310429377CAD000DA2D7 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				B92C310A29377CAD000DA2D7 /* TodoMainTabViewController.swift */,
+				B92C310A29377CAD000DA2D7 /* TodoMainTabBarController.swift */,
 				E9636506297FD242005F16CD /* TodoListViewModel.swift */,
 				B9B3F0CA2952372C00A1387C /* Create */,
 				B92C310529377CAD000DA2D7 /* Calendar */,
@@ -860,7 +858,6 @@
 				E96365202982B67D005F16CD /* Model */,
 				E96365252982CBEA005F16CD /* View */,
 				E963651E2982B501005F16CD /* DetailGoalVC.swift */,
-				E96365232982BA22005F16CD /* DetailViewModel.swift */,
 			);
 			path = GoalsDetail;
 			sourceTree = "<group>";
@@ -1131,7 +1128,6 @@
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */,
-				E96365242982BA22005F16CD /* DetailViewModel.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,
 				D0B8D87B28F1A4E200E9339E /* UserModel.swift in Sources */,
 				D0BAD2BD28FEC6DC00637482 /* UIColor+Resource.swift in Sources */,
@@ -1174,7 +1170,7 @@
 				E963654029869F74005F16CD /* DayTodoCell.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginVC.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,
-				B92C311329377CAD000DA2D7 /* TodoMainTabViewController.swift in Sources */,
+				B92C311329377CAD000DA2D7 /* TodoMainTabBarController.swift in Sources */,
 				E963652A298426E3005F16CD /* CommonNavigationView.swift in Sources */,
 				E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */,
 				E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */,

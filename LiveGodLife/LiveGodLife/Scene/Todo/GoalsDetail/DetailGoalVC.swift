@@ -14,14 +14,13 @@ import Combine
 final class DetailGoalVC: UIViewController {
     //MARK: - Properties
     private let id: Int
-    var bag = Set<AnyCancellable>()
-    let viewModel = DetailViewModel()
-    var selectedIndexPaths = Set<Int>()
-    let navigationBarView = CommonNavigationView().then {
+    private let viewModel = TodoListViewModel()
+    private var selectedIndexPaths = Set<Int>()
+    private let navigationBarView = CommonNavigationView().then {
         $0.titleLabel.text = "목표상세"
     }
-    lazy var detailCollectionView = UICollectionView(frame: .zero,
-                                                     collectionViewLayout: setupFlowLayout()).then {
+    private lazy var detailCollectionView = UICollectionView(frame: .zero,
+                                                             collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
         $0.dataSource = self
         $0.backgroundColor = .clear
@@ -37,7 +36,7 @@ final class DetailGoalVC: UIViewController {
         DefaultCell.register($0)
     }
     
-    //MARK: - Life Cycle
+    //MARK: - Initializer
     init(id: Int) {
         self.id = id
         
@@ -48,6 +47,7 @@ final class DetailGoalVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,7 +91,7 @@ final class DetailGoalVC: UIViewController {
             .sink { [weak self] _ in
                 self?.detailCollectionView.reloadData()
             }
-            .store(in: &bag)
+            .store(in: &viewModel.bag)
         
         navigationBarView
             .leftBarButton
@@ -100,12 +100,11 @@ final class DetailGoalVC: UIViewController {
             .sink { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
             }
-            .store(in: &bag)
+            .store(in: &viewModel.bag)
     }
-    
-
 }
 
+//MARK: - UICollectionViewDataSource
 extension DetailGoalVC: UICollectionViewDataSource {
     enum CellType: Int, CaseIterable {
         case title = 0
@@ -151,7 +150,6 @@ extension DetailGoalVC: UICollectionViewDataSource {
             return cell
         case .line:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.titleLabel.isHidden = true
             cell.contentView.backgroundColor = .gray5
             return cell
         case .mindset:
@@ -162,9 +160,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
             return cell
         case .todoHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.titleLabel.text = "ToDo"
-            cell.titleLabel.isHidden = false
-            cell.contentView.backgroundColor = .black
+            cell.configure(with: title)
             return cell
         case .todo:
             let cell: DetailTodosCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -196,6 +192,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension DetailGoalVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellType = CellType(rawValue: indexPath.section) ?? .todo
@@ -222,6 +219,7 @@ extension DetailGoalVC: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()

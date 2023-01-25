@@ -47,6 +47,7 @@ final class GoalsHeadersView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions...
     private func makeUI() {
         backgroundColor = .black
         

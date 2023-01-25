@@ -11,7 +11,7 @@ import UIKit
 //MARK: DefaultCell
 final class DefaultCell: UICollectionViewCell {
     //MARK: - Properties
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .bold(with: 20)
         $0.isHidden = true
@@ -28,6 +28,12 @@ final class DefaultCell: UICollectionViewCell {
         fatalError("Not Created View")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.isHidden = true
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.addSubview(titleLabel)
@@ -37,5 +43,12 @@ final class DefaultCell: UICollectionViewCell {
             $0.bottom.right.equalToSuperview()
             $0.height.equalTo(30)
         }
+    }
+    
+    func configure(with title: String?) {
+        contentView.backgroundColor = .black
+        
+        titleLabel.text = title
+        titleLabel.isHidden = false
     }
 }

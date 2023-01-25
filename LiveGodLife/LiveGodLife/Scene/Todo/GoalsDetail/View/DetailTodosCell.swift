@@ -20,23 +20,23 @@ final class DetailTodosCell: UICollectionViewCell {
         case center
         case bottom
     }
-    let progress = CircleProgressBar(backgroundCircleColor: .black,
-                                     foregroundCircleColor: .green,
-                                     startGradientColor: .green,
-                                     endGradientColor: .green)
-    let dDayLabel = UILabel().then {
+    private let progress = CircleProgressBar(backgroundCircleColor: .black,
+                                             foregroundCircleColor: .green,
+                                             startGradientColor: .green,
+                                             endGradientColor: .green)
+    private let dDayLabel = UILabel().then {
         $0.textAlignment = .center
     }
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .bold(with: 16)
     }
-    let dateLabel = UILabel().then {
+    private let dateLabel = UILabel().then {
         $0.textColor = .BBBBBB
         $0.font = .regular(with: 14)
     }
-    let infoImageView = UIImageView()
-    let innerView = UIView().then {
+    private let infoImageView = UIImageView()
+    private let innerView = UIView().then {
         $0.layer.masksToBounds = true
     }
     

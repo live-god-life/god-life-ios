@@ -11,7 +11,7 @@ import UIKit
 //MARK: CalendarWeekCell
 final class CalendarWeekCell: UICollectionViewCell {
     //MARK: - Properties
-    let weekLabel = UILabel().then {
+    private let weekLabel = UILabel().then {
         $0.textColor = .white
         $0.textAlignment = .center
         $0.font = .montserrat(with: 14, weight: .bold)

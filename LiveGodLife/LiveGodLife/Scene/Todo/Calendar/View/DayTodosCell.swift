@@ -52,7 +52,7 @@ final class DayTodosCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Func
+    // MARK: - Functions...
     private func makeUI() {
         backgroundColor = .black
         
@@ -117,6 +117,7 @@ final class DayTodosCell: UICollectionViewCell {
     }
 }
 
+// MARK: - DiffableDataSource
 extension DayTodosCell {
     typealias TodosSnapshot = NSDiffableDataSourceSnapshot<TodoListViewModel.Section, SubCalendarModel>
     typealias TodosDataSource = UICollectionViewDiffableDataSource<TodoListViewModel.Section, SubCalendarModel>
@@ -142,6 +143,7 @@ extension DayTodosCell {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension DayTodosCell: UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
@@ -160,6 +162,7 @@ extension DayTodosCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - DayTodoCellDelegate
 extension DayTodosCell: DayTodoCellDelegate {
     func selectedTodo(id: Int?, isCompleted: Bool) {
         guard let id else { return }
