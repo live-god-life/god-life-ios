@@ -7,23 +7,27 @@
 
 import UIKit
 
-class TodoProgressView: UIView {
-
+final class TodoProgressView: UIView {
+    //MARK: - Properties
     @IBOutlet weak var progressView: CircularProgressBar!
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
 
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         commonInit()
     }
 
-    func commonInit() {
+    //MARK: - Functions...
+    private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("TodoProgressView", owner: self)?.first as? UIView else {
             fatalError("not found name of xib")
         }

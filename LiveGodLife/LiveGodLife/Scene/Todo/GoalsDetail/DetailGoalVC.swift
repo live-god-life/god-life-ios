@@ -212,9 +212,9 @@ extension DetailGoalVC: UICollectionViewDelegate {
             detailCollectionView.reloadSections(IndexSet(indexPath.section...indexPath.section))
         } else {
             let id = todo?.todoId
-            guard let id, let vc = TodoDetailViewController.instance() else { return }
-            vc.configure(id: id)
-            navigationController?.pushViewController(vc, animated: true)
+            guard let id, let todoDetailVC = TodoDetailVC.instance() else { return }
+            todoDetailVC.configure(id: id)
+            navigationController?.pushViewController(todoDetailVC, animated: true)
         }
     }
 }

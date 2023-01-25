@@ -8,8 +8,8 @@
 import UIKit
 
 // https://huisoo.tistory.com/12
-class CircularProgressBar: UIView {
-
+final class CircularProgressBar: UIView {
+    //MARK: - Properties
     var lineWidth: CGFloat = 10
     var gradientColor: [CGColor] = [UIColor.green.withAlphaComponent(0.1).cgColor,
                                     UIColor.green.cgColor]

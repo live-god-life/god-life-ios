@@ -7,7 +7,7 @@
 
 import UIKit
 
-@IBDesignable class PaddingLabel: UILabel {
+@IBDesignable final class PaddingLabel: UILabel {
 
     @IBInspectable var topInset: CGFloat = 4.0
     @IBInspectable var bottomInset: CGFloat = 4.0

@@ -1,5 +1,5 @@
 //
-//  DDayDetailViewController.swift
+//  TodoDetailVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2023/01/04.
@@ -9,29 +9,31 @@ import UIKit
 import SnapKit
 import Combine
 
-class TodoDetailViewController: UIViewController {
-
-    @IBOutlet weak var navigationBar: UINavigationBar!
-
+final class TodoDetailVC: UIViewController {
+    //MARK: - Properties
+    private var id: Int?
+    private var bag = Set<AnyCancellable>()
+    private lazy var pageViewControllers: [UIViewController] = [upcomingTaskVC, pastTaskVC]
+    
     private var taskInfoView: TaskInfoView!
     private var progressView: TodoProgressView!
     private var segmentControlView: SegmentControlView!
     private var pageViewController: UIPageViewController!
-    private let upcomingTaskViewController = TaskViewController()
-    private let pastTaskViewController = TaskViewController()
-    private lazy var pageViewControllers: [UIViewController] = [upcomingTaskViewController, pastTaskViewController]
-
-    private var bag = Set<AnyCancellable>()
-
-    private var id: Int?
-
-    func configure(id: Int) {
-        self.id = id
-    }
-
+    private let upcomingTaskVC = TaskVC()
+    private let pastTaskVC = TaskVC()
+    
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeUI()
+        requestData()
+    }
+    
+    //MARK: - Functions...
+    private func makeUI() {
         view.backgroundColor = .background
 
         let leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveToBack))
@@ -41,11 +43,6 @@ class TodoDetailViewController: UIViewController {
         navigationBar.topItem?.rightBarButtonItem = rightBarButtonItem
 
         setupUI()
-        requestData()
-    }
-
-    @objc private func moveToBack() {
-        navigationController?.popViewController(animated: true)
     }
 
     private func requestData() {
@@ -62,17 +59,29 @@ class TodoDetailViewController: UIViewController {
                 self?.taskInfoView.configure(TaskInfoViewModel(data: detail))
                 self?.progressView.configure(completedCount: detail.completedCount, totalCount: detail.totalCount)
                 if detail.repetitionType == .none {
-                    self?.upcomingTaskViewController.configure(with: afterSchedules, isRepeated: false)
-                    self?.pastTaskViewController.configure(with: beforeSchedules, isRepeated: false)
+                    self?.upcomingTaskVC.configure(with: afterSchedules, isRepeated: false)
+                    self?.pastTaskVC.configure(with: beforeSchedules, isRepeated: false)
                     self?.updateUI()
                 } else {
-                    self?.upcomingTaskViewController.configure(with: afterSchedules, isRepeated: true)
-                    self?.pastTaskViewController.configure(with: beforeSchedules, isRepeated: true)
+                    self?.upcomingTaskVC.configure(with: afterSchedules, isRepeated: true)
+                    self?.pastTaskVC.configure(with: beforeSchedules, isRepeated: true)
                 }
             }
             .store(in: &bag)
     }
+    
+    func configure(id: Int) {
+        self.id = id
+    }
+    
+    @objc
+    private func moveToBack() {
+        navigationController?.popViewController(animated: true)
+    }
+}
 
+// MARK: - Make UI
+extension TodoDetailVC {
     private func setupUI() {
         setupTaskInfoView()
         setupProgressView()
@@ -127,7 +136,7 @@ class TodoDetailViewController: UIViewController {
 
     private func setupPageView() {
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageViewController.setViewControllers([upcomingTaskViewController], direction: .forward, animated: true)
+        pageViewController.setViewControllers([upcomingTaskVC], direction: .forward, animated: true)
         pageViewController.dataSource = self
         pageViewController.delegate = self
 
@@ -141,8 +150,8 @@ class TodoDetailViewController: UIViewController {
     }
 }
 
-extension TodoDetailViewController: SegmentControlViewDelegate {
-
+// MARK: - SegmentControlViewDelegate
+extension TodoDetailVC: SegmentControlViewDelegate {
     func didTapItem(index: Int) {
         guard index < pageViewControllers.count else { return }
 
@@ -152,9 +161,8 @@ extension TodoDetailViewController: SegmentControlViewDelegate {
     }
 }
 
-// MARK: - Delegate
-extension TodoDetailViewController: UIPageViewControllerDataSource {
-
+// MARK: - UIPageViewControllerDataSource
+extension TodoDetailVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
         let previous = current - 1
@@ -174,7 +182,8 @@ extension TodoDetailViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension TodoDetailViewController: UIPageViewControllerDelegate {
+// MARK: - UIPageViewControllerDelegate
+extension TodoDetailVC: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             if let previous = previousViewControllers.first, let index = pageViewControllers.firstIndex(of: previous) {

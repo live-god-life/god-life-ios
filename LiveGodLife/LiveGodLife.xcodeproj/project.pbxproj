@@ -22,15 +22,15 @@
 		C9D8D6E7291BAD940098DD09 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6E6291BAD940098DD09 /* UserInfoVC.swift */; };
 		C9D8D6EF291BE5870098DD09 /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6EE291BE5870098DD09 /* AgreementVC.swift */; };
 		C9D8D6F3291BEEAF0098DD09 /* JoinCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D6F2291BEEAF0098DD09 /* JoinCompleteVC.swift */; };
-		CC0113EE29684E04009CAC95 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113ED29684E04009CAC95 /* TaskViewController.swift */; };
+		CC0113EE29684E04009CAC95 /* TaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113ED29684E04009CAC95 /* TaskVC.swift */; };
 		CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113EF29684F1B009CAC95 /* TaskTableViewCell.swift */; };
 		CC0113F229684F1B009CAC95 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC0113F029684F1B009CAC95 /* TaskTableViewCell.xib */; };
 		CC0113F429685466009CAC95 /* TodoProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113F329685466009CAC95 /* TodoProgressView.swift */; };
 		CC0113F629685491009CAC95 /* TodoProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC0113F529685491009CAC95 /* TodoProgressView.xib */; };
 		CC0113F82968592F009CAC95 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113F72968592F009CAC95 /* PaddingLabel.swift */; };
 		CC0113FA29690092009CAC95 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0113F929690092009CAC95 /* TaskViewModel.swift */; };
-		CC3181E32965C0F500016A77 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E22965C0F500016A77 /* TodoDetailViewController.swift */; };
-		CC3181E52965C19000016A77 /* TodoDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */; };
+		CC3181E32965C0F500016A77 /* TodoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E22965C0F500016A77 /* TodoDetailVC.swift */; };
+		CC3181E52965C19000016A77 /* TodoDetailVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E42965C19000016A77 /* TodoDetailVC.storyboard */; };
 		CC3181E82965D7D600016A77 /* TaskInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC3181E72965D7D600016A77 /* TaskInfoView.xib */; };
 		CC3181EA2965D7DB00016A77 /* TaskInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E92965D7DB00016A77 /* TaskInfoView.swift */; };
 		CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */; };
@@ -116,6 +116,9 @@
 		D0E4AE452917C01900549BC0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */; };
 		D0E4AE472917D8A700549BC0 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE462917D8A700549BC0 /* String+.swift */; };
 		D0E4AE492917E72600549BC0 /* SegmentControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */; };
+		E935D9CF29884633001787D2 /* TaskInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9CE29884633001787D2 /* TaskInfoViewModel.swift */; };
+		E935D9D12988471B001787D2 /* TaskCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9D02988471B001787D2 /* TaskCheckButton.swift */; };
+		E935D9D4298847CC001787D2 /* TodoScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9D3298847CC001787D2 /* TodoScheduleViewModel.swift */; };
 		E9367D432988260A002F016D /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D362988260A002F016D /* FeedDetailViewController.swift */; };
 		E9367D442988260A002F016D /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9367D382988260A002F016D /* MindsetView.xib */; };
 		E9367D452988260A002F016D /* TodoDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D392988260A002F016D /* TodoDropDownView.swift */; };
@@ -181,15 +184,15 @@
 		C9D8D6E6291BAD940098DD09 /* UserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoVC.swift; sourceTree = "<group>"; };
 		C9D8D6EE291BE5870098DD09 /* AgreementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		C9D8D6F2291BEEAF0098DD09 /* JoinCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCompleteVC.swift; sourceTree = "<group>"; };
-		CC0113ED29684E04009CAC95 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		CC0113ED29684E04009CAC95 /* TaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskVC.swift; sourceTree = "<group>"; };
 		CC0113EF29684F1B009CAC95 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CC0113F029684F1B009CAC95 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		CC0113F329685466009CAC95 /* TodoProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProgressView.swift; sourceTree = "<group>"; };
 		CC0113F529685491009CAC95 /* TodoProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoProgressView.xib; sourceTree = "<group>"; };
 		CC0113F72968592F009CAC95 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		CC0113F929690092009CAC95 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
-		CC3181E22965C0F500016A77 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
-		CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodoDetailViewController.storyboard; sourceTree = "<group>"; };
+		CC3181E22965C0F500016A77 /* TodoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailVC.swift; sourceTree = "<group>"; };
+		CC3181E42965C19000016A77 /* TodoDetailVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodoDetailVC.storyboard; sourceTree = "<group>"; };
 		CC3181E72965D7D600016A77 /* TaskInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskInfoView.xib; sourceTree = "<group>"; };
 		CC3181E92965D7DB00016A77 /* TaskInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoView.swift; sourceTree = "<group>"; };
 		CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
@@ -277,6 +280,9 @@
 		D0E4AE442917C01900549BC0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E4AE462917D8A700549BC0 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlButton.swift; sourceTree = "<group>"; };
+		E935D9CE29884633001787D2 /* TaskInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewModel.swift; sourceTree = "<group>"; };
+		E935D9D02988471B001787D2 /* TaskCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCheckButton.swift; sourceTree = "<group>"; };
+		E935D9D3298847CC001787D2 /* TodoScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoScheduleViewModel.swift; sourceTree = "<group>"; };
 		E9367D362988260A002F016D /* FeedDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
 		E9367D382988260A002F016D /* MindsetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
 		E9367D392988260A002F016D /* TodoDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDropDownView.swift; sourceTree = "<group>"; };
@@ -406,18 +412,11 @@
 		CC3181E62965D77D00016A77 /* TodoDetail */ = {
 			isa = PBXGroup;
 			children = (
-				CC3181E22965C0F500016A77 /* TodoDetailViewController.swift */,
-				CC3181E42965C19000016A77 /* TodoDetailViewController.storyboard */,
-				CC3181E72965D7D600016A77 /* TaskInfoView.xib */,
-				CC3181E92965D7DB00016A77 /* TaskInfoView.swift */,
-				CC0113ED29684E04009CAC95 /* TaskViewController.swift */,
-				CC0113EF29684F1B009CAC95 /* TaskTableViewCell.swift */,
-				CC0113F029684F1B009CAC95 /* TaskTableViewCell.xib */,
-				CC0113F329685466009CAC95 /* TodoProgressView.swift */,
-				CC0113F529685491009CAC95 /* TodoProgressView.xib */,
-				CCB882C3296DA528009284FF /* CircularProgressBar.swift */,
-				CC0113F72968592F009CAC95 /* PaddingLabel.swift */,
-				CC0113F929690092009CAC95 /* TaskViewModel.swift */,
+				E935D9CB29884565001787D2 /* Model */,
+				E935D9CA29884548001787D2 /* View */,
+				CC3181E22965C0F500016A77 /* TodoDetailVC.swift */,
+				CC3181E42965C19000016A77 /* TodoDetailVC.storyboard */,
+				E935D9CC2988457D001787D2 /* Task */,
 			);
 			path = TodoDetail;
 			sourceTree = "<group>";
@@ -732,6 +731,56 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E935D9CA29884548001787D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC3181E92965D7DB00016A77 /* TaskInfoView.swift */,
+				CC3181E72965D7D600016A77 /* TaskInfoView.xib */,
+				CC0113F329685466009CAC95 /* TodoProgressView.swift */,
+				CC0113F529685491009CAC95 /* TodoProgressView.xib */,
+				CCB882C3296DA528009284FF /* CircularProgressBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E935D9CB29884565001787D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CC0113F929690092009CAC95 /* TaskViewModel.swift */,
+				E935D9CE29884633001787D2 /* TaskInfoViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E935D9CC2988457D001787D2 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E935D9D2298847C2001787D2 /* Model */,
+				E935D9CD29884588001787D2 /* View */,
+				CC0113ED29684E04009CAC95 /* TaskVC.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		E935D9CD29884588001787D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC0113F72968592F009CAC95 /* PaddingLabel.swift */,
+				E935D9D02988471B001787D2 /* TaskCheckButton.swift */,
+				CC0113EF29684F1B009CAC95 /* TaskTableViewCell.swift */,
+				CC0113F029684F1B009CAC95 /* TaskTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E935D9D2298847C2001787D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E935D9D3298847CC001787D2 /* TodoScheduleViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E9367D3029882592002F016D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1040,7 +1089,7 @@
 				D0BB5B5A2906C18C00E46063 /* Montserrat-ExtraBold.otf in Resources */,
 				D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */,
 				D0B0583729362A580014F88E /* HomeViewController.storyboard in Resources */,
-				CC3181E52965C19000016A77 /* TodoDetailViewController.storyboard in Resources */,
+				CC3181E52965C19000016A77 /* TodoDetailVC.storyboard in Resources */,
 				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
 				E9367D472988260A002F016D /* TodoDropDownView.xib in Resources */,
 				D0BB5B6F2909473500E46063 /* ProfileUpdateVC.storyboard in Resources */,
@@ -1079,6 +1128,7 @@
 				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
+				E935D9CF29884633001787D2 /* TaskInfoViewModel.swift in Sources */,
 				D0B0583A29362D420014F88E /* HomeHeaderView.swift in Sources */,
 				D0B0583C293656DF0014F88E /* FilterHeaderView.swift in Sources */,
 				D023B077290AB12100387C5C /* UIViewController+.swift in Sources */,
@@ -1086,7 +1136,7 @@
 				D0C97A612937932B001EC122 /* UIImage+.swift in Sources */,
 				E9367D4D2988260A002F016D /* FeedRepository.swift in Sources */,
 				E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */,
-				CC0113EE29684E04009CAC95 /* TaskViewController.swift in Sources */,
+				CC0113EE29684E04009CAC95 /* TaskVC.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				E963653129843B92005F16CD /* CircleProgressView.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageVC.swift in Sources */,
@@ -1096,6 +1146,7 @@
 				D01E2641292B16F100FBFF5B /* SettingTableViewSection.swift in Sources */,
 				E9367D452988260A002F016D /* TodoDropDownView.swift in Sources */,
 				D0E4AE472917D8A700549BC0 /* String+.swift in Sources */,
+				E935D9D4298847CC001787D2 /* TodoScheduleViewModel.swift in Sources */,
 				D0E4AE492917E72600549BC0 /* SegmentControlButton.swift in Sources */,
 				D06181B728F15C0700B40E32 /* Requestable.swift in Sources */,
 				D0B8D87D28F1A9CA00E9339E /* Codable+.swift in Sources */,
@@ -1154,6 +1205,7 @@
 				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
 				E9636505297FCF50005F16CD /* GoalsHeadersView.swift in Sources */,
+				E935D9D12988471B001787D2 /* TaskCheckButton.swift in Sources */,
 				E9367D432988260A002F016D /* FeedDetailViewController.swift in Sources */,
 				D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */,
 				C9152E9B29397F4400C6C025 /* GoalModel.swift in Sources */,
@@ -1166,7 +1218,7 @@
 				D0C97A6329379444001EC122 /* UIView+.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
 				E9367D462988260A002F016D /* MindsetView.swift in Sources */,
-				CC3181E32965C0F500016A77 /* TodoDetailViewController.swift in Sources */,
+				CC3181E32965C0F500016A77 /* TodoDetailVC.swift in Sources */,
 				E963654029869F74005F16CD /* DayTodoCell.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginVC.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,
