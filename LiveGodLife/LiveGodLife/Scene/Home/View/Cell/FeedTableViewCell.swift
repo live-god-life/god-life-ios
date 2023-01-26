@@ -10,12 +10,14 @@ import SnapKit
 import Kingfisher
 
 protocol FeedTableViewCellDelegate: AnyObject {
-
     func bookmark(feedID: Int, status: Bool)
 }
 
 final class FeedTableViewCell: UITableViewCell {
-
+    //MARK: - Properties
+    private var id: Int?
+    weak var delegate: FeedTableViewCellDelegate?
+    
     @IBOutlet weak var feedImageView: UIImageView!
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -27,23 +29,28 @@ final class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var todoScheduleDay: UILabel!
     @IBOutlet weak var feedInfoView: UIView!
 
-    weak var delegate: FeedTableViewCellDelegate?
-
-    private var id: Int?
-
+    //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        makeUI()
+    }
 
+    //MARK: - Functions...
+    private func makeUI() {
         backgroundColor = .background
+        
         bookmarkButton.setImage(UIImage(named: "bookmark_disable"), for: .normal)
         bookmarkButton.setImage(UIImage(named: "bookmark"), for: .selected)
+        
         feedInfoView.layer.borderWidth = 1
         feedInfoView.layer.borderColor = UIColor.green.cgColor
         feedInfoView.layer.cornerRadius = feedInfoView.frame.height / 2
+        
         feedImageView.backgroundColor = .default
         feedImageView.layer.cornerRadius = 30
     }
-
+    
     func configure(with feed: Feed) {
         id = feed.id
         feedImageView.contentMode = .scaleAspectFill
@@ -57,7 +64,8 @@ final class FeedTableViewCell: UITableViewCell {
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
     }
 
-    @IBAction func didTapBookmarkButton(_ sender: UIButton) {
+    @IBAction
+    private func didTapBookmarkButton(_ sender: UIButton) {
         // throttle?
         guard let id = id else { return }
         bookmarkButton.isSelected = !bookmarkButton.isSelected

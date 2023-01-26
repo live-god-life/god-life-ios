@@ -8,12 +8,11 @@
 import UIKit
 
 protocol CategoryButtonDelegate: AnyObject {
-
     func didTapButton(_ sender: CategoryButton)
 }
 
-class CategoryButton: UIButton {
-
+final class CategoryButton: UIButton {
+    //MARK: - Properties
     weak var delegate: CategoryButtonDelegate?
 
     override var isSelected: Bool {
@@ -23,6 +22,14 @@ class CategoryButton: UIButton {
         }
     }
 
+    override var intrinsicContentSize: CGSize {
+        var contentSize = super.intrinsicContentSize
+        contentSize.height += 4 * 2
+        contentSize.width += 12 * 2
+        return contentSize
+    }
+    
+    //MARK: - Functions...
     func configure(title: String) {
         setTitle(title, for: .normal)
 
@@ -39,14 +46,9 @@ class CategoryButton: UIButton {
         addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
 
-    @objc func didTapButton(_ sender: CategoryButton) {
+    @objc
+    private func didTapButton(_ sender: CategoryButton) {
         delegate?.didTapButton(sender)
     }
 
-    override var intrinsicContentSize: CGSize {
-        var contentSize = super.intrinsicContentSize
-        contentSize.height += 4 * 2
-        contentSize.width += 12 * 2
-        return contentSize
-    }
 }

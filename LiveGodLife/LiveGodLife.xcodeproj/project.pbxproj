@@ -119,6 +119,9 @@
 		E935D9CF29884633001787D2 /* TaskInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9CE29884633001787D2 /* TaskInfoViewModel.swift */; };
 		E935D9D12988471B001787D2 /* TaskCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9D02988471B001787D2 /* TaskCheckButton.swift */; };
 		E935D9D4298847CC001787D2 /* TodoScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9D3298847CC001787D2 /* TodoScheduleViewModel.swift */; };
+		E935D9DA29884E90001787D2 /* HomeHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9D929884E90001787D2 /* HomeHeaderViewModel.swift */; };
+		E935D9DC29884EB1001787D2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9DB29884EB1001787D2 /* Category.swift */; };
+		E935D9DE29885126001787D2 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9DD29885126001787D2 /* TodoView.swift */; };
 		E9367D432988260A002F016D /* FeedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D362988260A002F016D /* FeedDetailVC.swift */; };
 		E9367D442988260A002F016D /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9367D382988260A002F016D /* MindsetView.xib */; };
 		E9367D452988260A002F016D /* TodoDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D392988260A002F016D /* TodoDropDownView.swift */; };
@@ -283,6 +286,9 @@
 		E935D9CE29884633001787D2 /* TaskInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewModel.swift; sourceTree = "<group>"; };
 		E935D9D02988471B001787D2 /* TaskCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCheckButton.swift; sourceTree = "<group>"; };
 		E935D9D3298847CC001787D2 /* TodoScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoScheduleViewModel.swift; sourceTree = "<group>"; };
+		E935D9D929884E90001787D2 /* HomeHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderViewModel.swift; sourceTree = "<group>"; };
+		E935D9DB29884EB1001787D2 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		E935D9DD29885126001787D2 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		E9367D362988260A002F016D /* FeedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDetailVC.swift; sourceTree = "<group>"; };
 		E9367D382988260A002F016D /* MindsetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
 		E9367D392988260A002F016D /* TodoDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDropDownView.swift; sourceTree = "<group>"; };
@@ -776,6 +782,8 @@
 			isa = PBXGroup;
 			children = (
 				D0E3B2DB2928B1E500601936 /* Mindset.swift */,
+				E935D9DB29884EB1001787D2 /* Category.swift */,
+				E935D9D929884E90001787D2 /* HomeHeaderViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -849,8 +857,9 @@
 		E9367D372988260A002F016D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E9367D382988260A002F016D /* MindsetView.xib */,
 				E9367D3A2988260A002F016D /* MindsetView.swift */,
+				E9367D382988260A002F016D /* MindsetView.xib */,
+				E935D9DD29885126001787D2 /* TodoView.swift */,
 				E9367D392988260A002F016D /* TodoDropDownView.swift */,
 				E9367D3B2988260A002F016D /* TodoDropDownView.xib */,
 			);
@@ -1148,6 +1157,7 @@
 				E963653829851D5C005F16CD /* CalendarCell.swift in Sources */,
 				E9636535298517CC005F16CD /* CalendarListVC.swift in Sources */,
 				E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */,
+				E935D9DC29884EB1001787D2 /* Category.swift in Sources */,
 				E9367D4A2988260A002F016D /* FeedAPI.swift in Sources */,
 				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
@@ -1184,6 +1194,7 @@
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+.swift in Sources */,
 				CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */,
+				E935D9DE29885126001787D2 /* TodoView.swift in Sources */,
 				D0BB5B682906CD1F00E46063 /* SettingTableViewCell.swift in Sources */,
 				D0E4AE422917BE8700549BC0 /* ImageCollectionViewModel.swift in Sources */,
 				CCA802E6293F388F00D9579F /* PopupView.swift in Sources */,
@@ -1193,6 +1204,7 @@
 				B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */,
 				E963651A29800EC0005F16CD /* UILabel+.swift in Sources */,
 				E9636507297FD242005F16CD /* TodoListViewModel.swift in Sources */,
+				E935D9DA29884E90001787D2 /* HomeHeaderViewModel.swift in Sources */,
 				E9367D482988260A002F016D /* FeedCollectionViewCell.swift in Sources */,
 				E9367D4B2988260A002F016D /* FeedVC.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,

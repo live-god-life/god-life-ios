@@ -7,29 +7,28 @@
 
 import UIKit
 
-struct HomeHeaderViewModel {
-
-    let todos: [Todo]
-    let goals: [Goal]
-}
-
 protocol HomeHeaderViewDelegate: AnyObject {
-
     func completeTodo(id: Int)
 }
 
-class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
-
+final class HomeHeaderView: UIView {
+    //MARK: - Properties
+    weak var delegate: HomeHeaderViewDelegate?
+    var currentIndex: CGFloat = 0
+    private var todos: [Todo.Schedule] = []
+    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-
-    private var todos: [Todo.Schedule] = []
-    var delegate: HomeHeaderViewDelegate?
-
+    
+    //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        makeUI()
+    }
+    
+    private func makeUI() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
@@ -56,12 +55,9 @@ class HomeHeaderView: UIView, TodoCollectionViewCellDelegate {
             self?.collectionView.reloadData()
         }
     }
-
-    var currentIndex: CGFloat = 0
 }
 
-extension HomeHeaderView {
-
+extension HomeHeaderView: TodoCollectionViewCellDelegate {
     func complete(id: Int) {
         if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
             todos.remove(at: index)
@@ -71,8 +67,8 @@ extension HomeHeaderView {
     }
 }
 
+//MARK: - UICollectionView DataSource & DelegateFlowLayout
 extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 296, height: collectionView.frame.height)
     }

@@ -9,46 +9,39 @@ import UIKit
 import SnapKit
 
 protocol CategoryFilterViewDelegate: AnyObject {
-
     func filtered(from category: String)
 }
 
-struct Category: Identifiable, Decodable {
-
-    let id: Int
-    let code: String
-    let name: String
-}
-
 final class CategoryFilterView: UIView {
-
+    //MARK: - Properties
     weak var delegate: CategoryFilterViewDelegate?
-
     private let scrollView = UIScrollView()
-
-    // TODO: 카테고리 필터뷰가 super view의 중앙에 있도록
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-
     private var itemButtons: [CategoryButton] = []
+    // TODO: 카테고리 필터뷰가 super view의 중앙에 있도록
+    private let stackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 10
+        $0.distribution = .fillProportionally
+    }
     private var items: [Category] = [] {
         didSet {
             update()
         }
     }
-
-    func configure(items: [Category]) {
-        self.items = items
-    }
-
+    
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        makeUI()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Functions...
+    private func makeUI() {
         backgroundColor = .background
 
         scrollView.showsHorizontalScrollIndicator = false
@@ -64,14 +57,6 @@ final class CategoryFilterView: UIView {
         }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func update(items: [Category]) {
-        self.items = items
-    }
-
     private func update() {
         guard !items.isEmpty else { return }
         items.forEach { category in
@@ -83,10 +68,14 @@ final class CategoryFilterView: UIView {
         }
         itemButtons.first?.isSelected = true
     }
+    
+    func configure(items: [Category]) {
+        self.items = items
+    }
 }
 
+//MARK: - CategoryButtonDelegate
 extension CategoryFilterView: CategoryButtonDelegate {
-
     func didTapButton(_ sender: CategoryButton) {
         guard let selected = itemButtons.filter({ $0.isSelected }).first, selected != sender else {
             return

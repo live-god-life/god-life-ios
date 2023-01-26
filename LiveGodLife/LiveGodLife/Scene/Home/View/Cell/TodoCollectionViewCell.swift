@@ -8,25 +8,29 @@
 import UIKit
 
 protocol TodoCollectionViewCellDelegate: AnyObject {
-
     func complete(id: Int)
 }
 
 final class TodoCollectionViewCell: UICollectionViewCell {
-
+    //MARK: - Properties
+    private var id: Int?
+    weak var delegate: TodoCollectionViewCellDelegate?
+    
     @IBOutlet weak var progressBar: CircularProgressBar!
     @IBOutlet weak var dDayLabel: UILabel!
     @IBOutlet weak var repetitionLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
 
-    private var id: Int?
-
-    weak var delegate: TodoCollectionViewCellDelegate?
-
+    //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
+        makeUI()
+    }
+    
+    //MARK: - Functions...
+    private func makeUI() {
         progressBar.lineWidth = 5
         progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
         layer.cornerRadius = 51
@@ -54,7 +58,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         progressBar.value = rate
     }
 
-    @IBAction func didTapCheckButton(_ sneder: UIButton) {
+    @IBAction
+    private func didTapCheckButton(_ sneder: UIButton) {
         guard let id else { return }
         delegate?.complete(id: id)
     }

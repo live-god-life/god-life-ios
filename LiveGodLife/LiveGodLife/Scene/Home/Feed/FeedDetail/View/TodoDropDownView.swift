@@ -8,14 +8,8 @@
 import UIKit
 import SnapKit
 
-final class TodoView: UIView {
-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var contentLabel: UILabel!
-}
-
 final class TodoDropDownView: UIView {
-
+    //MARK: - Properties
     @IBOutlet weak var todoView: TodoView!
     @IBOutlet weak var subTodoView: TodoView!
     @IBOutlet weak var subTodoView2: TodoView!
@@ -29,6 +23,7 @@ final class TodoDropDownView: UIView {
         }
     }
 
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -41,7 +36,8 @@ final class TodoDropDownView: UIView {
         commonInit()
     }
 
-    func commonInit() {
+    //MARK: - Functions...
+    private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("TodoDropDownView", owner: self)?.first as? UIView else {
             fatalError("not found name of xib")
         }
@@ -79,7 +75,8 @@ final class TodoDropDownView: UIView {
         }
     }
 
-    @IBAction func toggle(_ sender: UIButton) {
+    @IBAction
+    private func toggle(_ sender: UIButton) {
 //        UIView.animate(withDuration: 0.4, animations: {
 //            if self.isOpened {
 //                self.subTodoView.isHidden = true

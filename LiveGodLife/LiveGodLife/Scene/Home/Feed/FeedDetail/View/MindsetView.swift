@@ -7,28 +7,32 @@
 
 import UIKit
 
-class MindsetView: UIView {
-
+final class MindsetView: UIView {
+    //MARK: - Properties
     @IBOutlet weak var textLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        backgroundColor = .clear
-    }
-
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        commonInit()
+    }
+    
+    //MARK: - Functions...
+    private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("MindsetView", owner: self)?.first as? UIView else {
             fatalError("not found name of xib")
         }
         view.frame = self.bounds
         addSubview(view)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        backgroundColor = .clear
     }
 
     func configure(content: String) {

@@ -9,16 +9,15 @@ import UIKit
 import SnapKit
 
 final class FilterHeaderView: UIView {
-
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .bold(with: 20)
-        label.textColor = .white
-        label.text = "갓생 엿보기"
-        return label
-    }()
+    //MARK: - Properties
     let categoryFilterView = CategoryFilterView()
-
+    private let titleLabel = UILabel().then {
+        $0.font = .bold(with: 20)
+        $0.textColor = .white
+        $0.text = "갓생 엿보기"
+    }
+    
+    //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -38,6 +37,7 @@ final class FilterHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Functions...
     func configure(items: [Category]) {
         categoryFilterView.configure(items: items)
     }
