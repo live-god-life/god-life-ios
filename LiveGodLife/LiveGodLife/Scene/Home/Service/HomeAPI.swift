@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 
 enum HomeAPI: APIEndpoint {
-
     case mindsets
     case todos([String: Any])
     case todoDetail(Int)

@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 
 enum FeedAPI: APIEndpoint {
-
     case feeds([String: String]? = nil)
     case feed(Int)
     case heartFeeds

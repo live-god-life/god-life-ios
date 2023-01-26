@@ -55,7 +55,7 @@ final class RootVC: UITabBarController {
             $0.height.equalTo(104)
         }
 
-        setViewControllers([HomeViewController.instance()!,
+        setViewControllers([HomeVC.instance()!,
                             TodoMainTabBarController(),
                             MyPageVC.instance()!],
                            animated: true)

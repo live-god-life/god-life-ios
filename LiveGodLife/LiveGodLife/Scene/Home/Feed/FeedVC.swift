@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  FeedVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/29.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Combine
 
-final class FeedViewController: UIViewController {
+final class FeedVC: UIViewController {
 
     private var collectionView: UICollectionView!
 
@@ -43,14 +43,14 @@ final class FeedViewController: UIViewController {
     }
 }
 
-extension FeedViewController: UICollectionViewDelegateFlowLayout {
+extension FeedVC: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 32, height: 330)
     }
 }
 
-extension FeedViewController: UICollectionViewDataSource {
+extension FeedVC: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feeds.count
@@ -64,8 +64,7 @@ extension FeedViewController: UICollectionViewDataSource {
     }
 }
 
-extension FeedViewController: FeedCollectionViewCellDelegate {
-
+extension FeedVC: FeedCollectionViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
         DefaultMyPageRepository().request(UserAPI.bookmark(param))

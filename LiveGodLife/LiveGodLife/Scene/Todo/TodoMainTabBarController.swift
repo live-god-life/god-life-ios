@@ -27,7 +27,7 @@ enum TodoMainTab: CaseIterable {
         }
     }
     
-    var viewController: UIViewController {
+    var vc: UIViewController {
         switch self {
         case .calendar:
             return CalendarListVC()
@@ -52,16 +52,16 @@ enum TodoMainTab: CaseIterable {
     }
     
     var configured: UIViewController {
-        let viewController = self.viewController
-        viewController.title = self.title
-        viewController.hidesBottomBarWhenPushed = false
-        viewController.tabBarItem = self.tabBarItem
-        return viewController
+        let vc = self.vc
+        vc.title = self.title
+        vc.hidesBottomBarWhenPushed = false
+        vc.tabBarItem = self.tabBarItem
+        return vc
     }
 }
 
 protocol TodoTabBarViewDelegate: AnyObject {
-    func setViewController(with index: Int)
+    func setVC(with index: Int)
 }
 
 final class TodoMainTabBarController: UITabBarController {
@@ -137,8 +137,8 @@ final class TodoMainTabBarController: UITabBarController {
     }
     private var tabs = {
         var viewControllers: [UIViewController] = []
-        for viewController in TodoMainTab.allCases {
-            viewControllers.append(viewController.configured)
+        for vc in TodoMainTab.allCases {
+            viewControllers.append(vc.configured)
         }
         return viewControllers
     }()

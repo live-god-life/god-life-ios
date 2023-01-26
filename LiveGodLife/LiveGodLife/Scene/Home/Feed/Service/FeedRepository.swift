@@ -9,13 +9,11 @@ import Foundation
 import Combine
 
 protocol FeedRepository: Requestable {
-
     func requestFeeds(endpoint: FeedAPI) -> AnyPublisher<[Feed], APIError>
     func requestFeed(endpoint: FeedAPI) -> AnyPublisher<Feed, APIError>
 }
 
 struct DefaultFeedRepository: FeedRepository {
-
     func requestFeeds(endpoint: FeedAPI) -> AnyPublisher<[Feed], APIError> {
         return request(endpoint)
     }

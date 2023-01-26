@@ -19,7 +19,7 @@ final class MyPageVC: UIViewController {
     @IBOutlet weak var segmentControlContainerView: UIView!
 
     private var bag = Set<AnyCancellable>()
-    private lazy var pageViewControllers = [feedViewController, myArticleViewController]
+    private lazy var pageViewControllers = [feedVC, myArticleVC]
     private var segmentControlView: SegmentControlView!
     private let emptyLabel = UILabel().then {
         $0.textColor = .white
@@ -27,11 +27,11 @@ final class MyPageVC: UIViewController {
         $0.text = "찜한 글이 없어요 👀"
     }
 
-    private var pageViewController: UIPageViewController!
+    private var pageVC: UIPageViewController!
     private var user: UserModel?
 
-    private let feedViewController = FeedViewController()
-    private var myArticleViewController = UIViewController().then {
+    private let feedVC = FeedVC()
+    private var myArticleVC = UIViewController().then {
         $0.view.backgroundColor = .background
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         label.numberOfLines = 0
@@ -66,7 +66,7 @@ final class MyPageVC: UIViewController {
 
         setupUI()
 
-        feedViewController.view.addSubview(emptyLabel)
+        feedVC.view.addSubview(emptyLabel)
         emptyLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(100)
@@ -123,7 +123,7 @@ private extension MyPageVC {
             }, receiveValue: { [weak self] feeds in
                 let isHidden = !feeds.isEmpty
                 self?.configure(isHidden: isHidden)
-                self?.feedViewController.updateView(with: feeds)
+                self?.feedVC.updateView(with: feeds)
             })
             .store(in: &bag)
     }
@@ -168,14 +168,14 @@ extension MyPageVC {
     }
 
     private func setupPageView() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageViewController.setViewControllers([feedViewController], direction: .forward, animated: true)
-        pageViewController.dataSource = self
-        pageViewController.delegate = self
+        pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        pageVC.setViewControllers([feedVC], direction: .forward, animated: true)
+        pageVC.dataSource = self
+        pageVC.delegate = self
 
-        addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.view.snp.makeConstraints {
+        addChild(pageVC)
+        view.addSubview(pageVC.view)
+        pageVC.view.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(segmentControlContainerView.snp.bottom).offset(30)
         }
@@ -210,7 +210,7 @@ extension MyPageVC: SegmentControlViewDelegate {
 
         // FIXME: page item이 두개일 때만 정상동작
         let direction: UIPageViewController.NavigationDirection = index == 0 ? .reverse : .forward
-        pageViewController.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
+        pageVC.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  FeedDetailViewController.swift
+//  FeedDetailVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/11/12.
@@ -10,7 +10,7 @@ import Combine
 import SnapKit
 import Kingfisher
 
-final class FeedDetailViewController: UIViewController {
+final class FeedDetailVC: UIViewController {
 
     private let baseScrollView = UIScrollView()
     private let containerView = UIView()
@@ -93,7 +93,7 @@ final class FeedDetailViewController: UIViewController {
 
 }
 
-private extension FeedDetailViewController {
+private extension FeedDetailVC {
 
     func setupUI() {
         // baseScrollView

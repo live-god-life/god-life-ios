@@ -8,7 +8,6 @@
 import Foundation
 
 struct Feed: Hashable, Decodable {
-
     struct Content: Hashable, Decodable {
         let title: String
         let content: String

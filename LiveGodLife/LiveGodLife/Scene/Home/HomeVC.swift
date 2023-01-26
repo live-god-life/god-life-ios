@@ -1,5 +1,5 @@
 //
-//  FeedViewController.swift
+//  HomeVC.swift
 //  LiveGodLife
 //
 //  Created by Ador on 2022/10/30.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Combine
 
-final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
+final class HomeVC: UIViewController, CategoryFilterViewDelegate {
 
     @IBOutlet weak var headerView: HomeHeaderView!
     @IBOutlet weak var tableView: UITableView!
@@ -53,9 +53,7 @@ final class HomeViewController: UIViewController, CategoryFilterViewDelegate {
 }
 
 // MARK: - Private
-
-private extension HomeViewController {
-
+private extension HomeVC {
     func setupTableView() {
         tableView.backgroundColor = .background
         tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
@@ -99,8 +97,7 @@ private extension HomeViewController {
     }
 }
 
-extension HomeViewController {
-
+extension HomeVC {
     func filtered(from category: String) {
         let param = ["category": category]
         DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
@@ -129,8 +126,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: UITableViewDataSource {
-
+extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
     }
@@ -144,8 +140,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
-extension HomeViewController: UITableViewDelegate {
-
+extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if !isFiltered {
             filterHeaderView.configure(items: categories)
@@ -164,8 +159,8 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let id = feeds[indexPath.row].id
-        let vc = FeedDetailViewController(feedID: id)
-        navigationController?.pushViewController(vc, animated: true)
+        let feedDetailVC = FeedDetailVC(feedID: id)
+        navigationController?.pushViewController(feedDetailVC, animated: true)
     }
 
     func update() {
@@ -175,8 +170,7 @@ extension HomeViewController: UITableViewDelegate {
     }
 }
 
-extension HomeViewController: FeedTableViewCellDelegate {
-
+extension HomeVC: FeedTableViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
         repository.request(UserAPI.bookmark(param))
@@ -186,8 +180,7 @@ extension HomeViewController: FeedTableViewCellDelegate {
     }
 }
 
-extension HomeViewController: HomeHeaderViewDelegate {
-
+extension HomeVC: HomeHeaderViewDelegate {
     func completeTodo(id: Int) {
         repository.request(HomeAPI.completeTodo(id))
             .sink { _ in

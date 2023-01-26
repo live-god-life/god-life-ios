@@ -18,7 +18,7 @@ final class TodoDetailVC: UIViewController {
     private var taskInfoView: TaskInfoView!
     private var progressView: TodoProgressView!
     private var segmentControlView: SegmentControlView!
-    private var pageViewController: UIPageViewController!
+    private var pageVC: UIPageViewController!
     private let upcomingTaskVC = TaskVC()
     private let pastTaskVC = TaskVC()
     
@@ -135,14 +135,14 @@ extension TodoDetailVC {
     }
 
     private func setupPageView() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageViewController.setViewControllers([upcomingTaskVC], direction: .forward, animated: true)
-        pageViewController.dataSource = self
-        pageViewController.delegate = self
+        pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        pageVC.setViewControllers([upcomingTaskVC], direction: .forward, animated: true)
+        pageVC.dataSource = self
+        pageVC.delegate = self
 
-        addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.view.snp.makeConstraints {
+        addChild(pageVC)
+        view.addSubview(pageVC.view)
+        pageVC.view.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.top.equalTo(segmentControlView.snp.bottom)
         }
@@ -157,7 +157,7 @@ extension TodoDetailVC: SegmentControlViewDelegate {
 
         // FIXME: page item이 두개일 때만 정상동작
         let direction: UIPageViewController.NavigationDirection = index == 0 ? .reverse : .forward
-        pageViewController.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
+        pageVC.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
     }
 }
 

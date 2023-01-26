@@ -8,7 +8,6 @@
 import Foundation
 
 struct Mindset: Decodable {
-
     let id: Int
     let content: String
 
@@ -19,7 +18,6 @@ struct Mindset: Decodable {
 }
 
 class Goal: Decodable {
-
     let id: Int
     let title: String
     let mindsets: [Mindset]
@@ -37,10 +35,8 @@ class Goal: Decodable {
     }
 }
 
-class Todo: Goal {
-
+final class Todo: Goal {
     struct Schedule: Decodable {
-
         let scheduleID: Int
         let id: Int
         let title: String
