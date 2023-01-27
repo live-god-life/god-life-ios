@@ -10,33 +10,22 @@ import SnapKit
 import Combine
 
 final class HomeVC: UIViewController, CategoryFilterViewDelegate {
-
-    @IBOutlet private weak var headerView: HomeHeaderView!
-    @IBOutlet private weak var tableView: UITableView!
-
-    private let filterHeaderView = FilterHeaderView()
-
-    private let repository = DefaultHomeRepository()
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
     private var feeds: [Feed] = []
     private var categories: [Category] = []
-
-    private var bag = Set<AnyCancellable>()
-
-    // TODO: 개선
-    private var isFiltered: Bool = false
-
+    private let repository = DefaultHomeRepository()
+    private var isFiltered: Bool = false // TODO: 개선
+    
+    private let filterHeaderView = FilterHeaderView()
+    @IBOutlet private weak var headerView: HomeHeaderView!
+    @IBOutlet private weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .background
-
-        filterHeaderView.categoryFilterView.delegate = self
-
-        headerView.delegate = self
-        setupTableView()
-
-        requestTodos()
-        requestFeeds()
+        makeUI()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,27 +33,37 @@ final class HomeVC: UIViewController, CategoryFilterViewDelegate {
 
         navigationController?.navigationBar.isHidden = true
     }
+    
+    private func makeUI() {
+        view.backgroundColor = .background
+        
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .background
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0) // 탭바의 높이만큼 bottom inset
+        tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
+    }
+    
+    private func bind() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        headerView.delegate = self
+        filterHeaderView.categoryFilterView.delegate = self
+        
+        requestTodos()
+        requestFeeds()
+    }
 
-    @IBAction func detail() {
+    @IBAction
+    private func detail() {
         let todoDetailVC = TodoDetailVC.instance()!
         todoDetailVC.configure(id: 2)
         navigationController?.pushViewController(todoDetailVC, animated: true)
     }
 }
 
-// MARK: - Private
-private extension HomeVC {
-    func setupTableView() {
-        tableView.backgroundColor = .background
-        tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        // 탭바의 높이만큼 bottom inset
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
-    }
-
-    func requestTodos() {
+//MARK: - Bind Methods
+extension HomeVC {
+    private func requestTodos() {
         // 오늘 날짜, 최대 5개만, 미완료 투두만
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
@@ -82,7 +81,7 @@ private extension HomeVC {
             .store(in: &bag)
     }
 
-    func requestFeeds() {
+    private func requestFeeds() {
         let categories = repository.requestCategory(endpoint: .category)
         let feeds = DefaultFeedRepository().requestFeeds(endpoint: .feeds())
         categories.zip(feeds)
@@ -95,9 +94,7 @@ private extension HomeVC {
             }
             .store(in: &bag)
     }
-}
-
-extension HomeVC {
+    
     func filtered(from category: String) {
         let param = ["category": category]
         DefaultFeedRepository().requestFeeds(endpoint: .feeds(param))
@@ -126,6 +123,7 @@ extension HomeVC {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
@@ -140,6 +138,7 @@ extension HomeVC: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if !isFiltered {
@@ -170,6 +169,7 @@ extension HomeVC: UITableViewDelegate {
     }
 }
 
+//MARK: - FeedTableViewCellDelegate
 extension HomeVC: FeedTableViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
@@ -180,6 +180,7 @@ extension HomeVC: FeedTableViewCellDelegate {
     }
 }
 
+//MARK: - HomeHeaderViewDelegate
 extension HomeVC: HomeHeaderViewDelegate {
     func completeTodo(id: Int) {
         repository.request(HomeAPI.completeTodo(id))

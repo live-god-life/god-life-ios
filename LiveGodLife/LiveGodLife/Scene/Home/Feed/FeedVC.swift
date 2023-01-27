@@ -10,16 +10,20 @@ import SnapKit
 import Combine
 
 final class FeedVC: UIViewController {
-
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
+    private var feeds: [Feed] = []
     private var collectionView: UICollectionView!
 
-    private var feeds: [Feed] = []
-
-    private var bag = Set<AnyCancellable>()
-
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeUI()
+    }
+    
+    //MARK: - Functions...
+    private func makeUI() {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 32
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -35,7 +39,7 @@ final class FeedVC: UIViewController {
         self.collectionView = collectionView
     }
 
-    func updateView(with feeds: [Feed]) {
+    func configure(with feeds: [Feed]) {
         self.feeds = feeds
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
@@ -43,15 +47,15 @@ final class FeedVC: UIViewController {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension FeedVC: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 32, height: 330)
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension FeedVC: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feeds.count
     }
@@ -64,6 +68,7 @@ extension FeedVC: UICollectionViewDataSource {
     }
 }
 
+//MARK: - FeedCollectionViewCellDelegate
 extension FeedVC: FeedCollectionViewCellDelegate {
     func bookmark(feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]

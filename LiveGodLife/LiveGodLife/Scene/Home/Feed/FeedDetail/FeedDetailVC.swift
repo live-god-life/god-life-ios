@@ -11,7 +11,19 @@ import SnapKit
 import Kingfisher
 
 final class FeedDetailVC: UIViewController {
-
+    //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
+    private let repository = DefaultFeedRepository()
+    
+    let feedID: Int
+    private var isBookmarkStatus: Bool = false
+    var feed: Feed? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.updateView()
+            }
+        }
+    }
     private let baseScrollView = UIScrollView()
     private let containerView = UIView()
     private let imageView = UIImageView()
@@ -22,51 +34,31 @@ final class FeedDetailVC: UIViewController {
     private let bookmarkButton = UIButton()
     private let nicknameLabel = UILabel()
     private let mindsetView = MindsetView()
-    private let userProfileImageView: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 20
-        image.backgroundColor = .green
-        return image
-    }()
-    private let calendarImageView: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "calendar"))
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    private let contentsContainerView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 32
-        return stackView
-    }()
-
-    private let todosStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 24
-        return stackView
-    }()
-
-    private let repository = DefaultFeedRepository()
-    private var bag = Set<AnyCancellable>()
-
-    private var isBookmarkStatus: Bool = false
-
-    let feedID: Int
-    var feed: Feed? {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.updateView()
-            }
-        }
+    private let userProfileImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 20
+        $0.backgroundColor = .green
+    }
+    private let calendarImageView = UIImageView().then {
+        $0.image = UIImage(named: "calendar")
+        $0.contentMode = .scaleAspectFit
+    }
+    private let contentsContainerView = UIStackView().then {
+        $0.axis = .vertical
+        $0.distribution = .equalSpacing
+        $0.spacing = 32
+    }
+    private let todosStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.distribution = .equalSpacing
+        $0.spacing = 24
     }
 
+    //MARK: - Initializer
     init(feedID: Int) {
         self.feedID = feedID
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -74,14 +66,23 @@ final class FeedDetailVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeUI()
+        bind()
+    }
+    
+    //MARK: - Functions...
+    private func makeUI() {
         view.backgroundColor = .black
         navigationController?.navigationBar.isHidden = false
 
         setupUI()
-
+    }
+    
+    private func bind() {
         repository.requestFeed(endpoint: .feed(feedID))
             .sink { _ in
             } receiveValue: { [weak self] feed in
@@ -90,12 +91,32 @@ final class FeedDetailVC: UIViewController {
             }
             .store(in: &bag)
     }
+    
+    @objc
+    private func didTapBookmark() {
+        // TODO: Throttle 필요
+        let param: [String: Any] = ["id": feedID, "status": !isBookmarkStatus]
+        repository.request(UserAPI.bookmark(param))
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    LogUtil.e(error.localizedDescription)
+                case .finished:
+                    guard let self else { return }
+                    self.isBookmarkStatus = !self.isBookmarkStatus
+                    DispatchQueue.main.async {
+                        self.updateBookmark()
+                    }
+                }
+            } receiveValue: { (feed: String?) in
 
+            }
+            .store(in: &bag)
+    }
 }
 
 private extension FeedDetailVC {
-
-    func setupUI() {
+    private func setupUI() {
         // baseScrollView
         baseScrollView.contentSize = containerView.bounds.size
         view.addSubview(baseScrollView)
@@ -268,7 +289,7 @@ private extension FeedDetailVC {
         }
     }
 
-    func updateView() {
+    private func updateView() {
         guard let feed = feed else {
             // TODO: error handle
             return
@@ -320,28 +341,7 @@ private extension FeedDetailVC {
         }
     }
 
-    @objc func didTapBookmark() {
-        // TODO: Throttle 필요
-        let param: [String: Any] = ["id": feedID, "status": !isBookmarkStatus]
-        repository.request(UserAPI.bookmark(param))
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    LogUtil.e(error.localizedDescription)
-                case .finished:
-                    guard let self else { return }
-                    self.isBookmarkStatus = !self.isBookmarkStatus
-                    DispatchQueue.main.async {
-                        self.updateBookmark()
-                    }
-                }
-            } receiveValue: { (feed: String?) in
-
-            }
-            .store(in: &bag)
-    }
-
-    func updateBookmark() {
+    private func updateBookmark() {
         bookmarkButton.isSelected = isBookmarkStatus
     }
 }

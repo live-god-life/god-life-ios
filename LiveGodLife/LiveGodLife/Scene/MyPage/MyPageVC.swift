@@ -123,7 +123,7 @@ private extension MyPageVC {
             }, receiveValue: { [weak self] feeds in
                 let isHidden = !feeds.isEmpty
                 self?.configure(isHidden: isHidden)
-                self?.feedVC.updateView(with: feeds)
+                self?.feedVC.configure(with: feeds)
             })
             .store(in: &bag)
     }
