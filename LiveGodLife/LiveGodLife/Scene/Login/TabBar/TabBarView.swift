@@ -16,8 +16,8 @@ final class TabBarView: UIView {
     weak var delegate: TabBarViewDelegate?
     
     @IBOutlet weak var homeButton: UIButton!
-    @IBOutlet weak var todoButton: UIButton!
-    @IBOutlet weak var mypageButton: UIButton!
+    @IBOutlet private weak var todoButton: UIButton!
+    @IBOutlet private weak var mypageButton: UIButton!
 
     //MARK: - Initializer
     override init(frame: CGRect) {

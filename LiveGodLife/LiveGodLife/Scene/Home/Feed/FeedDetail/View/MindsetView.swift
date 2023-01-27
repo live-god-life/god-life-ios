@@ -9,7 +9,7 @@ import UIKit
 
 final class MindsetView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet private weak var textLabel: UILabel!
 
     //MARK: - Initializer
     override init(frame: CGRect) {

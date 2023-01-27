@@ -9,10 +9,10 @@ import UIKit
 
 final class PopupView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var negativeButton: RoundedButton!
-    @IBOutlet weak var positiveButton: RoundedButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var positiveButton: RoundedButton!
 
     var negativeHandler: (() -> Void)?
     var positiveHandler: (() -> Void)?

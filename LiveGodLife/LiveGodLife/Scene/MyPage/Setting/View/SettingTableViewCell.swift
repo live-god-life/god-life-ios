@@ -17,8 +17,8 @@ final class SettingTableViewCell: UITableViewCell {
     
     weak var delegate: SettingTableViewCellDelegate?
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var button: UIButton!
     
     //MARK: - Life Cycle
     override func prepareForReuse() {

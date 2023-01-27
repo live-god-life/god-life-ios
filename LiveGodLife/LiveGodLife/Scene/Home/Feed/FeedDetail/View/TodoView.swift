@@ -10,5 +10,5 @@ import UIKit
 final class TodoView: UIView {
     //MARK: - Properties
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
 }

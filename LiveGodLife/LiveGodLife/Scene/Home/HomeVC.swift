@@ -11,8 +11,8 @@ import Combine
 
 final class HomeVC: UIViewController, CategoryFilterViewDelegate {
 
-    @IBOutlet weak var headerView: HomeHeaderView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var headerView: HomeHeaderView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private let filterHeaderView = FilterHeaderView()
 

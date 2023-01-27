@@ -9,10 +9,10 @@ import UIKit
 
 final class TaskInfoView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var periodLabel: UILabel!
-    @IBOutlet weak var repetitionLabel: UILabel!
-    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var periodLabel: UILabel!
+    @IBOutlet private weak var repetitionLabel: UILabel!
+    @IBOutlet private weak var notificationLabel: UILabel!
 
     //MARK: - Initializer
     override init(frame: CGRect) {

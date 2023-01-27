@@ -10,10 +10,10 @@ import SnapKit
 
 final class TodoDropDownView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var todoView: TodoView!
-    @IBOutlet weak var subTodoView: TodoView!
-    @IBOutlet weak var subTodoView2: TodoView!
-    @IBOutlet weak var toggleButton: UIButton!
+    @IBOutlet private weak var todoView: TodoView!
+    @IBOutlet private weak var subTodoView: TodoView!
+    @IBOutlet private weak var subTodoView2: TodoView!
+    @IBOutlet private weak var toggleButton: UIButton!
 
     private var isOpened: Bool = false {
         didSet {

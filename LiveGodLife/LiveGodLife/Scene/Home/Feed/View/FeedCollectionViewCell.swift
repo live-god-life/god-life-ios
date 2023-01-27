@@ -18,16 +18,16 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     private var id: Int?
     weak var delegate: FeedCollectionViewCellDelegate?
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var userProfileImageView: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var viewCountLabel: UILabel!
-    @IBOutlet weak var pickCountLabel: UILabel!
-    @IBOutlet weak var bookmarkButton: UIButton!
-    @IBOutlet weak var todoCountLabel: UILabel!
-    @IBOutlet weak var todoScheduleDay: UILabel!
-    @IBOutlet weak var feedInfoView: UIView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var userProfileImageView: UIImageView!
+    @IBOutlet private weak var userNameLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var viewCountLabel: UILabel!
+    @IBOutlet private weak var pickCountLabel: UILabel!
+    @IBOutlet private weak var bookmarkButton: UIButton!
+    @IBOutlet private weak var todoCountLabel: UILabel!
+    @IBOutlet private weak var todoScheduleDay: UILabel!
+    @IBOutlet private weak var feedInfoView: UIView!
 
     //MARK: - Life Cycle
     override func awakeFromNib() {

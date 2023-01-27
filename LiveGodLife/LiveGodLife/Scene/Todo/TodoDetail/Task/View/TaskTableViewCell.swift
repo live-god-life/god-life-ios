@@ -9,10 +9,10 @@ import UIKit
 
 final class TaskTableViewCell: UITableViewCell {
     //MARK: - Properties
-    @IBOutlet weak var checkButton: TaskCheckButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var statusLabel: PaddingLabel!
-    @IBOutlet weak var completeLabel: PaddingLabel!
+    @IBOutlet private weak var checkButton: TaskCheckButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var statusLabel: PaddingLabel!
+    @IBOutlet private weak var completeLabel: PaddingLabel!
 
     //MARK: - Override
     override func awakeFromNib() {

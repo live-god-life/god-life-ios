@@ -22,7 +22,7 @@ final class TodoDetailVC: UIViewController {
     private let upcomingTaskVC = TaskVC()
     private let pastTaskVC = TaskVC()
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet private weak var navigationBar: UINavigationBar!
     
     //MARK: - Life Cycle
     override func viewDidLoad() {

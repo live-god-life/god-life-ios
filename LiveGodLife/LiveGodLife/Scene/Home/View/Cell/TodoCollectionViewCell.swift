@@ -16,11 +16,11 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     private var id: Int?
     weak var delegate: TodoCollectionViewCellDelegate?
     
-    @IBOutlet weak var progressBar: CircularProgressBar!
-    @IBOutlet weak var dDayLabel: UILabel!
-    @IBOutlet weak var repetitionLabel: UILabel!
-    @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet private weak var progressBar: CircularProgressBar!
+    @IBOutlet private weak var dDayLabel: UILabel!
+    @IBOutlet private weak var repetitionLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
+    @IBOutlet private weak var checkButton: UIButton!
 
     //MARK: - Life Cycle
     override func awakeFromNib() {

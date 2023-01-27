@@ -9,9 +9,9 @@ import UIKit
 
 final class TodoProgressView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var progressView: CircularProgressBar!
-    @IBOutlet weak var rateLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet private weak var progressView: CircularProgressBar!
+    @IBOutlet private weak var rateLabel: UILabel!
+    @IBOutlet private weak var countLabel: UILabel!
 
     //MARK: - Initializer
     override init(frame: CGRect) {

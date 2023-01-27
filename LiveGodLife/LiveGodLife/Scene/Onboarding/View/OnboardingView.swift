@@ -13,8 +13,8 @@ protocol OnboardingViewDelegate: AnyObject {
 
 final class OnboardingView: UIView {
     //MARK: - Properties
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var actionButton: RoundedButton!
+    @IBOutlet private weak var imageView: UIImageView!
 
     weak var delegate: OnboardingViewDelegate?
 

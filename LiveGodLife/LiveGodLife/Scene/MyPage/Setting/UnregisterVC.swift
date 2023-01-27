@@ -10,10 +10,10 @@ import SnapKit
 
 final class UnregisterVC: UIViewController {
     //MARK: - Properties
-    @IBOutlet weak var contentStackView: UIStackView!
-    @IBOutlet weak var checkButton: UIButton!
-    @IBOutlet weak var unregisterButton: RoundedButton!
-    @IBOutlet weak var dimmedView: UIView!
+    @IBOutlet private weak var contentStackView: UIStackView!
+    @IBOutlet private weak var checkButton: UIButton!
+    @IBOutlet private weak var unregisterButton: RoundedButton!
+    @IBOutlet private weak var dimmedView: UIView!
 
     //MARK: - Life Cycle
     override func viewDidLoad() {

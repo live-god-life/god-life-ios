@@ -12,11 +12,11 @@ import SnapKit
 
 final class MyPageVC: UIViewController {
     //MARK: - Properties
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var profileImageContainerView: UIView!
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nicknameLabel: UILabel!
-    @IBOutlet weak var segmentControlContainerView: UIView!
+    @IBOutlet private weak var navigationBar: UINavigationBar!
+    @IBOutlet private weak var profileImageContainerView: UIView!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var nicknameLabel: UILabel!
+    @IBOutlet private weak var segmentControlContainerView: UIView!
 
     private var bag = Set<AnyCancellable>()
     private lazy var pageViewControllers = [feedVC, myArticleVC]

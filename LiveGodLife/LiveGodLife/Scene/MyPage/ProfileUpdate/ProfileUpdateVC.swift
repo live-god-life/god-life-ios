@@ -16,12 +16,12 @@ final class ProfileUpdateVC: UIViewController {
     private var isHiddenImageContainerView: Bool = true
     private var imageCollectionViewModel = ImageCollectionViewModel()
     
-    @IBOutlet weak var profileImageContainerView: UIView!
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nicknameTextField: TextFieldView!
-    @IBOutlet weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageCollectionView: UICollectionView!
-    @IBOutlet weak var dimmedView: UIView!
+    @IBOutlet private weak var profileImageContainerView: UIView!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var nicknameTextField: TextFieldView!
+    @IBOutlet private weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageCollectionView: UICollectionView!
+    @IBOutlet private weak var dimmedView: UIView!
 
     //MARK: - Life Cycle
     override func viewDidLoad() {

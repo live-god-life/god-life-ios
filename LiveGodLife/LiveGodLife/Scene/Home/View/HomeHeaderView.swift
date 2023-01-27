@@ -17,9 +17,9 @@ final class HomeHeaderView: UIView {
     var currentIndex: CGFloat = 0
     private var todos: [Todo.Schedule] = []
     
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var content: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var title: UILabel!
+    @IBOutlet private weak var content: UILabel!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     //MARK: - Life Cycle
     override func awakeFromNib() {
