@@ -29,18 +29,23 @@ struct DisplayTodo: Codable {
 }
 
 struct TodosModel: Codable {
-    let title: String
-    let type: String
-    let depth: Int
-    let orderNumber: Int
+    var title: String
+    var type: String
+    var depth: Int
+    var orderNumber: Int
+    var startDate: String?
+    var endDate: String?
+    var repetitionType: String?
+    var repetitionParams: [String]?
+    var notification: String?
     var todos: [ChildTodo]?
 }
 
 struct ChildTodo: Codable {
-    let title: String
-    let type: String
-    let depth: Int
-    let orderNumber: Int
+    var title: String
+    var type: String
+    var depth: Int
+    var orderNumber: Int
     var startDate: String
     var endDate: String
     var repetitionType: String
@@ -49,14 +54,14 @@ struct ChildTodo: Codable {
 }
 
 struct CreateGoalsModel: Codable {
-    let title: String
-    let categoryCode: String
+    var title: String
+    var categoryCode: String
     var mindsets: [GoalsMindset]
-    var todos: [TodosModel]?
+    var todos: [TodosModel]
 }
 
 struct GoalsMindset: Codable {
-    var content: String?
+    var content: String
     
     enum CodingKeys: String, CodingKey {
         case content
