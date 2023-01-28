@@ -58,6 +58,8 @@ final class DetailGoalVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = true
+        
         viewModel
             .input
             .requestDetailGoal
@@ -106,7 +108,7 @@ final class DetailGoalVC: UIViewController {
 
 //MARK: - UICollectionViewDataSource
 extension DetailGoalVC: UICollectionViewDataSource {
-    enum CellType: Int, CaseIterable {
+    enum SectionType: Int, CaseIterable {
         case title = 0
         case line
         case mindset
@@ -123,7 +125,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let model = viewModel.deatilModel else { return .zero }
         
-        let cellType = CellType(rawValue: section) ?? .todo
+        let cellType = SectionType(rawValue: section) ?? .todo
         
         switch cellType {
         case .todo:
@@ -141,7 +143,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let model = viewModel.deatilModel else { return UICollectionViewCell() }
         
-        let cellType = CellType(rawValue: indexPath.section) ?? .todo
+        let cellType = SectionType(rawValue: indexPath.section) ?? .todo
         
         switch cellType {
         case .title:
@@ -195,7 +197,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension DetailGoalVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellType = CellType(rawValue: indexPath.section) ?? .todo
+        let cellType = SectionType(rawValue: indexPath.section) ?? .todo
         
         guard let model = viewModel.deatilModel, cellType == .todo else { return }
         
@@ -232,7 +234,7 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let model = viewModel.deatilModel else { return .zero }
         
-        let cellType = CellType(rawValue: indexPath.section) ?? .todo
+        let cellType = SectionType(rawValue: indexPath.section) ?? .todo
         let width = UIScreen.main.bounds.width
         
         switch cellType {
@@ -254,7 +256,7 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard let _ = viewModel.deatilModel else { return .zero }
         
-        let cellType = CellType(rawValue: section) ?? .todo
+        let cellType = SectionType(rawValue: section) ?? .todo
         let width = UIScreen.main.bounds.width
         
         switch cellType {

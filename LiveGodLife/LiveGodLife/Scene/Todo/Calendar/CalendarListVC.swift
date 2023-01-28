@@ -125,18 +125,18 @@ final class CalendarListVC: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 extension CalendarListVC: UICollectionViewDataSource {
-    enum CellType: Int, CaseIterable {
+    enum SectionType: Int, CaseIterable {
         case calendar = 0
         case dateHeader
         case todo
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return CellType.allCases.count
+        return SectionType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let type = CellType(rawValue: section) else { return .zero }
+        guard let type = SectionType(rawValue: section) else { return .zero }
         
         switch type {
         case .calendar, .dateHeader:
@@ -147,7 +147,7 @@ extension CalendarListVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let type = CellType(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        guard let type = SectionType(rawValue: indexPath.section) else { return UICollectionViewCell() }
         
         switch type {
         case .calendar:
@@ -201,7 +201,7 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        let type = CellType(rawValue: indexPath.section) ?? .dateHeader
+        let type = SectionType(rawValue: indexPath.section) ?? .dateHeader
         
         switch type {
         case .calendar:
@@ -217,7 +217,7 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard CellType(rawValue: section) == .dateHeader else { return .zero }
+        guard SectionType(rawValue: section) == .dateHeader else { return .zero }
         let width = UIScreen.main.bounds.width
         return .init(width: width, height: 17.0)
     }
