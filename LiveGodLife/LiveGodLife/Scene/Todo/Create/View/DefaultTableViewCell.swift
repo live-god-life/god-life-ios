@@ -12,7 +12,7 @@ import Combine
 import CombineCocoa
 
 protocol DefaultCellDelegate: AnyObject {
-    func selectedAdd()
+    func selectedAdd(isTodo: Bool)
     func selectedFolder()
 }
 
@@ -27,16 +27,18 @@ final class DefaultTableViewCell: UITableViewCell {
         $0.isHidden = true
     }
     private let addButton = UIButton().then {
+        $0.isHidden = true
         $0.setImage(UIImage(named: "add-plus"), for: .normal)
         $0.setImage(UIImage(named: "add-plus"), for: .highlighted)
         $0.backgroundColor = .default
-        $0.isHidden = true
+        $0.layer.cornerRadius = 16.0
     }
     private let folderButton = UIButton().then {
+        $0.isHidden = true
         $0.setImage(UIImage(named: "add-folder"), for: .normal)
         $0.setImage(UIImage(named: "add-folder"), for: .highlighted)
         $0.backgroundColor = .default
-        $0.isHidden = true
+        $0.layer.cornerRadius = 16.0
     }
     
     //MARK: - Initializer
@@ -59,12 +61,12 @@ final class DefaultTableViewCell: UITableViewCell {
         
         addButton.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-16)
-            $0.centerY.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.size.equalTo(32)
         }
         folderButton.snp.makeConstraints {
             $0.right.equalTo(addButton.snp.left).offset(-8)
-            $0.centerY.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(32)
         }
         titleLabel.snp.makeConstraints {
@@ -77,8 +79,11 @@ final class DefaultTableViewCell: UITableViewCell {
     private func bind() {
         addButton
             .tapPublisher
-            .sink { [weak self] _ in
-                self?.delegate?.selectedAdd()
+            .map { [weak self] _ in
+                self?.titleLabel.text == "Todo"
+            }
+            .sink { [weak self] isTodo in
+                self?.delegate?.selectedAdd(isTodo: isTodo)
             }
             .store(in: &bag)
         
