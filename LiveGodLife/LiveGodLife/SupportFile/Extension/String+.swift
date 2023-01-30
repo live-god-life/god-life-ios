@@ -292,3 +292,18 @@ extension String {
         return self.withFont(.title26Bold).withColor(.gray6).withKern(-0.5).withLineHeight(34)
     }
 }
+
+extension String {
+    func width(font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: 0.0)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
+    }
+    
+    func lineCount(font: UIFont, targetWidth: CGFloat) -> CGFloat {
+        let width = self.width(font: font)
+        let count = ceil(width / targetWidth)
+        return count
+    }
+}

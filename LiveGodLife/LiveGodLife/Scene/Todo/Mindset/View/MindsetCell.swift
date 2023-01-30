@@ -61,8 +61,8 @@ final class MindsetCell: UICollectionViewCell {
             .gradientImage(
                 bounds: self.bounds,
                 colors: [
-                    UIColor(rgbHexString: "#7CFC00")!,
-                    UIColor(rgbHexString: "#537CFF")!
+                    .green,
+                    .blue
                 ]
             )
         )

@@ -127,6 +127,7 @@
 		E935D9E4298ACFAE001787D2 /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9E3298ACFAE001787D2 /* CategoriesCell.swift */; };
 		E935D9E6298AD627001787D2 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9E5298AD627001787D2 /* CategoryModel.swift */; };
 		E935D9E8298AE30B001787D2 /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9E7298AE30B001787D2 /* DefaultTableViewCell.swift */; };
+		E935D9EC298BD82A001787D2 /* MindsetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9EB298BD82A001787D2 /* MindsetTableViewCell.swift */; };
 		E9367D432988260A002F016D /* FeedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D362988260A002F016D /* FeedDetailVC.swift */; };
 		E9367D442988260A002F016D /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9367D382988260A002F016D /* MindsetView.xib */; };
 		E9367D452988260A002F016D /* TodoDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D392988260A002F016D /* TodoDropDownView.swift */; };
@@ -299,6 +300,7 @@
 		E935D9E3298ACFAE001787D2 /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
 		E935D9E5298AD627001787D2 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		E935D9E7298AE30B001787D2 /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
+		E935D9EB298BD82A001787D2 /* MindsetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindsetTableViewCell.swift; sourceTree = "<group>"; };
 		E9367D362988260A002F016D /* FeedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDetailVC.swift; sourceTree = "<group>"; };
 		E9367D382988260A002F016D /* MindsetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
 		E9367D392988260A002F016D /* TodoDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDropDownView.swift; sourceTree = "<group>"; };
@@ -901,6 +903,7 @@
 				E935D9E7298AE30B001787D2 /* DefaultTableViewCell.swift */,
 				E935D9E1298ACF9F001787D2 /* CategoryCell.swift */,
 				E935D9E3298ACFAE001787D2 /* CategoriesCell.swift */,
+				E935D9EB298BD82A001787D2 /* MindsetTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1210,6 +1213,7 @@
 				C9152E9D29397F6100C6C025 /* GoalsVC.swift in Sources */,
 				E935D9E8298AE30B001787D2 /* DefaultTableViewCell.swift in Sources */,
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
+				E935D9EC298BD82A001787D2 /* MindsetTableViewCell.swift in Sources */,
 				D0340F4F29384FAF00D2A5A6 /* UIApplication+.swift in Sources */,
 				CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */,
 				E935D9DE29885126001787D2 /* TodoView.swift in Sources */,

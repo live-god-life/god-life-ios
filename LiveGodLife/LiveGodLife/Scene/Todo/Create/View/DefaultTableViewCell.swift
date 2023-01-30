@@ -67,7 +67,7 @@ final class DefaultTableViewCell: UITableViewCell {
         folderButton.snp.makeConstraints {
             $0.right.equalTo(addButton.snp.left).offset(-8)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(32)
+            $0.size.equalTo(32)
         }
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(24)
