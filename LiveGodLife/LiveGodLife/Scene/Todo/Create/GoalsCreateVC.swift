@@ -27,7 +27,6 @@ final class GoalsCreateVC: UIViewController {
         $0.separatorColor = .clear
         $0.backgroundColor = .black
         $0.keyboardDismissMode = .onDrag
-        $0.alwaysBounceVertical = false
         $0.alwaysBounceHorizontal = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
@@ -36,6 +35,7 @@ final class GoalsCreateVC: UIViewController {
         NewGoalTitleCell.register($0)
         CategoriesCell.register($0)
         DefaultTableViewCell.register($0)
+        MindsetTableViewCell.register($0)
     }
     let completeButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
@@ -68,6 +68,12 @@ final class GoalsCreateVC: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        self.view.endEditing(true)
     }
     
     //MARK: - Make UI
@@ -124,14 +130,18 @@ extension GoalsCreateVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section < 4 else { return .zero }
-        return 1
+        guard let type = SectionType(rawValue: section) else { return .zero }
+        
+        switch type {
+        case .mindset:
+            return model.mindsets.count
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard indexPath.section < 4 else { return UITableViewCell() }
-        
-        let type = SectionType(rawValue: indexPath.section) ?? .todo
+        guard let type = SectionType(rawValue: indexPath.section) else { return UITableViewCell() }
         
         switch type {
         case .title:
@@ -152,9 +162,15 @@ extension GoalsCreateVC: UITableViewDataSource {
             cell.delegate = self
             return cell
         case .mindset:
-            return UITableViewCell()
+            let cell: MindsetTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.delegate = self
+            cell.configure(with: model.mindsets[indexPath.row])
+            return cell
         case .todoHeader:
-            return UITableViewCell()
+            let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.configure(with: "Todo", isAdd: true, isFolder: true)
+            cell.delegate = self
+            return cell
         case .todo:
             return UITableViewCell()
         }
@@ -163,8 +179,7 @@ extension GoalsCreateVC: UITableViewDataSource {
 
 extension GoalsCreateVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard indexPath.section < 4,
-              let type = SectionType(rawValue: indexPath.section) else { return .zero }
+        guard let type = SectionType(rawValue: indexPath.section) else { return .zero }
         
         switch type {
         case .title:
@@ -176,9 +191,9 @@ extension GoalsCreateVC: UITableViewDelegate {
         case .mindsetHeader:
             return 64.0
         case .mindset:
-            return .zero
+            return UITableView.automaticDimension
         case .todoHeader:
-            return .zero
+            return 88.0
         case .todo:
             return .zero
         }
@@ -200,7 +215,7 @@ extension GoalsCreateVC: CategoriesCellDelegate {
 
 extension GoalsCreateVC: DefaultCellDelegate {
     func selectedAdd(isTodo: Bool) {
-        if isTodo {
+        if isTodo && model.todos.count < 5 {
             let newTodo = TodosModel(title: "",
                                      type: "TASK",
                                      depth: 1,
@@ -210,16 +225,37 @@ extension GoalsCreateVC: DefaultCellDelegate {
         } else {
             let newMindset = GoalsMindset(content: "")
             model.mindsets.append(newMindset)
+            newGoalTableView.reloadSections(IndexSet(4...4), with: .automatic)
         }
         
         LogUtil.d(model)
     }
     
     func selectedFolder() {
+        guard model.todos.count < 5 else { return }
+        
         let newTodo = TodosModel(title: "",
                                  type: "FOLDER",
                                  depth: 1,
                                  orderNumber: model.todos.count)
         model.todos.append(newTodo)
+    }
+}
+
+extension GoalsCreateVC: MindsetTableViewCellDelegate {
+    func updateTextViewHeight(_ cell: MindsetTableViewCell, _ textView: UITextView) {
+        guard let index = newGoalTableView.indexPath(for: cell)?.row else { return }
+        
+        model.mindsets[index].content = textView.text
+        let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: .infinity))
+
+        if textView.bounds.height != contentSize.height {
+            newGoalTableView.contentOffset.y += contentSize.height - textView.bounds.height
+
+            UIView.setAnimationsEnabled(false)
+            newGoalTableView.beginUpdates()
+            newGoalTableView.endUpdates()
+            UIView.setAnimationsEnabled(true)
+        }
     }
 }
