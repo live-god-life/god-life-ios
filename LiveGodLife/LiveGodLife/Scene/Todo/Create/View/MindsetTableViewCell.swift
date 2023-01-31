@@ -29,7 +29,6 @@ final class MindsetTableViewCell: UITableViewCell {
         $0.sizeToFit()
         $0.delegate = self
         $0.textColor = .white
-        $0.alignTextVertically()
         $0.font = .bold(with: 16)
         $0.isScrollEnabled = false
         $0.textAlignment = .center
