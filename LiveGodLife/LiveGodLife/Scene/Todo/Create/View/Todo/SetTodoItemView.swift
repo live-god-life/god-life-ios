@@ -43,6 +43,7 @@ final class SetTodoItemView: UIView {
         addSubview(titleLabel)
         addSubview(valueLabel)
         addSubview(detailImageView)
+        addSubview(itemButton)
         
         logoImageView.snp.makeConstraints {
             $0.left.centerY.equalToSuperview()
@@ -57,7 +58,7 @@ final class SetTodoItemView: UIView {
         detailImageView.snp.makeConstraints {
             $0.right.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(24)
+            $0.size.equalTo(24)
         }
         valueLabel.snp.makeConstraints {
             $0.left.equalTo(titleLabel.snp.right).offset(4)

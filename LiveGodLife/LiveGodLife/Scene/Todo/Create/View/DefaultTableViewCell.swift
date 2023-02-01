@@ -12,7 +12,7 @@ import Combine
 import CombineCocoa
 
 protocol DefaultCellDelegate: AnyObject {
-    func selectedAdd(isTodo: Bool)
+    func selectedAdd(type: CreateAddType)
     func selectedFolder()
 }
 
@@ -53,6 +53,13 @@ final class DefaultTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        titleLabel.text = nil
+        addButton.isHidden = true
+        titleLabel.isHidden = true
+        folderButton.isHidden = true
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.addSubview(titleLabel)
@@ -83,7 +90,7 @@ final class DefaultTableViewCell: UITableViewCell {
                 self?.titleLabel.text == "Todo"
             }
             .sink { [weak self] isTodo in
-                self?.delegate?.selectedAdd(isTodo: isTodo)
+                self?.delegate?.selectedAdd(type: isTodo ? .todo : .mindset)
             }
             .store(in: &bag)
         

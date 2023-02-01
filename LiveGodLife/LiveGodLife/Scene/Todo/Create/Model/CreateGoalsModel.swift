@@ -7,9 +7,14 @@
 
 import Foundation
 
-enum GoalType: Int {
+enum CreateAddType {
+    case todo
+    case mindset
+}
+
+enum GoalType {
     case task
-    case folder
+    case folder(TaskType)
     
     var name: String {
         switch self {
@@ -18,6 +23,11 @@ enum GoalType: Int {
         case .task:
             return "TASK"
         }
+    }
+    
+    enum TaskType {
+        case flat
+        case bottomRadius
     }
 }
 
@@ -38,7 +48,7 @@ struct TodosModel: Codable {
     var repetitionType: String?
     var repetitionParams: [String]?
     var notification: String?
-    var todos: [ChildTodo]?
+    var todos: [ChildTodo]
 }
 
 struct ChildTodo: Codable {

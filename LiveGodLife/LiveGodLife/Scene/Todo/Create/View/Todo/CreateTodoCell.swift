@@ -20,6 +20,13 @@ final class CreateTodoCell: UITableViewCell {
     //MARK: - Properties
     private var bag = Set<AnyCancellable>()
     weak var delegate: CreateTodoCellDelegate?
+    private let containerView = UIView().then {
+        $0.backgroundColor = .gray5
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.gray3.cgColor
+        $0.layer.cornerRadius = 16
+        $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
     private let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "add-todo")
     }
@@ -44,12 +51,17 @@ final class CreateTodoCell: UITableViewCell {
     
     //MARK: - Make UI
     private func makeUI() {
-        contentView.backgroundColor = .gray5
+        contentView.backgroundColor = .black
         
-        contentView.addSubview(logoImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(createButton)
+        contentView.addSubview(containerView)
+        containerView.addSubview(logoImageView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(createButton)
         
+        containerView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
+        }
         logoImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(20)
