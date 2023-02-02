@@ -14,13 +14,13 @@ import CombineCocoa
 //MARK: GoalsCreateVC
 final class GoalsCreateVC: UIViewController {
     //MARK: - Properties
-    var bag = Set<AnyCancellable>()
-    var model: CreateGoalsModel
-    let viewModel = TodoListViewModel()
-    let navigationView = CommonNavigationView().then {
+    private var bag = Set<AnyCancellable>()
+    private var model: CreateGoalsModel
+    private let viewModel = TodoListViewModel()
+    private let navigationView = CommonNavigationView().then {
         $0.titleLabel.text = "목표추가"
     }
-    lazy var newGoalTableView = UITableView().then {
+    private lazy var newGoalTableView = UITableView().then {
         $0.delegate = self
         $0.dataSource = self
         $0.separatorStyle = .none
@@ -31,17 +31,21 @@ final class GoalsCreateVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 46.0, left: .zero,
-                                       bottom: 48.0, right: .zero)
+                                       bottom: 148.0, right: .zero)
         NewGoalTitleCell.register($0)
         CategoriesCell.register($0)
         DefaultTableViewCell.register($0)
         MindsetTableViewCell.register($0)
+        SetTodoCell.register($0)
+        DeleteFolderCell.register($0)
+        CreateTodoCell.register($0)
     }
-    let completeButton = UIButton().then {
+    private let completeButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
         $0.setTitle("완료", for: .highlighted)
         $0.setTitleColor(.black, for: .normal)
         $0.setTitleColor(.black, for: .highlighted)
+        $0.titleLabel?.font = .bold(with: 18)
         $0.backgroundColor = .green
         $0.layer.cornerRadius = 28.0
     }
@@ -96,8 +100,7 @@ final class GoalsCreateVC: UIViewController {
         }
         newGoalTableView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(completeButton.snp.top)
+            $0.left.bottom.right.equalToSuperview()
         }
     }
     
@@ -114,6 +117,7 @@ final class GoalsCreateVC: UIViewController {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension GoalsCreateVC: UITableViewDataSource {
     enum SectionType: Int, CaseIterable {
         case title = 0
@@ -126,22 +130,30 @@ extension GoalsCreateVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return SectionType.allCases.count
+        return (SectionType.allCases.count - 1) + model.todos.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let type = SectionType(rawValue: section) else { return .zero }
+        let type = SectionType(rawValue: section) ?? .todo
         
         switch type {
         case .mindset:
             return model.mindsets.count
+        case .todo:
+            guard !model.todos.isEmpty else { return .zero }
+            let index = section - 6
+            let todo = model.todos[index]
+            let isFolder = todo.type == "FOLDER"
+            var folderRowCount = todo.todos.count
+            folderRowCount += folderRowCount < 5 ? 2 : 1
+            return isFolder ? folderRowCount : 1
         default:
             return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = SectionType(rawValue: indexPath.section) else { return UITableViewCell() }
+        let type = SectionType(rawValue: indexPath.section) ?? .todo
         
         switch type {
         case .title:
@@ -172,14 +184,56 @@ extension GoalsCreateVC: UITableViewDataSource {
             cell.delegate = self
             return cell
         case .todo:
-            return UITableViewCell()
+            let todo = model.todos[indexPath.section - 6]
+            let isFolder = todo.type == "FOLDER" && todo.depth == 1
+            let isMaxTodo = todo.todos.count == 5
+            let isAddTodoCell = !isMaxTodo && (indexPath.row == (todo.todos.count + 1))
+            
+            if !isFolder {
+                let cell: SetTodoCell = tableView.dequeueReusableCell(for: indexPath)
+                
+                cell.delegate = self
+                cell.configure(isType: .task,
+                               title: todo.title,
+                               startDate: todo.startDate,
+                               endDate: todo.endDate,
+                               alram: todo.notification)
+                
+                return cell
+            } else if indexPath.row == 0 {
+                let cell: DeleteFolderCell = tableView.dequeueReusableCell(for: indexPath)
+                
+                cell.delegate = self
+                cell.configure(title: todo.title)
+                
+                return cell
+            } else if isAddTodoCell {
+                let cell: CreateTodoCell = tableView.dequeueReusableCell(for: indexPath)
+                
+                cell.delegate = self
+                
+                return cell
+            } else {
+                let cell: SetTodoCell = tableView.dequeueReusableCell(for: indexPath)
+                
+                cell.delegate = self
+                let isBottom = todo.todos.count == 5 && indexPath.row == 5
+                cell.configure(isType: .folder(isBottom ? .bottomRadius : .flat),
+                               title: todo.title,
+                               startDate: todo.startDate,
+                               endDate: todo.endDate,
+                               alram: todo.notification)
+                
+                return cell
+            }
         }
     }
 }
 
+//MARK: - UITableViewDelegate
 extension GoalsCreateVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let type = SectionType(rawValue: indexPath.section) else { return .zero }
+        let type = SectionType(rawValue: indexPath.section) ?? .todo
         
         switch type {
         case .title:
@@ -195,11 +249,32 @@ extension GoalsCreateVC: UITableViewDelegate {
         case .todoHeader:
             return 88.0
         case .todo:
-            return .zero
+            let index = indexPath.section - 6
+            let todo = model.todos[index]
+            let isFolder = todo.type == "FOLDER"
+            
+            if isFolder {
+                let isMaxTodo = todo.todos.count == 5
+                let isAddTodoCell = (indexPath.row == (todo.todos.count + 1)) && !isMaxTodo
+                if indexPath.row == 0 {
+                    return 88.0
+                } else if isAddTodoCell {
+                    return 72.0
+                } else {
+                    return 176.0
+                }
+            } else {
+                return 216.0
+            }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 16.0
     }
 }
 
+//MARK: - 목표 제목 설정
 extension GoalsCreateVC: NewGoalTitleCellDelegate {
     func textEditingChanged(_ text: String?) {
         guard let text, !text.isEmpty else { return }
@@ -207,28 +282,36 @@ extension GoalsCreateVC: NewGoalTitleCellDelegate {
     }
 }
 
+//MARK: - 카테고리 코드 설정
 extension GoalsCreateVC: CategoriesCellDelegate {
     func selectedCategory(code: String) {
         model.categoryCode = code
     }
 }
 
+//MARK: - 폴더 및 투두 Depth 1 생성
 extension GoalsCreateVC: DefaultCellDelegate {
-    func selectedAdd(isTodo: Bool) {
-        if isTodo && model.todos.count < 5 {
+    func selectedAdd(type: CreateAddType) {
+        switch type {
+        case .todo:
+            guard model.todos.count < 5 else { return }
+            
             let newTodo = TodosModel(title: "",
                                      type: "TASK",
                                      depth: 1,
                                      orderNumber: model.todos.count,
-                                     repetitionType: "NONE")
+                                     repetitionType: "NONE",
+                                     todos: [])
             model.todos.append(newTodo)
-        } else {
+            let section = 5 + model.todos.count
+            newGoalTableView.insertSections(IndexSet(section...section),
+                                            with: .automatic)
+        case .mindset:
             let newMindset = GoalsMindset(content: "")
             model.mindsets.append(newMindset)
-            newGoalTableView.reloadSections(IndexSet(4...4), with: .automatic)
+            newGoalTableView.insertRows(at: [IndexPath(row: model.mindsets.count - 1, section: 4)],
+                                        with: .automatic)
         }
-        
-        LogUtil.d(model)
     }
     
     func selectedFolder() {
@@ -237,11 +320,15 @@ extension GoalsCreateVC: DefaultCellDelegate {
         let newTodo = TodosModel(title: "",
                                  type: "FOLDER",
                                  depth: 1,
-                                 orderNumber: model.todos.count)
+                                 orderNumber: model.todos.count,
+                                 todos: [])
         model.todos.append(newTodo)
+        let section = 5 + model.todos.count
+        newGoalTableView.insertSections(IndexSet(section...section), with: .automatic)
     }
 }
 
+//MARK: - 마인드셋 내용 추가
 extension GoalsCreateVC: MindsetTableViewCellDelegate {
     func updateTextViewHeight(_ cell: MindsetTableViewCell, _ textView: UITextView) {
         guard let index = newGoalTableView.indexPath(for: cell)?.row else { return }
@@ -256,6 +343,70 @@ extension GoalsCreateVC: MindsetTableViewCellDelegate {
             newGoalTableView.beginUpdates()
             newGoalTableView.endUpdates()
             UIView.setAnimationsEnabled(true)
+        }
+    }
+}
+
+//MARK: - 폴더 및 투두 삭제 && 폴더 및 투두 제목 설정
+extension GoalsCreateVC: DeleteCellDelegate {
+    func delete(for cell: UITableViewCell) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
+        
+        let index = indexPath.section - 6
+        
+        if indexPath.row == 0 {
+            model.todos.remove(at: index)
+            newGoalTableView.deleteSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+        } else {
+            let todoCount = model.todos[index].todos.count
+            model.todos[index].todos.remove(at: indexPath.item - 1)
+            
+            if todoCount == 5 {
+                newGoalTableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+            } else {
+                newGoalTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    }
+    
+    func title(for cell: UITableViewCell, with text: String) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
+        
+        let index = indexPath.section - 6
+        
+        if indexPath.row == 0 {
+            model.todos[index].title = text
+        } else {
+            model.todos[index].todos[indexPath.row - 1].title = text
+        }
+        
+        LogUtil.d(model)
+    }
+}
+
+//MARK: - 폴더 안의 투두 추가
+extension GoalsCreateVC: CreateTodoCellDelegate {
+    func createTodo(with cell: CreateTodoCell) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
+        
+        let index = indexPath.section - 6
+        let todo = model.todos[index]
+        let newTodo = ChildTodo(title: "", type: "TASK", depth: 2,
+                                orderNumber: todo.todos.count,
+                                startDate: "", endDate: "",
+                                repetitionType: "NONE")
+        model.todos[index].todos.append(newTodo)
+        if model.todos[index].todos.count == 5 {
+            let scrollIndexPath = IndexPath(row: model.todos[index].todos.count, section: indexPath.section)
+            newGoalTableView.reloadSections(IndexSet(indexPath.section ... indexPath.section),
+                                            with: .fade)
+            newGoalTableView.scrollToRow(at: scrollIndexPath, at: .bottom, animated: true)
+        } else {
+            let newIndexPath = IndexPath(row: model.todos[index].todos.count, section: indexPath.section)
+            let scrollIndexPath = IndexPath(row: model.todos[index].todos.count + 1, section: indexPath.section)
+            newGoalTableView.insertRows(at: [newIndexPath],
+                                        with: .fade)
+            newGoalTableView.scrollToRow(at: scrollIndexPath, at: .bottom, animated: true)
         }
     }
 }

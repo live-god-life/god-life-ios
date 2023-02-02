@@ -180,6 +180,7 @@
 		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
 		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 		E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BF29882040004038EB /* GoalsCreateVC.swift */; };
+		E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77490298E65C4004CC061 /* DeleteItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -349,6 +350,7 @@
 		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
 		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 		E99378BF29882040004038EB /* GoalsCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateVC.swift; sourceTree = "<group>"; };
+		E9C77490298E65C4004CC061 /* DeleteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -848,6 +850,7 @@
 		E935D9F6298E4E5D001787D2 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				E9C77490298E65C4004CC061 /* DeleteItemView.swift */,
 				E935D9F7298E4E98001787D2 /* DeleteFolderCell.swift */,
 				E935D9F3298E4923001787D2 /* CreateTodoCell.swift */,
 				E935D9FC298E5D6F001787D2 /* SetTodoItemView.swift */,
@@ -1293,6 +1296,7 @@
 				E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */,
 				E963653C29852FC4005F16CD /* CalendarDayCell.swift in Sources */,
 				E963652D2984299B005F16CD /* DetailTodosCell.swift in Sources */,
+				E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeVC.swift in Sources */,
 				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				E935D9F8298E4E98001787D2 /* DeleteFolderCell.swift in Sources */,
