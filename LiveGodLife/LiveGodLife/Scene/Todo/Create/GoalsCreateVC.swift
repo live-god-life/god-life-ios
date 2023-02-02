@@ -115,6 +115,27 @@ final class GoalsCreateVC: UIViewController {
             }
             .store(in: &viewModel.bag)
     }
+    
+    private func showPopup(title: String) {
+        guard view.viewWithTag(888) == nil else { return }
+        
+        DispatchQueue.main.async { [weak self] in
+            let popup = PopupView()
+            popup.tag = 888
+            popup.negativeButton.isHidden = true
+            popup.configure(title: title,
+                            negativeHandler: { },
+                            positiveHandler: {
+                popup.removeFromSuperview()
+            })
+            self?.view.addSubview(popup)
+            popup.snp.makeConstraints {
+                $0.width.equalTo(327)
+                $0.height.equalTo(188)
+                $0.center.equalToSuperview()
+            }
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -269,8 +290,19 @@ extension GoalsCreateVC: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 16.0
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 4
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return indexPath.section == 4 ? .delete : .none
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard indexPath.section == 4 else { return }
+        
+        model.mindsets.remove(at: indexPath.row)
+        newGoalTableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
 
@@ -289,12 +321,15 @@ extension GoalsCreateVC: CategoriesCellDelegate {
     }
 }
 
-//MARK: - 폴더 및 투두 Depth 1 생성
+//MARK: - CREATE: Todo Depth 1 & Mindset
 extension GoalsCreateVC: DefaultCellDelegate {
     func selectedAdd(type: CreateAddType) {
         switch type {
         case .todo:
-            guard model.todos.count < 5 else { return }
+            guard model.todos.count < 5 else {
+                showPopup(title: "5개까지 생성할 수 있습니다!")
+                return
+            }
             
             let newTodo = TodosModel(title: "",
                                      type: "TASK",
@@ -307,6 +342,11 @@ extension GoalsCreateVC: DefaultCellDelegate {
             newGoalTableView.insertSections(IndexSet(section...section),
                                             with: .automatic)
         case .mindset:
+            guard model.mindsets.count < 5 else {
+                showPopup(title: "5개까지 생성할 수 있습니다!")
+                return
+            }
+            
             let newMindset = GoalsMindset(content: "")
             model.mindsets.append(newMindset)
             newGoalTableView.insertRows(at: [IndexPath(row: model.mindsets.count - 1, section: 4)],
@@ -315,7 +355,10 @@ extension GoalsCreateVC: DefaultCellDelegate {
     }
     
     func selectedFolder() {
-        guard model.todos.count < 5 else { return }
+        guard model.todos.count < 5 else {
+            showPopup(title: "5개까지 생성할 수 있습니다!")
+            return
+        }
         
         let newTodo = TodosModel(title: "",
                                  type: "FOLDER",
