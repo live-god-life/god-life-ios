@@ -162,7 +162,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
             return cell
         case .todoHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.configure(with: title)
+            cell.configure(with: "Todo")
             return cell
         case .todo:
             let cell: DetailTodosCell = collectionView.dequeueReusableCell(for: indexPath)

@@ -39,6 +39,7 @@ final class GoalsCreateVC: UIViewController {
         SetTodoCell.register($0)
         DeleteFolderCell.register($0)
         CreateTodoCell.register($0)
+        EmptyTableViewCell.register($0)
     }
     private let completeButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
@@ -151,7 +152,7 @@ extension GoalsCreateVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (SectionType.allCases.count - 1) + model.todos.count
+        return (SectionType.allCases.count - 1) + max(1, model.todos.count)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -159,9 +160,9 @@ extension GoalsCreateVC: UITableViewDataSource {
         
         switch type {
         case .mindset:
-            return model.mindsets.count
+            return model.mindsets.isEmpty ? 1 : model.mindsets.count
         case .todo:
-            guard !model.todos.isEmpty else { return .zero }
+            guard !model.todos.isEmpty else { return 1 }
             let index = section - 6
             let todo = model.todos[index]
             let isFolder = todo.type == "FOLDER"
@@ -195,16 +196,28 @@ extension GoalsCreateVC: UITableViewDataSource {
             cell.delegate = self
             return cell
         case .mindset:
-            let cell: MindsetTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.delegate = self
-            cell.configure(with: model.mindsets[indexPath.row])
-            return cell
+            if model.mindsets.isEmpty {
+                let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.configure(text: "마인드셋을 추가해 보세요.")
+                return cell
+            } else {
+                let cell: MindsetTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.delegate = self
+                cell.configure(with: model.mindsets[indexPath.row])
+                return cell
+            }
         case .todoHeader:
             let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.configure(with: "Todo", isAdd: true, isFolder: true)
             cell.delegate = self
             return cell
         case .todo:
+            guard !model.todos.isEmpty else {
+                let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.configure(text: "Todo를 추가해 보세요.")
+                return cell
+            }
+            
             let todo = model.todos[indexPath.section - 6]
             let isFolder = todo.type == "FOLDER" && todo.depth == 1
             let isMaxTodo = todo.todos.count == 5
@@ -266,10 +279,12 @@ extension GoalsCreateVC: UITableViewDelegate {
         case .mindsetHeader:
             return 64.0
         case .mindset:
-            return UITableView.automaticDimension
+            return model.mindsets.isEmpty ? 136.0 : UITableView.automaticDimension
         case .todoHeader:
             return 88.0
         case .todo:
+            guard !model.todos.isEmpty else { return 136.0 }
+            
             let index = indexPath.section - 6
             let todo = model.todos[index]
             let isFolder = todo.type == "FOLDER"
@@ -302,7 +317,12 @@ extension GoalsCreateVC: UITableViewDelegate {
         guard indexPath.section == 4 else { return }
         
         model.mindsets.remove(at: indexPath.row)
-        newGoalTableView.deleteRows(at: [indexPath], with: .fade)
+        
+        if model.mindsets.isEmpty {
+            newGoalTableView.reloadSections(IndexSet(4...4), with: .automatic)
+        } else {
+            newGoalTableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
 
@@ -339,8 +359,14 @@ extension GoalsCreateVC: DefaultCellDelegate {
                                      todos: [])
             model.todos.append(newTodo)
             let section = 5 + model.todos.count
-            newGoalTableView.insertSections(IndexSet(section...section),
-                                            with: .automatic)
+            
+            if model.todos.count == 1 {
+                newGoalTableView.reloadSections(IndexSet(section...section),
+                                                with: .fade)
+            } else {
+                newGoalTableView.insertSections(IndexSet(section...section),
+                                                with: .automatic)
+            }
         case .mindset:
             guard model.mindsets.count < 5 else {
                 showPopup(title: "5개까지 생성할 수 있습니다!")
@@ -349,8 +375,13 @@ extension GoalsCreateVC: DefaultCellDelegate {
             
             let newMindset = GoalsMindset(content: "")
             model.mindsets.append(newMindset)
-            newGoalTableView.insertRows(at: [IndexPath(row: model.mindsets.count - 1, section: 4)],
-                                        with: .automatic)
+            
+            if model.mindsets.count == 1 {
+                newGoalTableView.reloadSections(IndexSet(4...4), with: .fade)
+            } else {
+                newGoalTableView.insertRows(at: [IndexPath(row: model.mindsets.count - 1, section: 4)],
+                                            with: .automatic)
+            }
         }
     }
     
@@ -367,7 +398,14 @@ extension GoalsCreateVC: DefaultCellDelegate {
                                  todos: [])
         model.todos.append(newTodo)
         let section = 5 + model.todos.count
-        newGoalTableView.insertSections(IndexSet(section...section), with: .automatic)
+        
+        if model.todos.count == 1 {
+            newGoalTableView.reloadSections(IndexSet(section...section),
+                                            with: .fade)
+        } else {
+            newGoalTableView.insertSections(IndexSet(section...section),
+                                            with: .automatic)
+        }
     }
 }
 
@@ -399,7 +437,12 @@ extension GoalsCreateVC: DeleteCellDelegate {
         
         if indexPath.row == 0 {
             model.todos.remove(at: index)
-            newGoalTableView.deleteSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+            
+            if model.todos.isEmpty {
+                newGoalTableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+            } else {
+                newGoalTableView.deleteSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+            }
         } else {
             let todoCount = model.todos[index].todos.count
             model.todos[index].todos.remove(at: indexPath.item - 1)

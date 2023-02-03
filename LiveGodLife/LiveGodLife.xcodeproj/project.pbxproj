@@ -181,6 +181,8 @@
 		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 		E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BF29882040004038EB /* GoalsCreateVC.swift */; };
 		E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77490298E65C4004CC061 /* DeleteItemView.swift */; };
+		E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */; };
+		E9C77497298F145D004CC061 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77496298F145D004CC061 /* CALayer+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -351,6 +353,8 @@
 		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 		E99378BF29882040004038EB /* GoalsCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateVC.swift; sourceTree = "<group>"; };
 		E9C77490298E65C4004CC061 /* DeleteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteItemView.swift; sourceTree = "<group>"; };
+		E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
+		E9C77496298F145D004CC061 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -494,6 +498,7 @@
 				E96364F5297FB632005F16CD /* UIColor+.swift */,
 				E963651929800EC0005F16CD /* UILabel+.swift */,
 				D0C97A602937932B001EC122 /* UIImage+.swift */,
+				E9C77496298F145D004CC061 /* CALayer+.swift */,
 				D0B8D87C28F1A9CA00E9339E /* Codable+.swift */,
 				E96364F7297FB9AF005F16CD /* UIButton+.swift */,
 				E9636508297FD48E005F16CD /* UIReusable+.swift */,
@@ -933,6 +938,7 @@
 			isa = PBXGroup;
 			children = (
 				E935D9E7298AE30B001787D2 /* DefaultTableViewCell.swift */,
+				E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */,
 				E935D9DF298AC619001787D2 /* NewGoalTitleCell.swift */,
 				E935D9F5298E4E40001787D2 /* Category */,
 				E935D9EB298BD82A001787D2 /* MindsetTableViewCell.swift */,
@@ -1225,6 +1231,7 @@
 				E9367D4D2988260A002F016D /* FeedRepository.swift in Sources */,
 				E9636509297FD48E005F16CD /* UIReusable+.swift in Sources */,
 				CC0113EE29684E04009CAC95 /* TaskVC.swift in Sources */,
+				E9C77497298F145D004CC061 /* CALayer+.swift in Sources */,
 				D06181B928F161FD00B40E32 /* APIResponse.swift in Sources */,
 				E963653129843B92005F16CD /* CircleProgressView.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageVC.swift in Sources */,
@@ -1285,6 +1292,7 @@
 				CC0113F129684F1B009CAC95 /* TaskTableViewCell.swift in Sources */,
 				B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
+				E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */,
 				E96364F6297FB632005F16CD /* UIColor+.swift in Sources */,
 				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteVC.swift in Sources */,

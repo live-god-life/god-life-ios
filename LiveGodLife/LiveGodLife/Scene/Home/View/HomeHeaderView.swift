@@ -15,8 +15,8 @@ final class HomeHeaderView: UIView {
     //MARK: - Properties
     weak var delegate: HomeHeaderViewDelegate?
     var currentIndex: CGFloat = 0
+    var id: Int?
     private var todos: [Todo.Schedule] = []
-    
     @IBOutlet private weak var title: UILabel!
     @IBOutlet private weak var content: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -49,6 +49,7 @@ final class HomeHeaderView: UIView {
 
         DispatchQueue.main.async { [weak self] in
             if let goal = viewModel.goals.randomElement() {
+                self?.id = goal.id
                 self?.title.text = goal.title
                 self?.content.text = goal.mindsets.randomElement()?.content
             }

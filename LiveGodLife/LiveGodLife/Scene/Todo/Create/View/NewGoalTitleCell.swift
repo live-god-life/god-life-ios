@@ -35,6 +35,7 @@ final class NewGoalTitleCell: UITableViewCell {
                                             attributes: [.foregroundColor: UIColor.gray6,
                                                          .font: UIFont.bold(with: 26)!])
         $0.attributedPlaceholder = attrString
+        $0.tintColor = .clear
     }
     private let pencilImageView = UIImageView().then {
         $0.image = UIImage(named: "pencil")
