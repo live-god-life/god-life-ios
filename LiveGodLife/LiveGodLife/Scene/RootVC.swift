@@ -29,7 +29,11 @@ final class RootVC: UITabBarController {
         super.viewDidAppear(animated)
 
         if !UserDefaults.standard.bool(forKey: "LIVE_GOD_LIFE") {
-            let onboardingVC = OnboardingVC.instance()!
+            guard let onboardingVC = OnboardingVC.instance() else {
+                LogUtil.e("OnboardingVC 생성 실패")
+                return
+            }
+            
             onboardingVC.modalPresentationStyle = .fullScreen
             present(onboardingVC, animated: true)
             UserDefaults.standard.set(true, forKey: "LIVE_GOD_LIFE")
@@ -54,11 +58,14 @@ final class RootVC: UITabBarController {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(104)
         }
-
-        setViewControllers([HomeVC.instance()!,
-                            TodoMainTabBarController(),
-                            MyPageVC.instance()!],
-                           animated: true)
+        
+        guard let homeVC = HomeVC.instance(), let myPageVC = MyPageVC.instance() else {
+            LogUtil.e("HomeVC, MyPageVC 생성 실패")
+            return
+        }
+        let todoTabBar = TodoMainTabBarController()
+        
+        setViewControllers([homeVC, todoTabBar, myPageVC], animated: true)
         selectedIndex = 0
         tabBarView.homeButton.isSelected = true
     }

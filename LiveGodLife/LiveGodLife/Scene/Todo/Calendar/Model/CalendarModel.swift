@@ -26,6 +26,7 @@ struct MainCalendarModel: Decodable, Hashable {
 
 struct SubCalendarModel: Decodable, Hashable {
     var todoScheduleId: Int?
+    var todoId: Int?
     var title: String?
     var completionStatus: Bool?
     var taskType: String?

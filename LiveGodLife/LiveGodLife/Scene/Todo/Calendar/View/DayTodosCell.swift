@@ -144,7 +144,7 @@ extension DayTodosCell {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension DayTodosCell: UICollectionViewDelegateFlowLayout {
+extension DayTodosCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = .zero
@@ -159,6 +159,14 @@ extension DayTodosCell: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
         return CGSize(width: width, height: 72.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let id = dataSource.itemIdentifier(for: indexPath)?.todoId,
+              let todoDetailVC = TodoDetailVC.instance() else { return }
+        
+        todoDetailVC.configure(id: id)
+        UIApplication.topViewController()?.navigationController?.pushViewController(todoDetailVC, animated: true)
     }
 }
 

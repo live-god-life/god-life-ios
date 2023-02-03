@@ -16,8 +16,8 @@ final class TabBarView: UIView {
     weak var delegate: TabBarViewDelegate?
     
     @IBOutlet weak var homeButton: UIButton!
-    @IBOutlet private weak var todoButton: UIButton!
-    @IBOutlet private weak var mypageButton: UIButton!
+    @IBOutlet weak var todoButton: UIButton!
+    @IBOutlet weak var mypageButton: UIButton!
 
     //MARK: - Initializer
     override init(frame: CGRect) {
@@ -35,7 +35,7 @@ final class TabBarView: UIView {
     //MARK: - Functions...
     private func commonInit() {
         guard let view = Bundle.main.loadNibNamed("TabBarView", owner: self)?.first as? UIView else {
-            fatalError("not found name of xib")
+            return
         }
         view.frame = self.bounds
         addSubview(view)

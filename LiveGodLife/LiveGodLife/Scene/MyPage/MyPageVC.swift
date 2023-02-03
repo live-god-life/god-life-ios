@@ -92,7 +92,10 @@ private extension MyPageVC {
 
     @objc
     private func moveToProfileUpdateView(_ sender: UIButton) {
-        let profileUpdateVC = ProfileUpdateVC.instance()!
+        guard let profileUpdateVC = ProfileUpdateVC.instance() else {
+            LogUtil.e("ProfileUpdateVC 생성 실패")
+            return
+        }
         profileUpdateVC.configure(user)
         navigationController?.pushViewController(profileUpdateVC, animated: true)
     }

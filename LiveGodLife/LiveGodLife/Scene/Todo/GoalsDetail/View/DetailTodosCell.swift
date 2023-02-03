@@ -36,6 +36,9 @@ final class DetailTodosCell: UICollectionViewCell {
         $0.font = .regular(with: 14)
     }
     private let infoImageView = UIImageView()
+    private let lineView = UIView().then {
+        $0.backgroundColor = .gray3.withAlphaComponent(0.4)
+    }
     private let innerView = UIView().then {
         $0.layer.masksToBounds = true
     }
@@ -61,6 +64,7 @@ final class DetailTodosCell: UICollectionViewCell {
         innerView.addSubview(titleLabel)
         innerView.addSubview(dateLabel)
         innerView.addSubview(infoImageView)
+        innerView.addSubview(lineView)
         
         innerView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
@@ -89,6 +93,11 @@ final class DetailTodosCell: UICollectionViewCell {
             $0.right.equalToSuperview().offset(-16)
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
+        }
+        lineView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(1)
         }
     }
     
@@ -131,13 +140,16 @@ final class DetailTodosCell: UICollectionViewCell {
         }
         
         if radius.contains(.top) && radius.contains(.bottom) {
+            lineView.isHidden = true
             innerView.layer.cornerRadius = 16
             innerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,
                                              .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         } else if radius.contains(.top) {
+            lineView.isHidden = type == .folder
             innerView.layer.cornerRadius = 16
             innerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         } else if radius.contains(.bottom) {
+            lineView.isHidden = true
             innerView.layer.cornerRadius = 16
             innerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         } else {

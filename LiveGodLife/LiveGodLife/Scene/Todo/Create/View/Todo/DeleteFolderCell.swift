@@ -23,8 +23,6 @@ final class DeleteFolderCell: UITableViewCell {
     weak var delegate: DeleteCellDelegate?
     private let containerView = UIView().then {
         $0.backgroundColor = .default
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = UIColor.gray3.cgColor
         $0.layer.cornerRadius = 16
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }

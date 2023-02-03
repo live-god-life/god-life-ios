@@ -134,8 +134,6 @@ final class SetTodoCell: UITableViewCell {
         switch type {
         case .task:
             lineView.isHidden = true
-            containerView.layer.borderWidth = 1.0
-            containerView.layer.borderColor = UIColor.gray3.cgColor
             containerView.layer.cornerRadius = 16.0
             containerView.layer.maskedCorners = all
             deleteContainerView.backgroundColor = .default
@@ -147,9 +145,7 @@ final class SetTodoCell: UITableViewCell {
                 $0.height.equalTo(72)
             }
         case .folder(let taskType):
-            lineView.isHidden = false
-            containerView.layer.borderWidth = 1.0
-            containerView.layer.borderColor = UIColor.gray3.cgColor
+            lineView.isHidden = taskType == .bottomRadius
             containerView.layer.cornerRadius = taskType == .bottomRadius ? 16.0 : .zero
             containerView.layer.maskedCorners = taskType == .bottomRadius ? bottom : all
             deleteContainerView.backgroundColor = .gray5

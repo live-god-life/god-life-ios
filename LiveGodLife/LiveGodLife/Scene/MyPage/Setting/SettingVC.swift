@@ -108,7 +108,10 @@ extension SettingVC: SettingTableViewCellDelegate {
                 .store(in: &bag)
             
         case cell.unregister.rawValue:
-            let unregisterVC = UnregisterVC.instance()!
+            guard let unregisterVC = UnregisterVC.instance() else {
+                LogUtil.e("UnregisterVC 생성 실패")
+                return
+            }
             navigationController?.pushViewController(unregisterVC, animated: true)
         case cell.termsOfService.rawValue, cell.privacyPolicy.rawValue:
             guard let url = URL(string: "https://knowing-amount-d01.notion.site/e758966ec3d44c4f9f9a5c6be91d758e") else {
