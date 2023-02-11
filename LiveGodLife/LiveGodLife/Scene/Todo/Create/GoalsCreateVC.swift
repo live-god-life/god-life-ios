@@ -429,7 +429,15 @@ extension GoalsCreateVC: MindsetTableViewCellDelegate {
 }
 
 //MARK: - 폴더 및 투두 삭제 && 폴더 및 투두 제목 설정
-extension GoalsCreateVC: DeleteCellDelegate {
+extension GoalsCreateVC: TodoDelegate {
+    func date(for cell: UITableViewCell, startDate: Date, endDate: Date) {
+        
+    }
+    
+    func alaram(for cell: UITableViewCell, with repeat: String) {
+        
+    }
+    
     func delete(for cell: UITableViewCell) {
         guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
         
