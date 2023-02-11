@@ -48,7 +48,7 @@
 		D021B058290397660031481F /* NotificationName+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D021B057290397660031481F /* NotificationName+.swift */; };
 		D023B077290AB12100387C5C /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023B076290AB12100387C5C /* UIViewController+.swift */; };
 		D0340F4F29384FAF00D2A5A6 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0340F4E29384FAF00D2A5A6 /* UIApplication+.swift */; };
-		D03FAA512916063D00E9B045 /* UIFont+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+Resource.swift */; };
+		D03FAA512916063D00E9B045 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA502916063D00E9B045 /* UIFont+.swift */; };
 		D03FAA572916A93B00E9B045 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03FAA562916A93B00E9B045 /* TextFieldView.swift */; };
 		D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D742528EB377A0013B5BB /* AppleLoginService.swift */; };
 		D06181B728F15C0700B40E32 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06181B628F15C0700B40E32 /* Requestable.swift */; };
@@ -145,6 +145,8 @@
 		E9367D4C2988260A002F016D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D412988260A002F016D /* Feed.swift */; };
 		E9367D4D2988260A002F016D /* FeedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D422988260A002F016D /* FeedRepository.swift */; };
 		E9367D4F29882690002F016D /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D4E29882690002F016D /* SegmentControlView.swift */; };
+		E95D675D29A2944000DED5ED /* DatePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675C29A2944000DED5ED /* DatePopupVC.swift */; };
+		E95D675F29A295F800DED5ED /* DatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675E29A295F800DED5ED /* DatePopupView.swift */; };
 		E96364E1297FAE97005F16CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E0297FAE97005F16CD /* SnapKit */; };
 		E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E3297FAF1F005F16CD /* PopupDialog */; };
 		E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E6297FAF57005F16CD /* KakaoSDKAuth */; };
@@ -183,6 +185,11 @@
 		E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77490298E65C4004CC061 /* DeleteItemView.swift */; };
 		E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */; };
 		E9C77497298F145D004CC061 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77496298F145D004CC061 /* CALayer+.swift */; };
+		E9FBF9E229A7C95600A41948 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E129A7C95600A41948 /* CalendarView.swift */; };
+		E9FBF9E429A8B3D500A41948 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E329A8B3D500A41948 /* CalendarViewCell.swift */; };
+		E9FBF9E629A8B42400A41948 /* CalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E529A8B42400A41948 /* CalendarViewDayCell.swift */; };
+		E9FBF9E829A9CE4600A41948 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E729A9CE4600A41948 /* CalendarViewModel.swift */; };
+		E9FBF9EA29AA66C200A41948 /* Gesture+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E929AA66C200A41948 /* Gesture+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,7 +234,7 @@
 		D021B057290397660031481F /* NotificationName+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+.swift"; sourceTree = "<group>"; };
 		D023B076290AB12100387C5C /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0340F4E29384FAF00D2A5A6 /* UIApplication+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
-		D03FAA502916063D00E9B045 /* UIFont+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Resource.swift"; sourceTree = "<group>"; };
+		D03FAA502916063D00E9B045 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		D03FAA562916A93B00E9B045 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		D04D742528EB377A0013B5BB /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		D06181B628F15C0700B40E32 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
@@ -326,6 +333,8 @@
 		E9367D412988260A002F016D /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E9367D422988260A002F016D /* FeedRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRepository.swift; sourceTree = "<group>"; };
 		E9367D4E29882690002F016D /* SegmentControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
+		E95D675C29A2944000DED5ED /* DatePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupVC.swift; sourceTree = "<group>"; };
+		E95D675E29A295F800DED5ED /* DatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupView.swift; sourceTree = "<group>"; };
 		E96364F3297FB07F005F16CD /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96364F5297FB632005F16CD /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		E96364F7297FB9AF005F16CD /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -355,6 +364,11 @@
 		E9C77490298E65C4004CC061 /* DeleteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteItemView.swift; sourceTree = "<group>"; };
 		E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		E9C77496298F145D004CC061 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		E9FBF9E129A7C95600A41948 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		E9FBF9E329A8B3D500A41948 /* CalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
+		E9FBF9E529A8B42400A41948 /* CalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewDayCell.swift; sourceTree = "<group>"; };
+		E9FBF9E729A9CE4600A41948 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		E9FBF9E929AA66C200A41948 /* Gesture+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gesture+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +398,7 @@
 				B92C311729377CEA000DA2D7 /* Utill+.swift */,
 				E9636514297FE05C005F16CD /* LogUtil.swift */,
 				E963653229843BD8005F16CD /* AppTimer.swift */,
+				E9FBF9E729A9CE4600A41948 /* CalendarViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -466,6 +481,11 @@
 				CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */,
 				E96364FE297FC70D005F16CD /* GradientProgressView.swift */,
 				E9636529298426E3005F16CD /* CommonNavigationView.swift */,
+				E95D675C29A2944000DED5ED /* DatePopupVC.swift */,
+				E9FBF9E129A7C95600A41948 /* CalendarView.swift */,
+				E9FBF9E329A8B3D500A41948 /* CalendarViewCell.swift */,
+				E9FBF9E529A8B42400A41948 /* CalendarViewDayCell.swift */,
+				E95D675E29A295F800DED5ED /* DatePopupView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -494,9 +514,11 @@
 			isa = PBXGroup;
 			children = (
 				D0E4AE462917D8A700549BC0 /* String+.swift */,
+				D03FAA502916063D00E9B045 /* UIFont+.swift */,
 				D0C97A6229379444001EC122 /* UIView+.swift */,
 				E96364F5297FB632005F16CD /* UIColor+.swift */,
 				E963651929800EC0005F16CD /* UILabel+.swift */,
+				E9FBF9E929AA66C200A41948 /* Gesture+.swift */,
 				D0C97A602937932B001EC122 /* UIImage+.swift */,
 				E9C77496298F145D004CC061 /* CALayer+.swift */,
 				D0B8D87C28F1A9CA00E9339E /* Codable+.swift */,
@@ -592,7 +614,6 @@
 			children = (
 				D0A2151C2906B77700D5FF59 /* Pretendard */,
 				D0A215092906B74000D5FF59 /* Montserrat */,
-				D03FAA502916063D00E9B045 /* UIFont+Resource.swift */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -1211,6 +1232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E935D9E4298ACFAE001787D2 /* CategoriesCell.swift in Sources */,
+				E9FBF9E229A7C95600A41948 /* CalendarView.swift in Sources */,
 				E96365222982B6BB005F16CD /* DetailGoalModel.swift in Sources */,
 				B92C312529491819000DA2D7 /* NetworkManger.swift in Sources */,
 				E963653829851D5C005F16CD /* CalendarCell.swift in Sources */,
@@ -1221,10 +1243,12 @@
 				E935D9E0298AC619001787D2 /* NewGoalTitleCell.swift in Sources */,
 				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
+				E95D675D29A2944000DED5ED /* DatePopupVC.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
 				E935D9CF29884633001787D2 /* TaskInfoViewModel.swift in Sources */,
 				D0B0583A29362D420014F88E /* HomeHeaderView.swift in Sources */,
 				D0B0583C293656DF0014F88E /* FilterHeaderView.swift in Sources */,
+				E9FBF9E829A9CE4600A41948 /* CalendarViewModel.swift in Sources */,
 				D023B077290AB12100387C5C /* UIViewController+.swift in Sources */,
 				CC0113FA29690092009CAC95 /* TaskViewModel.swift in Sources */,
 				D0C97A612937932B001EC122 /* UIImage+.swift in Sources */,
@@ -1249,8 +1273,9 @@
 				D0BB5B7129094E4F00E46063 /* UnregisterVC.swift in Sources */,
 				D0B0583F293659A40014F88E /* TodoCollectionViewCell.swift in Sources */,
 				D08B66CA28D5A3B9000998DC /* RootVC.swift in Sources */,
+				E9FBF9E629A8B42400A41948 /* CalendarViewDayCell.swift in Sources */,
 				E963653329843BD8005F16CD /* AppTimer.swift in Sources */,
-				D03FAA512916063D00E9B045 /* UIFont+Resource.swift in Sources */,
+				D03FAA512916063D00E9B045 /* UIFont+.swift in Sources */,
 				E963653A29852E4A005F16CD /* CalendarWeekCell.swift in Sources */,
 				C9152E9D29397F6100C6C025 /* GoalsVC.swift in Sources */,
 				E935D9E8298AE30B001787D2 /* DefaultTableViewCell.swift in Sources */,
@@ -1272,7 +1297,9 @@
 				E935D9F4298E4923001787D2 /* CreateTodoCell.swift in Sources */,
 				E9367D482988260A002F016D /* FeedCollectionViewCell.swift in Sources */,
 				E9367D4B2988260A002F016D /* FeedVC.swift in Sources */,
+				E95D675F29A295F800DED5ED /* DatePopupView.swift in Sources */,
 				D01E263E292AFCC300FBFF5B /* UserRepository.swift in Sources */,
+				E9FBF9E429A8B3D500A41948 /* CalendarViewCell.swift in Sources */,
 				CC0113F429685466009CAC95 /* TodoProgressView.swift in Sources */,
 				D0C18319292BB5B3007E3ED4 /* TabBarView.swift in Sources */,
 				C9D8D6EF291BE5870098DD09 /* AgreementVC.swift in Sources */,
@@ -1306,6 +1333,7 @@
 				E963652D2984299B005F16CD /* DetailTodosCell.swift in Sources */,
 				E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */,
 				D0E3B2A5291D1CDF00601936 /* HomeVC.swift in Sources */,
+				E9FBF9EA29AA66C200A41948 /* Gesture+.swift in Sources */,
 				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				E935D9F8298E4E98001787D2 /* DeleteFolderCell.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
@@ -1406,7 +1434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1461,7 +1489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1482,6 +1510,7 @@
 				DEVELOPMENT_TEAM = XQ24HP64B3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveGodLife/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1512,6 +1541,7 @@
 				DEVELOPMENT_TEAM = XQ24HP64B3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveGodLife/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

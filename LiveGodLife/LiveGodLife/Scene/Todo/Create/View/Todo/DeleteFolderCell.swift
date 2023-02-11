@@ -11,16 +11,18 @@ import UIKit
 import Combine
 import CombineCocoa
 
-protocol DeleteCellDelegate: AnyObject {
+protocol TodoDelegate: AnyObject {
     func delete(for cell: UITableViewCell)
     func title(for cell: UITableViewCell, with text: String)
+    func date(for cell: UITableViewCell, startDate: Date, endDate: Date)
+    func alaram(for cell: UITableViewCell, with repeat: String)
 }
 
 //MARK: DeleteFolderCell
 final class DeleteFolderCell: UITableViewCell {
     //MARK: - Properties
     private var bag = Set<AnyCancellable>()
-    weak var delegate: DeleteCellDelegate?
+    weak var delegate: TodoDelegate?
     private let containerView = UIView().then {
         $0.backgroundColor = .default
         $0.layer.cornerRadius = 16

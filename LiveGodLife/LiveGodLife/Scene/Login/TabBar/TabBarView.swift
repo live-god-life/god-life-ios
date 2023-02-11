@@ -40,11 +40,11 @@ final class TabBarView: UIView {
         view.frame = self.bounds
         addSubview(view)
 
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         layer.masksToBounds = true
         layer.cornerRadius = 40
         layer.borderWidth = 1
-        layer.borderColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1).cgColor
+        layer.borderColor = UIColor(rgbHexString: "39393D")?.cgColor
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         homeButton.setImage(UIImage(named: "tab_home"), for: .selected)
