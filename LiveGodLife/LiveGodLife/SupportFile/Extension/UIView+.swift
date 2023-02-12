@@ -24,4 +24,8 @@ extension UIView {
         gradient.mask = shape
         self.layer.addSublayer(gradient)
     }
+    
+    func gesture(_ event: GestureType = .tap) -> GesturePublisher {
+        GesturePublisher(view: self, event: event)
+    }
 }

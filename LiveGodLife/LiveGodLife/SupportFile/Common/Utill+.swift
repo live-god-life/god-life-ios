@@ -37,6 +37,7 @@ enum Format: String {
     case Time = "HHmmss"
     case Hour = "HHmm"
     case DateAndTime = "yyyy-MM-dd HH:mm:ss"
+    case DateAndTime1 = "yy.M.d"
     case DateAndTime2 = "yyyyMMdd HHmmss"
     case DateAndTime3 = "yyyyMMddHHmmss"
     case DateAndTime4 = "yyyy-MM-dd HH:mm"
@@ -169,6 +170,10 @@ extension Date {
     
     var dateString: String {
         return Format.Date.formatter.string(from: self)
+    }
+    
+    var dateAndTime1: String {
+        return Format.DateAndTime1.formatter.string(from: self)
     }
     
     var dateAndTime4: String {

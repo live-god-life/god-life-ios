@@ -10,52 +10,64 @@ import SnapKit
 import UIKit
 import Combine
 
-protocol DatePopupVCDelegate: AnyObject {
-    func select(time: Date)
-    func select(date: Date)
+protocol CalendarPopupVCDelegate: AnyObject {
+    func select(startDate: Date?, endDate: Date?)
 }
 
 //MARK: DatePopupVC
 final class CalendarPopupVC: UIViewController {
-    //MARK: - Propertiesdacfewgwweg
-    var bag = Set<AnyCancellable>()
-    let years = (2000 ... 2100).map { $0 }
-    let month = (1 ... 12).map { $0 }
-    let calendar = Calendar.current
-    let formatter = DateFormatter().then {
-        $0.dateFormat = "YYYYMMdd"
-    }
-    let containerView = UIView().then {
+    //MARK: - Properties
+    weak var delegate: CalendarPopupVCDelegate?
+    private var startDate: Date?
+    private var endDate: Date?
+    private var bag = Set<AnyCancellable>()
+    private let years = (2000 ... 2100).map { $0 }
+    private let month = (1 ... 12).map { $0 }
+    private let calendar = Calendar.current
+    private let visualEffectView = CustomVisualEffectView()
+    private let containerView = UIView().then {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 24.0
     }
-    let pickerContainerView = UIView().then {
+    private let pickerContainerView = UIView().then {
         $0.backgroundColor = .black
         $0.alpha = 0.0
     }
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.text = "목표기간"
         $0.textColor = .white
         $0.font = .semiBold(with: 20)
     }
-    let calendarView = CalendarView()
-    let pickerView = UIPickerView()
-    let dayCountLabel = UILabel().then {
+    private let calendarView = CalendarView()
+    private let pickerView = UIPickerView()
+    private let dayCountLabel = UILabel().then {
         $0.text = "-"
         $0.textColor = .green
         $0.font = .semiBold(with: 20)
     }
-    let completedButton = UIButton().then {
+    private let completedButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
         $0.setTitle("완료", for: .highlighted)
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitleColor(.black, for: .highlighted)
+        $0.setTitleColor(.lightGray, for: .normal)
+        $0.setTitleColor(.lightGray, for: .highlighted)
+        $0.setTitleColor(.black, for: .selected)
         $0.titleLabel?.font = .semiBold(with: 18)
         $0.layer.cornerRadius = 27.0
-        $0.backgroundColor = .green
+        $0.backgroundColor = .default
     }
     
     //MARK: - Life Cycle
+    init(startDate: Date? = nil, endDate: Date? = nil) {
+        self.startDate = startDate
+        self.endDate = endDate
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,10 +78,7 @@ final class CalendarPopupVC: UIViewController {
     
     //MARK: - Make UI
     private func makeUI() {
-        view.backgroundColor = .white
-        
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
-        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        view.backgroundColor = .clear
         
         view.addSubview(visualEffectView)
         view.addSubview(containerView)
@@ -79,7 +88,6 @@ final class CalendarPopupVC: UIViewController {
         containerView.addSubview(dayCountLabel)
         containerView.addSubview(completedButton)
         pickerContainerView.addSubview(pickerView)
-        
         
         visualEffectView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -122,12 +130,33 @@ final class CalendarPopupVC: UIViewController {
     
     //MARK: - Binding..
     private func bind() {
+        visualEffectView
+            .backgroundButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            .store(in: &bag)
         
+        completedButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self, self.completedButton.isSelected else {
+                    let alert = UIAlertController(title: "알림", message: "기간을 선택해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                    return
+                }
+                self.delegate?.select(startDate: self.startDate, endDate: self.endDate)
+                self.dismiss(animated: true)
+            }
+            .store(in: &bag)
     }
     
     func configure() {
         calendarView.delegate = self
-        calendarView.configure(with: Date())
+        calendarView.configure(with: self.startDate ?? Date(), startDate: self.startDate, endDate: self.endDate)
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -137,13 +166,17 @@ final class CalendarPopupVC: UIViewController {
         let month = calendar.component(.month, from: calendarView.targetDate ?? Date()) - 1
         pickerView.selectRow(year, inComponent: 0, animated: false)
         pickerView.selectRow(month, inComponent: 1, animated: false)
+        
+        let isSelected = startDate != nil && endDate != nil
+        completedButton.isSelected = isSelected
+        completedButton.backgroundColor = isSelected ? .green : .default
     }
     
     private func isDate(lhs: Date?, rhs: Date?) -> Bool {
         guard let lhs, let rhs else { return false }
         
-        let lhsDateString = formatter.string(from: lhs)
-        let rhsDateString = formatter.string(from: rhs)
+        let lhsDateString = lhs.dateString
+        let rhsDateString = rhs.dateString
         
         return lhsDateString == rhsDateString
     }
@@ -220,8 +253,15 @@ extension CalendarPopupVC: CalendarViewDelegate {
     func select(startDate: Date?, endDate: Date?) {
         guard let startDate, let endDate else {
             self.dayCountLabel.text = "-"
+            self.completedButton.isSelected = false
+            self.completedButton.backgroundColor = .default
             return
         }
+        self.startDate = startDate
+        self.endDate = endDate
+        
+        self.completedButton.isSelected = true
+        self.completedButton.backgroundColor = .green
         
         let reulst = endDate.timeIntervalSince1970 - startDate.timeIntervalSince1970
         let day = Int(reulst / 60 / 60 / 24) + 1

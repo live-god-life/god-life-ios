@@ -234,7 +234,9 @@ final class CalendarView: UIView {
         return layout
     }
     
-    func configure(with date: Date) {
+    func configure(with date: Date, startDate: Date?, endDate: Date?) {
+        self.startDate = startDate
+        self.endDate = endDate
         self.targetDate = date
     }
     
