@@ -431,7 +431,19 @@ extension GoalsCreateVC: MindsetTableViewCellDelegate {
 //MARK: - 폴더 및 투두 삭제 && 폴더 및 투두 제목 설정
 extension GoalsCreateVC: TodoDelegate {
     func date(for cell: UITableViewCell, startDate: Date, endDate: Date) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
         
+        let index = indexPath.section - 6
+        
+        if indexPath.row == 0 {
+            model.todos[index].startDate = startDate.dateString
+            model.todos[index].endDate = endDate.dateString
+        } else {
+            model.todos[index].todos[indexPath.row - 1].startDate = startDate.dateString
+            model.todos[index].todos[indexPath.row - 1].endDate = endDate.dateString
+        }
+        
+        LogUtil.d(model)
     }
     
     func alaram(for cell: UITableViewCell, with repeat: String) {

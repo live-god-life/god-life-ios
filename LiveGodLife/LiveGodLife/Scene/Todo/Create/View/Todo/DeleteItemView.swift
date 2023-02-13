@@ -77,5 +77,9 @@ final class DeleteItemView: UIView {
     func configure(logo: UIImage?, title: String?) {
         logoImageView.image = logo
         titleTextField.text = title
+        
+        logoImageView.snp.updateConstraints {
+            $0.size.equalTo(logo == nil ? 0 : 24)
+        }
     }
 }

@@ -14,7 +14,9 @@ import CombineCocoa
 final class SetTodoCell: UITableViewCell {
     //MARK: - Properties
     private var bag = Set<AnyCancellable>()
-    weak var delegate: DeleteCellDelegate?
+    weak var delegate: TodoDelegate?
+    private var startDate: Date?
+    private var endDate: Date?
     private let containerView = UIView().then {
         $0.clipsToBounds = true
         $0.backgroundColor = .gray5
@@ -23,16 +25,16 @@ final class SetTodoCell: UITableViewCell {
         $0.backgroundColor = .gray5
     }
     private let deleteItemView = DeleteItemView().then {
-        $0.configure(logo: UIImage(named: "checked"), title: nil)
+        $0.configure(logo: nil, title: nil)
     }
     private let dateItemView = SetTodoItemView().then {
-        $0.configure(logo: UIImage(named: "period"), title: "기간", value: "기간 설정(필수)")
+        $0.configure(logo: UIImage(named: "period"), title: "목표 기간", value: "필수")
     }
     private let repeatItemView = SetTodoItemView().then {
-        $0.configure(logo: UIImage(named: "repetition"), title: "반복", value: "반복 설정(선택)")
+        $0.configure(logo: UIImage(named: "repetition"), title: "반복 주기", value: "필수")
     }
     private let alarmItemView = SetTodoItemView().then {
-        $0.configure(logo: UIImage(named: "alarm"), title: "알람", value: "당일 오전 9시")
+        $0.configure(logo: UIImage(named: "alarm"), title: "알람 설정", value: "선택")
     }
     private let lineView = UIView().then {
         $0.backgroundColor = .gray3.withAlphaComponent(0.4)
@@ -78,19 +80,19 @@ final class SetTodoCell: UITableViewCell {
             $0.height.equalTo(1)
         }
         alarmItemView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(44)
+            $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-16)
             $0.bottom.equalToSuperview().offset(-24)
             $0.height.equalTo(24)
         }
         repeatItemView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(44)
+            $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-16)
             $0.bottom.equalTo(alarmItemView.snp.top).offset(-8)
             $0.height.equalTo(24)
         }
         dateItemView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(44)
+            $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-16)
             $0.bottom.equalTo(repeatItemView.snp.top).offset(-8)
             $0.height.equalTo(24)
@@ -120,6 +122,16 @@ final class SetTodoCell: UITableViewCell {
                 self?.delegate?.delete(for: cell)
             }
             .store(in: &bag)
+        
+        dateItemView
+            .itemButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                let vc = CalendarPopupVC(startDate: self?.startDate, endDate: self?.endDate)
+                vc.delegate = self
+                vc.modalPresentationStyle = .overFullScreen
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }.store(in: &bag)
     }
     
     func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alram: String?) {
@@ -157,6 +169,19 @@ final class SetTodoCell: UITableViewCell {
                 $0.height.equalTo(24)
             }
         }
+    }
+}
+
+extension SetTodoCell: CalendarPopupVCDelegate {
+    func select(startDate: Date?, endDate: Date?) {
+        guard let startDate, let endDate else { return }
+        
+        self.startDate = startDate
+        self.endDate = endDate
+        
+        delegate?.date(for: self, startDate: startDate, endDate: endDate)
+        
+        dateItemView.valueLabel.text = "\(startDate.dateAndTime1) - \(endDate.dateAndTime1)"
     }
 }
 

@@ -16,7 +16,7 @@ final class SetTodoItemView: UIView {
         $0.textColor = .BBBBBB
         $0.font = .regular(with: 14)
     }
-    private let valueLabel = UILabel().then {
+    let valueLabel = UILabel().then {
         $0.textColor = .BBBBBB
         $0.textAlignment = .right
         $0.font = .regular(with: 14)
@@ -52,7 +52,6 @@ final class SetTodoItemView: UIView {
         titleLabel.snp.makeConstraints {
             $0.left.equalTo(logoImageView.snp.right).offset(4)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(25)
             $0.height.equalTo(22)
         }
         detailImageView.snp.makeConstraints {
