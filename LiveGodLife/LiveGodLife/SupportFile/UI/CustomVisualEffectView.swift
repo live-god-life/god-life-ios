@@ -11,11 +11,13 @@ import UIKit
 //MARK: CustomVisualEffectView
 final class CustomVisualEffectView: UIVisualEffectView {
     //MARK: - Properties
-    let backgroundButton = UIButton()
+    let backgroundButton = UIButton().then {
+        $0.backgroundColor = .clear
+    }
     
     //MARK: - Initializer
     init() {
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         
         super.init(effect: blurEffect)
         
