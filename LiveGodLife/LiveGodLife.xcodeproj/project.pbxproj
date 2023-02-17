@@ -191,6 +191,9 @@
 		E9FBF9E829A9CE4600A41948 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E729A9CE4600A41948 /* CalendarViewModel.swift */; };
 		E9FBF9EA29AA66C200A41948 /* Gesture+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9E929AA66C200A41948 /* Gesture+.swift */; };
 		E9FBF9EC29AA6FD600A41948 /* CustomVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9EB29AA6FD600A41948 /* CustomVisualEffectView.swift */; };
+		E9FBF9F029AB445500A41948 /* RepeatPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */; };
+		E9FBF9F329AB503300A41948 /* RepeatDateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9F229AB503300A41948 /* RepeatDateStackView.swift */; };
+		E9FBF9F529AB745A00A41948 /* RepeatWeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9F429AB745A00A41948 /* RepeatWeekdayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -371,6 +374,9 @@
 		E9FBF9E729A9CE4600A41948 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		E9FBF9E929AA66C200A41948 /* Gesture+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gesture+.swift"; sourceTree = "<group>"; };
 		E9FBF9EB29AA6FD600A41948 /* CustomVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVisualEffectView.swift; sourceTree = "<group>"; };
+		E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPopupVC.swift; sourceTree = "<group>"; };
+		E9FBF9F229AB503300A41948 /* RepeatDateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDateStackView.swift; sourceTree = "<group>"; };
+		E9FBF9F429AB745A00A41948 /* RepeatWeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatWeekdayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +449,7 @@
 		B9B3F0CA2952372C00A1387C /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				E9FBF9ED29AB440000A41948 /* Popuo */,
 				E96364FC297FC299005F16CD /* Model */,
 				E96364FD297FC303005F16CD /* View */,
 				E99378BF29882040004038EB /* GoalsCreateVC.swift */,
@@ -484,10 +491,6 @@
 				E96364FE297FC70D005F16CD /* GradientProgressView.swift */,
 				E9636529298426E3005F16CD /* CommonNavigationView.swift */,
 				E9FBF9EB29AA6FD600A41948 /* CustomVisualEffectView.swift */,
-				E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */,
-				E9FBF9E129A7C95600A41948 /* CalendarView.swift */,
-				E9FBF9E329A8B3D500A41948 /* CalendarViewCell.swift */,
-				E9FBF9E529A8B42400A41948 /* CalendarViewDayCell.swift */,
 				E95D675E29A295F800DED5ED /* DatePopupView.swift */,
 			);
 			path = UI;
@@ -1106,6 +1109,28 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
+		E9FBF9ED29AB440000A41948 /* Popuo */ = {
+			isa = PBXGroup;
+			children = (
+				E9FBF9EE29AB442700A41948 /* View */,
+				E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */,
+				E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */,
+			);
+			path = Popuo;
+			sourceTree = "<group>";
+		};
+		E9FBF9EE29AB442700A41948 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9FBF9E129A7C95600A41948 /* CalendarView.swift */,
+				E9FBF9E329A8B3D500A41948 /* CalendarViewCell.swift */,
+				E9FBF9E529A8B42400A41948 /* CalendarViewDayCell.swift */,
+				E9FBF9F429AB745A00A41948 /* RepeatWeekdayView.swift */,
+				E9FBF9F229AB503300A41948 /* RepeatDateStackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1246,6 +1271,7 @@
 				E935D9E0298AC619001787D2 /* NewGoalTitleCell.swift in Sources */,
 				E963651C29801E81005F16CD /* MindsetCell.swift in Sources */,
 				D0E3B2DC2928B1E500601936 /* Mindset.swift in Sources */,
+				E9FBF9F329AB503300A41948 /* RepeatDateStackView.swift in Sources */,
 				E95D675D29A2944000DED5ED /* CalendarPopupVC.swift in Sources */,
 				D0E3B2D72928A64400601936 /* HomeAPI.swift in Sources */,
 				E935D9CF29884633001787D2 /* TaskInfoViewModel.swift in Sources */,
@@ -1263,6 +1289,7 @@
 				E963653129843B92005F16CD /* CircleProgressView.swift in Sources */,
 				D0A214EF2905604500D5FF59 /* MyPageVC.swift in Sources */,
 				E935D9F0298E48DA001787D2 /* FolderCell.swift in Sources */,
+				E9FBF9F529AB745A00A41948 /* RepeatWeekdayView.swift in Sources */,
 				D021B058290397660031481F /* NotificationName+.swift in Sources */,
 				D0BB5B6D2906D3D000E46063 /* ProfileUpdateVC.swift in Sources */,
 				E963651829800062005F16CD /* MindsetsHeaderView.swift in Sources */,
@@ -1325,6 +1352,7 @@
 				E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */,
 				E96364F6297FB632005F16CD /* UIColor+.swift in Sources */,
 				CCB882C4296DA528009284FF /* CircularProgressBar.swift in Sources */,
+				E9FBF9F029AB445500A41948 /* RepeatPopupVC.swift in Sources */,
 				C9D8D6F3291BEEAF0098DD09 /* JoinCompleteVC.swift in Sources */,
 				E9367D4C2988260A002F016D /* Feed.swift in Sources */,
 				B92C312729491868000DA2D7 /* LGLService.swift in Sources */,

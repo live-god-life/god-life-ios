@@ -338,6 +338,8 @@ extension GoalsCreateVC: NewGoalTitleCellDelegate {
 extension GoalsCreateVC: CategoriesCellDelegate {
     func selectedCategory(code: String) {
         model.categoryCode = code
+        
+        LogUtil.d(model)
     }
 }
 

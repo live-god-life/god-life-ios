@@ -17,6 +17,7 @@ final class SetTodoCell: UITableViewCell {
     weak var delegate: TodoDelegate?
     private var startDate: Date?
     private var endDate: Date?
+    private var days = Set<Int>()
     private let containerView = UIView().then {
         $0.clipsToBounds = true
         $0.backgroundColor = .gray5
@@ -132,6 +133,36 @@ final class SetTodoCell: UITableViewCell {
                 vc.modalPresentationStyle = .overFullScreen
                 UIApplication.topViewController()?.present(vc, animated: true)
             }.store(in: &bag)
+        
+        repeatItemView
+            .itemButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self, let startDate = self.startDate, let endDate = self.endDate else {
+                    let alert = UIAlertController(title: "알림", message: "목표 기간을 설정해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    UIApplication.topViewController()?.present(alert, animated: true)
+                    return
+                }
+                let text = self.repeatItemView.valueLabel.text ?? ""
+                var repeatType: RepeatPopupVC.RepeatType
+                switch text {
+                case "매주 평일":
+                    repeatType = .weekday
+                case "매주 주말":
+                    repeatType = .weekend
+                case "매일", "필수":
+                    repeatType = .everyday
+                default:
+                    repeatType = .custom(self.days)
+                }
+                
+                let vc = RepeatPopupVC(type: repeatType, startDate: startDate, endDate: endDate)
+                vc.delegate = self
+                vc.modalPresentationStyle = .overFullScreen
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }.store(in: &bag)
     }
     
     func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alram: String?) {
@@ -185,3 +216,27 @@ extension SetTodoCell: CalendarPopupVCDelegate {
     }
 }
 
+extension SetTodoCell: RepeatPopupVCDelegate {
+    func select(days: Set<Int>) {
+        self.days = days
+        let dayString = ["일", "월", "화", "수", "목", "금", "토"]
+        let sortedDays = days.map { $0 }.sorted(by: <)
+                         
+        
+        if days.count == 7 {
+            repeatItemView.valueLabel.text = "매일"
+        } else if days.count == 2,
+                  days.contains(1) && days.contains(7) {
+            repeatItemView.valueLabel.text = "매주 주말"
+        } else if days.count == 5,
+                  days.contains(2), days.contains(3), days.contains(4), days.contains(5), days.contains(6) {
+            repeatItemView.valueLabel.text = "매주 평일"
+        } else {
+            let result = sortedDays.reduce("매주 ", { $0 + "\(dayString[$1 - 1]),"})
+            let daysString = String(result[result.startIndex..<result.index(before: result.endIndex)])
+            repeatItemView.valueLabel.text = daysString
+        }
+        
+        
+    }
+}
