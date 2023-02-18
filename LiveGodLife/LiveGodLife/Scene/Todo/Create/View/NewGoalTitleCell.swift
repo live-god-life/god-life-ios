@@ -56,6 +56,12 @@ final class NewGoalTitleCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        textField.text = nil
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.backgroundColor = .black
@@ -100,5 +106,9 @@ final class NewGoalTitleCell: UITableViewCell {
             .map { !($0?.isEmpty ?? true) }
             .assign(to: \.isHidden, on: textLineView)
             .store(in: &bag)
+    }
+    
+    func configure(with title: String?) {
+        textField.text = title
     }
 }

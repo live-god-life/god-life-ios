@@ -70,6 +70,14 @@ final class CategoriesCell: UITableViewCell {
         flowLayout.sectionInset = .zero
         return flowLayout
     }
+    
+    func configure(selected code: String) {
+        let name = CategoryCode.name(category: code)
+        if let idx = models.firstIndex(where: { $0.name == name }) {
+            models[idx].isSelected = true
+            updateDataSnapshot(with: models)
+        }
+    }
 }
 
 extension CategoriesCell {

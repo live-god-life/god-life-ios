@@ -190,7 +190,7 @@ final class CalendarCell: UICollectionViewCell {
     //MARK: - Functions...
     private func isEqual(to d: Date?) -> Bool {
         guard let lhs = selectedDate, let rhs = d else { return false }
-        return lhs.toParameterString() == rhs.toParameterString()
+        return lhs.yyyyMMdd == rhs.yyyyMMdd
     }
     
     func configure(with model: [DayModel],

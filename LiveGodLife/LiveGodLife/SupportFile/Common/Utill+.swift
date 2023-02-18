@@ -49,8 +49,6 @@ enum Format: String {
     
     case OnlyMonthPresent = "MMMM"
     case DayOfWeekPresent = "E"
-    case TimeAndMinutesPresent = "HH:mm"
-    case TimeAndMinutesPresent2 = "a h:mm"
     case Time24AndMinutesPresent = "kkmm"
     
     var formatter: DateFormatter {
@@ -61,16 +59,31 @@ enum Format: String {
 }
 
 extension Date {
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
+    
     public func toString() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: self)
     }
+        
+    var yyyyMMdd: String {
+        Self.dateFormatter.dateFormat = "yyyyMMdd"
+        return Self.dateFormatter.string(from: self)
+    }
     
-    public func toParameterString() -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        return dateFormatter.string(from: self)
+    var HHmm: String {
+        Self.dateFormatter.dateFormat = "HH:mm"
+        return Self.dateFormatter.string(from: self)
+    }
+    
+    var ahmm: String {
+        Self.dateFormatter.dateFormat = "a h:mm"
+        return Self.dateFormatter.string(from: self)
     }
     
     public func toRequestString() -> String{
@@ -193,18 +206,6 @@ extension Date {
         return Format.DateAndMinutesPresent.formatter.string(from: self)
     }
     
-    var hourRepresent: String {
-        return Format.TimeAndMinutesPresent.formatter.string(from: self)
-    }
-    
-    var hourRepresent2: String {
-        return Format.TimeAndMinutesPresent2.formatter.string(from: self)
-    }
-    
-    var hour24Represent: String {
-        return Format.Time24AndMinutesPresent.formatter.string(from: self)
-    }
-    
     var monthRepresent: String {
         return Format.MonthPresent.formatter.string(from: self)
     }
@@ -228,6 +229,21 @@ extension String {
             Format.Date.formatter.date(from: self) ??
             Format.Time.formatter.date(from: self) ??
             Format.Hour.formatter.date(from: self) ?? nil
+    }
+    
+    var yyyyMMdd: Date? {
+        Date.dateFormatter.dateFormat = "yyyyMMdd"
+        return Date.dateFormatter.date(from: self)
+    }
+    
+    var HHmm: Date? {
+        Date.dateFormatter.dateFormat = "HH:mm"
+        return Date.dateFormatter.date(from: self)
+    }
+    
+    var ahmm: Date? {
+        Date.dateFormatter.dateFormat = "a h:mm"
+        return Date.dateFormatter.date(from: self)
     }
     
     var intValue: Int? {

@@ -181,10 +181,12 @@ extension GoalsCreateVC: UITableViewDataSource {
         case .title:
             let cell: NewGoalTitleCell = tableView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
+            cell.configure(with: model.title)
             return cell
         case .category:
             let cell: CategoriesCell = tableView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
+            cell.configure(selected: model.categoryCode)
             return cell
         case .line:
             let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
@@ -231,7 +233,7 @@ extension GoalsCreateVC: UITableViewDataSource {
                                title: todo.title,
                                startDate: todo.startDate,
                                endDate: todo.endDate,
-                               alram: todo.notification)
+                               alarm: todo.notification)
                 
                 return cell
             } else if indexPath.row == 0 {
@@ -253,10 +255,10 @@ extension GoalsCreateVC: UITableViewDataSource {
                 cell.delegate = self
                 let isBottom = todo.todos.count == 5 && indexPath.row == 5
                 cell.configure(isType: .folder(isBottom ? .bottomRadius : .flat),
-                               title: todo.title,
-                               startDate: todo.startDate,
-                               endDate: todo.endDate,
-                               alram: todo.notification)
+                               title: todo.todos[indexPath.row - 1].title,
+                               startDate: todo.todos[indexPath.row - 1].startDate,
+                               endDate: todo.todos[indexPath.row - 1].endDate,
+                               alarm: todo.todos[indexPath.row - 1].notification)
                 
                 return cell
             }

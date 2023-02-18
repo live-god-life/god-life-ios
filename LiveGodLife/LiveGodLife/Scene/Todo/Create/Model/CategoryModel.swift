@@ -37,6 +37,27 @@ enum CategoryCode: String {
             return "SELFCARE"
         }
     }
+    
+    static func name(category code: String) -> String {
+        switch code {
+        case "LIFESTYLE":
+            return "생활습관"
+        case "WORKOUT":
+            return "운동"
+        case "CAREER":
+            return "커리어"
+        case "FINANCE":
+            return "돈관리"
+        case "HOBBY":
+            return "취미"
+        case "LEARNING":
+            return "학습"
+        case "MINDFULNESS":
+            return "마음챙김"
+        default:
+            return "셀프케어"
+        }
+    }
 }
 
 struct CategoryModel: Hashable {

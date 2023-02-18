@@ -54,6 +54,13 @@ final class SetTodoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dateItemView.valueLabel.text = "필수"
+        alarmItemView.valueLabel.text = "선택"
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.backgroundColor = .black
@@ -176,8 +183,20 @@ final class SetTodoCell: UITableViewCell {
             }.store(in: &bag)
     }
     
-    func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alram: String?) {
+    func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alarm: String?) {
         updateUI(isType: type)
+        
+        if startDate?.isEmpty == false, endDate?.isEmpty == false,
+           let startDate = startDate?.yyyyMMdd, let endDate = endDate?.yyyyMMdd {
+            self.startDate = startDate
+            self.endDate = endDate
+            dateItemView.valueLabel.text = "\(startDate.dateAndTime1) - \(endDate.dateAndTime1)"
+        }
+        
+        if alarm?.isEmpty == false, let timeDate = alarm?.HHmm {
+            self.time = timeDate
+            self.alarmItemView.valueLabel.text = timeDate.ahmm
+        }
     }
     
     private func updateUI(isType type: GoalType) {
@@ -260,8 +279,8 @@ extension SetTodoCell: AlarmPopupVCDelegate {
         }
         
         self.time = time
-        self.alarmItemView.valueLabel.text = time.hourRepresent2
+        self.alarmItemView.valueLabel.text = time.ahmm
         
-        delegate?.alaram(for: self, with: time.hour24Represent)
+        delegate?.alaram(for: self, with: time.HHmm)
     }
 }

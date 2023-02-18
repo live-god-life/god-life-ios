@@ -184,7 +184,7 @@ final class TodoMainTabBarController: UITabBarController {
             .tapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                let newModel = CreateGoalsModel(title: "", categoryCode: "", mindsets: [], todos: [])
+                let newModel = CreateGoalsModel(title: "", categoryCode: "LIFESTYLE", mindsets: [], todos: [])
                 self?.navigationController?.pushViewController(GoalsCreateVC(model: newModel),
                                                                animated: true)
             }

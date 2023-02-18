@@ -102,7 +102,7 @@ final class CalendarDayCell: UICollectionViewCell {
         
         self.date = date
         dayLabel.text = day
-        let isToday = date.toParameterString() == Date().toParameterString()
+        let isToday = date.yyyyMMdd == Date().yyyyMMdd
         guard !isSelected else {
             dayLabel.textColor = .black
             contentView.backgroundColor = .green

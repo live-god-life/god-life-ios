@@ -111,6 +111,7 @@ final class RepeatPopupVC: UIViewController {
         
         let width = UIScreen.main.bounds.width
         let btnWidth = (width - 39) / 2
+        let bottomView = UIView()
         
         view.addSubview(visualEffectView)
         view.addSubview(containerView)
@@ -120,6 +121,7 @@ final class RepeatPopupVC: UIViewController {
         containerView.addArrangedSubview(pickerContainerView)
         containerView.addArrangedSubview(dayCountContainerView)
         containerView.addArrangedSubview(buttonContainerView)
+        containerView.addArrangedSubview(bottomView)
         
         titleContainerView.addSubview(titleLabel)
         dayCountContainerView.addSubview(dayCountLabel)
@@ -131,7 +133,7 @@ final class RepeatPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
         }
         titleContainerView.snp.makeConstraints {
             $0.height.equalTo(68)
@@ -168,6 +170,9 @@ final class RepeatPopupVC: UIViewController {
             $0.right.equalToSuperview().offset(-16)
             $0.width.equalTo(btnWidth)
             $0.height.equalTo(54)
+        }
+        bottomView.snp.makeConstraints {
+            $0.height.equalTo(84)
         }
     }
     

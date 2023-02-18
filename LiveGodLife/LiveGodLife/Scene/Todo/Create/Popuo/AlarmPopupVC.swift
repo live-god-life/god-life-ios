@@ -21,6 +21,7 @@ final class AlarmPopupVC: UIViewController {
     private var ampm = ["오전", "오후"]
     private var hours = (1...12).map { $0 }
     private var minutes = (0...59).map { $0 }
+    private var isNotUsed = false
     weak var delegate: AlarmPopupVCDelegate?
     private var bag = Set<AnyCancellable>()
     private let calendar = Calendar.current
@@ -28,6 +29,7 @@ final class AlarmPopupVC: UIViewController {
     private let datePicker = UIPickerView()
     private let containerView = UIView().then {
         $0.backgroundColor = .black
+        $0.layer.cornerRadius = 24.0
     }
     private let titleLabel = UILabel().then {
         $0.text = "알람설정"
@@ -67,7 +69,7 @@ final class AlarmPopupVC: UIViewController {
     }
     
     //MARK: - Life Cycle
-    init(time: Date?) {
+    init(time: Date?, isNotUsed: Bool = false) {
         self.date = time
         
         super.init(nibName: nil, bundle: nil)
@@ -107,8 +109,8 @@ final class AlarmPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-37)
-            $0.height.equalTo(396)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.height.equalTo(496)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
@@ -130,20 +132,21 @@ final class AlarmPopupVC: UIViewController {
             $0.top.bottom.equalTo(titleLabel)
         }
         cancelButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.left.equalToSuperview().offset(16)
             $0.width.equalTo(btnWidth)
             $0.height.equalTo(54)
         }
         completedButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.right.equalToSuperview().offset(-16)
             $0.width.equalTo(btnWidth)
             $0.height.equalTo(54)
         }
         datePicker.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(200)
             $0.bottom.equalTo(cancelButton.snp.top).offset(-24)
         }
     }
@@ -201,7 +204,7 @@ final class AlarmPopupVC: UIViewController {
         
         let hour = calendar.component(.hour, from: date)
         let min = calendar.component(.minute, from: date)
-        datePicker.selectRow(date.hourRepresent2.contains("오전") ? 0 : 1, inComponent: 0, animated: false)
+        datePicker.selectRow(date.ahmm.contains("오전") ? 0 : 1, inComponent: 0, animated: false)
         datePicker.selectRow(hours[hour == 0 ? 11 : hour - 1] - 1, inComponent: 1, animated: false)
         datePicker.selectRow(minutes[min], inComponent: 2, animated: false)
     }
