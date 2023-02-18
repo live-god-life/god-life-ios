@@ -36,6 +36,7 @@ final class AlarmPopupVC: UIViewController {
     }
     private let notUsedLabel = UILabel().then {
         $0.text = "사용안함"
+        $0.textColor = UIColor(rgbHexString: "8D8D93")
         $0.font = .semiBold(with: 16)
     }
     private let notUsedImageView = UIImageView().then {
@@ -59,6 +60,10 @@ final class AlarmPopupVC: UIViewController {
         $0.titleLabel?.font = .semiBold(with: 18)
         $0.layer.cornerRadius = 27.0
         $0.backgroundColor = .green
+    }
+    private let formatterr = DateFormatter().then {
+        $0.locale = Locale(identifier: "ko_KR")
+        $0.dateFormat = "a h:m"
     }
     
     //MARK: - Life Cycle
@@ -186,6 +191,19 @@ final class AlarmPopupVC: UIViewController {
     func configure() {
         datePicker.delegate = self
         datePicker.dataSource = self
+        
+        guard let date else {
+            datePicker.selectRow(0, inComponent: 0, animated: false)
+            datePicker.selectRow(7, inComponent: 1, animated: false)
+            datePicker.selectRow(30, inComponent: 2, animated: false)
+            return
+        }
+        
+        let hour = calendar.component(.hour, from: date)
+        let min = calendar.component(.minute, from: date)
+        datePicker.selectRow(date.hourRepresent2.contains("오전") ? 0 : 1, inComponent: 0, animated: false)
+        datePicker.selectRow(hours[hour == 0 ? 11 : hour - 1] - 1, inComponent: 1, animated: false)
+        datePicker.selectRow(minutes[min], inComponent: 2, animated: false)
     }
 }
 
@@ -199,7 +217,7 @@ extension AlarmPopupVC: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let text = component == 0 ? ampm[row] : component == 1 ? "\(hours[row])" : "\(minutes[row])"
+        let text = component == 0 ? ampm[row] : component == 1 ? "\(hours[row])" : minutes[row] < 10 ? "0\(minutes[row])" : "\(minutes[row])"
         let lbl = UILabel()
         lbl.text = text
         lbl.textColor = .white
@@ -211,16 +229,10 @@ extension AlarmPopupVC: UIPickerViewDataSource {
 
 extension AlarmPopupVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var components = DateComponents()
-        
-        let pm = ampm[pickerView.selectedRow(inComponent: 0)] == "오후" ? 12 : .zero
-        let hour = hours[pickerView.selectedRow(inComponent: 1)] + pm
+        let pm = ampm[pickerView.selectedRow(inComponent: 0)]
+        let hour = hours[pickerView.selectedRow(inComponent: 1)]
         let min = minutes[pickerView.selectedRow(inComponent: 2)]
         
-        components.hour = hour == 24 ? 0 : hour
-        components.minute = min
-        components.day = 1
-        
-        self.date = calendar.date(from: components)
+        self.date = formatterr.date(from: "\(pm) \(hour):\(min)")
     }
 }

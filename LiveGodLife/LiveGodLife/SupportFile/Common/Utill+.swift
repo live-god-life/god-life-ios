@@ -50,6 +50,7 @@ enum Format: String {
     case OnlyMonthPresent = "MMMM"
     case DayOfWeekPresent = "E"
     case TimeAndMinutesPresent = "HH:mm"
+    case TimeAndMinutesPresent2 = "a h:mm"
     case Time24AndMinutesPresent = "kkmm"
     
     var formatter: DateFormatter {
@@ -194,6 +195,10 @@ extension Date {
     
     var hourRepresent: String {
         return Format.TimeAndMinutesPresent.formatter.string(from: self)
+    }
+    
+    var hourRepresent2: String {
+        return Format.TimeAndMinutesPresent2.formatter.string(from: self)
     }
     
     var hour24Represent: String {

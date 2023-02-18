@@ -194,6 +194,7 @@
 		E9FBF9F029AB445500A41948 /* RepeatPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */; };
 		E9FBF9F329AB503300A41948 /* RepeatDateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9F229AB503300A41948 /* RepeatDateStackView.swift */; };
 		E9FBF9F529AB745A00A41948 /* RepeatWeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9F429AB745A00A41948 /* RepeatWeekdayView.swift */; };
+		E9FBF9F729AC969600A41948 /* AlarmPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF9F629AC969600A41948 /* AlarmPopupVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -377,6 +378,7 @@
 		E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPopupVC.swift; sourceTree = "<group>"; };
 		E9FBF9F229AB503300A41948 /* RepeatDateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDateStackView.swift; sourceTree = "<group>"; };
 		E9FBF9F429AB745A00A41948 /* RepeatWeekdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatWeekdayView.swift; sourceTree = "<group>"; };
+		E9FBF9F629AC969600A41948 /* AlarmPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmPopupVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1113,6 +1115,7 @@
 			isa = PBXGroup;
 			children = (
 				E9FBF9EE29AB442700A41948 /* View */,
+				E9FBF9F629AC969600A41948 /* AlarmPopupVC.swift */,
 				E9FBF9EF29AB445500A41948 /* RepeatPopupVC.swift */,
 				E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */,
 			);
@@ -1387,6 +1390,7 @@
 				E935D9E2298ACF9F001787D2 /* CategoryCell.swift in Sources */,
 				CC3181E32965C0F500016A77 /* TodoDetailVC.swift in Sources */,
 				E963654029869F74005F16CD /* DayTodoCell.swift in Sources */,
+				E9FBF9F729AC969600A41948 /* AlarmPopupVC.swift in Sources */,
 				CC9C195128F651C100C53152 /* LoginVC.swift in Sources */,
 				E9FBF9EC29AA6FD600A41948 /* CustomVisualEffectView.swift in Sources */,
 				B92C311829377CEA000DA2D7 /* Utill+.swift in Sources */,

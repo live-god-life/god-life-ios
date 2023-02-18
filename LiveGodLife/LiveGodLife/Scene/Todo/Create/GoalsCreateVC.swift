@@ -448,8 +448,34 @@ extension GoalsCreateVC: TodoDelegate {
         LogUtil.d(model)
     }
     
-    func alaram(for cell: UITableViewCell, with repeat: String) {
+    func repeatDate(for cell: UITableViewCell, with days: [String]) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
         
+        let index = indexPath.section - 6
+        
+        if indexPath.row == 0 {
+            model.todos[index].repetitionType = "WEEK"
+            model.todos[index].repetitionParams = days
+        } else {
+            model.todos[index].todos[indexPath.row - 1].repetitionType = "WEEK"
+            model.todos[index].todos[indexPath.row - 1].repetitionParams = days
+        }
+        
+        LogUtil.d(model)
+    }
+    
+    func alaram(for cell: UITableViewCell, with alarm: String) {
+        guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
+        
+        let index = indexPath.section - 6
+        
+        if indexPath.row == 0 {
+            model.todos[index].notification = alarm
+        } else {
+            model.todos[index].todos[indexPath.row - 1].notification = alarm
+        }
+        
+        LogUtil.d(model)
     }
     
     func delete(for cell: UITableViewCell) {
@@ -475,6 +501,8 @@ extension GoalsCreateVC: TodoDelegate {
                 newGoalTableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
+        
+        LogUtil.d(model)
     }
     
     func title(for cell: UITableViewCell, with text: String) {

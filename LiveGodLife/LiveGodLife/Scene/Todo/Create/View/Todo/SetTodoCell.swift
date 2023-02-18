@@ -18,6 +18,7 @@ final class SetTodoCell: UITableViewCell {
     private var startDate: Date?
     private var endDate: Date?
     private var days = Set<Int>()
+    private var time: Date?
     private let containerView = UIView().then {
         $0.clipsToBounds = true
         $0.backgroundColor = .gray5
@@ -163,6 +164,16 @@ final class SetTodoCell: UITableViewCell {
                 vc.modalPresentationStyle = .overFullScreen
                 UIApplication.topViewController()?.present(vc, animated: true)
             }.store(in: &bag)
+        
+        alarmItemView
+            .itemButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                let vc = AlarmPopupVC(time: self?.time)
+                vc.delegate = self
+                vc.modalPresentationStyle = .overFullScreen
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }.store(in: &bag)
     }
     
     func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alram: String?) {
@@ -237,6 +248,20 @@ extension SetTodoCell: RepeatPopupVCDelegate {
             repeatItemView.valueLabel.text = daysString
         }
         
+        delegate?.repeatDate(for: self, with: sortedDays.map { dayString[$0 - 1] })
+    }
+}
+
+extension SetTodoCell: AlarmPopupVCDelegate {
+    func select(time: Date?) {
+        guard let time else {
+            self.alarmItemView.valueLabel.text = "선택"
+            return
+        }
         
+        self.time = time
+        self.alarmItemView.valueLabel.text = time.hourRepresent2
+        
+        delegate?.alaram(for: self, with: time.hour24Represent)
     }
 }

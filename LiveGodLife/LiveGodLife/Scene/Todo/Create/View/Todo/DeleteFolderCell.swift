@@ -15,7 +15,8 @@ protocol TodoDelegate: AnyObject {
     func delete(for cell: UITableViewCell)
     func title(for cell: UITableViewCell, with text: String)
     func date(for cell: UITableViewCell, startDate: Date, endDate: Date)
-    func alaram(for cell: UITableViewCell, with repeat: String)
+    func repeatDate(for cell: UITableViewCell, with days: [String])
+    func alaram(for cell: UITableViewCell, with alarm: String)
 }
 
 //MARK: DeleteFolderCell
