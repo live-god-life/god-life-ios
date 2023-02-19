@@ -8,7 +8,6 @@
 import Foundation
 import Alamofire
 import Moya
-import SwiftyJSON
 
 final class NetworkManager {
     static let shared = NetworkManager()

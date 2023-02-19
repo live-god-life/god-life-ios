@@ -29,7 +29,7 @@ final class TaskVC: UIViewController {
 
     //MARK: - Functions...
     private func makeUI() {
-        view.backgroundColor = .background
+        view.backgroundColor = .black
         
         view.addSubview(emptyLabel)
         emptyLabel.snp.makeConstraints {

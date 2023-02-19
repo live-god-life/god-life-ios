@@ -11,13 +11,13 @@ final class MindsetListHeadersView: UIView {
     // MARK: - Properties
     private let titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 20)
     }
     let detailButton = UIButton().then {
         $0.layer.cornerRadius = 16
         $0.setImage(UIImage(named: "arrowRight"), for: .normal)
         $0.setImage(UIImage(named: "arrowRight"), for: .highlighted)
-        $0.backgroundColor = UIColor(rgbHexString: "333333")
+        $0.backgroundColor = .gray7
     }
     
     // MARK: - Initializer
@@ -38,15 +38,16 @@ final class MindsetListHeadersView: UIView {
         addSubview(titleLabel)
         addSubview(detailButton)
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview()
-            $0.height.equalTo(30)
-        }
+
         detailButton.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.right.equalToSuperview()
             $0.size.equalTo(32)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.centerY.equalTo(detailButton.snp.centerY)
+            $0.left.equalToSuperview()
+            $0.height.equalTo(28)
         }
     }
     

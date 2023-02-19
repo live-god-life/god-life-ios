@@ -21,7 +21,7 @@ final class RoundedButton: UIButton {
     
     //MARK: - Functions...
     func configure(title: String = "완료",
-                   titleColor: UIColor = .background,
+                   titleColor: UIColor = .black,
                    backgroundColor: UIColor = .green) {
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)

@@ -7,8 +7,6 @@
 
 import Foundation
 import Moya
-import SwiftyJSON
-import PopupDialog
 import SystemConfiguration
 import os
 import WebKit
@@ -166,7 +164,3 @@ class LGLServiceAuth: PluginType{
         return result
     }
 }
-
-
-
-

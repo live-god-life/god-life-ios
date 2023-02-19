@@ -33,7 +33,7 @@ final class TodoDetailVC: UIViewController {
     
     //MARK: - Functions...
     private func makeUI() {
-        view.backgroundColor = .background
+        view.backgroundColor = .black
 
         let leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveToBack))
         navigationBar.topItem?.leftBarButtonItem = leftBarButtonItem

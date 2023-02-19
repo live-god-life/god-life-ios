@@ -80,9 +80,9 @@ final class TodoMainTabBarController: UITabBarController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 17
         $0.setTitle("캘린더", for: .normal)
-        $0.titleLabel?.font = .bold(with: 14)
-        $0.setTitleColor(.gray2, for: .normal)
-        $0.setTitleColor(.background, for: .selected)
+        $0.titleLabel?.font = .regular(with: 16)
+        $0.setTitleColor(.gray8, for: .normal)
+        $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
         $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
@@ -92,9 +92,9 @@ final class TodoMainTabBarController: UITabBarController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 17
         $0.setTitle("마인드셋", for: .normal)
-        $0.titleLabel?.font = .bold(with: 14)
-        $0.setTitleColor(.gray2, for: .normal)
-        $0.setTitleColor(.background, for: .selected)
+        $0.titleLabel?.font = .regular(with: 16)
+        $0.setTitleColor(.gray8, for: .normal)
+        $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
         $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
@@ -104,9 +104,9 @@ final class TodoMainTabBarController: UITabBarController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 17
         $0.setTitle("목표", for: .normal)
-        $0.titleLabel?.font = .bold(with: 14)
-        $0.setTitleColor(.gray2, for: .normal)
-        $0.setTitleColor(.background, for: .selected)
+        $0.titleLabel?.font = .regular(with: 16)
+        $0.setTitleColor(.gray8, for: .normal)
+        $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
         $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
@@ -114,23 +114,23 @@ final class TodoMainTabBarController: UITabBarController {
     private let titleLabel = UILabel().then {
         $0.text = "TODO"
         $0.textColor = .white
-        $0.font = .montserrat(with: 20, weight: .bold)
+        $0.font = .montserrat(with: 18, weight: .semibold)
     }
     private lazy var tabBarView = UIStackView().then {
         $0.spacing = .zero
         $0.alignment = .fill
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.layoutMargins = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        $0.layoutMargins = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         $0.isLayoutMarginsRelativeArrangement = true
         
         $0.addArrangedSubview(self.calendarButton)
         $0.addArrangedSubview(self.mindsetButton)
         $0.addArrangedSubview(self.goalButton)
         
-        $0.layer.cornerRadius = 23
+        $0.layer.cornerRadius = 24
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .default
+        $0.backgroundColor = .gray7
     }
     private let addButton = UIButton().then {
         $0.setImage(UIImage(named: "addButton"), for: .normal)
@@ -161,18 +161,18 @@ final class TodoMainTabBarController: UITabBarController {
         view.addSubview(addButton)
 
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.equalToSuperview().offset(24)
-            $0.height.equalTo(30)
+            $0.height.equalTo(44)
         }
         tabBarView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(28)
-            $0.horizontalEdges.equalToSuperview().inset(10)
-            $0.height.equalTo(46)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(3)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(48)
         }
         addButton.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-16)
-            $0.bottom.equalToSuperview().offset(-128)
+            $0.bottom.equalToSuperview().offset(-129)
             $0.size.equalTo(48)
         }
     }
@@ -197,6 +197,10 @@ final class TodoMainTabBarController: UITabBarController {
         goalButton.isSelected = sender.tag == goalButton.tag
         mindsetButton.isSelected = sender.tag == mindsetButton.tag
         calendarButton.isSelected = sender.tag == calendarButton.tag
+        
+        goalButton.titleLabel?.font = sender.tag == goalButton.tag ? .semiBold(with: 16) : .regular(with: 16)
+        mindsetButton.titleLabel?.font = sender.tag == mindsetButton.tag ? .semiBold(with: 16) : .regular(with: 16)
+        calendarButton.titleLabel?.font = sender.tag == calendarButton.tag ? .semiBold(with: 16) : .regular(with: 16)
     }
 }
 

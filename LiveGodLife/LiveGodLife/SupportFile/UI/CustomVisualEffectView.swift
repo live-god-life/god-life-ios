@@ -17,7 +17,7 @@ final class CustomVisualEffectView: UIVisualEffectView {
     
     //MARK: - Initializer
     init() {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
         
         super.init(effect: blurEffect)
         

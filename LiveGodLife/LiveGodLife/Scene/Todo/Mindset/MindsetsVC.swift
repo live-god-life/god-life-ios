@@ -48,7 +48,7 @@ final class MindsetsVC: UIViewController {
         view.addSubview(mindsetsCollectionView)
         
         mindsetsCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(116)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(96)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-40)
         }
