@@ -233,7 +233,8 @@ extension GoalsCreateVC: UITableViewDataSource {
                                title: todo.title,
                                startDate: todo.startDate,
                                endDate: todo.endDate,
-                               alarm: todo.notification)
+                               alarm: todo.notification,
+                               repeatDays: todo.repetitionParams)
                 
                 return cell
             } else if indexPath.row == 0 {
@@ -258,7 +259,8 @@ extension GoalsCreateVC: UITableViewDataSource {
                                title: todo.todos[indexPath.row - 1].title,
                                startDate: todo.todos[indexPath.row - 1].startDate,
                                endDate: todo.todos[indexPath.row - 1].endDate,
-                               alarm: todo.todos[indexPath.row - 1].notification)
+                               alarm: todo.todos[indexPath.row - 1].notification,
+                               repeatDays: todo.todos[indexPath.row - 1].repetitionParams)
                 
                 return cell
             }

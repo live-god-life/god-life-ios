@@ -204,7 +204,14 @@ final class RepeatPopupVC: UIViewController {
                     result.insert(7)
                     self.delegate?.select(days: result)
                 case .custom(let days):
-                    let dayStrings = ["일", "월", "화", "수", "목", "금", "토"]
+                    guard !days.isEmpty else {
+                        let alert = UIAlertController(title: "알림", message: "반복 날짜를 선택해주세요.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "확인", style: .default)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+                        return
+                    }
+                    
                     self.delegate?.select(days: days)
                 }
                 
