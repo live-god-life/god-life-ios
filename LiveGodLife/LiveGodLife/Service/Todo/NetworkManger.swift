@@ -27,7 +27,7 @@ enum NetworkService {
     case mindsets(Dictionary<String,Any>)
     case goals(Dictionary<String,Any>)
     case deatilGoals(Int)
-    case addGoals(Dictionary<String,Any>)
+    case addGoals(Data)
 }
 extension NetworkService: TargetType {
     public var baseURL: URL {
@@ -58,7 +58,6 @@ extension NetworkService: TargetType {
             return "/goals/\(goalsID)"
         case .addGoals(_):
             return "/goals"
-            
         }
     }
     
@@ -97,8 +96,8 @@ extension NetworkService: TargetType {
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         case .goals(let parameter):
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .addGoals(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .addGoals(let model):
+            return .requestData(model)
         case .deatilGoals:
             return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
         case .login(let parameter):

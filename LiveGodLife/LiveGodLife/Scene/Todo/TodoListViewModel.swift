@@ -71,6 +71,13 @@ final class TodoListViewModel {
                 self?.requestDetailGoals(id: id)
             }
             .store(in: &bag)
+        //AddGoals
+        input
+            .requestAddGoal
+            .sink { [weak self] newGoal in
+                self?.requestAddGoals(model: newGoal)
+            }
+            .store(in: &bag)
     }
 }
 
@@ -91,6 +98,7 @@ extension TodoListViewModel {
         var requestGoals = PassthroughSubject<Bool?, Never>()
         var requestMindsets = PassthroughSubject<Int?, Never>()
         var requestDetailGoal = PassthroughSubject<Int, Never>()
+        var requestAddGoal = PassthroughSubject<CreateGoalsModel, Never>()
     }
     
     struct Output {
@@ -99,6 +107,7 @@ extension TodoListViewModel {
         var requestGoals = PassthroughSubject<[GoalModel], Never>()
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
         var requestDetailGoal = PassthroughSubject<Void?, Never>()
+        var requestAddGoal = PassthroughSubject<Result<Void?, Error>, Never>()
     }
 }
 
@@ -238,6 +247,26 @@ extension TodoListViewModel {
                     }
                 case .failure(let err):
                     LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    //MARK: Goals 목표 추가
+    private func requestAddGoals(model: CreateGoalsModel) {
+        guard let model = try? JSONEncoder().encode(model) else {
+            let alert = UIAlertController(title: "알림", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
+            return
+        }
+        
+        NetworkManager.shared.provider
+            .request(.addGoals(model)) { [weak self] response in
+                switch response {
+                case .success:
+                    self?.output.requestAddGoal.send(.success(nil))
+                case .failure(let err):
+                    self?.output.requestAddGoal.send(.failure(err))
                 }
             }
     }

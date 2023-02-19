@@ -11,7 +11,7 @@ import UIKit
 import Combine
 
 protocol AlarmPopupVCDelegate: AnyObject {
-    func select(time: Date?)
+    func select(time: Date?, isNotUsed: Bool)
 }
 
 //MARK: DatePopupVC
@@ -69,8 +69,10 @@ final class AlarmPopupVC: UIViewController {
     }
     
     //MARK: - Life Cycle
-    init(time: Date?, isNotUsed: Bool = false) {
+    init(time: Date?, isNotUsed: Bool) {
         self.date = time
+        self.notUsedButton.isSelected = isNotUsed
+        self.notUsedImageView.image = isNotUsed ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -166,7 +168,8 @@ final class AlarmPopupVC: UIViewController {
             .sink { [weak self] _ in
                 guard let self else { return }
                 
-                self.delegate?.select(time: self.notUsedButton.isSelected ? nil : self.date)
+                self.delegate?.select(time: self.notUsedButton.isSelected ? nil : self.date,
+                                      isNotUsed: self.notUsedButton.isSelected)
                 
                 self.dismiss(animated: true)
             }
@@ -188,6 +191,7 @@ final class AlarmPopupVC: UIViewController {
                 self?.notUsedImageView.image = isSelected ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
             }
             .store(in: &bag)
+        
         
     }
     

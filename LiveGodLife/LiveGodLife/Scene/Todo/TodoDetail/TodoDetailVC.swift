@@ -29,7 +29,6 @@ final class TodoDetailVC: UIViewController {
         super.viewDidLoad()
 
         makeUI()
-        requestData()
     }
     
     //MARK: - Functions...
@@ -54,7 +53,8 @@ final class TodoDetailVC: UIViewController {
 
         detail.zip(afterSchedules, beforeSchedules)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
+            .sink { detail in
+                LogUtil.d(detail)
             } receiveValue: { [weak self] (detail, afterSchedules, beforeSchedules) in
                 self?.taskInfoView.configure(TaskInfoViewModel(data: detail))
                 self?.progressView.configure(completedCount: detail.completedCount, totalCount: detail.totalCount)
@@ -72,6 +72,8 @@ final class TodoDetailVC: UIViewController {
     
     func configure(id: Int) {
         self.id = id
+        
+        requestData() 
     }
     
     @objc

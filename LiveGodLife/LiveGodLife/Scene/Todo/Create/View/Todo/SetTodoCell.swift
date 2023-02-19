@@ -16,7 +16,7 @@ protocol TodoDelegate: AnyObject {
     func title(for cell: UITableViewCell, with text: String)
     func date(for cell: UITableViewCell, startDate: Date, endDate: Date)
     func repeatDate(for cell: UITableViewCell, with days: [String])
-    func alaram(for cell: UITableViewCell, with alarm: String)
+    func alaram(for cell: UITableViewCell, with alarm: String?)
 }
 
 //MARK: SetTodoCell
@@ -26,6 +26,7 @@ final class SetTodoCell: UITableViewCell {
     weak var delegate: TodoDelegate?
     private var startDate: Date?
     private var endDate: Date?
+    private var notification: String?
     private var days = Set<Int>() {
         didSet {
             if days.count == 7 {
@@ -206,14 +207,15 @@ final class SetTodoCell: UITableViewCell {
             .itemButton
             .tapPublisher
             .sink { [weak self] _ in
-                let vc = AlarmPopupVC(time: self?.time)
+                let vc = AlarmPopupVC(time: self?.time, isNotUsed: self?.notification == "")
                 vc.delegate = self
                 vc.modalPresentationStyle = .overFullScreen
                 UIApplication.topViewController()?.present(vc, animated: true)
             }.store(in: &bag)
     }
     
-    func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?, alarm: String?, repeatDays: [String]?) {
+    func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?,
+                   alarm: String?, repeatDays: [String]?, notification: String?) {
         updateUI(isType: type)
         
         if startDate?.isEmpty == false, endDate?.isEmpty == false,
@@ -237,6 +239,8 @@ final class SetTodoCell: UITableViewCell {
             self.time = timeDate
             self.alarmItemView.valueLabel.text = timeDate.ahmm
         }
+        
+        self.notification = notification
     }
     
     private func updateUI(isType type: GoalType) {
@@ -296,9 +300,11 @@ extension SetTodoCell: RepeatPopupVCDelegate {
 }
 
 extension SetTodoCell: AlarmPopupVCDelegate {
-    func select(time: Date?) {
+    func select(time: Date?, isNotUsed: Bool) {
         guard let time else {
             self.alarmItemView.valueLabel.text = "선택"
+            self.notification = isNotUsed ? "" : nil
+            delegate?.alaram(for: self, with: self.notification)
             return
         }
         

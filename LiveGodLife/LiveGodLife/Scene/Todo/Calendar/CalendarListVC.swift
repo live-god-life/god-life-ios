@@ -58,6 +58,12 @@ final class CalendarListVC: UIViewController {
         makeUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        calculation()
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         view.backgroundColor = .black

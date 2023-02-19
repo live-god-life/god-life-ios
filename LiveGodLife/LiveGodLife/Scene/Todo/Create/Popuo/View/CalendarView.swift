@@ -53,8 +53,18 @@ final class CalendarView: UIView {
             let year = calendar.component(.year, from: targetDate)
             
             self.models = (-48 ... 48).map {
-                components.year = year + ($0 / 12)
-                let m = month + ($0 % 12)
+                var y = year + ($0 / 12)
+                var m = month + ($0 % 12)
+                
+                if m < 1 {
+                    y -= 1
+                    m += 12
+                } else if m > 12 {
+                    y += 1
+                    m -= 12
+                }
+                
+                components.year = y
                 components.month = m < 1 ? 12 - m : m > 12 ? m - 12 : m
                 return calculation(for: calendar.date(from: components) ?? Date())
             }

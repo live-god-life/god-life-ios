@@ -115,6 +115,99 @@ final class GoalsCreateVC: UIViewController {
                 self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestAddGoal
+            .sink { [weak self] result in
+                switch result {
+                case .success:
+                    self?.navigationController?.popViewController(animated: true)
+                case .failure(_):
+                    let alert = UIAlertController(title: "알림", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                }
+            }
+            .store(in: &viewModel.bag)
+        
+        completeButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                let alert = UIAlertController(title: "알림", message: "", preferredStyle: .alert)
+                let action = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(action)
+                
+                guard !self.model.title.isEmpty else {
+                    alert.message = "목표 제목을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.mindsets.isEmpty else {
+                    alert.message = "마인드셋을 추가해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.mindsets.contains(where: { $0.content.isEmpty }) else {
+                    alert.message = "마인드셋의 내용을 추가해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { $0.title.isEmpty }) else {
+                    alert.message = "투두 제목을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { $0.todos.contains(where: { $0.title.isEmpty }) }) else {
+                    alert.message = "투두 제목을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { $0.startDate == nil && $0.type != "FOLDER" }) else {
+                    alert.message = "목표 기간을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { $0.todos.contains(where: { $0.startDate.isEmpty || $0.endDate.isEmpty }) }) else {
+                    alert.message = "목표 기간을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { ($0.repetitionParams?.isEmpty ?? true) && $0.type != "FOLDER" }) else {
+                    alert.message = "반복 주기를 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !self.model.todos.contains(where: { $0.todos.contains(where: { $0.repetitionParams?.isEmpty ?? true }) }) else {
+                    alert.message = "반복 주기를 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                for (i, todo) in self.model.todos.enumerated() {
+                    if todo.type != "FOLDER" {
+                        if todo.notification?.isEmpty ?? true { self.model.todos[i].notification = "09:00" }
+                    } else {
+                        for (j, childTodo) in todo.todos.enumerated() {
+                            if childTodo.notification?.isEmpty ?? true { self.model.todos[i].todos[j].notification = "09:00" }
+                        }
+                    }
+                }
+                
+                self.viewModel.input.requestAddGoal.send(self.model)
+            }
+            .store(in: &bag)
     }
     
     private func showPopup(title: String) {
@@ -234,7 +327,8 @@ extension GoalsCreateVC: UITableViewDataSource {
                                startDate: todo.startDate,
                                endDate: todo.endDate,
                                alarm: todo.notification,
-                               repeatDays: todo.repetitionParams)
+                               repeatDays: todo.repetitionParams,
+                               notification: todo.notification)
                 
                 return cell
             } else if indexPath.row == 0 {
@@ -260,7 +354,8 @@ extension GoalsCreateVC: UITableViewDataSource {
                                startDate: todo.todos[indexPath.row - 1].startDate,
                                endDate: todo.todos[indexPath.row - 1].endDate,
                                alarm: todo.todos[indexPath.row - 1].notification,
-                               repeatDays: todo.todos[indexPath.row - 1].repetitionParams)
+                               repeatDays: todo.todos[indexPath.row - 1].repetitionParams,
+                               notification: todo.todos[indexPath.row - 1].notification)
                 
                 return cell
             }
@@ -468,7 +563,7 @@ extension GoalsCreateVC: TodoDelegate {
         LogUtil.d(model)
     }
     
-    func alaram(for cell: UITableViewCell, with alarm: String) {
+    func alaram(for cell: UITableViewCell, with alarm: String?) {
         guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
         
         let index = indexPath.section - 6
