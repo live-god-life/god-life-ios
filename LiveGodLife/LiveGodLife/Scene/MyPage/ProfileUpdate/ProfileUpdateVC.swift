@@ -39,7 +39,7 @@ final class ProfileUpdateVC: UIViewController {
 
     //MARK: - Functions...
     private func makeUI() {
-        view.backgroundColor = .background
+        view.backgroundColor = .black
 
         title = "프로필 수정"
         

@@ -38,4 +38,10 @@ extension UIColor {
     static let gray5 = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
     /// #88888
     static let gray6 = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
+    /// #2B2B30
+    static let gray7 = UIColor(rgbHexString: "2B2B30")!
+    /// #8D8D93
+    static let gray8 = UIColor(rgbHexString: "8D8D93")!
+    /// #39393D
+    static let gray9 = UIColor(rgbHexString: "39393D")!
 }

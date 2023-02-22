@@ -69,7 +69,7 @@ final class GoalStatusPopupView: UIView {
         
         layer.cornerRadius = 8.0
         layer.borderWidth = 1.0
-        layer.borderColor = UIColor.gray3.cgColor
+        layer.borderColor = UIColor.gray9.cgColor
         
         allButton.isSelected = true
         

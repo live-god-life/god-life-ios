@@ -32,7 +32,7 @@ final class MyPageVC: UIViewController {
 
     private let feedVC = FeedVC()
     private var myArticleVC = UIViewController().then {
-        $0.view.backgroundColor = .background
+        $0.view.backgroundColor = .black
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         label.numberOfLines = 0
         let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"
@@ -62,7 +62,7 @@ final class MyPageVC: UIViewController {
     }
     
     private func makeUI() {
-        view.backgroundColor = .background
+        view.backgroundColor = .black
 
         setupUI()
 

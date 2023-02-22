@@ -94,7 +94,7 @@ final class CalendarPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-100)
             $0.height.equalTo(688)
         }
         completedButton.snp.makeConstraints {

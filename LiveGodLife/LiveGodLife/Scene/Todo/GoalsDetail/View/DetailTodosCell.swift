@@ -82,6 +82,7 @@ final class DetailTodosCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
             $0.left.equalToSuperview().offset(72)
+            $0.right.equalTo(infoImageView.snp.left).offset(-16)
             $0.height.equalTo(24)
         }
         dateLabel.snp.makeConstraints {

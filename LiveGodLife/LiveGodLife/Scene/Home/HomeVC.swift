@@ -35,10 +35,10 @@ final class HomeVC: UIViewController, CategoryFilterViewDelegate {
     }
     
     private func makeUI() {
-        view.backgroundColor = .background
+        view.backgroundColor = .black
         
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .black
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0) // 탭바의 높이만큼 bottom inset
         tableView.register(UINib(nibName: "FeedTableViewCell", bundle: nil), forCellReuseIdentifier: "FeedTableViewCell")
     }

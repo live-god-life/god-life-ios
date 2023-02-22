@@ -57,12 +57,12 @@ final class GoalsVC: UIViewController {
         view.addSubview(popupView)
         
         goalsCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(116)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(96)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-40)
         }
         popupView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(178)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(158)
             $0.right.equalToSuperview().offset(-16)
             $0.width.equalTo(98)
             $0.height.equalTo(136)
@@ -150,7 +150,7 @@ extension GoalsVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: 146.0)
+        return CGSize(width: width, height: 154.0)
     }
 }
 

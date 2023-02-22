@@ -22,15 +22,15 @@ final class GoalsHeadersView: UICollectionReusableView {
     }
     private var titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .montserrat(with: 16, weight: .medium)
+        $0.font = .montserrat(with: 16, weight: .semibold)
     }
     private var statusLabel = UILabel().then {
         $0.text = "전체"
-        $0.textColor = .white
-        $0.font = .montserrat(with: 16, weight: .medium)
+        $0.textColor = .white.withAlphaComponent(0.8)
+        $0.font = .regular(with: 16)
     }
-    private var buttonImage = UIImageView().then {
-        $0.image = UIImage(named: "arrowBottom")
+    private var buttonImage = UIButton().then {
+        $0.setImage(UIImage(named: "arrowBottom"), for: .normal)
     }
     private lazy var popupButton = UIButton().then {
         $0.backgroundColor = .clear
@@ -59,25 +59,24 @@ final class GoalsHeadersView: UICollectionReusableView {
         
         logoImageView.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel.snp.centerY)
-            $0.left.equalToSuperview().offset(27.1)
+            $0.left.equalToSuperview().offset(23.1)
             $0.width.equalTo(9.8)
             $0.height.equalTo(15)
         }
         titleLabel.snp.makeConstraints {
             $0.centerY.equalTo(statusLabel.snp.centerY)
             $0.left.equalTo(logoImageView.snp.right).offset(7.1)
-            $0.height.equalTo(20)
+            $0.height.equalTo(24)
         }
         statusLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-16)
-            $0.right.equalTo(buttonImage.snp.left).offset(-7)
+            $0.right.equalTo(buttonImage.snp.left).offset(-4)
             $0.height.equalTo(24)
         }
         buttonImage.snp.makeConstraints {
             $0.centerY.equalTo(statusLabel.snp.centerY)
-            $0.right.equalToSuperview().offset(-27)
-            $0.width.equalTo(10)
-            $0.height.equalTo(5)
+            $0.right.equalToSuperview().offset(-20)
+            $0.size.equalTo(16)
         }
         popupButton.snp.makeConstraints {
             $0.top.equalToSuperview()

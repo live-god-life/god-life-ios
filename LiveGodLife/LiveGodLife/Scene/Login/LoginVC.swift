@@ -10,7 +10,6 @@ import SnapKit
 import AuthenticationServices
 import KakaoSDKUser
 import KakaoSDKAuth
-import SwiftyJSON
 import Moya
 
 extension LoginVC: AppleLoginServiceDelegate {
@@ -112,27 +111,19 @@ final class LoginVC: UIViewController {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             
             //카톡 설치되어있으면 -> 카톡으로 로그인
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-//                if let error = error {
-//                    print(error)
-//                } else {
-//                    print("카카오 톡으로 로그인 성공")
-//
-//                    _ = oauthToken
-//                    /// 로그인 관련 메소드 추가
-//                }
-//                let idToken = oauthToken?.idToken
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
                 if let error = error {
                     LogUtil.e(error)
                 } else {
                     LogUtil.v("카카오 계정으로 로그인 성공")
                 }
+                
                 UserApi.shared.me { (user, error) in
                     let name = user?.id ?? 0
                     let token = user?.kakaoAccount
 
                     var parameter = Dictionary<String,Any>()
-                    parameter.updateValue(name ?? "", forKey: "identifier")
+                    parameter.updateValue(name, forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
                     self.user = .init(nickname: user?.kakaoAccount?.name ?? "", type: .kakao, identifier: String(name), email: self.email, image: "")
@@ -155,10 +146,9 @@ final class LoginVC: UIViewController {
                     let name = user?.id ?? 0
                     let token = user?.kakaoAccount
 
+                    UserDefaults.standard.set(token, forKey: "token")
                     var parameter = Dictionary<String,Any>()
-//                    “identifier” : “key”
-//                      “type” : “apple, kakao”
-                    parameter.updateValue(name ?? "", forKey: "identifier")
+                    parameter.updateValue(name, forKey: "identifier")
                     parameter.updateValue("kakao", forKey: "type")
                     self.email = user?.kakaoAccount?.email ?? ""
                     self.user = .init(nickname: user?.kakaoAccount?.name ?? "", type: .kakao, identifier: String(name), email: self.email, image: "")
@@ -179,7 +169,6 @@ final class LoginVC: UIViewController {
                 do {
                     
                     let json = try result.mapJSON()
-//                    let json = try JSON(filteredResponse.mapJSON())
                     let jsonData = json as? [String:Any] ?? [:]
                     LogUtil.i("message:\(jsonData["message"] ?? "")")
                     

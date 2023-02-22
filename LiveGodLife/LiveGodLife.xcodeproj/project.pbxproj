@@ -148,12 +148,10 @@
 		E95D675D29A2944000DED5ED /* CalendarPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */; };
 		E95D675F29A295F800DED5ED /* DatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675E29A295F800DED5ED /* DatePopupView.swift */; };
 		E96364E1297FAE97005F16CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E0297FAE97005F16CD /* SnapKit */; };
-		E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E3297FAF1F005F16CD /* PopupDialog */; };
 		E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E6297FAF57005F16CD /* KakaoSDKAuth */; };
 		E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E8297FAF57005F16CD /* KakaoSDKUser */; };
 		E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E96364EB297FAF90005F16CD /* Kingfisher */; };
 		E96364EF297FAFCD005F16CD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E96364EE297FAFCD005F16CD /* Then */; };
-		E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E96364F1297FB05E005F16CD /* SwiftyJSON */; };
 		E96364F6297FB632005F16CD /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F5297FB632005F16CD /* UIColor+.swift */; };
 		E96364F8297FB9AF005F16CD /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96364F7297FB9AF005F16CD /* UIButton+.swift */; };
 		E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E96364FA297FC07A005F16CD /* CombineCocoa */; };
@@ -387,9 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */,
-				E96364E4297FAF1F005F16CD /* PopupDialog in Frameworks */,
 				E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */,
-				E96364F2297FB05E005F16CD /* SwiftyJSON in Frameworks */,
 				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
 				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
 				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
@@ -1152,12 +1148,10 @@
 			name = LiveGodLife;
 			packageProductDependencies = (
 				E96364E0297FAE97005F16CD /* SnapKit */,
-				E96364E3297FAF1F005F16CD /* PopupDialog */,
 				E96364E6297FAF57005F16CD /* KakaoSDKAuth */,
 				E96364E8297FAF57005F16CD /* KakaoSDKUser */,
 				E96364EB297FAF90005F16CD /* Kingfisher */,
 				E96364EE297FAFCD005F16CD /* Then */,
-				E96364F1297FB05E005F16CD /* SwiftyJSON */,
 				E96364FA297FC07A005F16CD /* CombineCocoa */,
 				E9636510297FDE6A005F16CD /* CombineMoya */,
 				E9636512297FDE6A005F16CD /* Moya */,
@@ -1192,11 +1186,9 @@
 			mainGroup = D08B66B928D5A3B9000998DC;
 			packageReferences = (
 				E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */,
-				E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */,
 				E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				E96364EA297FAF90005F16CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */,
-				E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
 			);
@@ -1629,14 +1621,6 @@
 				minimumVersion = 5.6.0;
 			};
 		};
-		E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Orderella/PopupDialog";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1659,14 +1643,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.0;
-			};
-		};
-		E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
 			};
 		};
 		E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
@@ -1693,11 +1669,6 @@
 			package = E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		E96364E3297FAF1F005F16CD /* PopupDialog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E96364E2297FAF1F005F16CD /* XCRemoteSwiftPackageReference "PopupDialog" */;
-			productName = PopupDialog;
-		};
 		E96364E6297FAF57005F16CD /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E96364E5297FAF57005F16CD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
@@ -1717,11 +1688,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
-		};
-		E96364F1297FB05E005F16CD /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E96364F0297FB05E005F16CD /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 		E96364FA297FC07A005F16CD /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

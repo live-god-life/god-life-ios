@@ -19,15 +19,6 @@
       }
     },
     {
-      "identity" : "dynamicblurview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KyoheiG3/DynamicBlurView.git",
-      "state" : {
-        "revision" : "d69b09d70a689dc7b8ea6aa6de3e63f9e6c545ce",
-        "version" : "5.0.5"
-      }
-    },
-    {
       "identity" : "kakao-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk",
@@ -55,15 +46,6 @@
       }
     },
     {
-      "identity" : "popupdialog",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Orderella/PopupDialog",
-      "state" : {
-        "branch" : "master",
-        "revision" : "d41ac7c7fa7b940c355490281ea8b2fc39c8f599"
-      }
-    },
-    {
       "identity" : "reactiveswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
@@ -88,15 +70,6 @@
       "state" : {
         "revision" : "f222cbdf325885926566172f6f5f06af95473158",
         "version" : "5.6.0"
-      }
-    },
-    {
-      "identity" : "swiftyjson",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftyJSON/SwiftyJSON",
-      "state" : {
-        "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
-        "version" : "5.0.1"
       }
     },
     {

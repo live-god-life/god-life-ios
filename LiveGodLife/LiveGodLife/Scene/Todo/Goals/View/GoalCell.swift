@@ -16,40 +16,47 @@ final class GoalCell: UICollectionViewCell {
     //MARK: - Properties
     private let datelabel = UILabel().then {
         $0.font = .regular(with: 14)
-        $0.textColor = .AAAAAA
+        $0.textColor = .white.withAlphaComponent(0.6)
         $0.backgroundColor = .clear
     }
     private let mindsetImageView = UIImageView().then {
-        $0.image = UIImage(named: "mindset")
+        let image = UIImage(named: "mindset")?.withRenderingMode(.alwaysTemplate)
+        $0.image = image
+        $0.tintColor = .white.withAlphaComponent(0.6)
     }
     private let mindsetCountLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .medium(with: 14)
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
     }
     private let totalTodoImageView = UIImageView().then {
-        $0.image = UIImage(named: "Proceeding")
+        let image = UIImage(named: "Proceeding")?.withRenderingMode(.alwaysTemplate)
+        $0.image = image
+        $0.tintColor = .white.withAlphaComponent(0.6)
     }
     private let totalTodoCountLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .medium(with: 14)
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
     }
     private let completedTodoImageView = UIImageView().then {
-        $0.image = UIImage(named: "complete")
+        let image = UIImage(named: "complete")?.withRenderingMode(.alwaysTemplate)
+        $0.image = image
+        $0.tintColor = .white.withAlphaComponent(0.6)
     }
     private let completedTodoCountLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .medium(with: 14)
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
     }
     private let dDayLabel = UILabel().then {
-        $0.font = .bold(with: 12)
+        $0.font = .semiBold(with: 14)
         $0.textColor = .black
+        $0.textAlignment = .center
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 11
+        $0.layer.cornerRadius = 13
         $0.backgroundColor = .green
     }
     private let titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 20)
     }
     private let progress = GradientProgressView().then {
         $0.gradientColors = [UIColor.green.cgColor,
@@ -90,15 +97,17 @@ final class GoalCell: UICollectionViewCell {
             $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.left.equalToSuperview().offset(16)
-            $0.height.equalTo(30)
-        }
         dDayLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
             $0.right.equalToSuperview().offset(-16)
-            $0.height.equalTo(22)
+            $0.height.equalTo(26)
+            $0.width.equalTo(0)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalTo(dDayLabel.snp.left).offset(-8)
+            $0.height.equalTo(28)
         }
         mindsetImageView.snp.makeConstraints {
             $0.centerY.equalTo(mindsetCountLabel.snp.centerY)
@@ -108,7 +117,7 @@ final class GoalCell: UICollectionViewCell {
         mindsetCountLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.left.equalTo(mindsetImageView.snp.right).offset(4)
-            $0.height.equalTo(22)
+            $0.height.equalTo(24)
         }
         totalTodoImageView.snp.makeConstraints {
             $0.centerY.equalTo(mindsetCountLabel.snp.centerY)
@@ -118,7 +127,7 @@ final class GoalCell: UICollectionViewCell {
         totalTodoCountLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.left.equalTo(totalTodoImageView.snp.right).offset(4)
-            $0.height.equalTo(22)
+            $0.height.equalTo(24)
         }
         completedTodoImageView.snp.makeConstraints {
             $0.centerY.equalTo(mindsetCountLabel.snp.centerY)
@@ -128,16 +137,16 @@ final class GoalCell: UICollectionViewCell {
         completedTodoCountLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.left.equalTo(completedTodoImageView.snp.right).offset(4)
-            $0.height.equalTo(22)
+            $0.height.equalTo(24)
         }
         progress.snp.makeConstraints {
-            $0.top.equalTo(self.mindsetImageView.snp.bottom).offset(16)
+            $0.top.equalTo(self.mindsetCountLabel.snp.bottom).offset(12)
             $0.left.equalTo(titleLabel.snp.left)
             $0.right.equalTo(dDayLabel.snp.right)
             $0.height.equalTo(8)
         }
         datelabel.snp.makeConstraints {
-            $0.top.equalTo(progress.snp.bottom).offset(8)
+            $0.top.equalTo(progress.snp.bottom).offset(18)
             $0.left.equalTo(titleLabel.snp.left)
             $0.height.equalTo(22)
         }
@@ -177,8 +186,13 @@ final class GoalCell: UICollectionViewCell {
         let today = Date().timeIntervalSince1970
         let lastDay = model.endDate?.toDate()?.timeIntervalSince1970 ?? 0.0
         let dDay = Int((today - lastDay) / 60.0 / 60.0 / 24.0)
-        let dDayString = dDay < 0 ? "  D-\(abs(dDay))  " : "  D+\(dDay)  "
+        let dDayString = dDay < 0 ? "D-\(abs(dDay))" : "D+\(dDay)"
         dDayLabel.text = dDayString
+        
+        dDayLabel.snp.updateConstraints {
+            $0.width.equalTo(dDayString.width(font: .semiBold(with: 14)!) + 16.0)
+        }
+        
         // Progress
         progress.progress = Float(completeCount) / Float(proceedingCount + completeCount)
         progress.layer.cornerRadius = 4.0

@@ -30,7 +30,7 @@ final class FeedVC: UIViewController {
         collectionView.register(UINib(nibName: FeedCollectionViewCell.id, bundle: nil), forCellWithReuseIdentifier: FeedCollectionViewCell.id)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .background
+        collectionView.backgroundColor = .black
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 104, right: 0)
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
