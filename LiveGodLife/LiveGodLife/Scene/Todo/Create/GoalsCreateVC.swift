@@ -30,7 +30,7 @@ final class GoalsCreateVC: UIViewController {
         $0.alwaysBounceHorizontal = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 46.0, left: .zero,
+        $0.contentInset = UIEdgeInsets(top: 24.0, left: .zero,
                                        bottom: 148.0, right: .zero)
         NewGoalTitleCell.register($0)
         CategoriesCell.register($0)
@@ -46,9 +46,9 @@ final class GoalsCreateVC: UIViewController {
         $0.setTitle("완료", for: .highlighted)
         $0.setTitleColor(.black, for: .normal)
         $0.setTitleColor(.black, for: .highlighted)
-        $0.titleLabel?.font = .bold(with: 18)
+        $0.titleLabel?.font = .semiBold(with: 18)
         $0.backgroundColor = .green
-        $0.layer.cornerRadius = 28.0
+        $0.layer.cornerRadius = 27.0
     }
     
     //MARK: - Life Cycle
@@ -92,12 +92,12 @@ final class GoalsCreateVC: UIViewController {
         navigationView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(54)
+            $0.height.equalTo(44)
         }
         completeButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().offset(-44)
-            $0.height.equalTo(56)
+            $0.bottom.equalToSuperview().offset(-37)
+            $0.height.equalTo(54)
         }
         newGoalTableView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
@@ -283,7 +283,7 @@ extension GoalsCreateVC: UITableViewDataSource {
             return cell
         case .line:
             let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.contentView.backgroundColor = .gray5
+            cell.contentView.backgroundColor = .gray10
             return cell
         case .mindsetHeader:
             let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
@@ -303,13 +303,13 @@ extension GoalsCreateVC: UITableViewDataSource {
             }
         case .todoHeader:
             let cell: DefaultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.configure(with: "Todo", isAdd: true, isFolder: true)
+            cell.configure(with: "TODO", isAdd: true, isFolder: true)
             cell.delegate = self
             return cell
         case .todo:
             guard !model.todos.isEmpty else {
                 let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.configure(text: "Todo를 추가해 보세요.")
+                cell.configure(text: "TODO 를 추가해 보세요.")
                 return cell
             }
             
@@ -370,9 +370,9 @@ extension GoalsCreateVC: UITableViewDelegate {
         
         switch type {
         case .title:
-            return 34.0
+            return 40.0
         case .category:
-            return 94.0
+            return 108.0
         case .line:
             return 16.0
         case .mindsetHeader:
@@ -392,11 +392,11 @@ extension GoalsCreateVC: UITableViewDelegate {
                 let isMaxTodo = todo.todos.count == 5
                 let isAddTodoCell = (indexPath.row == (todo.todos.count + 1)) && !isMaxTodo
                 if indexPath.row == 0 {
-                    return 88.0
+                    return 90.0
                 } else if isAddTodoCell {
-                    return 72.0
+                    return 74.0
                 } else {
-                    return 176.0
+                    return 175.0
                 }
             } else {
                 return 216.0

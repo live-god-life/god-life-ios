@@ -12,15 +12,15 @@ import UIKit
 final class CategoryCell: UICollectionViewCell {
     //MARK: - Properties
     private let titleLabel = UILabel().then {
-        $0.textColor = .gray3
+        $0.textColor = .gray8
         $0.textAlignment = .center
-        $0.font = .bold(with: 14)
+        $0.font = .semiBold(with: 16)
     }
     
     override var isSelected: Bool {
         didSet {
             contentView.backgroundColor = isSelected ? .green : .black
-            contentView.layer.borderColor = isSelected ? nil : UIColor.gray3.cgColor
+            contentView.layer.borderColor = isSelected ? nil : UIColor.gray9.cgColor
             contentView.layer.borderWidth = isSelected ? .zero : 1.0
         }
     }
@@ -40,13 +40,13 @@ final class CategoryCell: UICollectionViewCell {
         super.prepareForReuse()
         
         contentView.backgroundColor = .black
-        titleLabel.textColor = .gray3
+        titleLabel.textColor = .gray8
     }
     
     //MARK: - Make UI
     private func makeUI() {
         contentView.backgroundColor = .black
-        contentView.layer.borderColor = UIColor.gray3.cgColor
+        contentView.layer.borderColor = UIColor.gray9.cgColor
         contentView.layer.borderWidth = 1.0
         contentView.layer.cornerRadius = 10.0
         
@@ -61,14 +61,14 @@ final class CategoryCell: UICollectionViewCell {
         titleLabel.text = category
         
         contentView.backgroundColor = isSelected ? .green : .black
-        contentView.layer.borderColor = isSelected ? nil : UIColor.gray3.cgColor
+        contentView.layer.borderColor = isSelected ? nil : UIColor.gray9.cgColor
         contentView.layer.borderWidth = isSelected ? .zero : 1.0
         
-        titleLabel.textColor = isSelected ? .black : .gray3
+        titleLabel.textColor = isSelected ? .black : .gray8
     }
     
     static func width(text: String) -> CGFloat {
-        return UILabel.textSize(font: .bold(with: 14)!, text: text, height: 30.0).width + 24.0
+        return UILabel.textSize(font: .semiBold(with: 16)!, text: text, height: 36.0).width + 32.0
     }
 }
 

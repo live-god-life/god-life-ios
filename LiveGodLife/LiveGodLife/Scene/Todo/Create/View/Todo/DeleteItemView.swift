@@ -19,7 +19,7 @@ final class DeleteItemView: UIView {
     let titleTextField = UITextField().then {
         $0.textColor = .white
         $0.textAlignment = .left
-        $0.font = .bold(with: 16)
+        $0.font = .semiBold(with: 18)
         $0.smartDashesType = .no
         $0.smartQuotesType = .no
         $0.spellCheckingType = .no
@@ -28,8 +28,8 @@ final class DeleteItemView: UIView {
         $0.returnKeyType = .done
         $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
         let attrString = NSAttributedString(string: "제목을 입력해주세요.",
-                                            attributes: [.foregroundColor: UIColor.gray2,
-                                                         .font: UIFont.bold(with: 16)!])
+                                            attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.4),
+                                                         .font: UIFont.semiBold(with: 18)!])
         $0.attributedPlaceholder = attrString
     }
     
@@ -64,8 +64,8 @@ final class DeleteItemView: UIView {
             $0.size.equalTo(24)
         }
         titleTextField.snp.makeConstraints {
-            $0.left.equalTo(logoImageView.snp.right).offset(6)
-            $0.right.equalTo(deleteImageView.snp.left).offset(-16)
+            $0.left.equalTo(logoImageView.snp.right).offset(8)
+            $0.right.equalTo(deleteImageView.snp.left).offset(-8)
             $0.centerY.equalToSuperview()
         }
         deleteButton.snp.makeConstraints {
@@ -80,6 +80,9 @@ final class DeleteItemView: UIView {
         
         logoImageView.snp.updateConstraints {
             $0.size.equalTo(logo == nil ? 0 : 24)
+        }
+        titleTextField.snp.updateConstraints {
+            $0.left.equalTo(logoImageView.snp.right).offset(logo == nil ? 4 : 8)
         }
     }
 }

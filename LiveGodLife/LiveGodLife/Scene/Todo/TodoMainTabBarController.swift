@@ -130,10 +130,15 @@ final class TodoMainTabBarController: UITabBarController {
         
         $0.layer.cornerRadius = 24
         $0.layer.masksToBounds = true
-        $0.backgroundColor = .gray7
+        $0.backgroundColor = .default
     }
     private let addButton = UIButton().then {
-        $0.setImage(UIImage(named: "addButton"), for: .normal)
+        $0.setImage(UIImage(named: "add-plus"), for: .normal)
+        $0.setImage(UIImage(named: "add-plus"), for: .highlighted)
+        $0.backgroundColor = .black
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor(rgbHexString: "444451")?.cgColor
+        $0.layer.cornerRadius = 24
     }
     private var tabs = {
         var viewControllers: [UIViewController] = []

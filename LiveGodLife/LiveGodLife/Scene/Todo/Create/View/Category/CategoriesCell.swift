@@ -29,7 +29,7 @@ final class CategoriesCell: UITableViewCell {
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 32.0, left: 16.0, bottom: 32.0, right: 16.0)
+        $0.contentInset = UIEdgeInsets(top: 40.0, left: 16.0, bottom: 32.0, right: 16.0)
         CategoryCell.register($0)
     }
     
@@ -118,6 +118,6 @@ extension CategoriesCell: UICollectionViewDelegate, UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = CategoryCell.width(text: models[indexPath.item].name)
-        return CGSize(width: width, height: 30.0)
+        return CGSize(width: width, height: 36.0)
     }
 }

@@ -17,7 +17,7 @@ final class MindsetListHeadersView: UIView {
         $0.layer.cornerRadius = 16
         $0.setImage(UIImage(named: "arrowRight"), for: .normal)
         $0.setImage(UIImage(named: "arrowRight"), for: .highlighted)
-        $0.backgroundColor = .gray7
+        $0.backgroundColor = .default
     }
     
     // MARK: - Initializer

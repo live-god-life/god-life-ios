@@ -36,8 +36,8 @@ final class MindsetTableViewCell: UITableViewCell {
     lazy var textView = UITextView().then {
         $0.sizeToFit()
         $0.delegate = self
-        $0.textColor = .white
-        $0.font = .bold(with: 16)
+        $0.textColor = .white.withAlphaComponent(0.8)
+        $0.font = .semiBold(with: 18)
         $0.isScrollEnabled = false
         $0.textAlignment = .center
         $0.backgroundColor = .black
@@ -72,13 +72,13 @@ final class MindsetTableViewCell: UITableViewCell {
         }
         leftImageView.snp.makeConstraints {
             $0.centerY.equalTo(textView)
-            $0.left.equalToSuperview().offset(37)
+            $0.left.equalToSuperview().offset(33)
             $0.width.equalTo(12.73)
             $0.height.equalTo(12.04)
         }
         rightImageView.snp.makeConstraints {
             $0.centerY.equalTo(textView)
-            $0.right.equalToSuperview().offset(-37)
+            $0.right.equalToSuperview().offset(-33)
             $0.width.equalTo(12.73)
             $0.height.equalTo(12.04)
         }

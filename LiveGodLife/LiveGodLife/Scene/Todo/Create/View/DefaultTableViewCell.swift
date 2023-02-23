@@ -23,7 +23,7 @@ final class DefaultTableViewCell: UITableViewCell {
     weak var delegate: DefaultCellDelegate?
     private let titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 20)
         $0.isHidden = true
     }
     private let addButton = UIButton().then {
@@ -87,7 +87,7 @@ final class DefaultTableViewCell: UITableViewCell {
         addButton
             .tapPublisher
             .map { [weak self] _ in
-                self?.titleLabel.text == "Todo"
+                self?.titleLabel.text == "TODO"
             }
             .sink { [weak self] isTodo in
                 self?.delegate?.selectedAdd(type: isTodo ? .todo : .mindset)

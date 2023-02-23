@@ -12,9 +12,9 @@ import UIKit
 final class EmptyTableViewCell: UITableViewCell {
     //MARK: - Properties
     private let titleLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = .white.withAlphaComponent(0.6)
         $0.textAlignment = .center
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 20)
     }
     
     //MARK: - Initializer

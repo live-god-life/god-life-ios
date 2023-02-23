@@ -23,7 +23,7 @@ final class NewGoalTitleCell: UITableViewCell {
     private let textField = UITextField().then {
         $0.textColor = .white
         $0.textAlignment = .center
-        $0.font = .bold(with: 26)
+        $0.font = .semiBold(with: 28)
         $0.smartDashesType = .no
         $0.smartQuotesType = .no
         $0.spellCheckingType = .no
@@ -32,8 +32,8 @@ final class NewGoalTitleCell: UITableViewCell {
         $0.returnKeyType = .done
         $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
         let attrString = NSAttributedString(string: "목표 작성",
-                                            attributes: [.foregroundColor: UIColor.gray6,
-                                                         .font: UIFont.bold(with: 26)!])
+                                            attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.4),
+                                                         .font: UIFont.semiBold(with: 28)!])
         $0.attributedPlaceholder = attrString
         $0.tintColor = .clear
     }
@@ -41,7 +41,7 @@ final class NewGoalTitleCell: UITableViewCell {
         $0.image = UIImage(named: "pencil")
     }
     private let textLineView = UIView().then {
-        $0.backgroundColor = .gray6
+        $0.backgroundColor = .white.withAlphaComponent(0.2)
     }
     
     //MARK: - Initializer
@@ -74,14 +74,14 @@ final class NewGoalTitleCell: UITableViewCell {
             $0.edges.equalToSuperview()
         }
         textLineView.snp.makeConstraints {
-            $0.top.equalTo(textField.snp.bottom).offset(-2)
+            $0.top.equalTo(textField.snp.bottom).offset(-1)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(94)
-            $0.height.equalTo(1.1)
+            $0.width.equalTo(101)
+            $0.height.equalTo(1)
         }
         pencilImageView.snp.makeConstraints {
             $0.bottom.equalTo(textLineView.snp.bottom)
-            $0.left.equalTo(textLineView.snp.right).offset(9)
+            $0.left.equalTo(textLineView.snp.right).offset(6)
             $0.size.equalTo(24)
         }
     }

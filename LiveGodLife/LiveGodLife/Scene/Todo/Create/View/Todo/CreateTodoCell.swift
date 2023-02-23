@@ -21,7 +21,7 @@ final class CreateTodoCell: UITableViewCell {
     private var bag = Set<AnyCancellable>()
     weak var delegate: CreateTodoCellDelegate?
     private let containerView = UIView().then {
-        $0.backgroundColor = .gray5
+        $0.backgroundColor = .gray10
         $0.layer.cornerRadius = 16
         $0.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
@@ -29,9 +29,9 @@ final class CreateTodoCell: UITableViewCell {
         $0.image = UIImage(named: "add-todo")
     }
     private let titleLabel = UILabel().then {
-        $0.text = "Todo 생성"
+        $0.text = "TODO 생성"
         $0.textColor = .white
-        $0.font = .bold(with: 16)
+        $0.font = .semiBold(with: 18)
     }
     private let createButton = UIButton()
     
@@ -62,13 +62,13 @@ final class CreateTodoCell: UITableViewCell {
         }
         logoImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview().offset(20)
+            $0.left.equalToSuperview().offset(16)
             $0.size.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
-            $0.left.equalTo(logoImageView.snp.right).offset(6)
+            $0.left.equalTo(logoImageView.snp.right).offset(8)
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(24)
+            $0.height.equalTo(26)
         }
         createButton.snp.makeConstraints {
             $0.edges.equalToSuperview()

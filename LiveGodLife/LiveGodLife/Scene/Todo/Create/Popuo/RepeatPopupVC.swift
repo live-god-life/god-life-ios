@@ -182,7 +182,7 @@ final class RepeatPopupVC: UIViewController {
             .backgroundButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.dismiss(animated: false)
             }
             .store(in: &bag)
         
@@ -215,14 +215,14 @@ final class RepeatPopupVC: UIViewController {
                     self.delegate?.select(days: days)
                 }
                 
-                self.dismiss(animated: true)
+                self.dismiss(animated: false)
             }
             .store(in: &bag)
         
         cancelButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.dismiss(animated: false)
             }
             .store(in: &bag)
         

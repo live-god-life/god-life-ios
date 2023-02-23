@@ -13,13 +13,13 @@ final class SetTodoItemView: UIView {
     //MARK: - Properties
     private let logoImageView = UIImageView()
     private let titleLabel = UILabel().then {
-        $0.textColor = .BBBBBB
-        $0.font = .regular(with: 14)
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
     }
     let valueLabel = UILabel().then {
-        $0.textColor = .BBBBBB
+        $0.textColor = .white.withAlphaComponent(0.6)
         $0.textAlignment = .right
-        $0.font = .regular(with: 14)
+        $0.font = .regular(with: 16)
     }
     private let detailImageView = UIImageView().then {
         $0.image = UIImage(named: "todoDetail")
@@ -52,7 +52,7 @@ final class SetTodoItemView: UIView {
         titleLabel.snp.makeConstraints {
             $0.left.equalTo(logoImageView.snp.right).offset(4)
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(22)
+            $0.height.equalTo(24)
         }
         detailImageView.snp.makeConstraints {
             $0.right.equalToSuperview()
@@ -62,7 +62,7 @@ final class SetTodoItemView: UIView {
         valueLabel.snp.makeConstraints {
             $0.left.equalTo(titleLabel.snp.right).offset(4)
             $0.right.equalTo(detailImageView.snp.left).offset(-4)
-            $0.height.equalTo(22)
+            $0.height.equalTo(24)
         }
         itemButton.snp.makeConstraints {
             $0.edges.equalToSuperview()
