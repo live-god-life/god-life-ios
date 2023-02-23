@@ -158,12 +158,6 @@ extension CalendarListVC: UICollectionViewDataSource {
         switch type {
         case .calendar:
             let cell: CalendarCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.delegate = self
-            cell.configure(with: monthModel,
-                           components: components,
-                           month: currentMonth,
-                           days: days,
-                           selectedDay: selectedDate)
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -194,15 +188,6 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
         return flowLayout
     }
     
-    func calendarCellHeight() -> CGFloat {
-        let width = (UIScreen.main.bounds.width - 96) / 7
-        let count = CGFloat(days.count / 7 + 1)
-        var height = 112.0
-        height += count * width
-        height += count * 8
-        return height
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -211,7 +196,7 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
         
         switch type {
         case .calendar:
-            return CGSize(width: width, height: calendarCellHeight())
+            return CGSize(width: width, height: 377.0)
         case .dateHeader:
             return CGSize(width: width, height: 61.0)
         case .todo:

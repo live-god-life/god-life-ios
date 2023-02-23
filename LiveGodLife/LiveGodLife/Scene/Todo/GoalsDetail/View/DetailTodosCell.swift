@@ -29,10 +29,10 @@ final class DetailTodosCell: UICollectionViewCell {
     }
     private let titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .bold(with: 16)
+        $0.font = .semiBold(with: 18)
     }
     private let dateLabel = UILabel().then {
-        $0.textColor = .BBBBBB
+        $0.textColor = .white.withAlphaComponent(0.6)
         $0.font = .regular(with: 14)
     }
     private let infoImageView = UIImageView()
@@ -80,15 +80,15 @@ final class DetailTodosCell: UICollectionViewCell {
             $0.height.equalTo(12)
         }
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(24)
-            $0.left.equalToSuperview().offset(72)
+            $0.top.equalToSuperview().offset(16)
+            $0.left.equalToSuperview().offset(70)
             $0.right.equalTo(infoImageView.snp.left).offset(-16)
             $0.height.equalTo(24)
         }
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.left.equalTo(titleLabel.snp.left)
-            $0.height.equalTo(24)
+            $0.height.equalTo(22)
         }
         infoImageView.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-16)
@@ -122,10 +122,10 @@ final class DetailTodosCell: UICollectionViewCell {
         let today = Date().timeIntervalSince1970
         let lastDay = todo.endDate?.toDate()?.timeIntervalSince1970 ?? 0.0
         let dDay = Int((today - lastDay) / 60.0 / 60.0 / 24.0)
-        let dDayString = isDDay ? "D-day" : dDay < 0 ? "D-\(abs(dDay))" : "D+\(dDay)"
+        let dDayString = isDDay ? "D-DAY" : dDay < 0 ? "D-\(abs(dDay))" : "D+\(dDay)"
         dDayLabel.text = dDayString
         dDayLabel.textColor = isDDay ? .blue : .white
-        dDayLabel.font = .montserrat(with: isDDay ? 16 : 12, weight: .bold)
+        dDayLabel.font = .montserrat(with: 12, weight: .semibold)
         
         if isDDay {
             dDayLabel.snp.remakeConstraints {

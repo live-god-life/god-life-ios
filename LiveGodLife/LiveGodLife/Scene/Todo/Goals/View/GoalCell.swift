@@ -98,7 +98,7 @@ final class GoalCell: UICollectionViewCell {
             $0.left.right.equalToSuperview().inset(16)
         }
         dDayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
+            $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.right.equalToSuperview().offset(-16)
             $0.height.equalTo(26)
             $0.width.equalTo(0)
@@ -163,12 +163,18 @@ final class GoalCell: UICollectionViewCell {
         titleLabel.text = model.title
         titleLabel.font = type == .list ? .bold(with: 20) : .bold(with: 26)
         titleLabel.snp.updateConstraints {
-            $0.height.equalTo(type == .list ? 30 : 34)
-            $0.left.equalToSuperview().offset(type == .list ? 16 : 24)
+            $0.top.equalToSuperview().offset(type == .list ? 20 : 0)
+            $0.height.equalTo(type == .list ? 28 : 40)
+            $0.left.equalToSuperview().offset(type == .list ? 16 : 20)
         }
-
         dDayLabel.snp.updateConstraints {
-            $0.right.equalToSuperview().offset(type == .list ? -16 : -24)
+            $0.right.equalToSuperview().offset(type == .list ? -16 : -20)
+        }
+        progress.snp.updateConstraints {
+            $0.top.equalTo(mindsetCountLabel.snp.bottom).offset(type == .list ? 8 : 16)
+        }
+        datelabel.snp.updateConstraints {
+            $0.top.equalTo(progress.snp.bottom).offset(type == .list ? 18 : 12)
         }
         
         // CountLabel

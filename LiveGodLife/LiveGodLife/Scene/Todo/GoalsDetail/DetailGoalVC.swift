@@ -28,7 +28,7 @@ final class DetailGoalVC: UIViewController {
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 16, left: .zero,
+        $0.contentInset = UIEdgeInsets(top: 24, left: .zero,
                                        bottom: 44, right: .zero)
         GoalCell.register($0)
         MindsetsCell.register($0)
@@ -76,7 +76,7 @@ final class DetailGoalVC: UIViewController {
         navigationBarView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(54)
+            $0.height.equalTo(44)
         }
         detailCollectionView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
@@ -162,7 +162,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
             return cell
         case .todoHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.configure(with: "Todo")
+            cell.configure(with: "TODO")
             return cell
         case .todo:
             let cell: DetailTodosCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -239,7 +239,7 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
         
         switch cellType {
         case .title:
-            return CGSize(width: width, height: 146.0)
+            return CGSize(width: width, height: 144.0)
         case .line:
             return CGSize(width: width, height: 16.0)
         case .mindset:
@@ -247,9 +247,9 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
                                                                                         title: model.title,
                                                                                         mindsets: model.mindsets)))
         case .todoHeader:
-            return CGSize(width: width, height: 39.0)
+            return CGSize(width: width, height: 28.0)
         case .todo:
-            return CGSize(width: width, height: 100)
+            return CGSize(width: width, height: 80)
         }
     }
     
@@ -263,9 +263,9 @@ extension DetailGoalVC: UICollectionViewDelegateFlowLayout {
         case .line:
             return CGSize(width: width, height: 32.0)
         case .mindset:
-            return CGSize(width: width, height: 56.0)
+            return CGSize(width: width, height: 40.0)
         case .todoHeader:
-            return CGSize(width: width, height: 17.0)
+            return CGSize(width: width, height: 16.0)
         default:
             return CGSize(width: width, height: 16.0)
         }

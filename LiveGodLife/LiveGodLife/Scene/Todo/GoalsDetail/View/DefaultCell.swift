@@ -13,7 +13,7 @@ final class DefaultCell: UICollectionViewCell {
     //MARK: - Properties
     private let titleLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .bold(with: 20)
+        $0.font = .montserrat(with: 18, weight: .semibold)
         $0.isHidden = true
     }
     
@@ -39,9 +39,9 @@ final class DefaultCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(24)
+            $0.left.equalToSuperview().offset(20)
             $0.bottom.right.equalToSuperview()
-            $0.height.equalTo(30)
+            $0.height.equalTo(28)
         }
     }
     

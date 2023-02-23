@@ -18,7 +18,7 @@ final class CommonNavigationView: UIView {
     let titleLabel = UILabel().then {
         $0.textColor = .white
         $0.textAlignment = .center
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 20)
     }
     let rightBarButton = UIButton().then {
         $0.setImage(UIImage(named: "more_btn"), for: .normal)
