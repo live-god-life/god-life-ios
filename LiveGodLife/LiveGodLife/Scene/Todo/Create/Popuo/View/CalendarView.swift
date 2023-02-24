@@ -74,7 +74,7 @@ final class CalendarView: UIView {
         }
     }
     private let dateFormatter = DateFormatter().then {
-        $0.dateFormat = "yyyy.MM."
+        $0.dateFormat = "yyyy. MM"
     }
     var models = [[CalendarViewModel]]() {
         didSet {
@@ -310,6 +310,10 @@ final class CalendarView: UIView {
         self.startDate = startDate
         self.endDate = endDate
         self.targetDate = date
+        
+        if type == .todo, self.startDate == nil {
+            self.startDate = Date()
+        }
         
         pickerView.delegate = self
         pickerView.dataSource = self

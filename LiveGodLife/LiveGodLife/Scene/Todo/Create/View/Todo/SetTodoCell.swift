@@ -99,9 +99,14 @@ final class SetTodoCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        dateItemView.valueLabel.text = "필수"
-        repeatItemView.valueLabel.text = "필수"
-        alarmItemView.valueLabel.text = "선택"
+        self.startDate = nil
+        self.endDate = nil
+        self.notification = nil
+        self.deleteItemView.titleTextField.text = nil
+        self.dateItemView.valueLabel.text = "필수"
+        self.repeatItemView.valueLabel.text = "필수"
+        self.alarmItemView.valueLabel.text = "선택"
+        
     }
     
     //MARK: - Make UI
@@ -218,11 +223,13 @@ final class SetTodoCell: UITableViewCell {
                    alarm: String?, repeatDays: [String]?, notification: String?) {
         updateUI(isType: type)
         
+        self.deleteItemView.titleTextField.text = title
+        
         if startDate?.isEmpty == false, endDate?.isEmpty == false,
            let startDate = startDate?.yyyyMMdd, let endDate = endDate?.yyyyMMdd {
             self.startDate = startDate
             self.endDate = endDate
-            dateItemView.valueLabel.text = "\(startDate.dateAndTime1) - \(endDate.dateAndTime1)"
+            self.dateItemView.valueLabel.text = "\(startDate.dateAndTime1) - \(endDate.dateAndTime1)"
         }
         
         if let repeatDays {

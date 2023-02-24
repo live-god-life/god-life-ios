@@ -146,7 +146,6 @@ extension CalendarViewCell: UICollectionViewDelegate {
         } else if let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell {
             delegate?.select(self, dayCell: cell)
             
-            let type = type ?? .date
             let model = days[indexPath.item]
             let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
             
@@ -159,7 +158,6 @@ extension CalendarViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell {
-            let type = type ?? .date
             let model = days[indexPath.item]
             let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
             

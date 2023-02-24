@@ -37,6 +37,12 @@ final class DeleteFolderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        deleteItemView.titleTextField.text = nil
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         contentView.backgroundColor = .black

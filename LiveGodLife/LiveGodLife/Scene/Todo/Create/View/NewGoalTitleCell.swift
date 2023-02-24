@@ -71,7 +71,8 @@ final class NewGoalTitleCell: UITableViewCell {
         contentView.addSubview(textLineView)
         
         textField.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.top.bottom.equalToSuperview()
         }
         textLineView.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom).offset(-1)

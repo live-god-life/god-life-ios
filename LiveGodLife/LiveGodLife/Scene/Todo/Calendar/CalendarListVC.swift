@@ -71,6 +71,9 @@ final class CalendarListVC: UIViewController {
     
     //MARK: - Binding..
     private func bind() {
+        dateFormatter.dateFormat = "yyyyMMdd"
+        viewModel.input.requestDay.send(dateFormatter.string(from: Date()))
+        
         viewModel
             .output
             .requestDay

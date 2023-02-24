@@ -411,17 +411,24 @@ extension GoalsCreateVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return indexPath.section == 4 ? .delete : .none
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard indexPath.section == 4 else { return }
         
-        model.mindsets.remove(at: indexPath.row)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section == 4 else { return nil }
         
-        if model.mindsets.isEmpty {
-            newGoalTableView.reloadSections(IndexSet(4...4), with: .automatic)
-        } else {
-            newGoalTableView.deleteRows(at: [indexPath], with: .fade)
+        let deleteAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, _ in
+            guard let self else { return }
+            self.model.mindsets.remove(at: indexPath.row)
+            
+            if self.model.mindsets.isEmpty {
+                self.newGoalTableView.reloadSections(IndexSet(4...4), with: .automatic)
+            } else {
+                self.newGoalTableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
+
+        deleteAction.image = UIImage(named: "trash-button")
+        deleteAction.backgroundColor = .default
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 

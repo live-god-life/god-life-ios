@@ -70,7 +70,7 @@ final class AlarmPopupVC: UIViewController {
     
     //MARK: - Life Cycle
     init(time: Date?, isNotUsed: Bool) {
-        self.date = time
+        self.date = time ?? formatterr.date(from: "오전 8:30")
         self.notUsedButton.isSelected = isNotUsed
         self.notUsedImageView.image = isNotUsed ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
         

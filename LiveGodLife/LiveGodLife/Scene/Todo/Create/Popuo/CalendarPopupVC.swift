@@ -174,9 +174,7 @@ final class CalendarPopupVC: UIViewController {
         calendarView.delegate = self
         calendarView.configure(with: self.startDate ?? Date(), startDate: self.startDate, endDate: self.endDate)
         
-        let isSelected = startDate != nil && endDate != nil
-        completedButton.isSelected = isSelected
-        completedButton.backgroundColor = isSelected ? .green : .default
+        configureDayCountLabel()
     }
     
     private func isDate(lhs: Date?, rhs: Date?) -> Bool {
@@ -187,20 +185,14 @@ final class CalendarPopupVC: UIViewController {
         
         return lhsDateString == rhsDateString
     }
-}
-
-extension CalendarPopupVC: CalendarViewDelegate {
-    func select(date: Date) {}
     
-    func select(startDate: Date?, endDate: Date?) {
+    private func configureDayCountLabel() {
         guard let startDate, let endDate else {
             self.dayCountLabel.text = "-"
             self.completedButton.isSelected = false
             self.completedButton.backgroundColor = .default
             return
         }
-        self.startDate = startDate
-        self.endDate = endDate
         
         self.completedButton.isSelected = true
         self.completedButton.backgroundColor = .green
@@ -209,5 +201,18 @@ extension CalendarPopupVC: CalendarViewDelegate {
         let day = Int(reulst / 60 / 60 / 24) + 1
         
         self.dayCountLabel.text = "총 \(day)일"
+    }
+}
+
+extension CalendarPopupVC: CalendarViewDelegate {
+    func select(date: Date) {}
+    
+    func select(startDate: Date?, endDate: Date?) {
+        guard let startDate, let endDate else { return }
+        
+        self.startDate = startDate
+        self.endDate = endDate
+        
+        configureDayCountLabel()
     }
 }
