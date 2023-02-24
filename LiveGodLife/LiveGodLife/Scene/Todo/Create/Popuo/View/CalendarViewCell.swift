@@ -11,6 +11,7 @@ import UIKit
 
 protocol CalendarViewCellDelegate: AnyObject {
     func select(_ cell: CalendarViewCell, dayCell: CalendarViewDayCell)
+    func select(_ cell: CalendarViewCell, dayCell: CalendarDayCell)
 }
 
 //MARK: CalendarViewCell
@@ -127,8 +128,8 @@ extension CalendarViewCell: UICollectionViewDataSource {
             let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
             let isTodo = (day?.todoCount ?? 0) > 0
             let isDday = (day?.dDayCount ?? 0) > 0
-            
-            cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: false)
+            let isSelected = (model.date?.yyyyMMdd == startDate?.yyyyMMdd) && model.date?.yyyyMMdd != nil
+            cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: isSelected)
             return cell
         case .date:
             let cell: CalendarViewDayCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -143,7 +144,29 @@ extension CalendarViewCell: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) as? CalendarViewDayCell {
             delegate?.select(self, dayCell: cell)
         } else if let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell {
-//            delegate?.
+            delegate?.select(self, dayCell: cell)
+            
+            let type = type ?? .date
+            let model = days[indexPath.item]
+            let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
+            
+            let isTodo = (day?.todoCount ?? 0) > 0
+            let isDday = (day?.dDayCount ?? 0) > 0
+            
+            cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: true)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell {
+            let type = type ?? .date
+            let model = days[indexPath.item]
+            let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
+            
+            let isTodo = (day?.todoCount ?? 0) > 0
+            let isDday = (day?.dDayCount ?? 0) > 0
+            
+            cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: false)
         }
     }
 }

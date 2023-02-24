@@ -32,6 +32,11 @@ final class CalendarPopupVC: UIViewController {
         $0.textColor = .white
         $0.font = .semiBold(with: 20)
     }
+    private let closeButton = UIButton()
+    private let closeImageButton = UIButton().then {
+        $0.setImage(UIImage(named: "calendar-close"), for: .normal)
+        $0.setImage(UIImage(named: "calendar-close"), for: .highlighted)
+    }
     private let calendarView = CalendarView(type: .date)
     private let dayCountLabel = UILabel().then {
         $0.text = "-"
@@ -47,6 +52,10 @@ final class CalendarPopupVC: UIViewController {
         $0.titleLabel?.font = .semiBold(with: 18)
         $0.layer.cornerRadius = 27.0
         $0.backgroundColor = .default
+    }
+    
+    private let lineView = DashView().then {
+        $0.backgroundColor = .black
     }
     
     //MARK: - Life Cycle
@@ -79,6 +88,9 @@ final class CalendarPopupVC: UIViewController {
         containerView.addSubview(calendarView)
         containerView.addSubview(dayCountLabel)
         containerView.addSubview(completedButton)
+        containerView.addSubview(closeImageButton)
+        containerView.addSubview(closeButton)
+        containerView.addSubview(lineView)
         
         visualEffectView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -86,7 +98,7 @@ final class CalendarPopupVC: UIViewController {
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
-            $0.height.equalTo(688)
+            $0.height.equalTo(692)
         }
         completedButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(16)
@@ -99,14 +111,29 @@ final class CalendarPopupVC: UIViewController {
             $0.height.equalTo(30)
         }
         calendarView.snp.makeConstraints {
-            $0.bottom.equalTo(dayCountLabel.snp.top).offset(-17)
+            $0.bottom.equalTo(dayCountLabel.snp.top).offset(-21)
             $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(377)
+            $0.height.equalTo(381)
         }
         titleLabel.snp.makeConstraints {
             $0.bottom.equalTo(calendarView.snp.top)
             $0.left.equalToSuperview().offset(20)
             $0.height.equalTo(44)
+        }
+        closeImageButton.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-16)
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.size.equalTo(32)
+        }
+        closeButton.snp.makeConstraints {
+            $0.right.equalToSuperview()
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.size.equalTo(64)
+        }
+        lineView.snp.makeConstraints {
+            $0.bottom.equalTo(dayCountLabel.snp.top).offset(-16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(1)
         }
     }
     
@@ -114,6 +141,13 @@ final class CalendarPopupVC: UIViewController {
     private func bind() {
         visualEffectView
             .backgroundButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            .store(in: &bag)
+        
+        closeButton
             .tapPublisher
             .sink { [weak self] _ in
                 self?.dismiss(animated: true)
@@ -155,7 +189,9 @@ final class CalendarPopupVC: UIViewController {
     }
 }
 
-extension CalendarPopupVC: CalendarViewDelegate {    
+extension CalendarPopupVC: CalendarViewDelegate {
+    func select(date: Date) {}
+    
     func select(startDate: Date?, endDate: Date?) {
         guard let startDate, let endDate else {
             self.dayCountLabel.text = "-"

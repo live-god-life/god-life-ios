@@ -28,8 +28,8 @@ final class DefaultTableViewCell: UITableViewCell {
     }
     private let addButton = UIButton().then {
         $0.isHidden = true
-        $0.setImage(UIImage(named: "add-plus"), for: .normal)
-        $0.setImage(UIImage(named: "add-plus"), for: .highlighted)
+        $0.setImage(UIImage(named: "add-todo-folder-plus"), for: .normal)
+        $0.setImage(UIImage(named: "add-todo-folder-plus"), for: .highlighted)
         $0.backgroundColor = .default
         $0.layer.cornerRadius = 16.0
     }

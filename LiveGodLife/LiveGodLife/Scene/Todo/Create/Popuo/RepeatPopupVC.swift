@@ -38,10 +38,6 @@ final class RepeatPopupVC: UIViewController {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 24.0
     }
-    private let pickerContainerView = UIView().then {
-        $0.backgroundColor = .black
-        $0.alpha = 0.0
-    }
     private let titleContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
@@ -83,6 +79,12 @@ final class RepeatPopupVC: UIViewController {
         $0.layer.cornerRadius = 27.0
         $0.backgroundColor = .green
     }
+    private let lineContainerView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private let lineView = DashView().then {
+        $0.backgroundColor = .black
+    }
     
     //MARK: - Life Cycle
     init(type: RepeatType, startDate: Date? = nil, endDate: Date? = nil) {
@@ -115,15 +117,17 @@ final class RepeatPopupVC: UIViewController {
         
         view.addSubview(visualEffectView)
         view.addSubview(containerView)
+        
         containerView.addArrangedSubview(titleContainerView)
         containerView.addArrangedSubview(repeatDateStackView)
         containerView.addArrangedSubview(repeatWeekStackView)
-        containerView.addArrangedSubview(pickerContainerView)
+        containerView.addArrangedSubview(lineContainerView)
         containerView.addArrangedSubview(dayCountContainerView)
         containerView.addArrangedSubview(buttonContainerView)
         containerView.addArrangedSubview(bottomView)
         
         titleContainerView.addSubview(titleLabel)
+        lineContainerView.addSubview(lineView)
         dayCountContainerView.addSubview(dayCountLabel)
         buttonContainerView.addSubview(completedButton)
         buttonContainerView.addSubview(cancelButton)
@@ -148,6 +152,14 @@ final class RepeatPopupVC: UIViewController {
         }
         repeatWeekStackView.snp.makeConstraints {
             $0.height.equalTo(40)
+        }
+        lineContainerView.snp.makeConstraints {
+            $0.height.equalTo(9)
+        }
+        lineView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(1)
         }
         dayCountContainerView.snp.makeConstraints {
             $0.height.equalTo(30)

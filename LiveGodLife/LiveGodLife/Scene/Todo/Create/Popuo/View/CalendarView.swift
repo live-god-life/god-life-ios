@@ -12,6 +12,7 @@ import Combine
 import CombineCocoa
 
 protocol CalendarViewDelegate: AnyObject {
+    func select(date: Date)
     func select(startDate: Date?, endDate: Date?)
 }
 
@@ -89,11 +90,13 @@ final class CalendarView: UIView {
         $0.image = UIImage(named: "calendar-down")
     }
     private let titleButton = UIButton()
-    private let prevButton = UIButton().then {
+    private let prevButton = UIButton()
+    private let prevImageButton = UIButton().then {
         $0.setImage(UIImage(named: "calendar-left"), for: .normal)
         $0.setImage(UIImage(named: "calendar-left"), for: .highlighted)
     }
-    private let nextButton = UIButton().then {
+    private let nextButton = UIButton()
+    private let nextImageButton = UIButton().then {
         $0.setImage(UIImage(named: "calendar-right"), for: .normal)
         $0.setImage(UIImage(named: "calendar-right"), for: .highlighted)
     }
@@ -158,6 +161,8 @@ final class CalendarView: UIView {
         addSubview(titleLabel)
         addSubview(titleImageView)
         addSubview(titleButton)
+        addSubview(prevImageButton)
+        addSubview(nextImageButton)
         addSubview(prevButton)
         addSubview(nextButton)
         addSubview(stackView)
@@ -187,15 +192,33 @@ final class CalendarView: UIView {
             $0.top.left.bottom.equalTo(titleLabel)
             $0.right.equalTo(titleImageView.snp.right)
         }
-        nextButton.snp.makeConstraints {
+        nextImageButton.snp.makeConstraints {
             $0.right.equalToSuperview()
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.size.equalTo(24)
         }
-        prevButton.snp.makeConstraints {
-            $0.right.equalTo(nextButton.snp.left).offset(-8)
+        prevImageButton.snp.makeConstraints {
+            $0.right.equalTo(nextImageButton.snp.left).offset(-8)
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.size.equalTo(24)
+        }
+        nextButton.snp.makeConstraints {
+            $0.left.equalTo(prevImageButton.snp.right).offset(4)
+            $0.centerY.equalTo(nextImageButton)
+            $0.width.equalTo(48)
+            $0.height.equalTo(52)
+        }
+        prevButton.snp.makeConstraints {
+            $0.right.equalTo(nextButton.snp.left)
+            $0.centerY.equalTo(prevImageButton)
+            $0.width.equalTo(48)
+            $0.height.equalTo(52)
+        }
+        nextButton.snp.makeConstraints {
+            $0.left.equalTo(prevImageButton.snp.right).offset(4)
+            $0.centerY.equalTo(nextImageButton)
+            $0.width.equalTo(48)
+            $0.height.equalTo(52)
         }
         stackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(11)
@@ -204,7 +227,7 @@ final class CalendarView: UIView {
             $0.height.equalTo(20)
         }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.bottom).offset(4)
+            $0.top.equalTo(stackView.snp.bottom).offset(8)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview().offset(-7)
             $0.height.equalTo(Metric.height)
@@ -422,6 +445,13 @@ extension CalendarView: UIPickerViewDelegate {
 }
 
 extension CalendarView: CalendarViewCellDelegate {
+    func select(_ cell: CalendarViewCell, dayCell: CalendarDayCell) {
+        guard let date = dayCell.date else { return }
+        
+        self.startDate = date
+        delegate?.select(date: date)
+    }
+    
     func select(_ cell: CalendarViewCell, dayCell: CalendarViewDayCell) {
         guard let date = dayCell.date else { return }
         

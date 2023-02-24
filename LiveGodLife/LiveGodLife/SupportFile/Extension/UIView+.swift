@@ -28,4 +28,16 @@ extension UIView {
     func gesture(_ event: GestureType = .tap) -> GesturePublisher {
         GesturePublisher(view: self, event: event)
     }
+    
+    func setLineDot(color: String, radius: CGFloat){
+        let borderLayer = CAShapeLayer()
+        
+        borderLayer.strokeColor = UIColor(rgbHexString: color)?.cgColor
+        borderLayer.lineDashPattern = [2, 2]
+        borderLayer.backgroundColor = UIColor.clear.cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: radius).cgPath
+
+        self.layer.addSublayer(borderLayer)
+    }
 }
