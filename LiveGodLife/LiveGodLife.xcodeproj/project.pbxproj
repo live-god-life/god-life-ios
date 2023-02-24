@@ -133,6 +133,7 @@
 		E935D9F8298E4E98001787D2 /* DeleteFolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9F7298E4E98001787D2 /* DeleteFolderCell.swift */; };
 		E935D9FB298E5AC7001787D2 /* SetTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9FA298E5AC6001787D2 /* SetTodoCell.swift */; };
 		E935D9FD298E5D6F001787D2 /* SetTodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935D9FC298E5D6F001787D2 /* SetTodoItemView.swift */; };
+		E935F6CA29B1EB90003DBE27 /* DashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6C929B1EB90003DBE27 /* DashView.swift */; };
 		E9367D432988260A002F016D /* FeedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D362988260A002F016D /* FeedDetailVC.swift */; };
 		E9367D442988260A002F016D /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9367D382988260A002F016D /* MindsetView.xib */; };
 		E9367D452988260A002F016D /* TodoDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D392988260A002F016D /* TodoDropDownView.swift */; };
@@ -174,7 +175,6 @@
 		E963653329843BD8005F16CD /* AppTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653229843BD8005F16CD /* AppTimer.swift */; };
 		E9636535298517CC005F16CD /* CalendarListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9636534298517CC005F16CD /* CalendarListVC.swift */; };
 		E963653829851D5C005F16CD /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653729851D5C005F16CD /* CalendarCell.swift */; };
-		E963653A29852E4A005F16CD /* CalendarWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653929852E4A005F16CD /* CalendarWeekCell.swift */; };
 		E963653C29852FC4005F16CD /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653B29852FC4005F16CD /* CalendarDayCell.swift */; };
 		E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653D29869EA5005F16CD /* DayTodosCell.swift */; };
 		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
@@ -324,6 +324,7 @@
 		E935D9F7298E4E98001787D2 /* DeleteFolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFolderCell.swift; sourceTree = "<group>"; };
 		E935D9FA298E5AC6001787D2 /* SetTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTodoCell.swift; sourceTree = "<group>"; };
 		E935D9FC298E5D6F001787D2 /* SetTodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTodoItemView.swift; sourceTree = "<group>"; };
+		E935F6C929B1EB90003DBE27 /* DashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashView.swift; sourceTree = "<group>"; };
 		E9367D362988260A002F016D /* FeedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDetailVC.swift; sourceTree = "<group>"; };
 		E9367D382988260A002F016D /* MindsetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
 		E9367D392988260A002F016D /* TodoDropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDropDownView.swift; sourceTree = "<group>"; };
@@ -358,7 +359,6 @@
 		E963653229843BD8005F16CD /* AppTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTimer.swift; sourceTree = "<group>"; };
 		E9636534298517CC005F16CD /* CalendarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarListVC.swift; sourceTree = "<group>"; };
 		E963653729851D5C005F16CD /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
-		E963653929852E4A005F16CD /* CalendarWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekCell.swift; sourceTree = "<group>"; };
 		E963653B29852FC4005F16CD /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
 		E963653D29869EA5005F16CD /* DayTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodosCell.swift; sourceTree = "<group>"; };
 		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
@@ -490,6 +490,7 @@
 				E9636529298426E3005F16CD /* CommonNavigationView.swift */,
 				E9FBF9EB29AA6FD600A41948 /* CustomVisualEffectView.swift */,
 				E95D675E29A295F800DED5ED /* DatePopupView.swift */,
+				E935F6C929B1EB90003DBE27 /* DashView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1048,7 +1049,6 @@
 			isa = PBXGroup;
 			children = (
 				E963653729851D5C005F16CD /* CalendarCell.swift */,
-				E963653929852E4A005F16CD /* CalendarWeekCell.swift */,
 				E963653B29852FC4005F16CD /* CalendarDayCell.swift */,
 				E963653D29869EA5005F16CD /* DayTodosCell.swift */,
 				E963653F29869F74005F16CD /* DayTodoCell.swift */,
@@ -1301,7 +1301,6 @@
 				E9FBF9E629A8B42400A41948 /* CalendarViewDayCell.swift in Sources */,
 				E963653329843BD8005F16CD /* AppTimer.swift in Sources */,
 				D03FAA512916063D00E9B045 /* UIFont+.swift in Sources */,
-				E963653A29852E4A005F16CD /* CalendarWeekCell.swift in Sources */,
 				C9152E9D29397F6100C6C025 /* GoalsVC.swift in Sources */,
 				E935D9E8298AE30B001787D2 /* DefaultTableViewCell.swift in Sources */,
 				D0D42D412938C9B800211317 /* MyPageRepository.swift in Sources */,
@@ -1315,6 +1314,7 @@
 				E9636515297FE05C005F16CD /* LogUtil.swift in Sources */,
 				B92C311629377CAD000DA2D7 /* MindsetModel.swift in Sources */,
 				B92C310F29377CAD000DA2D7 /* CalendarModel.swift in Sources */,
+				E935F6CA29B1EB90003DBE27 /* DashView.swift in Sources */,
 				B9B3F0CC29523A5A00A1387C /* CreateGoalsModel.swift in Sources */,
 				E963651A29800EC0005F16CD /* UILabel+.swift in Sources */,
 				E9636507297FD242005F16CD /* TodoListViewModel.swift in Sources */,

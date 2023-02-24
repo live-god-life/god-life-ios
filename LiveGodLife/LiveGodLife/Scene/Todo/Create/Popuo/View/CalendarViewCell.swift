@@ -15,10 +15,23 @@ protocol CalendarViewCellDelegate: AnyObject {
 
 //MARK: CalendarViewCell
 final class CalendarViewCell: UICollectionViewCell {
+    enum CellType {
+        case todo
+        case date
+    }
+    
     //MARK: - Properties
+    var type: CellType?
     var startDate: Date?
     var endDate: Date?
+    private let viewModel = TodoListViewModel()
     weak var delegate: CalendarViewCellDelegate?
+    private var monthModel = [DayModel]() {
+        didSet {
+            collectionView.collectionViewLayout = setupFlowLayout()
+            collectionView.reloadData()
+        }
+    }
     private var days = [CalendarViewModel]() {
         didSet {
             collectionView.collectionViewLayout = setupFlowLayout()
@@ -35,6 +48,7 @@ final class CalendarViewCell: UICollectionViewCell {
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
+        CalendarDayCell.register($0)
         CalendarViewDayCell.register($0)
     }
     
@@ -43,6 +57,7 @@ final class CalendarViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         makeUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -58,10 +73,26 @@ final class CalendarViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(with model: [CalendarViewModel], startDate: Date?, endDate: Date?) {
+    private func bind() {
+        viewModel
+            .output
+            .requestMonth
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] model in
+                self?.monthModel = model
+            }
+            .store(in: &viewModel.bag)
+    }
+    
+    func configure(type: CellType, with model: [CalendarViewModel], startDate: Date?, endDate: Date?) {
+        self.type = type
         self.days = model
         self.startDate = startDate
         self.endDate = endDate
+        
+        if let dateString = model.last?.date?.yyyyMM {
+            viewModel.input.requestMonth.send(dateString)
+        }
     }
     
     func setupFlowLayout() -> UICollectionViewFlowLayout {
@@ -86,20 +117,33 @@ extension CalendarViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: CalendarViewDayCell = collectionView.dequeueReusableCell(for: indexPath)
+        let type = type ?? .date
+        let model = days[indexPath.item]
         
-        cell.configure(with: days[indexPath.item], startDate: startDate, endDate: endDate)
-        
-        return cell
+        switch type {
+        case .todo:
+            let cell: CalendarDayCell = collectionView.dequeueReusableCell(for: indexPath)
+            
+            let day = monthModel.first(where: { $0.date == model.date?.yyyyMMdd })
+            let isTodo = (day?.todoCount ?? 0) > 0
+            let isDday = (day?.dDayCount ?? 0) > 0
+            
+            cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: false)
+            return cell
+        case .date:
+            let cell: CalendarViewDayCell = collectionView.dequeueReusableCell(for: indexPath)
+            cell.configure(with: model, startDate: startDate, endDate: endDate)
+            return cell
+        }
     }
 }
 
 extension CalendarViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarViewDayCell else {
-            return
+        if let cell = collectionView.cellForItem(at: indexPath) as? CalendarViewDayCell {
+            delegate?.select(self, dayCell: cell)
+        } else if let cell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell {
+//            delegate?.
         }
-        
-        delegate?.select(self, dayCell: cell)
     }
 }

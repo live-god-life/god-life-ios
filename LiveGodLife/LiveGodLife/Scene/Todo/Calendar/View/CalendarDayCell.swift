@@ -60,7 +60,6 @@ final class CalendarDayCell: UICollectionViewCell {
     override func prepareForReuse() {
         contentView.backgroundColor = .black
         contentView.layer.borderWidth = .zero
-        contentView.layer.cornerRadius = .zero
         contentView.layer.borderColor = UIColor.black.cgColor
         
         dayLabel.text = nil
@@ -73,6 +72,8 @@ final class CalendarDayCell: UICollectionViewCell {
     
     //MARK: - Make UI
     private func makeUI() {
+        contentView.layer.cornerRadius = 12.0
+        
         contentView.addSubview(vStackView)
         vStackView.addArrangedSubview(dayLabel)
         vStackView.addArrangedSubview(hStackView)
@@ -107,20 +108,24 @@ final class CalendarDayCell: UICollectionViewCell {
             dayLabel.textColor = .black
             contentView.backgroundColor = .green
             contentView.layer.borderWidth = .zero
-            contentView.layer.cornerRadius = 12.0
             hStackView.isHidden = false
             todoGuideView.isHidden = true
             dDayGuideView.isHidden = true
-            statusLabel.text = isToday ? "오늘" : "보는중"
+            statusLabel.text = "보는중"
+            statusLabel.textColor = .black
             statusLabel.isHidden = false
             return
         }
         
+        contentView.backgroundColor = .black
+        dayLabel.textColor = .gray6
+        statusLabel.textColor = .black
+        
+        
         if isTodo || isDDay {
             contentView.backgroundColor = .default
             contentView.layer.borderWidth = 1.0
-            contentView.layer.cornerRadius = 12.0
-            contentView.layer.borderColor = UIColor.gray3.cgColor
+            contentView.layer.borderColor = UIColor.gray9.cgColor
             
             dayLabel.textColor = .DDDDDD
         }

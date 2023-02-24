@@ -14,25 +14,17 @@ import Combine
 final class CalendarListVC: UIViewController {
     //MARK: - Properties
     private let viewModel = TodoListViewModel()
-    private var monthModel = [DayModel]()
-    private var dayModel = [MainCalendarModel]()
-    private let today = Date()
     private let calendar = Calendar.current
-    private var days = [String]()
-    private var daysCountInMonth = 0
-    private var weekdayAdding = 0
-    private var currentMonth: String?
-    private var selectedDate: Date? = Date()
+    private var currentMonth = Date()
+    private var selectedDate = Date()
+    private var dayModel = [MainCalendarModel]() {
+        didSet {
+            self.calendarCollectionView.reloadSections(IndexSet(1...2))
+        }
+    }
     private let dateFormatter = DateFormatter().then {
         $0.locale = Locale(identifier: "ko_KR")
     }
-    private lazy var components: DateComponents = {
-        var comp = DateComponents()
-        comp.year = calendar.component(.year, from: today)
-        comp.month = calendar.component(.month, from: today)
-        comp.day = 1
-        return comp
-    }()
     private lazy var calendarCollectionView = UICollectionView(frame: .zero,
                                                                collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
@@ -43,8 +35,8 @@ final class CalendarListVC: UIViewController {
         $0.allowsMultipleSelection = false
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 30, left: .zero,
-                                       bottom: 132, right: .zero)
+        $0.contentInset = UIEdgeInsets(top: 16, left: .zero,
+                                       bottom: 88, right: .zero)
         DefaultCell.register($0)
         CalendarCell.register($0)
         DayTodosCell.register($0)
@@ -61,7 +53,7 @@ final class CalendarListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        calculation()
+        
     }
     
     //MARK: - Make UI
@@ -71,7 +63,7 @@ final class CalendarListVC: UIViewController {
         view.addSubview(calendarCollectionView)
         
         calendarCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(116)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(96)
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-40)
         }
@@ -79,53 +71,14 @@ final class CalendarListVC: UIViewController {
     
     //MARK: - Binding..
     private func bind() {
-        calculation()
-        
-        viewModel
-            .output
-            .requestMonth
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
-                self?.monthModel = model
-                self?.calendarCollectionView.reloadSections(IndexSet(0...0))
-            }
-            .store(in: &viewModel.bag)
-        
         viewModel
             .output
             .requestDay
             .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
                 self?.dayModel = model
-                self?.calendarCollectionView.reloadSections(IndexSet(1...2))
             }
             .store(in: &viewModel.bag)
-    }
-    
-    private func calculation() {
-        self.dayModel = []
-        self.selectedDate = nil
-        let firstDayOfMonth = calendar.date(from: components) ?? Date()
-        let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
-        daysCountInMonth = calendar.range(of: .day, in: .month, for: firstDayOfMonth)?.count ?? 0
-        weekdayAdding = 2 - firstWeekday
-        
-        dateFormatter.dateFormat = "yyyy년 MM월"
-        currentMonth = dateFormatter.string(from: firstDayOfMonth)
-        days.removeAll()
-        
-        for day in weekdayAdding ... daysCountInMonth {
-            if day < 1 {
-                days.append("")
-            } else {
-                days.append("\(day)")
-            }
-        }
-        
-        viewModel
-            .input
-            .requestMonth
-            .send(firstDayOfMonth.toRequestString())
     }
 }
 
@@ -158,14 +111,13 @@ extension CalendarListVC: UICollectionViewDataSource {
         switch type {
         case .calendar:
             let cell: CalendarCell = collectionView.dequeueReusableCell(for: indexPath)
+            cell.delegate = self
+            cell.configure(date: currentMonth)
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            var title = ""
-            if let date = selectedDate {
-                dateFormatter.dateFormat = "MM월 dd일 EEEE"
-                title = dateFormatter.string(from: date)
-            }
+            dateFormatter.dateFormat = "MM월 dd일 EEEE"
+            let title = dateFormatter.string(from: selectedDate)
             cell.configure(with: title)
             return cell
         case .todo:
@@ -196,9 +148,9 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
         
         switch type {
         case .calendar:
-            return CGSize(width: width, height: 377.0)
+            return CGSize(width: width, height: 426.0)
         case .dateHeader:
-            return CGSize(width: width, height: 61.0)
+            return CGSize(width: width, height: 60.0)
         case .todo:
             if dayModel.isEmpty { return .zero }
             return CGSize(width: width, height: DayTodosCell.height(with: dayModel[indexPath.item]))
@@ -210,27 +162,22 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
                         referenceSizeForFooterInSection section: Int) -> CGSize {
         guard SectionType(rawValue: section) == .dateHeader else { return .zero }
         let width = UIScreen.main.bounds.width
-        return .init(width: width, height: 17.0)
+        return .init(width: width, height: 24.0)
     }
 }
 
 // MARK: - CalendarCellDelegate
 extension CalendarListVC: CalendarCellDelegate {
-    func selected(date: Date?) {
-        guard let date else { return }
+    func selected(date: Date) {
         selectedDate = date
         dateFormatter.dateFormat = "yyyyMMdd"
         viewModel.input.requestDay.send(dateFormatter.string(from: date))
     }
     
     func prevMonth() {
-        components.month = (components.month ?? 0) - 1
-        calculation()
     }
     
     func nextMonth() {
-        components.month = (components.month ?? 0) + 1
-        calculation()
     }
 }
 

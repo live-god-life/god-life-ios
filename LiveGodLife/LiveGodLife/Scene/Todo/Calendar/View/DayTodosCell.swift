@@ -31,7 +31,7 @@ final class DayTodosCell: UICollectionViewCell {
         DayTodoCell.register($0)
     }
     private let titleLabel = UILabel().then {
-        $0.font = .medium(with: 16)
+        $0.font = .regular(with: 16)
         $0.textColor = .white
     }
     private let infoImageView = UIImageView().then {
@@ -63,7 +63,7 @@ final class DayTodosCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.equalToSuperview().offset(24)
+            $0.left.equalToSuperview().offset(20)
             $0.height.equalTo(24)
         }
         infoImageView.snp.makeConstraints {

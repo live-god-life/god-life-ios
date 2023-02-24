@@ -13,7 +13,6 @@ import CombineCocoa
 
 protocol CalendarViewDelegate: AnyObject {
     func select(startDate: Date?, endDate: Date?)
-    func select(title: Date?)
 }
 
 //MARK: CalendarView
@@ -34,12 +33,15 @@ final class CalendarView: UIView {
     }
     
     //MARK: - Properties
+    var type: CalendarViewCell.CellType
     var isEnd = true
     var isBegin = true
     var startDate: Date?
     var endDate: Date?
     var lastOffset = Metric.defaultPositionX
     var scrollDirection: ScrollDirection = .none
+    private let years = (2000 ... 2100).map { $0 }
+    private let month = (1 ... 12).map { $0 }
     var targetDate: Date? {
         didSet {
             titleLabel.text = dateFormatter.string(from: targetDate ?? Date())
@@ -114,11 +116,19 @@ final class CalendarView: UIView {
         $0.showsHorizontalScrollIndicator = false
         CalendarViewCell.register($0)
     }
+    private let pickerContainerView = UIView().then {
+        $0.backgroundColor = .black
+        $0.alpha = 0.0
+    }
+    private let pickerView = UIPickerView()
+    
     private let calendar = Calendar.current
     
     //MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(type: CalendarViewCell.CellType) {
+        self.type = type
+        
+        super.init(frame: .zero)
         
         makeUI()
         bind()
@@ -152,6 +162,8 @@ final class CalendarView: UIView {
         addSubview(nextButton)
         addSubview(stackView)
         addSubview(collectionView)
+        addSubview(pickerContainerView)
+        pickerContainerView.addSubview(pickerView)
         
         weeks.forEach {
             let lbl = UILabel()
@@ -167,7 +179,7 @@ final class CalendarView: UIView {
             $0.height.equalTo(30)
         }
         titleImageView.snp.makeConstraints {
-            $0.left.equalTo(titleLabel.snp.right).offset(10)
+            $0.left.equalTo(titleLabel.snp.right).offset(8)
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.size.equalTo(16)
         }
@@ -197,13 +209,40 @@ final class CalendarView: UIView {
             $0.right.equalToSuperview().offset(-7)
             $0.height.equalTo(Metric.height)
         }
+        pickerContainerView.snp.makeConstraints {
+            $0.left.right.bottom.equalToSuperview()
+            $0.height.equalTo(321)
+        }
+        pickerView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(200)
+            $0.height.equalTo(238)
+        }
     }
     
     private func bind() {
         titleButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.delegate?.select(title: self?.targetDate)
+                guard let self, let date = self.targetDate else { return }
+                
+                let isOpen = self.pickerContainerView.alpha == .zero
+                
+                let year = self.calendar.component(.year, from: date) - 2000
+                let month = self.calendar.component(.month, from: date) - 1
+                self.pickerView.selectRow(year, inComponent: 0, animated: false)
+                self.pickerView.selectRow(month, inComponent: 1, animated: false)
+                
+                let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut)
+                let angle: CGFloat = isOpen ? .pi : -.pi * 2
+                let tr = CGAffineTransform.identity.rotated(by: angle)
+                
+                animator.addAnimations {
+                    self.pickerContainerView.alpha = isOpen ? 1.0 : .zero
+                    self.titleImageView.transform = tr
+                }
+                
+                animator.startAnimation()
             }
             .store(in: &bag)
         
@@ -244,10 +283,20 @@ final class CalendarView: UIView {
         return layout
     }
     
-    func configure(with date: Date, startDate: Date?, endDate: Date?) {
+    func configure(with date: Date, startDate: Date? = nil, endDate: Date? = nil) {
         self.startDate = startDate
         self.endDate = endDate
         self.targetDate = date
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.backgroundColor = .black
+        
+        let year = calendar.component(.year, from: targetDate ?? Date()) - 2000
+        let month = calendar.component(.month, from: targetDate ?? Date()) - 1
+        
+        pickerView.selectRow(year, inComponent: 0, animated: false)
+        pickerView.selectRow(month, inComponent: 1, animated: false)
     }
     
     private func calculation(for date: Date) -> [CalendarViewModel] {
@@ -303,7 +352,7 @@ extension CalendarView: UICollectionViewDataSource {
         let cell: CalendarViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
         cell.delegate = self
-        cell.configure(with: models[indexPath.item], startDate: startDate, endDate: endDate)
+        cell.configure(type: self.type, with: models[indexPath.item], startDate: startDate, endDate: endDate)
         
         return cell
     }
@@ -329,6 +378,46 @@ extension CalendarView: UICollectionViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         moveMonth()
+    }
+}
+
+extension CalendarView: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? 101 : 12
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let text = component == 0 ? "\(years[row])년" : "\(month[row])월"
+        let lbl = UILabel()
+        lbl.text = text
+        lbl.textColor = .white
+        lbl.textAlignment = .center
+        lbl.font = .semiBold(with: 22)
+        return lbl
+    }
+}
+
+extension CalendarView: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let date = self.targetDate else { return }
+        
+        var components = DateComponents()
+        
+        let year = years[pickerView.selectedRow(inComponent: 0)]
+        let month = month[pickerView.selectedRow(inComponent: 1)]
+        
+        components.year = year
+        components.month = month
+        components.day = 1
+        
+        if year != calendar.component(.year, from: date) || month != calendar.component(.month, from: date) {
+            self.isEnd = true
+            self.targetDate = calendar.date(from: components)
+        }
     }
 }
 

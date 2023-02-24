@@ -20,15 +20,14 @@ final class DayTodoCell: UICollectionViewCell {
     private var isStatus = false
     private let innerView = UIView().then {
         $0.backgroundColor = .default
-        $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 16
     }
     private let typeLabel = UILabel().then {
-        $0.font = .montserrat(with: 16, weight: .bold)
+        $0.font = .montserrat(with: 16, weight: .semibold)
     }
     private let titleLabel = UILabel().then {
         $0.numberOfLines = 1
-        $0.font = .bold(with: 16)
+        $0.font = .semiBold(with: 18)
         $0.textColor = .white
     }
     private let completeImageView = UIImageView().then {
@@ -64,14 +63,14 @@ final class DayTodoCell: UICollectionViewCell {
             $0.left.right.equalToSuperview().inset(16)
         }
         typeLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(15)
+            $0.left.equalToSuperview().offset(11)
             $0.centerY.equalToSuperview()
             $0.height.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(72)
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(24)
+            $0.height.equalTo(26)
         }
         completeImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -92,11 +91,9 @@ final class DayTodoCell: UICollectionViewCell {
                 guard let self else { return }
                 
                 self.isStatus.toggle()
-                let isTodo = self.model?.taskType == "Todo"
+                let isTodo = self.model?.taskType?.uppercased() == "TODO"
                 let completedImageName = isTodo ? "btn_toggle_checkbox_on_todo" : "btn_toggle_checkbox_on_dday"
-                let completedColor = isTodo ? UIColor.green.cgColor : UIColor.blue.cgColor
                 
-                self.innerView.layer.borderColor = self.isStatus ? completedColor : UIColor.gray3.cgColor
                 self.completeImageView.image = self.isStatus ? UIImage(named: completedImageName) : UIImage(named: "btn_toggle_checkbox_off")
                 self.delegate?.selectedTodo(id: self.model?.todoScheduleId, isCompleted: self.isStatus)
             }
@@ -104,17 +101,15 @@ final class DayTodoCell: UICollectionViewCell {
     }
 
     func configure(with todo: SubCalendarModel, completionStatus: Bool) {
-        let isTodo = todo.taskType == "Todo"
+        let isTodo = todo.taskType?.uppercased() == "TODO"
         let isCompleted = (todo.completionStatus ?? false) || completionStatus
         let completedImageName = isTodo ? "btn_toggle_checkbox_on_todo" : "btn_toggle_checkbox_on_dday"
-        let completedColor = isTodo ? UIColor.green.cgColor : UIColor.blue.cgColor
         let dDay = todo.todoDay ?? 0
-        let dDayString = dDay == 0 ? "D-day" : dDay > 0 ? "D+\(dDay)" : "D\(dDay)"
+        let dDayString = dDay == 0 ? "D-DAY" : dDay > 0 ? "D+\(dDay)" : "D\(dDay)"
         
         self.model = todo
         self.isStatus = isCompleted
-        innerView.layer.borderColor = isCompleted ? completedColor : UIColor.gray3.cgColor
-        typeLabel.text = isTodo ? "Todo" : dDayString
+        typeLabel.text = isTodo ? "TODO" : dDayString
         typeLabel.textColor = isTodo ? .green : .blue
         titleLabel.text = todo.title
         completeImageView.image = isCompleted ? UIImage(named: completedImageName) : UIImage(named: "btn_toggle_checkbox_off")

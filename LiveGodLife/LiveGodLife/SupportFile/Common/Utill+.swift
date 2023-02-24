@@ -70,6 +70,11 @@ extension Date {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: self)
     }
+    
+    var yyyyMM: String {
+        Self.dateFormatter.dateFormat = "yyyyMM"
+        return Self.dateFormatter.string(from: self)
+    }
         
     var yyyyMMdd: String {
         Self.dateFormatter.dateFormat = "yyyyMMdd"
@@ -229,6 +234,11 @@ extension String {
             Format.Date.formatter.date(from: self) ??
             Format.Time.formatter.date(from: self) ??
             Format.Hour.formatter.date(from: self) ?? nil
+    }
+    
+    var yyyyMM: Date? {
+        Date.dateFormatter.dateFormat = "yyyyMM"
+        return Date.dateFormatter.date(from: self)
     }
     
     var yyyyMMdd: Date? {
