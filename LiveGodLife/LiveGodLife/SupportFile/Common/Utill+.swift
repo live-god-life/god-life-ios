@@ -71,6 +71,11 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    var yyMd: String {
+        Self.dateFormatter.dateFormat = "yy.M.d"
+        return Self.dateFormatter.string(from: self)
+    }
+    
     var yyyyMM: String {
         Self.dateFormatter.dateFormat = "yyyyMM"
         return Self.dateFormatter.string(from: self)
@@ -235,22 +240,32 @@ extension String {
             Format.Time.formatter.date(from: self) ??
             Format.Hour.formatter.date(from: self) ?? nil
     }
-    
+    /// yy.M.d
+    var yyMd: Date? {
+        Date.dateFormatter.dateFormat = "yy.M.d"
+        return Date.dateFormatter.date(from: self)
+    }
+    /// yyyyMM
     var yyyyMM: Date? {
         Date.dateFormatter.dateFormat = "yyyyMM"
         return Date.dateFormatter.date(from: self)
     }
-    
+    /// yyyyMMdd
     var yyyyMMdd: Date? {
         Date.dateFormatter.dateFormat = "yyyyMMdd"
         return Date.dateFormatter.date(from: self)
     }
-    
+    /// HH:mm
     var HHmm: Date? {
         Date.dateFormatter.dateFormat = "HH:mm"
         return Date.dateFormatter.date(from: self)
     }
-    
+    /// HHmm
+    var HHmm2: Date? {
+        Date.dateFormatter.dateFormat = "HHmm"
+        return Date.dateFormatter.date(from: self)
+    }
+    /// a h:mm
     var ahmm: Date? {
         Date.dateFormatter.dateFormat = "a h:mm"
         return Date.dateFormatter.date(from: self)

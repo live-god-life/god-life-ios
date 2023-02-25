@@ -61,7 +61,7 @@ final class CircleProgressBar: UIView {
     override func draw(_ rect: CGRect) {
         guard layer.sublayers == nil else { return }
         
-        let lineWidth = min(frame.size.width, frame.size.height) * 0.1
+        let lineWidth = min(frame.size.width, frame.size.height) * 0.0875
         
         backgroundLayer = createCircularLayer(strokeColor: backgroundCircleColor.cgColor, fillColor: fillColor.cgColor, lineWidth: lineWidth)
         

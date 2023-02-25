@@ -85,7 +85,7 @@ final class TodoMainTabBarController: UITabBarController {
         $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
-        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(selectedView(_:)), for: .touchUpInside)
     }
     private lazy var mindsetButton = UIButton().then {
         $0.tag = 1
@@ -97,7 +97,7 @@ final class TodoMainTabBarController: UITabBarController {
         $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
-        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(selectedView(_:)), for: .touchUpInside)
     }
     private lazy var goalButton = UIButton().then {
         $0.tag = 2
@@ -109,7 +109,7 @@ final class TodoMainTabBarController: UITabBarController {
         $0.setTitleColor(.black, for: .selected)
         $0.setBackgroundColor(.clear, for: .normal)
         $0.setBackgroundColor(.green, for: .selected)
-        $0.addTarget(self, action: #selector(seletedView(_:)), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(selectedView(_:)), for: .touchUpInside)
     }
     private let titleLabel = UILabel().then {
         $0.text = "TODO"
@@ -159,6 +159,7 @@ final class TodoMainTabBarController: UITabBarController {
         selectedIndex = 0
         tabBar.isHidden = true
         calendarButton.isSelected = true
+        selectedView(calendarButton)
         setViewControllers(tabs, animated: true)
         
         view.addSubview(titleLabel)
@@ -197,7 +198,7 @@ final class TodoMainTabBarController: UITabBarController {
     }
     
     @objc
-    func seletedView(_ sender: UIButton) {
+    func selectedView(_ sender: UIButton) {
         selectedIndex = sender.tag
         goalButton.isSelected = sender.tag == goalButton.tag
         mindsetButton.isSelected = sender.tag == mindsetButton.tag

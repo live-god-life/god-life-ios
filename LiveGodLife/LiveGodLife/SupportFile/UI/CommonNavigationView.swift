@@ -38,17 +38,20 @@ final class CommonNavigationView: UIView {
     
     //MARK: - Functions...
     private func makeUI() {
+        backgroundColor = .black
+        
         addSubview(leftBarButton)
         addSubview(titleLabel)
         addSubview(rightBarButton)
         
         leftBarButton.snp.makeConstraints {
-            $0.left.top.equalToSuperview().offset(16)
+            $0.left.equalToSuperview().offset(16)
+            $0.centerY.equalToSuperview()
             $0.size.equalTo(32)
         }
         rightBarButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-24)
+            $0.right.equalToSuperview().offset(-16)
+            $0.centerY.equalToSuperview()
             $0.size.equalTo(32)
         }
         titleLabel.snp.makeConstraints {

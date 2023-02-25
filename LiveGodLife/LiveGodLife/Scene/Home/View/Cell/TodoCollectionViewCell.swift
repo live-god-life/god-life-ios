@@ -16,7 +16,7 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     private var id: Int?
     weak var delegate: TodoCollectionViewCellDelegate?
     
-    @IBOutlet private weak var progressBar: CircularProgressBar!
+//    @IBOutlet private weak var progressBar: CircularProgressBar!
     @IBOutlet private weak var dDayLabel: UILabel!
     @IBOutlet private weak var repetitionLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
@@ -31,8 +31,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Functions...
     private func makeUI() {
-        progressBar.lineWidth = 5
-        progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
+//        progressBar.lineWidth = 5
+//        progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
         layer.cornerRadius = 51
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray3.cgColor
@@ -55,7 +55,7 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         repetitionLabel.isHidden = todo.repetitions.isEmpty
         contentLabel.text = todo.title
         let rate = (Double(todo.completedCount) / Double(todo.totalCount)) * 100
-        progressBar.value = rate
+//        progressBar.value = rate
     }
 
     @IBAction

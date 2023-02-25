@@ -149,7 +149,7 @@ extension DayTodosCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = .zero
         flowLayout.minimumLineSpacing = 16.0
-        flowLayout.minimumInteritemSpacing = .zero
+        flowLayout.minimumInteritemSpacing = 16.0
         flowLayout.scrollDirection = .vertical
         return flowLayout
     }
@@ -162,10 +162,9 @@ extension DayTodosCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let id = dataSource.itemIdentifier(for: indexPath)?.todoId,
-              let todoDetailVC = TodoDetailVC.instance() else { return }
+        guard let id = dataSource.itemIdentifier(for: indexPath)?.todoId else { return }
         
-        todoDetailVC.configure(id: id)
+        let todoDetailVC = TodoDetailVC(id: id)
         UIApplication.topViewController()?.navigationController?.pushViewController(todoDetailVC, animated: true)
     }
 }

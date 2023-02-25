@@ -2,7 +2,7 @@
 //  MindsetsVC.swift
 //  LiveGodLife
 //
-//  Created by khAhn on 2022/11/23.
+//  Created by wargi on 2023/03/04.
 //
 
 import UIKit

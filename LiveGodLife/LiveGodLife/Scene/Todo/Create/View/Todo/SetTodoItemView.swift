@@ -21,7 +21,7 @@ final class SetTodoItemView: UIView {
         $0.textAlignment = .right
         $0.font = .regular(with: 16)
     }
-    private let detailImageView = UIImageView().then {
+    let detailImageView = UIImageView().then {
         $0.image = UIImage(named: "todoDetail")
     }
     let itemButton = UIButton()
@@ -52,6 +52,7 @@ final class SetTodoItemView: UIView {
         titleLabel.snp.makeConstraints {
             $0.left.equalTo(logoImageView.snp.right).offset(4)
             $0.centerY.equalToSuperview()
+            $0.width.equalTo(0)
             $0.height.equalTo(24)
         }
         detailImageView.snp.makeConstraints {
@@ -60,7 +61,7 @@ final class SetTodoItemView: UIView {
             $0.size.equalTo(24)
         }
         valueLabel.snp.makeConstraints {
-            $0.left.equalTo(titleLabel.snp.right).offset(4)
+            $0.left.equalTo(titleLabel.snp.right).offset(8)
             $0.right.equalTo(detailImageView.snp.left).offset(-4)
             $0.height.equalTo(24)
         }
@@ -73,5 +74,10 @@ final class SetTodoItemView: UIView {
         logoImageView.image = logo
         titleLabel.text = title
         valueLabel.text = value
+        
+        let width = title?.width(font: .regular(with: 16)!) ?? .zero
+        titleLabel.snp.updateConstraints {
+            $0.width.equalTo(width)
+        }
     }
 }

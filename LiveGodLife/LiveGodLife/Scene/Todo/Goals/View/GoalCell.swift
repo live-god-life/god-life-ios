@@ -59,8 +59,8 @@ final class GoalCell: UICollectionViewCell {
         $0.font = .semiBold(with: 20)
     }
     private let progress = GradientProgressView().then {
-        $0.gradientColors = [UIColor.green.cgColor,
-                             UIColor.blue.cgColor]
+        $0.gradientColors = [UIColor.blue.cgColor,
+                             UIColor.green.cgColor]
     }
     let contentsView = UIView().then {
         $0.layer.cornerRadius = 16
@@ -180,10 +180,11 @@ final class GoalCell: UICollectionViewCell {
         // CountLabel
         let minsetCount = model.totalMindsetCount ?? 0
         mindsetCountLabel.text = "마인드셋:\(minsetCount)"
-        let proceedingCount = model.totalMindsetCount ?? 0
-        totalTodoCountLabel.text = "진행중:\(proceedingCount)"
-        let completeCount = model.totalMindsetCount ?? 0
+        let completeCount = model.completedTodoCount ?? 0
         completedTodoCountLabel.text = "완료:\(completeCount)"
+        let proceedingCount = (model.totalTodoCount ?? 0) - completeCount
+        totalTodoCountLabel.text = "진행중:\(proceedingCount)"
+
         // DateLabel
         let startDate = model.startDate?.toDate()?.toString() ?? (Date.today.date?.toString() ?? "")
         let endDate = model.endDate?.toDate()?.toString() ?? (Date.today.date?.toString() ?? "")
@@ -200,7 +201,7 @@ final class GoalCell: UICollectionViewCell {
         }
         
         // Progress
-        progress.progress = Float(completeCount) / Float(proceedingCount + completeCount)
+        progress.progress = Float(completeCount) / Float(proceedingCount)
         progress.layer.cornerRadius = 4.0
     }
 }
