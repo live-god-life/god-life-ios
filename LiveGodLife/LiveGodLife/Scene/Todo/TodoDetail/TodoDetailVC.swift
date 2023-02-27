@@ -13,35 +13,146 @@ final class TodoDetailVC: UIViewController {
     //MARK: - Properties
     private var id: Int?
     private var bag = Set<AnyCancellable>()
-    private lazy var pageViewControllers: [UIViewController] = [upcomingTaskVC, pastTaskVC]
-    
-    private var taskInfoView: TaskInfoView!
-    private var progressView: TodoProgressView!
-    private var segmentControlView: SegmentControlView!
-    private var pageVC: UIPageViewController!
-    private let upcomingTaskVC = TaskVC()
-    private let pastTaskVC = TaskVC()
-    
-    @IBOutlet private weak var navigationBar: UINavigationBar!
+    private var taskType: TaskType = .todo
+    private var viewModel: TaskInfoViewModel? {
+        didSet {
+            self.taskInfoView.configure(with: viewModel)
+        }
+    }
+    private var schedules = [[TodoScheduleViewModel]]()
+    private var navigationView = CommonNavigationView().then {
+        $0.titleLabel.text = "TODO 상세"
+    }
+    private let afterVC = TaskVC()
+    private let beforeVC = TaskVC()
+    private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                               navigationOrientation: .horizontal).then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.setViewControllers([afterVC], direction: .forward, animated: true)
+    }
+    private var taskInfoView = TaskInfoView()
+    private lazy var todoTableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.separatorStyle = .none
+        $0.separatorColor = .clear
+        $0.backgroundColor = .black
+        $0.isScrollEnabled = false
+        $0.alwaysBounceHorizontal = false
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = .zero
+        TasksCell.register($0)
+    }
+    let headerView = PageSelectionView()
+    private let emptyView = UIView().then {
+        $0.backgroundColor = .black
+    }
+    private var value: CGFloat = 44
+    private let min: CGFloat = 44.0 - 368.0
+    private let max: CGFloat = 44.0
+    private var oldContentOffset = CGPoint.zero
+    private var dragInitialY: CGFloat = 0
+    private var dragPreviousY: CGFloat = 0
     
     //MARK: - Life Cycle
+    init(id: Int) {
+        self.id = id
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        requestData()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
+        configure()
     }
     
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
-
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(moveToBack))
-        navigationBar.topItem?.leftBarButtonItem = leftBarButtonItem
-
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: nil)
-        navigationBar.topItem?.rightBarButtonItem = rightBarButtonItem
-
-        setupUI()
+        
+        view.addSubview(taskInfoView)
+        view.addSubview(headerView)
+        view.addSubview(pageViewController.view)
+        view.addSubview(navigationView)
+        view.addSubview(emptyView)
+        
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        taskInfoView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(44)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(368)
+        }
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(taskInfoView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(54)
+        }
+        pageViewController.view.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        emptyView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(navigationView.snp.top)
+        }
+    }
+    
+    private func configure() {
+        afterVC.tableView.delegate = self
+        afterVC.tableView.dataSource = self
+        beforeVC.tableView.delegate = self
+        beforeVC.tableView.dataSource = self
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.move(sender:)))
+        taskInfoView.isUserInteractionEnabled = true
+        taskInfoView.addGestureRecognizer(gesture)
+        let gesture2 = UIPanGestureRecognizer(target: self, action: #selector(self.move(sender:)))
+        headerView.isUserInteractionEnabled = true
+        headerView.addGestureRecognizer(gesture2)
+    }
+    
+    @objc func move(sender: UIPanGestureRecognizer) {
+        var dragYDiff : CGFloat
+        
+        switch sender.state {
+            
+        case .began:
+            dragInitialY = sender.location(in: self.view).y
+            dragPreviousY = dragInitialY
+        case .changed:
+            let dragCurrentY = sender.location(in: self.view).y
+            dragYDiff = dragPreviousY - dragCurrentY
+            dragPreviousY = dragCurrentY
+            
+            value -= dragYDiff
+            
+            if value < min {
+                value = min
+            } else if value > max {
+                value = max
+            }
+                
+            taskInfoView.snp.updateConstraints {
+                $0.top.equalTo(view.safeAreaLayoutGuide).offset(value)
+            }
+        default: return
+        }
     }
 
     private func requestData() {
@@ -56,24 +167,14 @@ final class TodoDetailVC: UIViewController {
             .sink { detail in
                 LogUtil.d(detail)
             } receiveValue: { [weak self] (detail, afterSchedules, beforeSchedules) in
-                self?.taskInfoView.configure(TaskInfoViewModel(data: detail))
-                self?.progressView.configure(completedCount: detail.completedCount, totalCount: detail.totalCount)
-                if detail.repetitionType == .none {
-                    self?.upcomingTaskVC.configure(with: afterSchedules, isRepeated: false)
-                    self?.pastTaskVC.configure(with: beforeSchedules, isRepeated: false)
-                    self?.updateUI()
-                } else {
-                    self?.upcomingTaskVC.configure(with: afterSchedules, isRepeated: true)
-                    self?.pastTaskVC.configure(with: beforeSchedules, isRepeated: true)
-                }
+                self?.taskType = detail.repetitionType == .none ? .dDay : .todo
+                self?.viewModel = TaskInfoViewModel(data: detail)
+                self?.schedules = [afterSchedules, beforeSchedules]
+                self?.afterVC.configure(with: afterSchedules, isRepeated: true)
+                self?.beforeVC.configure(with: beforeSchedules, isRepeated: true)
+                self?.headerView.configure(with: detail.repetitionType == .none ? .dDay : .todo, isNext: true)
             }
             .store(in: &bag)
-    }
-    
-    func configure(id: Int) {
-        self.id = id
-        
-        requestData() 
     }
     
     @objc
@@ -84,113 +185,121 @@ final class TodoDetailVC: UIViewController {
 
 // MARK: - Make UI
 extension TodoDetailVC {
-    private func setupUI() {
-        setupTaskInfoView()
-        setupProgressView()
-        setupSegmentControlView()
-        setupPageView()
-    }
-
-    private func setupTaskInfoView() {
-        taskInfoView = TaskInfoView(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 150)))
-        view.addSubview(taskInfoView)
-        taskInfoView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(150)
-        }
-    }
-
-    private func setupProgressView() {
-        let progressView = TodoProgressView()
-        view.addSubview(progressView)
-        progressView.snp.makeConstraints {
-            $0.top.equalTo(taskInfoView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(200)
-        }
-        self.progressView = progressView
-    }
-
-    private func setupSegmentControlView() {
-        let items = [SegmentItem(title: "앞으로 일정"), SegmentItem(title: "지난 일정")]
-        segmentControlView = SegmentControlView(frame: CGRect(origin: .zero,
-                                                              size: CGSize(width: view.frame.width, height: 56)),
-                                                items: items)
-        segmentControlView.delegate = self
-        view.addSubview(segmentControlView)
-        segmentControlView.snp.makeConstraints {
-            $0.top.equalTo(progressView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(56)
-        }
-    }
-
-    private func updateUI() {
-        self.progressView.isHidden = true
-        segmentControlView.configure(highlightColor: .blue)
-        segmentControlView.snp.remakeConstraints {
-            $0.top.equalTo(taskInfoView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(56)
-        }
-    }
-
-    private func setupPageView() {
-        pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageVC.setViewControllers([upcomingTaskVC], direction: .forward, animated: true)
-        pageVC.dataSource = self
-        pageVC.delegate = self
-
-        addChild(pageVC)
-        view.addSubview(pageVC.view)
-        pageVC.view.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(segmentControlView.snp.bottom)
-        }
-        didMove(toParent: self)
+    enum TaskType {
+        case todo
+        case dDay
     }
 }
 
-// MARK: - SegmentControlViewDelegate
-extension TodoDetailVC: SegmentControlViewDelegate {
-    func didTapItem(index: Int) {
-        guard index < pageViewControllers.count else { return }
-
-        // FIXME: page item이 두개일 때만 정상동작
-        let direction: UIPageViewController.NavigationDirection = index == 0 ? .reverse : .forward
-        pageVC.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
-    }
-}
-
-// MARK: - UIPageViewControllerDataSource
 extension TodoDetailVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
-        let previous = current - 1
-        if previous < 0 {
-            return nil
-        }
-        return pageViewControllers[previous]
+        let vc = viewController == afterVC ? beforeVC : afterVC
+        self.oldContentOffset = vc.tableView.contentOffset
+        return vc
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
-        let next = current + 1
-        if next == pageViewControllers.count {
-            return nil
-        }
-        return pageViewControllers[next]
+        let vc = viewController == afterVC ? beforeVC : afterVC
+        self.oldContentOffset = vc.tableView.contentOffset
+        return vc
     }
 }
 
-// MARK: - UIPageViewControllerDelegate
-extension TodoDetailVC: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed {
-            if let previous = previousViewControllers.first, let index = pageViewControllers.firstIndex(of: previous) {
-                segmentControlView.deselectedIndex = index
-            }
+extension TodoDetailVC: UIPageViewControllerDelegate {}
+
+extension TodoDetailVC: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard schedules.count > 1 else { return .zero }
+        let model = tableView == afterVC.tableView ? schedules[0] : schedules[1]
+        
+        return model.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard schedules.count > 1 else { return UITableViewCell() }
+        
+        let model = tableView == afterVC.tableView ? schedules[0] : schedules[1]
+        let cell: TaskTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        
+        cell.configure(model[indexPath.section], isRepeated: true)
+        
+        return cell
+    }
+
+    // section header
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard schedules.count > 1 else { return nil }
+        
+        let model = tableView == afterVC.tableView ? schedules[0] : schedules[1]
+        
+        return model[section].scheduleDate
+    }
+
+    // 섹션 헤더의 타이틀 색상 변경
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let header = view as? UITableViewHeaderFooterView {
+            header.textLabel?.textColor = .white
+            header.textLabel?.font = .regular(with: 16)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var delta = scrollView.contentOffset.y - oldContentOffset.y
+        
+        delta = delta > 2 ? 1.0 : delta < -2 ? -1.0 : delta
+        
+//        print(delta)
+        
+        if delta > 0,
+           value > min,
+            scrollView.contentOffset.y > 0 {
+            
+//            dragDirection = .Up
+//            innerTableViewScrollDelegate?.innerTableViewDidScroll(withDistance: delta)
+            
+            value -= delta
+            
+            if value < min {
+                value = min
+            } else if value > max {
+                value = max
+            }
+            
+            taskInfoView.snp.updateConstraints {
+                $0.top.equalTo(view.safeAreaLayoutGuide).offset(value)
+            }
+            
+            print(value)
+            
+            scrollView.contentOffset.y -= delta
+        }
+        
+        if delta < 0,
+           value < max,
+            scrollView.contentOffset.y < 0 {
+            value -= delta
+            
+            if value < min {
+                value = min
+            } else if value > max {
+                value = max
+            }
+            
+            taskInfoView.snp.updateConstraints {
+                $0.top.equalTo(view.safeAreaLayoutGuide).offset(value)
+            }
+            
+            print(value)
+            
+            scrollView.contentOffset.y -= delta
+        }
+
+
+        
+        oldContentOffset = scrollView.contentOffset
     }
 }

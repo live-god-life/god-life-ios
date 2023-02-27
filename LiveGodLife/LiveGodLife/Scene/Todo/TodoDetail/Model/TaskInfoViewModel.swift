@@ -12,10 +12,12 @@ struct TaskInfoViewModel {
     let period: String
     let repetition: String
     let notification: String
+    let completedCount: Int?
+    let totalCount: Int?
 
     init(data: TaskViewModel) {
         title = data.title
-        self.period = "\(data.startDate) ~ \(data.endDate)"
+        self.period = "\(data.startDate.yyyyMMdd?.yyMd ?? "") ~ \(data.endDate.yyyyMMdd?.yyMd ?? "")"
         switch data.repetitionType {
         case .day:
             repetition = "매일"
@@ -34,6 +36,8 @@ struct TaskInfoViewModel {
         case .none:
             repetition = "없음"
         }
-        notification = "매일 오전 9시" // TODO: - 0900
+        notification = data.notification.HHmm2?.ahmm ?? ""
+        self.completedCount = data.completedCount
+        self.totalCount = data.totalCount
     }
 }

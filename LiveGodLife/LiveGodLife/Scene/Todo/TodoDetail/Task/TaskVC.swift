@@ -12,7 +12,7 @@ final class TaskVC: UIViewController {
     //MARK: - Properties
     private var isRepeated: Bool = false
     private var dataSource: [TodoScheduleViewModel] = []
-    private let tableView = UITableView(frame: .zero, style: .grouped)
+    let tableView = UITableView(frame: .zero, style: .grouped)
     private let emptyLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .bold(with: 20)
@@ -37,8 +37,6 @@ final class TaskVC: UIViewController {
         }
 
         tableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
 
         tableView.rowHeight = 72 + 16
         tableView.backgroundColor = .clear
@@ -59,35 +57,5 @@ final class TaskVC: UIViewController {
         self.isRepeated = isRepeated
         dataSource = data
         tableView.reloadData()
-    }
-}
-
-//MARK: - UITableView DataSource & Delegate
-extension TaskVC: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: TaskTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configure(dataSource[indexPath.section], isRepeated: isRepeated)
-        return cell
-    }
-
-    // section header
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dataSource[section].scheduleDate
-    }
-
-    // 섹션 헤더의 타이틀 색상 변경
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let header = view as? UITableViewHeaderFooterView {
-            header.textLabel?.textColor = .white
-            header.textLabel?.font = .regular(with: 16)
-        }
     }
 }

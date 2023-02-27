@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,7 +96,6 @@
                 <outlet property="checkButton" destination="jzL-Up-44i" id="Rck-tF-JDG"/>
                 <outlet property="contentLabel" destination="RTN-1e-2fP" id="enE-ew-wKx"/>
                 <outlet property="dDayLabel" destination="Zt4-Z9-Zx0" id="FRt-Py-lN2"/>
-                <outlet property="progressBar" destination="gvU-n3-Fk6" id="ERt-jB-jan"/>
                 <outlet property="repetitionLabel" destination="LnK-Ds-1Wd" id="Rbo-gD-PAQ"/>
             </connections>
             <point key="canvasLocation" x="292.30769230769232" y="46.919431279620852"/>
