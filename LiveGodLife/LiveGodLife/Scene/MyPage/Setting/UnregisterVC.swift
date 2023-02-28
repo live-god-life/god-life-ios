@@ -10,16 +10,18 @@ import SnapKit
 
 final class UnregisterVC: UIViewController {
     //MARK: - Properties
+    private let viewModel = UserViewModel()
     @IBOutlet private weak var contentStackView: UIStackView!
     @IBOutlet private weak var checkButton: UIButton!
     @IBOutlet private weak var unregisterButton: RoundedButton!
     @IBOutlet private weak var dimmedView: UIView!
-
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
     
     //MARK: - Fuctions...
@@ -47,33 +49,62 @@ final class UnregisterVC: UIViewController {
         unregisterButton.configure(title: "탈퇴하기")
     }
     
-    @IBAction
-    private func didTapCheckButton(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        unregisterButton.isEnabled = checkButton.isSelected
-    }
-
-    @IBAction
-    private func didTapunregisterButton(_ sender: UIButton) {
-        dimmedView.isHidden = false
-        if !checkButton.isSelected {
-            return
-        }
-        let popup = PopupView()
-        popup.configure(title: "정말 탈퇴하시겠습니까?",
-                        negativeHandler: { [weak self] in
-            popup.removeFromSuperview()
-            self?.dimmedView.isHidden = true
-        }, positiveHandler: { [weak self] in
-            self?.dismiss(animated: true)
-            NotificationCenter.default.post(name: .moveToLogin, object: self)
-            // TODO: view heierchy error 해결하기
-        })
-        view.addSubview(popup)
-        popup.snp.makeConstraints {
-            $0.width.equalTo(327)
-            $0.height.equalTo(188)
-            $0.center.equalToSuperview()
-        }
+    private func bind() {
+        checkButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                self.checkButton.isSelected.toggle()
+                self.unregisterButton.isEnabled = self.checkButton.isSelected
+            }
+            .store(in: &viewModel.bag)
+        
+        unregisterButton
+            .tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                
+                guard self.checkButton.isSelected else {
+                    let alert = UIAlertController(title: "알림", message: "체크 항목을 확인해주세요!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    return
+                }
+                let alert = UIAlertController(title: "알림", message: "정말 탈퇴하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+                    self.viewModel.input.request.send(.withdrawal)
+                }
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+                
+                self.present(alert, animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestWithdrawal
+            .sink { [weak self] isCompleted in
+                guard let self else { return }
+                
+                guard isCompleted else {
+                    let alert = UIAlertController(title: "알림", message: "회원탈퇴를 실패하였습니다.\n다시 시도해주세요!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    return
+                }
+                let alert = UIAlertController(title: "알림", message: "회원탈퇴가 성공하였습니다!", preferredStyle: .alert)
+                let action = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.dismiss(animated: true)
+                }
+                alert.addAction(action)
+                self.present(alert, animated: true)
+            }
+            .store(in: &viewModel.bag)
     }
 }

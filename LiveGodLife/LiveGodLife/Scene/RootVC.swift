@@ -94,3 +94,8 @@ extension RootVC: TabBarViewDelegate {
         selectedIndex = index
     }
 }
+
+extension Notification.Name {
+    static let moveToLogin = Notification.Name("MOVE_TO_LOGIN")
+    static let moveToHome = Notification.Name("MOVE_TO_HOME")
+}

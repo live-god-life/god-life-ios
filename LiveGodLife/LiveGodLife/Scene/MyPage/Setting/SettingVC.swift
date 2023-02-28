@@ -100,7 +100,9 @@ extension SettingVC: SettingTableViewCellDelegate {
                         LogUtil.e(error)
                     case .finished:
                         // 로그인 화면으로 이동
-                        NotificationCenter.default.post(name: .moveToLogin, object: self)
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true)
+                        }
                     }
                 } receiveValue: { (value: Empty) in
                     //
