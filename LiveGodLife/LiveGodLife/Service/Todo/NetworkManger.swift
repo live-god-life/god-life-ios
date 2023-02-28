@@ -31,7 +31,7 @@ enum NetworkService {
 extension NetworkService: TargetType {
     public var baseURL: URL {
         // GeneralAPI 라는 구조체 파일에 서버 도메인이나 토큰 값을 적어두고 불러왔습니다.
-        return URL(string:  "http://101.101.208.221:80")!
+        return URL(string: "http://101.101.208.221:80")!
     }
     var path: String {
         switch self {
@@ -110,7 +110,7 @@ extension NetworkService: TargetType {
         switch self {
         default:
             return ["Content-Type": "application/json",
-                    "Authorization": "Bearer test"] // GeneralAPI.token
+                    "Authorization": "Bearer \(accessToken)"] // GeneralAPI.token
         }
     }
 }
