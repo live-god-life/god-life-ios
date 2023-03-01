@@ -10,26 +10,16 @@ import SnapKit
 
 final class UserInfoVC: UIViewController {
     //MARK: - Properties
-    let nickNameTextField = TextFieldView()
-    let nextButton = UIButton()
-
-    private var user: UserModel
-
-    //MARK: - Initializer
-    init(_ user: UserModel) {
-        self.user = user
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let viewModel = UserViewModel()
+    private let nickNameTextField = TextFieldView()
+    private let nextButton = UIButton()
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
 
     //MARK: - Functions...
@@ -63,7 +53,6 @@ final class UserInfoVC: UIViewController {
         self.nextButton.layer.cornerRadius = 25
         self.nextButton.setTitle("다음", for: .normal)
         self.nextButton.setTitleColor(.black, for: .normal)
-        self.nextButton.addTarget(self, action: #selector(next(_:)), for: .touchUpInside)
         
         view.addSubview(mainTitleLabel)
         view.addSubview(subtitleLabel)
@@ -96,14 +85,48 @@ final class UserInfoVC: UIViewController {
         }
     }
     
-    @objc
-    private func next(_ sender:UIButton) {
-        user.nickname = nickNameTextField.text ?? ""
-        self.navigationController?.pushViewController(AgreementVC(user), animated: true)
+    private func bind() {
+        nextButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self, let name = self.nickNameTextField.text, !name.isEmpty else {
+                    let alert = UIAlertController(title: "알림", message: "닉네임을 입력해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                    return
+                }
+                
+                self.viewModel.input.request.send(.nickname(name))
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestNickname
+            .sink { [weak self] isCompleted in
+                guard isCompleted else {
+                    let alert = UIAlertController(title: "알림", message: "중복된 닉네임입니다.\n다른 닉네임으로 설정해주세요!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                    return
+                }
+                
+                let agreementVC = AgreementVC()
+                self?.navigationController?.pushViewController(agreementVC, animated: true)
+            }
+            .store(in: &viewModel.bag)
     }
 }
 
 extension UserInfoVC: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

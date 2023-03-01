@@ -7,16 +7,47 @@
 
 import UIKit
 import Combine
+import CombineCocoa
 
 final class AgreementVC: UIViewController {
     //MARK: - Properties
-    let nextButton = UIButton()
-    private var user: UserModel
+    private var user: UserModel?
+    private var viewModel = UserViewModel()
     private var bag = Set<AnyCancellable>()
+    private let mainTitleLabel = UILabel().then {
+        $0.text = "서비스 이용 약관에\n동의해주세요."
+        $0.textColor = .white
+        $0.font = .semiBold(with: 28)
+        $0.numberOfLines = 0
+    }
+    private let allAgreementItemView = AgreeButtonView().then {
+        $0.titleLabel.text = "약간 전체 동의"
+        $0.titleLabel.font = .semiBold(with: 18)
+        $0.detailImageView.isHidden = true
+    }
+    private let lineView = UIView().then {
+        $0.backgroundColor = .white.withAlphaComponent(0.2)
+    }
+    private let serviceItemView = AgreeButtonView().then {
+        $0.titleLabel.text = "(필수) 서비스 이용약관"
+    }
+    private let privacyItemView = AgreeButtonView().then {
+        $0.titleLabel.text = "(필수) 개인정보 처리방침"
+    }
+    private let marketingItemView = AgreeButtonView().then {
+        $0.titleLabel.text = "(선택) 마케팅 정보 수신 동의"
+    }
+    private let nextButton = UIButton().then {
+        $0.backgroundColor = .green
+        $0.layer.cornerRadius = 27
+        $0.setTitle("다음", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .semiBold(with: 18)
+    }
 
     //MARK: - Initializer
-    init(_ user: UserModel) {
-        self.user = user
+    init() {
+        self.user = UserService.userInfo
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -29,6 +60,7 @@ final class AgreementVC: UIViewController {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
 
     //MARK: - Fuctions...
@@ -37,107 +69,127 @@ final class AgreementVC: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationController?.isNavigationBarHidden = false
         
-        let mainTitleLabel = UILabel()
-        let allAgreementLabel = UILabel()
-        let lineView = UIView()
-        let serviceLabel = UILabel()
-        let privacyLabel = UILabel()
-        let marketingLabel = UILabel()
-        
-        mainTitleLabel.text = "서비스 이용 약관에\n동의해주세요."
-        mainTitleLabel.textColor = .white
-        mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
-        mainTitleLabel.numberOfLines = 0
-        
-        allAgreementLabel.text = "약관 전체 동의"
-        allAgreementLabel.textColor = .white
-        allAgreementLabel.font = UIFont(name: "Pretendard", size: 18)
-        allAgreementLabel.numberOfLines = 0
-        
-        lineView.backgroundColor = .white
-        
-        serviceLabel.text = "(필수) 서비스 이용약관"
-        serviceLabel.textColor = .BBBBBB
-        serviceLabel.font = UIFont(name: "Pretendard", size: 18)
-        serviceLabel.numberOfLines = 0
-
-        privacyLabel.text = "(필수) 개인정보 처리방침"
-        privacyLabel.textColor = .BBBBBB
-        privacyLabel.font = UIFont(name: "Pretendard", size: 18)
-        privacyLabel.numberOfLines = 0
-        
-        marketingLabel.text = "(선택) 마케팅 정보 수신 동의"
-        marketingLabel.textColor = .BBBBBB
-        marketingLabel.font = UIFont(name: "Pretendard", size: 18)
-        marketingLabel.numberOfLines = 0
-        
-        self.nextButton.backgroundColor = .green
-        self.nextButton.layer.cornerRadius = 25
-        self.nextButton.setTitle("다음", for: .normal)
-        self.nextButton.setTitleColor(.black, for: .normal)
-        self.nextButton.addTarget(self, action: #selector(next(_:)), for: .touchUpInside)
-        
         view.addSubview(mainTitleLabel)
-        view.addSubview(allAgreementLabel)
+        view.addSubview(allAgreementItemView)
         view.addSubview(lineView)
-        view.addSubview(serviceLabel)
-        view.addSubview(privacyLabel)
-        view.addSubview(marketingLabel)
-        view.addSubview(self.nextButton)
+        view.addSubview(serviceItemView)
+        view.addSubview(privacyItemView)
+        view.addSubview(marketingItemView)
+        view.addSubview(nextButton)
 
-  
         mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(63)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
-            $0.height.equalTo(68)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(80)
         }
-        allAgreementLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(58)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
+        allAgreementItemView.snp.makeConstraints {
+            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(60)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(26)
         }
         lineView.snp.makeConstraints {
-            $0.top.equalTo(allAgreementLabel.snp.bottom).offset(16)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-26)
+            $0.top.equalTo(allAgreementItemView.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(1)
         }
-        serviceLabel.snp.makeConstraints {
-            $0.top.equalTo(lineView.snp.bottom).offset(16)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
+        serviceItemView.snp.makeConstraints {
+            $0.top.equalTo(lineView.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(24)
         }
-        privacyLabel.snp.makeConstraints {
-            $0.top.equalTo(serviceLabel.snp.bottom).offset(16)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
+        privacyItemView.snp.makeConstraints {
+            $0.top.equalTo(serviceItemView.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(24)
         }
-        marketingLabel.snp.makeConstraints {
-            $0.top.equalTo(privacyLabel.snp.bottom).offset(16)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
+        marketingItemView.snp.makeConstraints {
+            $0.top.equalTo(privacyItemView.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(24)
         }
-        self.nextButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
-            $0.left.equalTo(view).offset(16)
-            $0.right.equalTo(view).offset(-16)
-            $0.height.equalTo(56)
+        nextButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(54)
         }
     }
     
-    @objc
-    private func next(_ sender: UIButton) {
-        // 회원가입
-        DefaultUserRepository().signup(endpoint: .signup(user))
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] token in
-                LogUtil.i(token)
+    private func bind() {
+        allAgreementItemView
+            .agreeButton
+            .tapPublisher
+            .sink { [weak self] _ in
                 guard let self else { return }
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(JoinCompleteVC(self.user), animated: true)
+                self.serviceItemView.selected(self.allAgreementItemView.agreeButton.isSelected)
+                self.privacyItemView.selected(self.allAgreementItemView.agreeButton.isSelected)
+                self.marketingItemView.selected(self.allAgreementItemView.agreeButton.isSelected)
+            }
+            .store(in: &bag)
+        
+        serviceItemView
+            .gesture()
+            .sink { [weak self] _ in
+                let commonWebVC = CommonWebVC(title: self?.serviceItemView.titleLabel.text,
+                                              urlString: "https://godslife.notion.site/aab6059805b24643abecf9483537d274")
+                self?.present(commonWebVC, animated: true)
+            }
+            .store(in: &bag)
+        
+        privacyItemView
+            .gesture()
+            .sink { [weak self] _ in
+                let commonWebVC = CommonWebVC(title: self?.privacyItemView.titleLabel.text,
+                                              urlString: "https://godslife.notion.site/319ae1bb08454b75943d6b6189144560")
+                self?.present(commonWebVC, animated: true)
+            }
+            .store(in: &bag)
+        
+        marketingItemView
+            .gesture()
+            .sink { [weak self] _ in
+                let commonWebVC = CommonWebVC(title: self?.marketingItemView.titleLabel.text,
+                                              urlString: "https://godslife.notion.site/11442b57da2944aa810d2d265c72f9e0")
+                self?.present(commonWebVC, animated: true)
+            }
+            .store(in: &bag)
+        
+        nextButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                guard self.serviceItemView.agreeButton.isSelected,
+                      self.privacyItemView.agreeButton.isSelected else {
+                    let alert = UIAlertController(title: "알림", message: "약관을 동의해주세요 :)", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    return
                 }
-            })
+                
+                guard let user = UserService.userInfo else { return }
+                
+                self.viewModel.input.request.send(.signup(user))
+            }
+            .store(in: &bag)
+        
+        viewModel
+            .output
+            .requestSignUp
+            .sink { [weak self] isComplete in
+                guard let self else { return }
+                
+                guard isComplete else {
+                    let alert = UIAlertController(title: "알림", message: "회원가입이 실패하였습니다.\n다시 시도해주세요!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                let completedVC = JoinCompleteVC()
+                self.navigationController?.pushViewController(completedVC, animated: true)
+            }
             .store(in: &bag)
     }
 }

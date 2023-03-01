@@ -6,36 +6,30 @@
 //
 
 import UIKit
+import Combine
 
 final class JoinCompleteVC: UIViewController {
     //MARK: - Properties
-    private var user: UserModel
+    private var bag = Set<AnyCancellable>()
     private let homeButton = UIButton()
-
-    //MARK: - Initializer
-    init(_ user: UserModel) {
-        self.user = user
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
 
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
         let mainTitleLabel = UILabel()
         let subTitleLabel = UILabel()
         
-        mainTitleLabel.text = "\(user.nickname)님,\n서비스 가입을 축하해요!"
+        mainTitleLabel.text = "\(UserService.userInfo?.nickname ?? "")님,\n서비스 가입을 축하해요!"
         mainTitleLabel.textColor = .white
         mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
         mainTitleLabel.numberOfLines = 0
@@ -50,7 +44,6 @@ final class JoinCompleteVC: UIViewController {
         self.homeButton.layer.cornerRadius = 25
         self.homeButton.setTitle("홈으로", for: .normal)
         self.homeButton.setTitleColor(.black, for: .normal)
-        self.homeButton.addTarget(self, action: #selector(home(_:)), for: .touchUpInside)
         
         view.addSubview(mainTitleLabel)
         view.addSubview(subTitleLabel)
@@ -71,11 +64,16 @@ final class JoinCompleteVC: UIViewController {
         }
     }
     
-    @objc
-    private func home(_ sender:UIButton) {
-        self.dismiss(animated: true)
-        // 회원가입 성공
-        UserDefaults.standard.set(true, forKey: "IS_LOGIN") // 키체인으로 변경해야 함
-        NotificationCenter.default.post(name: .moveToHome, object: self)
+    private func bind() {
+        homeButton
+            .tapPublisher
+            .sink { [weak self] in
+                let homeVC = UINavigationController(rootViewController: RootVC())
+                homeVC.modalPresentationStyle = .fullScreen
+                self?.present(homeVC, animated: false, completion: {
+                    self?.navigationController?.popToRootViewController(animated: false)
+                })
+            }
+            .store(in: &bag)
     }
 }
