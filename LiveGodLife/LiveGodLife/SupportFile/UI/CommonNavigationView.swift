@@ -6,11 +6,13 @@
 //
 
 import Then
-import SnapKit
 import UIKit
+import SnapKit
+import Combine
 //MARK: CommonNavigationView
 final class CommonNavigationView: UIView {
     //MARK: - Properties
+    private var bag = Set<AnyCancellable>()
     let leftBarButton = UIButton().then {
         $0.setImage(UIImage(named: "back_btn"), for: .normal)
         $0.setImage(UIImage(named: "back_btn"), for: .highlighted)
@@ -30,6 +32,7 @@ final class CommonNavigationView: UIView {
         super.init(frame: frame)
         
         makeUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -58,5 +61,15 @@ final class CommonNavigationView: UIView {
             $0.centerY.equalTo(leftBarButton.snp.centerY)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    private func bind() {
+        leftBarButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &bag)
     }
 }

@@ -20,16 +20,27 @@ final class TextFieldView: UITextField {
     }
 
     private func commonInit() {
+        smartDashesType = .no
+        smartQuotesType = .no
+        spellCheckingType = .no
+        autocorrectionType = .no
+        smartInsertDeleteType = .no
+        returnKeyType = .done
         backgroundColor = .clear
         textColor = .white
         borderStyle = .none
-
+        font = .semiBold(with: 18)
+        
+        let attrString = NSAttributedString(string: "닉네임을 입력해 주세요.",
+                                            attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.6),
+                                                         .font: UIFont.semiBold(with: 18)!])
+        attributedPlaceholder = attrString
+        
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.gray.cgColor
-        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
 
         self.leftViewMode = .always
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.bounds.height))
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: self.bounds.height))
         self.leftView = paddingView
 
         self.rightViewMode = .always
@@ -41,7 +52,7 @@ final class TextFieldView: UITextField {
 
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         var padding = super.rightViewRect(forBounds: bounds)
-        padding.origin.x -= 10
+        padding.origin.x -= 16
         return padding
     }
 
@@ -49,5 +60,6 @@ final class TextFieldView: UITextField {
     @objc
     private func clear() {
         self.text = nil
+        self.rightView?.isHidden = true
     }
 }
