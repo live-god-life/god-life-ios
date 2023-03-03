@@ -94,15 +94,6 @@ final class DetailGoalVC: UIViewController {
                 self?.detailCollectionView.reloadData()
             }
             .store(in: &viewModel.bag)
-        
-        navigationBarView
-            .leftBarButton
-            .tapPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
-            .store(in: &viewModel.bag)
     }
 }
 

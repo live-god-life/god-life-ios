@@ -107,15 +107,6 @@ final class GoalsCreateVC: UIViewController {
     
     //MARK: - Binding..
     private func bind() {
-        navigationView
-            .leftBarButton
-            .tapPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
-            .store(in: &viewModel.bag)
-        
         viewModel
             .output
             .requestAddGoal
