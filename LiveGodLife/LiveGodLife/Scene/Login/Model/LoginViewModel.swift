@@ -29,8 +29,8 @@ final class UserViewModel {
                 switch service {
                 case .profileImage:
                     self.requestProfileImage()
-                case .terms(let type):
-                    self.requestTerms(type: type)
+                case .terms(let term):
+                    self.requestTerms(type: term)
                 case .token:
                     self.requestToken()
                 case .nickname(let name):
@@ -39,8 +39,6 @@ final class UserViewModel {
                     self.requestSignup(user: user)
                 case .signin(let user):
                     self.requestSignin(user: user)
-                case .signout:
-                    self.requestSignOut()
                 case .withdrawal:
                     self.requestWithdrawal()
                 }
@@ -61,7 +59,7 @@ extension UserViewModel {
     
     struct Output {
         let requestProfileImage = PassthroughSubject<[String], Never>()
-        let requestTerms = PassthroughSubject<String, Never>()
+        let requestTerms = PassthroughSubject<(Term, String), Never>()
         let requestToken = PassthroughSubject<String?, Never>()
         let requestNickname = PassthroughSubject<Bool, Never>()
         let requestSignUp = PassthroughSubject<Bool, Never>()
@@ -74,6 +72,12 @@ extension UserViewModel {
         case success = 200
         case register = 401
         case error = 500
+    }
+    
+    enum Term: String {
+        case use = "USE"
+        case privacy = "PRIVACY"
+        case marketing = "MARKETING"
     }
 }
 
@@ -98,8 +102,8 @@ extension UserViewModel {
             }
     }
     //MARK: 약관 조회
-    func requestTerms(type: String) {
-        provider.request(.terms(type)) { [weak self] response in
+    func requestTerms(type term: Term) {
+        provider.request(.terms(term)) { [weak self] response in
                 switch response {
                 case .success(let result):
                     do {
@@ -108,7 +112,7 @@ extension UserViewModel {
                             throw APIError.decoding
                         }
                         
-                        self?.output.requestTerms.send(contents)
+                        self?.output.requestTerms.send((term, contents))
                     } catch {
                         LogUtil.e(error.localizedDescription)
                     }
@@ -173,9 +177,11 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        guard let model = try result.map(APIResponse<[String: String]>.self).data,
-                              let key = model["token_type"],
-                              let value = model["authorization"] else {
+                        let response = try result.mapJSON() as? [String: Any]
+                        
+                        guard let data = response?["data"] as? [String: Any],
+                              let key = data["token_type"] as? String,
+                              let value = data["authorization"] as? String else {
                             throw APIError.decoding
                         }
                         
@@ -200,20 +206,27 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        let response = try result.map(APIResponse<[String: String]>.self)
+                        let response = try result.mapJSON()
+                        
+                        guard let json = response as? [String: Any],
+                              let httpStatus = json["status"] as? String else {
+                            throw APIError.decoding
+                        }
                         
                         var status: SignIn = .error
-                        if response.status == .success {
+                        if httpStatus.lowercased() == "success" {
                             status = .success
+                        } else if let code = json["code"] as? Int {
+                            status = SignIn(rawValue: code) ?? .error
                         } else {
-                            status = SignIn(rawValue: response.code ?? 500) ?? .error
+                            status = .error
                         }
                         
                         switch status {
                         case .success:
-                            guard let model = response.data,
-                                  let key = model["token_type"],
-                                  let value = model["authorization"] else {
+                            guard let data = json["data"] as? [String: Any],
+                                  let key = data["token_type"] as? String,
+                                  let value = data["authorization"] as? String else {
                                 throw APIError.decoding
                             }
                             
@@ -226,6 +239,7 @@ extension UserViewModel {
                             self?.output.requestSignIn.send(.success)
                         case .register:
                             UserDefaults.standard.set(user.toDictionary, forKey: UserService.USER_INFO_KEY)
+                            UserDefaults.standard.synchronize()
                             self?.output.requestSignIn.send(.register)
                         case .error:
                             self?.output.requestSignIn.send(.error)
@@ -242,10 +256,7 @@ extension UserViewModel {
     }
     //MARK: 로그아웃
     private func requestSignOut() {
-        provider.request(.signout) { [weak self] _ in
-            UserDefaults.standard.removeObject(forKey: UserService.ACCESS_TOKEN_KEY)
-            self?.output.requestSignOut.send(true)
-        }
+
     }
     //MARK: 회원탈퇴
     private func requestWithdrawal() {

@@ -21,12 +21,11 @@ enum UserService {
     }
     
     case profileImage
-    case terms(String)
+    case terms(UserViewModel.Term)
     case token
     case nickname(String)
     case signup(UserModel)
     case signin(UserModel)
-    case signout
     case withdrawal
 }
 
@@ -40,8 +39,8 @@ extension UserService: TargetType{
         switch self {
         case .profileImage:
             return "/commons/images"
-        case .terms(let type):
-            return "/commons/terms/\(type)"
+        case .terms(let term):
+            return "/commons/terms/\(term.rawValue)"
         case .token:
             return "/tokens"
         case .nickname(let nickname):
@@ -50,8 +49,6 @@ extension UserService: TargetType{
             return "/users"
         case .signin:
             return "/login"
-        case .signout:
-            return "/logout"
         case .withdrawal:
             return "/users"
         }
@@ -61,7 +58,7 @@ extension UserService: TargetType{
         switch self {
         case .profileImage, .terms, .token, .nickname:
             return .get
-        case .signup, .signin, .signout:
+        case .signup, .signin:
             return .post
         case .withdrawal:
             return .delete
@@ -71,15 +68,15 @@ extension UserService: TargetType{
     var task: Task {
         switch self {
         case .profileImage, .terms, .token,
-             .nickname, .signout, .withdrawal:
+             .nickname, .withdrawal:
             return .requestPlain
         case .signup(let user):
             return .requestJSONEncodable(user)
         case .signin(let user):
             let parameters = [
                 "identifier" : user.identifier ?? "",
-                "email": user.email ?? "",
-                "type" : user.type?.rawValue ?? ""
+                "type" : user.type?.rawValue ?? "",
+                "email": user.email ?? ""
             ]
             
             if let data = try? JSONSerialization.data(withJSONObject: parameters) {
@@ -96,8 +93,7 @@ extension UserService: TargetType{
         var header = ["content-type": "application/json"]
         
         switch self {
-        case .profileImage, .token, .signout,
-             .withdrawal:
+        case .profileImage, .token, .withdrawal:
             header.updateValue(accessToken, forKey: "Authorization")
         default:
             break

@@ -2,7 +2,7 @@
 //  JoinCompleteVC.swift
 //  LiveGodLife
 //
-//  Created by Quintet on 2022/11/09.
+//  Created by wargi on 2022/03/08.
 //
 
 import UIKit
@@ -11,7 +11,33 @@ import Combine
 final class JoinCompleteVC: UIViewController {
     //MARK: - Properties
     private var bag = Set<AnyCancellable>()
-    private let homeButton = UIButton()
+    private let firstMainTitleLabel = UILabel().then {
+        $0.text = "\(UserService.userInfo?.nickname ?? "")님,"
+        $0.textColor = .white
+        $0.font = .semiBold(with: 28)
+    }
+    private let secondMainTitleLabel = UILabel().then {
+        $0.text = "서비스 가입을 축하해요!"
+        $0.textColor = .white
+        $0.font = .semiBold(with: 28)
+    }
+    private let firstSubTitleLabel = UILabel().then {
+        $0.text = "꿈꾸는 갓생러들이 모인 곳에서"
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
+    }
+    private let secondSubTitleLabel = UILabel().then {
+        $0.text = "\(UserService.userInfo?.nickname ?? "")님의 꿈에 다가가 보세요."
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
+    }
+    private let homeButton = UIButton().then {
+        $0.backgroundColor = .green
+        $0.layer.cornerRadius = 27.0
+        $0.setTitle("홈으로", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .semiBold(with: 18)
+    }
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -26,41 +52,36 @@ final class JoinCompleteVC: UIViewController {
         view.backgroundColor = .black
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
-        let mainTitleLabel = UILabel()
-        let subTitleLabel = UILabel()
+        view.addSubview(firstMainTitleLabel)
+        view.addSubview(secondMainTitleLabel)
+        view.addSubview(firstSubTitleLabel)
+        view.addSubview(secondSubTitleLabel)
+        view.addSubview(homeButton)
         
-        mainTitleLabel.text = "\(UserService.userInfo?.nickname ?? "")님,\n서비스 가입을 축하해요!"
-        mainTitleLabel.textColor = .white
-        mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
-        mainTitleLabel.numberOfLines = 0
-        
-        subTitleLabel.text = "꿈꾸는 갓생러들이 모인 곳에서\n이든님의 꿈에 다가가 보세요."
-        subTitleLabel.textColor = .white
-        subTitleLabel.font = UIFont(name: "Pretendard", size: 18)
-        subTitleLabel.numberOfLines = 0
-        
-     
-        self.homeButton.backgroundColor = .green
-        self.homeButton.layer.cornerRadius = 25
-        self.homeButton.setTitle("홈으로", for: .normal)
-        self.homeButton.setTitleColor(.black, for: .normal)
-        
-        view.addSubview(mainTitleLabel)
-        view.addSubview(subTitleLabel)
-        view.addSubview(self.homeButton)
-
-  
-        mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(63)
-            $0.left.equalTo(view).offset(24)
-            $0.right.equalTo(view).offset(-117)
-            $0.height.equalTo(68)
+        firstMainTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(40)
         }
-        self.homeButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
-            $0.left.equalTo(view).offset(16)
-            $0.right.equalTo(view).offset(-16)
-            $0.height.equalTo(56)
+        secondMainTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(firstMainTitleLabel.snp.bottom)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(40)
+        }
+        firstSubTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(secondMainTitleLabel.snp.bottom).offset(8)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(24)
+        }
+        secondSubTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(firstSubTitleLabel.snp.bottom)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(24)
+        }
+        homeButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(54)
         }
     }
     

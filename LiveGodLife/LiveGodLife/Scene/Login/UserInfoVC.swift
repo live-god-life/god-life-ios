@@ -2,7 +2,7 @@
 //  UserInfoVC.swift
 //  LiveGodLife
 //
-//  Created by Quintet on 2022/11/09.
+//  Created by wargi on 2022/03/08.
 //
 
 import UIKit
@@ -11,8 +11,36 @@ import SnapKit
 final class UserInfoVC: UIViewController {
     //MARK: - Properties
     private let viewModel = UserViewModel()
-    private let nickNameTextField = TextFieldView()
-    private let nextButton = UIButton()
+    private let firstMainTitleLabel = UILabel().then {
+        $0.text = "갓생살기에서 사용할"
+        $0.textColor = .white
+        $0.font = .semiBold(with: 28)
+    }
+    private let secondMainTitleLabel = UILabel().then {
+        $0.text = "닉네임을 입력해주세요."
+        $0.textColor = .white
+        $0.font = .semiBold(with: 28)
+    }
+    private let firstSubTitleLabel = UILabel().then {
+        $0.text = "유니코드 제외, 한글(8글자)"
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
+    }
+    private let secondSubTitleLabel = UILabel().then {
+        $0.text = "영어 가능(16자), 공백X, “_”가능, “-”불가능"
+        $0.textColor = .white.withAlphaComponent(0.6)
+        $0.font = .regular(with: 16)
+    }
+    private lazy var nickNameTextField = TextFieldView().then {
+        $0.delegate = self
+        $0.layer.cornerRadius = 28
+    }
+    private let nextButton = UIButton().then {
+        $0.backgroundColor = .green
+        $0.layer.cornerRadius = 27
+        $0.setTitle("다음", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+    }
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -27,61 +55,44 @@ final class UserInfoVC: UIViewController {
         view.backgroundColor = .black
 
         navigationItem.backButtonTitle = ""
-        self.navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
         
-        let mainTitleLabel = UILabel()
-        let subtitleLabel = UILabel()
-        let lineView = UIView()
-        
-        mainTitleLabel.text = "갓생살기에서 사용할\n닉네임을 입력해주세요."
-        mainTitleLabel.textColor = .white
-        mainTitleLabel.font = UIFont(name: "Pretendard-Bold", size: 26)
-        mainTitleLabel.numberOfLines = 0
-
-        subtitleLabel.text = "유니코드 제외, 한글(8글자)\n영어 가능(16자), 공백X,\n “_”가능, “-”불가능"
-        subtitleLabel.textColor = .gray1
-        subtitleLabel.font = UIFont(name: "Pretendard", size: 16)
-        subtitleLabel.numberOfLines = 0
-
-        self.nickNameTextField.placeholder = "닉네임을 입력해주세요."
-        self.nickNameTextField.layer.cornerRadius = 25
-        nickNameTextField.delegate = self
-        
-        lineView.backgroundColor = .white
-        
-        self.nextButton.backgroundColor = .green
-        self.nextButton.layer.cornerRadius = 25
-        self.nextButton.setTitle("다음", for: .normal)
-        self.nextButton.setTitleColor(.black, for: .normal)
-        
-        view.addSubview(mainTitleLabel)
-        view.addSubview(subtitleLabel)
-        view.addSubview(self.nickNameTextField)
-        view.addSubview(lineView)
-        view.addSubview(self.nextButton)
+        view.addSubview(firstMainTitleLabel)
+        view.addSubview(secondMainTitleLabel)
+        view.addSubview(firstSubTitleLabel)
+        view.addSubview(secondSubTitleLabel)
+        view.addSubview(nickNameTextField)
+        view.addSubview(nextButton)
   
-        mainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
-            $0.left.equalTo(view).offset(24)
-            $0.height.equalTo(68)
+        firstMainTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(40)
         }
-        subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(16)
-            $0.left.equalTo(view).offset(24)
-            $0.trailing.equalToSuperview()
-            $0.height.equalTo(48)
+        secondMainTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(firstMainTitleLabel.snp.bottom)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(40)
         }
-        self.nickNameTextField.snp.makeConstraints {
-            $0.top.equalTo(subtitleLabel.snp.bottom).offset(60)
-            $0.left.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-16)
+        firstSubTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(secondMainTitleLabel.snp.bottom).offset(8)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(24)
+        }
+        secondSubTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(firstSubTitleLabel.snp.bottom)
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(24)
+        }
+        nickNameTextField.snp.makeConstraints {
+            $0.top.equalTo(secondSubTitleLabel.snp.bottom).offset(32)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(56)
         }
-        self.nextButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
-            $0.left.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-16)
-            $0.height.equalTo(56)
+        nextButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(54)
         }
     }
     
@@ -115,6 +126,14 @@ final class UserInfoVC: UIViewController {
                 
                 let agreementVC = AgreementVC()
                 self?.navigationController?.pushViewController(agreementVC, animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        nickNameTextField
+            .textPublisher
+            .map { $0?.isEmpty ?? true }
+            .sink { [weak self] isEmpty in
+                self?.nickNameTextField.rightView?.isHidden = isEmpty
             }
             .store(in: &viewModel.bag)
     }
