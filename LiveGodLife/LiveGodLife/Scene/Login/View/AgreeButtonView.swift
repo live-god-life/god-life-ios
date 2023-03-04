@@ -8,6 +8,7 @@
 import Then
 import SnapKit
 import UIKit
+import SwiftUI
 import Combine
 //MARK: AgreeButtonView
 final class AgreeButtonView: UIView {
@@ -23,6 +24,11 @@ final class AgreeButtonView: UIView {
     }
     let detailImageView = UIImageView().then {
         $0.image = UIImage(named: "arrow-right")
+    }
+    @Published var isSelected = false {
+        didSet {
+            agreeImageView.image = isSelected ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
+        }
     }
     
     //MARK: - Initializer
@@ -69,15 +75,8 @@ final class AgreeButtonView: UIView {
         agreeButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self else { return }
-                self.agreeButton.isSelected.toggle()
-                self.selected(self.agreeButton.isSelected)
+                self?.isSelected.toggle()
             }
             .store(in: &bag)
-    }
-    
-    func selected(_ isSelect: Bool) {
-        self.agreeButton.isSelected = isSelect
-        self.agreeImageView.image = isSelect ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
     }
 }

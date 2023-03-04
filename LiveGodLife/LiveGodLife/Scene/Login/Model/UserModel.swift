@@ -13,8 +13,9 @@ struct UserModel: Codable, Hashable {
     var nickname: String
     let type: LoginType?
     let identifier: String?
-    let email: String?
+    var email: String?
     var image: String?
+    var marketingYn: String?
 
     init(nickname: String, type: LoginType?, identifier: String?, email: String?, image: String?) {
         self.nickname = nickname
