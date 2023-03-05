@@ -90,7 +90,6 @@
 		D0BB5B6D2906D3D000E46063 /* ProfileUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B6C2906D3D000E46063 /* ProfileUpdateVC.swift */; };
 		D0BB5B6F2909473500E46063 /* ProfileUpdateVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B6E2909473500E46063 /* ProfileUpdateVC.storyboard */; };
 		D0BB5B7129094E4F00E46063 /* UnregisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B7029094E4F00E46063 /* UnregisterVC.swift */; };
-		D0BB5B7329094EBF00E46063 /* UnregisterVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B7229094EBF00E46063 /* UnregisterVC.storyboard */; };
 		D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */; };
 		D0BF16CC28F9AC1000CDA6CE /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BF16CB28F9AC1000CDA6CE /* OnboardingVC.swift */; };
 		D0BF16CE28F9AF2D00CDA6CE /* OnboardingVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BF16CD28F9AF2D00CDA6CE /* OnboardingVC.storyboard */; };
@@ -283,7 +282,6 @@
 		D0BB5B6C2906D3D000E46063 /* ProfileUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateVC.swift; sourceTree = "<group>"; };
 		D0BB5B6E2909473500E46063 /* ProfileUpdateVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileUpdateVC.storyboard; sourceTree = "<group>"; };
 		D0BB5B7029094E4F00E46063 /* UnregisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterVC.swift; sourceTree = "<group>"; };
-		D0BB5B7229094EBF00E46063 /* UnregisterVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnregisterVC.storyboard; sourceTree = "<group>"; };
 		D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		D0BF16CB28F9AC1000CDA6CE /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		D0BF16CD28F9AF2D00CDA6CE /* OnboardingVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardingVC.storyboard; sourceTree = "<group>"; };
@@ -659,7 +657,6 @@
 				E935D9C929883CF8001787D2 /* View */,
 				D0BB5B642906C59E00E46063 /* SettingVC.swift */,
 				D0BB5B7029094E4F00E46063 /* UnregisterVC.swift */,
-				D0BB5B7229094EBF00E46063 /* UnregisterVC.storyboard */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1224,7 +1221,6 @@
 				D0A215082905770300D5FF59 /* MyPageVC.storyboard in Resources */,
 				D0BB5B5F2906C19900E46063 /* Montserrat-Thin.otf in Resources */,
 				D0BF16CE28F9AF2D00CDA6CE /* OnboardingVC.storyboard in Resources */,
-				D0BB5B7329094EBF00E46063 /* UnregisterVC.storyboard in Resources */,
 				D0BB5B532906C17300E46063 /* Pretendard-ExtraBold.otf in Resources */,
 				E935F6D329B6FE85003DBE27 /* splash.json in Resources */,
 				D0BB5B572906C17F00E46063 /* Pretendard-SemiBold.otf in Resources */,

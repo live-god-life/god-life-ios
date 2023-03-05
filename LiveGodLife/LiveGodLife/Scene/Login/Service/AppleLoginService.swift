@@ -10,25 +10,51 @@ import AuthenticationServices
 import Combine
 
 protocol AppleLoginServiceDelegate: AnyObject {
-
-    func signup(_ user: UserModel)
+    func signup()
     func login()
 }
 
-final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
-
+final class AppleLoginService: NSObject {
     private weak var presentationContextProvider: ASAuthorizationControllerPresentationContextProviding?
 
+    private var viewModel = UserViewModel()
     weak var delegate: AppleLoginServiceDelegate?
 
     private var bag = Set<AnyCancellable>()
 
     init(presentationContextProvider: ASAuthorizationControllerPresentationContextProviding) {
         self.presentationContextProvider = presentationContextProvider
+        
+        super.init()
+        
+        bind()
+    }
+    
+    private func bind() {
+        viewModel
+            .output
+            .requestSignIn
+            .sink { [weak self] signIn in
+                guard let self else { return }
+                
+                switch signIn {
+                case .success:
+                    self.delegate?.login()
+                case .register:
+                    self.delegate?.signup()
+                case .error:
+                    let alert = UIAlertController(title: "알림", message: "로그인이 실패하였습니다.\n다시 시도해주세요!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    UIApplication.topViewController()?.present(alert, animated: true)
+                }
+            }
+            .store(in: &viewModel.bag)
     }
 
     func login() {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
         request.requestedScopes = [.email]
 
         let controller = ASAuthorizationController(authorizationRequests: [request])
@@ -36,37 +62,29 @@ final class AppleLoginService: NSObject, ASAuthorizationControllerDelegate {
         controller.presentationContextProvider = presentationContextProvider
         controller.performRequests()
     }
+}
 
+extension AppleLoginService: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            let identifier = credential.user
-            let email = credential.email ?? ""
-            let data = ["identifier": identifier,
-                        "email": email,
-                        "type": LoginType.apple.rawValue]
-
-            DefaultUserRepository().login(endpoint: .login(data))
-                .sink { _ in
-            } receiveValue: { [weak self] value in
-                // 회원이 아니면 회원가입
-                let user = UserModel(nickname: "", type: .apple, identifier: identifier, email: email, image: nil)
-                if value.code == 401 {
-                    self?.delegate?.signup(user)
-                    return
-                }
-
-                // 회원이면 홈으로
-                if let token = value.data?.authorization {
-                    UserDefaults.standard.set(token, forKey: "token")
-                    self?.delegate?.login()
-                }
+        guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
+        
+        var user = UserModel(nickname: "", type: .apple, identifier: credential.user, email: "", image: nil)
+        
+        
+        if let email = credential.email {
+            user.email = email
+        } else {
+            if let token = credential.identityToken,
+               let tokenString = String(data: token, encoding: .utf8) {
+                let email = tokenString.decode()["email"] as? String ?? ""
+                user.email = email
             }
-            .store(in: &bag)
         }
+        
+        viewModel.input.request.send(.signin(user))
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // TODO: - 실패 후 동작
         LogUtil.e("error")
     }
 }

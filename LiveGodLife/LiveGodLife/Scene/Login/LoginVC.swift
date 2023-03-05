@@ -2,7 +2,7 @@
 //  LoginVC.swift
 //  LiveGodLife
 //
-//  Created by Ador on 2022/10/12.
+//  Created by wargi on 2022/03/09.
 //
 
 import UIKit
@@ -85,6 +85,7 @@ final class LoginVC: UIViewController {
     
     private func bind() {
         appleLoginService = AppleLoginService(presentationContextProvider: self)
+        appleLoginService?.delegate = self
         
         appleLoginButton
             .tapPublisher
@@ -172,5 +173,17 @@ final class LoginVC: UIViewController {
 extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window ?? ASPresentationAnchor()
+    }
+}
+
+extension LoginVC: AppleLoginServiceDelegate {
+    func signup() {
+        self.navigationController?.pushViewController(UserInfoVC(), animated: true)
+    }
+    
+    func login() {
+        let homeVC = UINavigationController(rootViewController: RootVC())
+        homeVC.modalPresentationStyle = .fullScreen
+        self.present(homeVC, animated: true)
     }
 }
