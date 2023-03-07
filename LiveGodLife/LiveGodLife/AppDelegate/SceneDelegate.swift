@@ -9,7 +9,8 @@ import UIKit
 import KakaoSDKAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
+    var viewModel = UserViewModel()
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -25,19 +26,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        LogUtil.d(scene)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        LogUtil.d(scene)
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+        LogUtil.d(scene)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        viewModel.input.request.send(.token)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        LogUtil.d(scene)
     }
+    
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
        if let url = URLContexts.first?.url {
            if (AuthApi.isKakaoTalkLoginUrl(url)) {

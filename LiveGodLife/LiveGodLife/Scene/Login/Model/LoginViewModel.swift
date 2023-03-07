@@ -267,7 +267,12 @@ extension UserViewModel {
                         let status = try result.map(APIResponse<[String: String]>.self).status
                         
                         if status == .success {
+                            UserDefaults.standard.removeObject(forKey: UserService.USER_INFO_KEY)
+                            UserDefaults.standard.synchronize()
+                            
                             UserDefaults.standard.removeObject(forKey: UserService.ACCESS_TOKEN_KEY)
+                            UserDefaults.standard.synchronize()
+                            
                             self?.output.requestWithdrawal.send(true)
                         } else {
                             self?.output.requestWithdrawal.send(false)

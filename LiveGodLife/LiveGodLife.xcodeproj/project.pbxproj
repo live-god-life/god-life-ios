@@ -58,7 +58,6 @@
 		D0A214EF2905604500D5FF59 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A214EE2905604500D5FF59 /* MyPageVC.swift */; };
 		D0A215052905687B00D5FF59 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FE2905685600D5FF59 /* Pretendard-Bold.otf */; };
 		D0A21506290568D600D5FF59 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */; };
-		D0A215082905770300D5FF59 /* MyPageVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A215072905770300D5FF59 /* MyPageVC.storyboard */; };
 		D0A2151D2906B7AF00D5FF59 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A2150F2906B76F00D5FF59 /* Montserrat-Bold.otf */; };
 		D0B0583729362A580014F88E /* HomeVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0B0583629362A580014F88E /* HomeVC.storyboard */; };
 		D0B0583A29362D420014F88E /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0583929362D420014F88E /* HomeHeaderView.swift */; };
@@ -181,6 +180,7 @@
 		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
 		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 		E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BF29882040004038EB /* GoalsCreateVC.swift */; };
+		E99A7EDE29BC978D00BFCBC9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */; };
 		E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77490298E65C4004CC061 /* DeleteItemView.swift */; };
 		E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */; };
 		E9C77497298F145D004CC061 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77496298F145D004CC061 /* CALayer+.swift */; };
@@ -257,7 +257,6 @@
 		D0A215022905685700D5FF59 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		D0A215032905685700D5FF59 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		D0A215042905685700D5FF59 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
-		D0A215072905770300D5FF59 /* MyPageVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageVC.storyboard; sourceTree = "<group>"; };
 		D0A2150A2906B76F00D5FF59 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		D0A2150C2906B76F00D5FF59 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
 		D0A2150E2906B76F00D5FF59 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
@@ -366,6 +365,7 @@
 		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
 		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 		E99378BF29882040004038EB /* GoalsCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateVC.swift; sourceTree = "<group>"; };
+		E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E9C77490298E65C4004CC061 /* DeleteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteItemView.swift; sourceTree = "<group>"; };
 		E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		E9C77496298F145D004CC061 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -643,7 +643,6 @@
 				E935D9C529883467001787D2 /* Service */,
 				E935D9C3298832B5001787D2 /* View */,
 				D0A214EE2905604500D5FF59 /* MyPageVC.swift */,
-				D0A215072905770300D5FF59 /* MyPageVC.storyboard */,
 				D0BB5B612906C58300E46063 /* Setting */,
 				D0D42D3B2938C7D300211317 /* ProfileUpdate */,
 			);
@@ -737,6 +736,7 @@
 			children = (
 				E9367D4E29882690002F016D /* SegmentControlView.swift */,
 				D0E4AE482917E72600549BC0 /* SegmentControlButton.swift */,
+				E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1218,7 +1218,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0BB5B692906CD1F00E46063 /* SettingTableViewCell.xib in Resources */,
-				D0A215082905770300D5FF59 /* MyPageVC.storyboard in Resources */,
 				D0BB5B5F2906C19900E46063 /* Montserrat-Thin.otf in Resources */,
 				D0BF16CE28F9AF2D00CDA6CE /* OnboardingVC.storyboard in Resources */,
 				D0BB5B532906C17300E46063 /* Pretendard-ExtraBold.otf in Resources */,
@@ -1389,6 +1388,7 @@
 				E935D9E6298AD627001787D2 /* CategoryModel.swift in Sources */,
 				D0C97A6329379444001EC122 /* UIView+.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
+				E99A7EDE29BC978D00BFCBC9 /* ProfileView.swift in Sources */,
 				E9367D462988260A002F016D /* MindsetView.swift in Sources */,
 				E935D9E2298ACF9F001787D2 /* CategoryCell.swift in Sources */,
 				CC3181E32965C0F500016A77 /* TodoDetailVC.swift in Sources */,
@@ -1547,9 +1547,10 @@
 				CODE_SIGN_ENTITLEMENTS = LiveGodLife/LiveGodLife.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ24HP64B3;
+				DEVELOPMENT_TEAM = 3ZS2532XM8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveGodLife/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "갓생살기";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1562,7 +1563,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.onezo.livegodlife;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1578,9 +1579,10 @@
 				CODE_SIGN_ENTITLEMENTS = LiveGodLife/LiveGodLife.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ24HP64B3;
+				DEVELOPMENT_TEAM = 3ZS2532XM8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveGodLife/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "갓생살기";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1593,7 +1595,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.onezo.livegodlife;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

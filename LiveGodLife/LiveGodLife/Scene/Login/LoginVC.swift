@@ -32,6 +32,7 @@ final class LoginVC: UIViewController {
         bind()
         
         if let _ = UserDefaults.standard.string(forKey: UserService.ACCESS_TOKEN_KEY) {
+            viewModel.input.request.send(.token)
             let homeVC = UINavigationController(rootViewController: RootVC())
             homeVC.modalPresentationStyle = .fullScreen
             self.present(homeVC, animated: false)

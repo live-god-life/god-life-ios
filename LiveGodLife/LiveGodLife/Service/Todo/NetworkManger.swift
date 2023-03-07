@@ -106,11 +106,11 @@ extension NetworkService: TargetType {
     }
     
     var headers: [String: String]? {
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let accessToken = UserDefaults.standard.string(forKey: UserService.ACCESS_TOKEN_KEY) ?? ""
         switch self {
         default:
             return ["Content-Type": "application/json",
-                    "Authorization": "Bearer \(accessToken)"] // GeneralAPI.token
+                    "Authorization": accessToken] // GeneralAPI.token
         }
     }
 }
