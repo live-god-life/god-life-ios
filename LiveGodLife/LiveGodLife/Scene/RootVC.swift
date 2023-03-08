@@ -28,24 +28,6 @@ final class RootVC: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !UserDefaults.standard.bool(forKey: "LIVE_GOD_LIFE") {
-            guard let onboardingVC = OnboardingVC.instance() else {
-                LogUtil.e("OnboardingVC 생성 실패")
-                return
-            }
-            
-            onboardingVC.modalPresentationStyle = .fullScreen
-            present(onboardingVC, animated: true)
-            UserDefaults.standard.set(true, forKey: "LIVE_GOD_LIFE")
-            return
-        }
-
-        // TODO: userdefaults 말고 키체인으로 처리해야 함
-        if !UserDefaults.standard.bool(forKey: "IS_LOGIN") {
-            routeToLogin()
-            return
-        }
-
         if isBeingPresented || isMovingToParent {
             NotificationCenter.default.post(name: .moveToHome, object: self)
         }
@@ -59,12 +41,13 @@ final class RootVC: UITabBarController {
             $0.height.equalTo(104)
         }
         
-        guard let homeVC = HomeVC.instance(), let myPageVC = MyPageVC.instance() else {
-            LogUtil.e("HomeVC, MyPageVC 생성 실패")
+        guard let homeVC = HomeVC.instance() else {
+            LogUtil.e("HomeVC 생성 실패")
             return
         }
         let todoTabBar = TodoMainTabBarController()
         
+        let myPageVC = MyPageVC()
         setViewControllers([homeVC, todoTabBar, myPageVC], animated: true)
         selectedIndex = 0
         tabBarView.homeButton.isSelected = true

@@ -9,40 +9,51 @@ import UIKit
 import Combine
 import Kingfisher
 import SnapKit
+import Then
 
 final class MyPageVC: UIViewController {
     //MARK: - Properties
-    @IBOutlet private weak var navigationBar: UINavigationBar!
-    @IBOutlet private weak var profileImageContainerView: UIView!
-    @IBOutlet private weak var profileImageView: UIImageView!
-    @IBOutlet private weak var nicknameLabel: UILabel!
-    @IBOutlet private weak var segmentControlContainerView: UIView!
-
     private var bag = Set<AnyCancellable>()
+    private let titleLabel = UILabel().then {
+        $0.textColor = .white
+        $0.text = "MY PAGE"
+        $0.font = .montserrat(with: 20, weight: .semibold)
+    }
+    private var navigationView = CommonNavigationView().then {
+        $0.leftBarButton.isHidden = true
+        $0.rightBarButton.setImage(UIImage(named: "setting"), for: .normal)
+    }
+    private let profileView = ProfileView()
+    private var segmentControlView = SegmentControlView(frame: .zero,
+                                                        items: [SegmentItem(title: "찜한글"), SegmentItem(title: "내 작성글")])
     private lazy var pageViewControllers = [feedVC, myArticleVC]
-    private var segmentControlView: SegmentControlView!
     private let emptyLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .regular(with: 16)
         $0.text = "찜한 글이 없어요 👀"
     }
 
-    private var pageVC: UIPageViewController!
+    private lazy var pageVC = UIPageViewController(transitionStyle: .scroll,
+                                                   navigationOrientation: .horizontal).then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.setViewControllers([feedVC], direction: .forward, animated: true)
+    }
     private var user: UserModel?
 
     private let feedVC = FeedVC()
     private var myArticleVC = UIViewController().then {
         $0.view.backgroundColor = .black
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 216, height: 60)))
         label.numberOfLines = 0
-        let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요❤️"
+        let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요."
         label.attributedText = text.attributed()
-        label.font = .regular(with: 16)
-        label.textColor = .white
+        label.font = .regular(with: 18)
+        label.textColor = .white.withAlphaComponent(0.4)
         $0.view.addSubview(label)
         label.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalToSuperview().offset(160)
         }
     }
     
@@ -51,55 +62,64 @@ final class MyPageVC: UIViewController {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
-        setupNavigationBar()
         requestData()
     }
     
     private func makeUI() {
+        addChild(pageVC)
         view.backgroundColor = .black
-
-        setupUI()
-
+        
+        view.addSubview(navigationView)
+        view.addSubview(profileView)
+        view.addSubview(segmentControlView)
+        view.addSubview(pageVC.view)
+        
+        navigationView.addSubview(titleLabel)
         feedVC.view.addSubview(emptyLabel)
+        
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        profileView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(24)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(64)
+        }
+        segmentControlView.snp.makeConstraints {
+            $0.top.equalTo(profileView.snp.bottom).offset(40)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(54)
+        }
+        pageVC.view.snp.makeConstraints {
+            $0.top.equalTo(segmentControlView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().offset(20)
+            $0.height.equalTo(30)
+        }
         emptyLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(100)
         }
+        
+        didMove(toParent: self)
     }
 }
 
 // MARK: - Private
 private extension MyPageVC {
-    private func setupUI() {
-        setupNavigationBar()
-        setupProfileImageView()
-        setupNavigationBar()
-        setupSegmentView()
-        setupPageView()
-    }
-
-    @objc
-    private func moveToSettingView() {
-        let settingVC = SettingVC()
-        navigationController?.pushViewController(settingVC, animated: true)
-    }
-
-    @objc
-    private func moveToProfileUpdateView(_ sender: UIButton) {
-        guard let profileUpdateVC = ProfileUpdateVC.instance() else {
-            LogUtil.e("ProfileUpdateVC 생성 실패")
-            return
-        }
-        profileUpdateVC.configure(user)
-        navigationController?.pushViewController(profileUpdateVC, animated: true)
-    }
-
     private func requestData() {
         DefaultUserRepository().fetchProfile(endpoint: .user)
             .sink { completion in
@@ -113,9 +133,9 @@ private extension MyPageVC {
             } receiveValue: { [weak self] user in
                 self?.user = user
                 DispatchQueue.main.async {
-                    self?.nicknameLabel.text = user.nickname
+                    self?.profileView.nicknameLabel.text = user.nickname
                     if let image = user.image {
-                        self?.profileImageView.kf.setImage(with: URL(string: image))
+                        self?.profileView.profileImageView.kf.setImage(with: URL(string: image))
                     }
                 }
             }
@@ -141,48 +161,26 @@ private extension MyPageVC {
 
 // MARK: - Setup
 extension MyPageVC {
-    private func setupProfileImageView() {
-        let radius = profileImageContainerView.frame.height / 2
-        profileImageContainerView.layer.cornerRadius = radius
-        profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
-        profileImageView.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(moveToProfileUpdateView))
-        profileImageView.addGestureRecognizer(gesture)
-    }
-
-    private func setupNavigationBar() {
-        let titleLabel = UILabel()
-        titleLabel.textColor = .white
-        titleLabel.text = "MY PAGE"
-        titleLabel.font = UIFont(name: "Montserrat-Bold", size: 18)
-        let leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-        navigationBar.topItem?.leftBarButtonItem = leftBarButtonItem
-
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(moveToSettingView))
-        navigationItem.backButtonTitle = ""
-        navigationBar.topItem?.rightBarButtonItem = rightBarButtonItem
-    }
-
-    private func setupSegmentView() {
-        let items = [SegmentItem(title: "찜한글"), SegmentItem(title: "내 작성글")]
-        segmentControlView = SegmentControlView(frame: segmentControlContainerView.bounds, items: items)
-        segmentControlView.delegate = self
-        segmentControlContainerView.addSubview(segmentControlView)
-    }
-
-    private func setupPageView() {
-        pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pageVC.setViewControllers([feedVC], direction: .forward, animated: true)
-        pageVC.dataSource = self
-        pageVC.delegate = self
-
-        addChild(pageVC)
-        view.addSubview(pageVC.view)
-        pageVC.view.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.top.equalTo(segmentControlContainerView.snp.bottom).offset(30)
-        }
-        didMove(toParent: self)
+    private func bind() {
+        navigationView.rightBarButton
+            .tapPublisher
+            .sink { [weak self] in
+                let settingVC = SettingVC()
+                self?.navigationController?.pushViewController(settingVC, animated: true)
+            }
+            .store(in: &bag)
+        
+        profileView
+            .gesture()
+            .sink { [weak self] _ in
+                guard let self, let profileUpdateVC = ProfileUpdateVC.instance() else {
+                    LogUtil.e("ProfileUpdateVC 생성 실패")
+                    return
+                }
+                profileUpdateVC.configure(self.user)
+                self.navigationController?.pushViewController(profileUpdateVC, animated: true)
+            }
+            .store(in: &bag)
     }
 }
 

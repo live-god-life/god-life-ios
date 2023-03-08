@@ -136,7 +136,7 @@ final class UnregisterVC: UIViewController {
             .sink { [weak self] in
                 guard let self else { return }
                 
-                guard self.agreeItemView.agreeButton.isSelected else {
+                guard self.agreeItemView.isSelected else {
                     let alert = UIAlertController(title: "알림", message: "체크 항목을 확인해주세요!", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(action)

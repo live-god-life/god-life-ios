@@ -92,23 +92,13 @@ extension SettingVC: SettingTableViewCellDelegate {
         typealias cell = SettingTableViewCellViewModel
         switch index {
         case cell.logout.rawValue:
-            DefaultUserRepository().request(UserAPI.logout)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        // 로그아웃 실패
-                        LogUtil.e(error)
-                    case .finished:
-                        // 로그인 화면으로 이동
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true)
-                        }
-                    }
-                } receiveValue: { (value: Empty) in
-                    //
-                }
-                .store(in: &bag)
+            UserDefaults.standard.removeObject(forKey: UserService.USER_INFO_KEY)
+            UserDefaults.standard.synchronize()
             
+            UserDefaults.standard.removeObject(forKey: UserService.ACCESS_TOKEN_KEY)
+            UserDefaults.standard.synchronize()
+            
+            self.dismiss(animated: true)
         case cell.unregister.rawValue:
             let unregisterVC = UnregisterVC()
             navigationController?.pushViewController(unregisterVC, animated: true)
