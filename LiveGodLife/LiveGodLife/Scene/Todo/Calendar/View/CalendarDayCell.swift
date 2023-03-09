@@ -28,7 +28,7 @@ final class CalendarDayCell: UICollectionViewCell {
     private let dayLabel = UILabel().then {
         $0.textColor = .gray6
         $0.textAlignment = .center
-        $0.font = .montserrat(with: 14, weight: .bold)
+        $0.font = .montserrat(with: 14, weight: .semibold)
     }
     private let todoGuideView = UIView().then {
         $0.backgroundColor = .green
@@ -42,7 +42,7 @@ final class CalendarDayCell: UICollectionViewCell {
     }
     private let statusLabel = UILabel().then {
         $0.textColor = .black
-        $0.font = .bold(with: 10)
+        $0.font = .montserrat(with: 10, weight: .semibold)
         $0.isHidden = true
     }
     

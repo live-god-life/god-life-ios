@@ -129,6 +129,9 @@ extension CalendarViewCell: UICollectionViewDataSource {
             let isTodo = (day?.todoCount ?? 0) > 0
             let isDday = (day?.dDayCount ?? 0) > 0
             let isSelected = (model.date?.yyyyMMdd == startDate?.yyyyMMdd) && model.date?.yyyyMMdd != nil
+            if isSelected {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            }
             cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: isSelected)
             return cell
         case .date:

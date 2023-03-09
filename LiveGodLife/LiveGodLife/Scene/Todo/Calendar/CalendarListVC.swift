@@ -15,11 +15,13 @@ final class CalendarListVC: UIViewController {
     //MARK: - Properties
     private let viewModel = TodoListViewModel()
     private let calendar = Calendar.current
-    private var currentMonth = Date()
+    private var currentMonth = Date() {
+        didSet { viewModel.input.requestDay.send(currentMonth.yyyyMMdd) }
+    }
     private var selectedDate = Date()
     private var dayModel = [MainCalendarModel]() {
         didSet {
-            self.calendarCollectionView.reloadSections(IndexSet(1...2))
+            self.calendarCollectionView.reloadData()
         }
     }
     private let dateFormatter = DateFormatter().then {
@@ -177,10 +179,20 @@ extension CalendarListVC: CalendarCellDelegate {
         viewModel.input.requestDay.send(dateFormatter.string(from: date))
     }
     
-    func prevMonth() {
+    func prev(month: Date) {
+        if month.yyyyMM == Date().yyyyMM {
+            currentMonth = Date()
+        } else {
+            currentMonth = month
+        }
     }
     
-    func nextMonth() {
+    func next(month: Date) {
+        if month.yyyyMM == Date().yyyyMM {
+            currentMonth = Date()
+        } else {
+            currentMonth = month
+        }
     }
 }
 
