@@ -312,7 +312,7 @@ final class CalendarView: UIView {
         self.targetDate = date
         
         if type == .todo, self.startDate == nil {
-            self.startDate = Date()
+            self.startDate = date
         }
         
         pickerView.delegate = self
@@ -365,7 +365,6 @@ final class CalendarView: UIView {
             return
         }
         
-        LogUtil.d(calendar.date(from: components) ?? Date())
         self.targetDate = calendar.date(from: components) ?? Date()
     }
 }
@@ -380,6 +379,7 @@ extension CalendarView: UICollectionViewDataSource {
         
         cell.delegate = self
         cell.configure(type: self.type, with: models[indexPath.item], startDate: startDate, endDate: endDate)
+        LogUtil.d(startDate)
         
         return cell
     }
@@ -453,6 +453,7 @@ extension CalendarView: CalendarViewCellDelegate {
         guard let date = dayCell.date else { return }
         
         self.startDate = date
+        
         delegate?.select(date: date)
     }
     

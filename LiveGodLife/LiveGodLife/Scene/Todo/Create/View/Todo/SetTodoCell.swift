@@ -187,8 +187,9 @@ final class SetTodoCell: UITableViewCell {
                 let vc = CalendarPopupVC(startDate: self?.startDate, endDate: self?.endDate)
                 vc.delegate = self
                 vc.modalPresentationStyle = .overFullScreen
-                UIApplication.topViewController()?.present(vc, animated: true)
-            }.store(in: &bag)
+                UIApplication.topViewController()?.present(vc, animated: false)
+            }
+            .store(in: &bag)
         
         repeatItemView
             .itemButton
@@ -205,8 +206,9 @@ final class SetTodoCell: UITableViewCell {
                 let vc = RepeatPopupVC(type: self.repeatType, startDate: startDate, endDate: endDate)
                 vc.delegate = self
                 vc.modalPresentationStyle = .overFullScreen
-                UIApplication.topViewController()?.present(vc, animated: true)
-            }.store(in: &bag)
+                UIApplication.topViewController()?.present(vc, animated: false)
+            }
+            .store(in: &bag)
         
         alarmItemView
             .itemButton
@@ -215,8 +217,9 @@ final class SetTodoCell: UITableViewCell {
                 let vc = AlarmPopupVC(time: self?.time, isNotUsed: self?.notification == "")
                 vc.delegate = self
                 vc.modalPresentationStyle = .overFullScreen
-                UIApplication.topViewController()?.present(vc, animated: true)
-            }.store(in: &bag)
+                UIApplication.topViewController()?.present(vc, animated: false)
+            }
+            .store(in: &bag)
     }
     
     func configure(isType type: GoalType, title: String?, startDate: String?, endDate: String?,

@@ -46,13 +46,15 @@ final class CalendarPopupVC: UIViewController {
     private let completedButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
         $0.setTitle("완료", for: .highlighted)
-        $0.setTitleColor(.lightGray, for: .normal)
-        $0.setTitleColor(.lightGray, for: .highlighted)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.white, for: .highlighted)
         $0.setTitleColor(.black, for: .selected)
         $0.titleLabel?.font = .semiBold(with: 18)
         $0.layer.cornerRadius = 27.0
         $0.backgroundColor = .default
     }
+    private let startAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut)
+    private let endAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn)
     
     private let lineView = DashView().then {
         $0.backgroundColor = .black
@@ -78,6 +80,12 @@ final class CalendarPopupVC: UIViewController {
         configure()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        startAnimator.startAnimation()
+    }
+    
     //MARK: - Make UI
     private func makeUI() {
         view.backgroundColor = .clear
@@ -97,26 +105,11 @@ final class CalendarPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(792)
             $0.height.equalTo(692)
         }
-        completedButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
-            $0.height.equalTo(54)
-        }
-        dayCountLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(24)
-            $0.bottom.equalTo(completedButton.snp.top).offset(-32)
-            $0.height.equalTo(30)
-        }
-        calendarView.snp.makeConstraints {
-            $0.bottom.equalTo(dayCountLabel.snp.top).offset(-21)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(381)
-        }
         titleLabel.snp.makeConstraints {
-            $0.bottom.equalTo(calendarView.snp.top)
+            $0.top.equalToSuperview().offset(24)
             $0.left.equalToSuperview().offset(20)
             $0.height.equalTo(44)
         }
@@ -130,10 +123,47 @@ final class CalendarPopupVC: UIViewController {
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.size.equalTo(64)
         }
+        calendarView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(381)
+        }
         lineView.snp.makeConstraints {
-            $0.bottom.equalTo(dayCountLabel.snp.top).offset(-16)
+            $0.top.equalTo(calendarView.snp.bottom).offset(4)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(1)
+        }
+        dayCountLabel.snp.makeConstraints {
+            $0.top.equalTo(lineView.snp.bottom).offset(16)
+            $0.left.equalToSuperview().offset(24)
+            $0.height.equalTo(30)
+        }
+        completedButton.snp.makeConstraints {
+            $0.top.equalTo(dayCountLabel.snp.bottom).offset(32)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(54)
+        }
+
+        startAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(100)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(792)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addCompletion { [weak self] _ in
+            self?.dismiss(animated: false)
         }
     }
     
@@ -143,14 +173,14 @@ final class CalendarPopupVC: UIViewController {
             .backgroundButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
         closeButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
@@ -165,7 +195,7 @@ final class CalendarPopupVC: UIViewController {
                     return
                 }
                 self.delegate?.select(startDate: self.startDate, endDate: self.endDate)
-                self.dismiss(animated: true)
+                self.endAnimator.startAnimation()
             }
             .store(in: &bag)
     }

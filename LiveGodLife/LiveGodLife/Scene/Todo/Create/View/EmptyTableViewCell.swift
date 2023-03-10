@@ -11,7 +11,7 @@ import UIKit
 //MARK: EmptyTableViewCell
 final class EmptyTableViewCell: UITableViewCell {
     //MARK: - Properties
-    private let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.textColor = .white.withAlphaComponent(0.6)
         $0.textAlignment = .center
         $0.font = .semiBold(with: 20)
@@ -38,10 +38,6 @@ final class EmptyTableViewCell: UITableViewCell {
             $0.left.right.equalToSuperview()
             $0.centerY.equalToSuperview().offset(16)
         }
-    }
-    
-    func configure(text: String?) {
-        titleLabel.text = text
     }
 }
 

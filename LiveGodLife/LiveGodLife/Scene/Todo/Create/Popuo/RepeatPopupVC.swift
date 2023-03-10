@@ -85,6 +85,8 @@ final class RepeatPopupVC: UIViewController {
     private let lineView = DashView().then {
         $0.backgroundColor = .black
     }
+    let startAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut)
+    let endAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn)
     
     //MARK: - Life Cycle
     init(type: RepeatType, startDate: Date? = nil, endDate: Date? = nil) {
@@ -105,6 +107,12 @@ final class RepeatPopupVC: UIViewController {
         makeUI()
         bind()
         configure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        startAnimator.startAnimation()
     }
     
     //MARK: - Make UI
@@ -137,7 +145,7 @@ final class RepeatPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(480)
         }
         titleContainerView.snp.makeConstraints {
             $0.height.equalTo(68)
@@ -186,6 +194,28 @@ final class RepeatPopupVC: UIViewController {
         bottomView.snp.makeConstraints {
             $0.height.equalTo(84)
         }
+        
+        startAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(100)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(480)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addCompletion { [weak self] _ in
+            self?.dismiss(animated: false)
+        }
     }
     
     //MARK: - Binding..
@@ -194,7 +224,7 @@ final class RepeatPopupVC: UIViewController {
             .backgroundButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: false)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
@@ -227,14 +257,14 @@ final class RepeatPopupVC: UIViewController {
                     self.delegate?.select(days: days)
                 }
                 
-                self.dismiss(animated: false)
+                self.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
         cancelButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: false)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         

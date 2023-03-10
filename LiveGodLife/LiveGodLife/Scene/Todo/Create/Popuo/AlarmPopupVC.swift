@@ -67,6 +67,9 @@ final class AlarmPopupVC: UIViewController {
         $0.locale = Locale(identifier: "ko_KR")
         $0.dateFormat = "a h:m"
     }
+    let startAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut)
+    let endAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn)
+    
     
     //MARK: - Life Cycle
     init(time: Date?, isNotUsed: Bool) {
@@ -87,6 +90,12 @@ final class AlarmPopupVC: UIViewController {
         makeUI()
         bind()
         configure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        startAnimator.startAnimation()
     }
     
     //MARK: - Make UI
@@ -111,7 +120,7 @@ final class AlarmPopupVC: UIViewController {
         }
         containerView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(596)
             $0.height.equalTo(496)
         }
         titleLabel.snp.makeConstraints {
@@ -133,23 +142,45 @@ final class AlarmPopupVC: UIViewController {
             $0.right.equalTo(notUsedImageView.snp.right)
             $0.top.bottom.equalTo(titleLabel)
         }
+        datePicker.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(200)
+            $0.height.equalTo(169)
+        }
         cancelButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.top.equalTo(datePicker.snp.bottom).offset(34)
             $0.left.equalToSuperview().offset(16)
             $0.width.equalTo(btnWidth)
             $0.height.equalTo(54)
         }
         completedButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.top.equalTo(datePicker.snp.bottom).offset(34)
             $0.right.equalToSuperview().offset(-16)
             $0.width.equalTo(btnWidth)
             $0.height.equalTo(54)
         }
-        datePicker.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(200)
-            $0.bottom.equalTo(cancelButton.snp.top).offset(-24)
+        
+        startAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(100)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.containerView.snp.updateConstraints {
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(596)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        endAnimator.addCompletion { [weak self] _ in
+            self?.dismiss(animated: false)
         }
     }
     
@@ -159,7 +190,7 @@ final class AlarmPopupVC: UIViewController {
             .backgroundButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
@@ -171,14 +202,14 @@ final class AlarmPopupVC: UIViewController {
                 self.delegate?.select(time: self.notUsedButton.isSelected ? nil : self.date,
                                       isNotUsed: self.notUsedButton.isSelected)
                 
-                self.dismiss(animated: true)
+                self.endAnimator.startAnimation()
             }
             .store(in: &bag)
         
         cancelButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
         

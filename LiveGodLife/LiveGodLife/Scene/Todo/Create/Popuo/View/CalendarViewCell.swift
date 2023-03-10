@@ -39,8 +39,8 @@ final class CalendarViewCell: UICollectionViewCell {
             collectionView.reloadData()
         }
     }
-    private lazy var collectionView = UICollectionView(frame: .zero,
-                                                       collectionViewLayout: setupFlowLayout()).then {
+    lazy var collectionView = UICollectionView(frame: .zero,
+                                               collectionViewLayout: setupFlowLayout()).then {
         $0.delegate = self
         $0.dataSource = self
         $0.isPagingEnabled = true
@@ -63,6 +63,13 @@ final class CalendarViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("Not Created View")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        startDate = nil
+        endDate = nil
     }
     
     //MARK: - Make UI

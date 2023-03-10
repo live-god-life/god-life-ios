@@ -284,7 +284,8 @@ extension GoalsCreateVC: UITableViewDataSource {
         case .mindset:
             if model.mindsets.isEmpty {
                 let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.configure(text: "마인드셋을 추가해 보세요.")
+                cell.titleLabel.text = "마인드셋을 추가해 보세요."
+                cell.titleLabel.font = .regular(with: 16)
                 return cell
             } else {
                 let cell: MindsetTableViewCell = tableView.dequeueReusableCell(for: indexPath)
@@ -300,7 +301,8 @@ extension GoalsCreateVC: UITableViewDataSource {
         case .todo:
             guard !model.todos.isEmpty else {
                 let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.configure(text: "TODO 를 추가해 보세요.")
+                cell.titleLabel.text = "TODO 를 추가해 보세요."
+                cell.titleLabel.font = .regular(with: 16)
                 return cell
             }
             

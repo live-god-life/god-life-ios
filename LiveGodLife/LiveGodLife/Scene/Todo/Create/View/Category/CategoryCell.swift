@@ -14,11 +14,12 @@ final class CategoryCell: UICollectionViewCell {
     private let titleLabel = UILabel().then {
         $0.textColor = .gray8
         $0.textAlignment = .center
-        $0.font = .semiBold(with: 16)
+        $0.font = .regular(with: 16)
     }
     
     override var isSelected: Bool {
         didSet {
+            titleLabel.font = isSelected ? .semiBold(with: 16) : .regular(with: 16)
             contentView.backgroundColor = isSelected ? .green : .black
             contentView.layer.borderColor = isSelected ? nil : UIColor.gray9.cgColor
             contentView.layer.borderWidth = isSelected ? .zero : 1.0
