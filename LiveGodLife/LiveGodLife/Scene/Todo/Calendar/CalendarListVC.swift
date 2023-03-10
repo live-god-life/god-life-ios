@@ -55,7 +55,7 @@ final class CalendarListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+        calendarCollectionView.reloadSections(IndexSet(0...0))
     }
     
     //MARK: - Make UI
@@ -117,7 +117,7 @@ extension CalendarListVC: UICollectionViewDataSource {
         case .calendar:
             let cell: CalendarCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
-            cell.configure(date: currentMonth)
+            cell.configure(date: selectedDate)
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)

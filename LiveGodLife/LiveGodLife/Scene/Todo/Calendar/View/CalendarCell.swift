@@ -100,10 +100,9 @@ final class CalendarCell: UICollectionViewCell {
     }
     
     //MARK: - Functions...
-    func configure(date: Date?) {
-        let calendarDate = date ?? Date()
+    func configure(date: Date) {
         calendarView.delegate = self
-        calendarView.configure(with: calendarDate)
+        calendarView.configure(with: date)
     }
 }
 

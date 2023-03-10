@@ -110,7 +110,7 @@ final class DayTodosCell: UICollectionViewCell {
         let count = CGFloat(todos.count)
         
         var height = 36.0
-        height += count * 72.0
+        height += count * 80.0
         height += (count - 1.0) * 16.0
         
         return height
@@ -158,7 +158,7 @@ extension DayTodosCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: 72.0)
+        return CGSize(width: width, height: 80.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

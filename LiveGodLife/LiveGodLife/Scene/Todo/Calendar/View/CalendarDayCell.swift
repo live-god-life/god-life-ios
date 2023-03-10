@@ -42,7 +42,7 @@ final class CalendarDayCell: UICollectionViewCell {
     }
     private let statusLabel = UILabel().then {
         $0.textColor = .black
-        $0.font = .montserrat(with: 10, weight: .semibold)
+        $0.font = .semiBold(with: 10)
         $0.isHidden = true
     }
     
@@ -62,6 +62,7 @@ final class CalendarDayCell: UICollectionViewCell {
         contentView.layer.borderWidth = .zero
         contentView.layer.borderColor = UIColor.black.cgColor
         
+        date = nil
         dayLabel.text = nil
         dayLabel.textColor = .gray6
         hStackView.isHidden = true
@@ -112,7 +113,7 @@ final class CalendarDayCell: UICollectionViewCell {
             todoGuideView.isHidden = true
             dDayGuideView.isHidden = true
             statusLabel.text = "보는중"
-            statusLabel.textColor = .black
+            statusLabel.textColor = .gray5
             statusLabel.isHidden = false
             return
         }

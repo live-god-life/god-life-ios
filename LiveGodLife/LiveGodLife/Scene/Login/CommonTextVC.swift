@@ -9,23 +9,28 @@ import Then
 import SnapKit
 import UIKit
 import Combine
+import CombineCocoa
 
 //MARK: CommonWebVC
 final class CommonTextVC: UIViewController {
     enum Const {
         static let topSpacing: CGFloat = 162.0
-        static let height = UIScreen.main.bounds.height - topSpacing
+        static let height = UIScreen.main.bounds.height - topSpacing + 44.0
     }
     
     //MARK: - Properties
     var bag = Set<AnyCancellable>()
+    let startAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut)
+    let endAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn)
+    
     var textView = UITextView().then {
+        $0.isEditable = false
         $0.font = .regular(with: 16)
         $0.textColor = .white.withAlphaComponent(0.6)
         $0.backgroundColor = .black
-        $0.isUserInteractionEnabled = false
     }
     var titleLabel = UILabel().then {
+        $0.textColor = .white
         $0.font = .semiBold(with: 20)
     }
     var closeButton = UIButton().then {
@@ -35,6 +40,7 @@ final class CommonTextVC: UIViewController {
     private let visualEffectView = CustomVisualEffectView()
     private let contentView = UIView().then {
         $0.backgroundColor = .black
+        $0.layer.cornerRadius = 24.0
     }
     
     
@@ -60,18 +66,12 @@ final class CommonTextVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            guard let self else { return }
-            
-            self.contentView.snp.updateConstraints {
-                $0.top.equalTo(self.view.snp.bottom).offset(-Const.height)
-            }
-        }
+        startAnimator.startAnimation()
     }
     
     //MARK: - Make UI
     private func makeUI() {
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         
         view.addSubview(visualEffectView)
         view.addSubview(contentView)
@@ -84,7 +84,7 @@ final class CommonTextVC: UIViewController {
             $0.edges.equalToSuperview()
         }
         contentView.snp.makeConstraints {
-            $0.top.equalTo(view.snp.bottom)
+            $0.bottom.equalToSuperview().offset(Const.height)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(Const.height)
         }
@@ -101,7 +101,33 @@ final class CommonTextVC: UIViewController {
         textView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-44)
+        }
+        
+        startAnimator.addAnimations {
+            UIView.animate(withDuration: 1.0) { [weak self] in
+                guard let self else { return }
+                
+                self.contentView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(44)
+                }
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+        endAnimator.addAnimations {
+            UIView.animate(withDuration: 1.0) { [weak self] in
+                guard let self else { return }
+                
+                self.contentView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(Const.height)
+                }
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+        endAnimator.addCompletion { [weak self] _ in
+            self?.dismiss(animated: false)
         }
     }
     
@@ -110,7 +136,15 @@ final class CommonTextVC: UIViewController {
         closeButton
             .tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                self?.endAnimator.startAnimation()
+            }
+            .store(in: &bag)
+        
+        visualEffectView
+            .backgroundButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                self?.endAnimator.startAnimation()
             }
             .store(in: &bag)
     }

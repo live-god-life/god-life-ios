@@ -22,13 +22,14 @@ final class DayTodoCell: UICollectionViewCell {
         $0.backgroundColor = .default
         $0.layer.cornerRadius = 16
     }
-    private let typeLabel = UILabel().then {
-        $0.font = .montserrat(with: 16, weight: .semibold)
-    }
     private let titleLabel = UILabel().then {
         $0.numberOfLines = 1
         $0.font = .semiBold(with: 18)
         $0.textColor = .white
+    }
+    private let subTitleLabel = UILabel().then {
+        $0.numberOfLines = 1
+        $0.font = .regular(with: 14)
     }
     private let completeImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -53,8 +54,8 @@ final class DayTodoCell: UICollectionViewCell {
     private func makeUI() {
         contentView.addSubview(innerView)
         
-        innerView.addSubview(typeLabel)
         innerView.addSubview(titleLabel)
+        innerView.addSubview(subTitleLabel)
         innerView.addSubview(completeImageView)
         innerView.addSubview(completeButton)
         
@@ -62,23 +63,23 @@ final class DayTodoCell: UICollectionViewCell {
             $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
-        typeLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(11)
-            $0.centerY.equalToSuperview()
-            $0.height.equalTo(24)
-        }
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(72)
-            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview().offset(16)
+            $0.left.equalToSuperview().offset(56)
             $0.height.equalTo(26)
         }
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.left.equalTo(titleLabel.snp.left)
+            $0.height.equalTo(22)
+        }
         completeImageView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(16)
             $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().offset(-18)
-            $0.size.equalTo(20)
+            $0.size.equalTo(24)
         }
         completeButton.snp.makeConstraints {
-            $0.top.bottom.right.equalToSuperview()
+            $0.top.left.bottom.equalToSuperview()
             $0.width.equalTo(56)
         }
     }
@@ -109,9 +110,37 @@ final class DayTodoCell: UICollectionViewCell {
         
         self.model = todo
         self.isStatus = isCompleted
-        typeLabel.text = isTodo ? "TODO" : dDayString
-        typeLabel.textColor = isTodo ? .green : .blue
+        subTitleLabel.text = isTodo ? repeatString(with: todo.repetitionType, param: todo.repetitionParams) : dDayString
+        subTitleLabel.textColor = isTodo ? .green : .blue
         titleLabel.text = todo.title
         completeImageView.image = isCompleted ? UIImage(named: completedImageName) : UIImage(named: "btn_toggle_checkbox_off")
+    }
+    
+    private func repeatString(with type: String?, param: [String]?) -> String {
+        if type == "DAY" {
+            return "매일"
+        } else if type == "WEEK",
+                  let parameters = param {
+            if parameters.count == 7 {
+                return "매일"
+            } else if parameters.count == 2,
+                      parameters.contains("토"),
+                      parameters.contains("일") {
+                return "주말"
+            } else if parameters.count == 5,
+                      parameters.contains("월"),
+                      parameters.contains("화"),
+                      parameters.contains("수"),
+                      parameters.contains("목"),
+                      parameters.contains("금") {
+                return "평일"
+            } else {
+                var subTitle = "매주" + parameters.map { "\($0)," }.joined()
+                subTitle.removeLast()
+                return subTitle
+            }
+        } else {
+            return "매일"
+        }
     }
 }
