@@ -15,10 +15,11 @@ final class UserViewModel {
     var bag = Set<AnyCancellable>()
     let input = Input()
     let output = Output()
-    let provider = MoyaProvider<UserService>()
+    var plugin = MoyaPlugin()
+    lazy var provider = MoyaProvider<UserService>(plugins: [plugin])
     
     //MARK: Initializer
-    init() {
+    init() {        
         bind()
     }
     
@@ -58,8 +59,8 @@ extension UserViewModel {
     }
     
     struct Output {
-        let requestProfileImage = PassthroughSubject<[String], Never>()
-        let requestTerms = PassthroughSubject<(Term, String), Never>()
+        let requestProfileImage = PassthroughSubject<[ProfileImage], Never>()
+        let requestTerms = PassthroughSubject<Term, Never>()
         let requestToken = PassthroughSubject<String?, Never>()
         let requestNickname = PassthroughSubject<Bool, Never>()
         let requestSignUp = PassthroughSubject<Bool, Never>()
@@ -73,12 +74,6 @@ extension UserViewModel {
         case register = 401
         case error = 500
     }
-    
-    enum Term: String {
-        case use = "USE"
-        case privacy = "PRIVACY"
-        case marketing = "MARKETING"
-    }
 }
 
 //MARK: - Method
@@ -89,30 +84,30 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        guard let model = try result.map(APIResponse<[String]>.self).data else {
+                        guard let model = try result.map(APIResponse<[ProfileImage]>.self).data else {
                             throw APIError.decoding
                         }
                         self?.output.requestProfileImage.send(model)
                     } catch {
                         LogUtil.e(error.localizedDescription)
+                        self?.output.requestProfileImage.send([])
                     }
-                case .failure(let err):
-                    LogUtil.e(err.localizedDescription)
+                case .failure:
+                    self?.output.requestProfileImage.send([])
                 }
             }
     }
     //MARK: 약관 조회
-    func requestTerms(type term: Term) {
+    func requestTerms(type term: Term.TermType) {
         provider.request(.terms(term)) { [weak self] response in
                 switch response {
                 case .success(let result):
                     do {
-                        guard let model = try result.map(APIResponse<[String: String]>.self).data,
-                              let contents = model["contents"] else {
+                        guard let model = try result.map(APIResponse<Term>.self).data else {
                             throw APIError.decoding
                         }
                         
-                        self?.output.requestTerms.send((term, contents))
+                        self?.output.requestTerms.send(model)
                     } catch {
                         LogUtil.e(error.localizedDescription)
                     }
@@ -127,21 +122,20 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        guard let model = try result.map(APIResponse<[String: String]>.self).data,
-                              let key = model["token_type"],
-                              let value = model["authorization"] else {
-                            throw APIError.decoding
-                        }
+                        let model = try result.map(APIResponse<UserToken>.self)
+                        guard let token = model.data else { throw APIError.decoding }
                         
-                        UserDefaults.standard.set("\(key) \(value)", forKey: UserService.ACCESS_TOKEN_KEY)
+                        UserDefaults.standard.set("Bearer \(token.authorization ?? "")",
+                                                  forKey: UserService.ACCESS_TOKEN_KEY)
                         UserDefaults.standard.synchronize()
                         
-                        self?.output.requestToken.send(model["message"])
+                        self?.output.requestToken.send(model.message)
                     } catch {
                         LogUtil.e(error.localizedDescription)
+                        self?.output.requestToken.send("\(error.localizedDescription)")
                     }
                 case .failure(let err):
-                    LogUtil.e(err.localizedDescription)
+                    self?.output.requestToken.send("\(err.localizedDescription)")
                 }
             }
     }
@@ -166,8 +160,8 @@ extension UserViewModel {
                     } catch {
                         LogUtil.e(error.localizedDescription)
                     }
-                case .failure(let err):
-                    LogUtil.e(err.localizedDescription)
+                case .failure:
+                    self?.output.requestNickname.send(false)
                 }
             }
     }
@@ -177,25 +171,20 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        let response = try result.mapJSON() as? [String: Any]
+                        let model = try result.map(APIResponse<UserToken>.self)
+                        guard let token = model.data else { throw APIError.decoding }
                         
-                        guard let data = response?["data"] as? [String: Any],
-                              let key = data["token_type"] as? String,
-                              let value = data["authorization"] as? String else {
-                            throw APIError.decoding
-                        }
-                        
-                        UserDefaults.standard.set("\(key) \(value)", forKey: UserService.ACCESS_TOKEN_KEY)
+                        UserDefaults.standard.set("Bearer \(token.authorization ?? "")",
+                                                  forKey: UserService.ACCESS_TOKEN_KEY)
                         UserDefaults.standard.synchronize()
                         
                         self?.output.requestSignUp.send(true)
                     } catch {
-                        self?.output.requestSignUp.send(false)
                         LogUtil.e(error.localizedDescription)
+                        self?.output.requestSignUp.send(false)
                     }
-                case .failure(let err):
+                case .failure:
                     self?.output.requestSignUp.send(false)
-                    LogUtil.e(err.localizedDescription)
                 }
             }
     }
@@ -206,17 +195,12 @@ extension UserViewModel {
                 switch response {
                 case .success(let result):
                     do {
-                        let response = try result.mapJSON()
-                        
-                        guard let json = response as? [String: Any],
-                              let httpStatus = json["status"] as? String else {
-                            throw APIError.decoding
-                        }
+                        let model = try result.map(APIResponse<UserToken>.self)
                         
                         var status: SignIn = .error
-                        if httpStatus.lowercased() == "success" {
+                        if model.status == .success {
                             status = .success
-                        } else if let code = json["code"] as? Int {
+                        } else if let code = model.code {
                             status = SignIn(rawValue: code) ?? .error
                         } else {
                             status = .error
@@ -224,16 +208,13 @@ extension UserViewModel {
                         
                         switch status {
                         case .success:
-                            guard let data = json["data"] as? [String: Any],
-                                  let key = data["token_type"] as? String,
-                                  let value = data["authorization"] as? String else {
-                                throw APIError.decoding
-                            }
+                            guard let token = model.data else { throw APIError.decoding }
                             
                             UserDefaults.standard.set(user.toDictionary, forKey: UserService.USER_INFO_KEY)
                             UserDefaults.standard.synchronize()
                             
-                            UserDefaults.standard.set("\(key) \(value)", forKey: UserService.ACCESS_TOKEN_KEY)
+                            UserDefaults.standard.set("Bearer \(token.authorization ?? "")",
+                                                      forKey: UserService.ACCESS_TOKEN_KEY)
                             UserDefaults.standard.synchronize()
                             
                             self?.output.requestSignIn.send(.success)
@@ -248,8 +229,7 @@ extension UserViewModel {
                         LogUtil.e(error.localizedDescription)
                         self?.output.requestSignIn.send(.error)
                     }
-                case .failure(let err):
-                    LogUtil.e(err.localizedDescription)
+                case .failure:
                     self?.output.requestSignIn.send(.error)
                 }
             }
@@ -281,9 +261,8 @@ extension UserViewModel {
                         self?.output.requestWithdrawal.send(false)
                         LogUtil.e(error.localizedDescription)
                     }
-                case .failure(let err):
+                case .failure:
                     self?.output.requestWithdrawal.send(false)
-                    LogUtil.e(err.localizedDescription)
                 }
             }
     }

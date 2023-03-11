@@ -155,20 +155,25 @@ final class AgreementVC: UIViewController {
         viewModel
             .output
             .requestTerms
-            .sink { [weak self] term, content in
+            .sink { [weak self] term in
+                
+                guard let self,
+                      let type = term.type,
+                      let contents = term.contents else { return }
                 
                 var vc: UIViewController
                 
-                switch term {
+                switch type {
                 case .use:
-                    vc = CommonTextVC(title: "서비스 이용약관", content: content)
+                    vc = CommonTextVC(title: "서비스 이용약관", content: contents)
                 case .privacy:
-                    vc = CommonTextVC(title: "개인정보 처리방침", content: content)
+                    vc = CommonTextVC(title: "개인정보 처리방침", content: contents)
                 case .marketing:
-                    vc = CommonTextVC(title: "마케팅 정보 수신 동의", content: content)
+                    vc = CommonTextVC(title: "마케팅 정보 수신 동의", content: contents)
                 }
                 
-                self?.present(vc, animated: true)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: false)
             }
             .store(in: &viewModel.bag)
         

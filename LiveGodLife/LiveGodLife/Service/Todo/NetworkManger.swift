@@ -12,7 +12,8 @@ import Moya
 final class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
-    let provider = MoyaProvider<NetworkService>()
+    private var plugin = MoyaPlugin()
+    lazy var provider = MoyaProvider<NetworkService>(plugins: [plugin])
 }
 
 enum NetworkService {

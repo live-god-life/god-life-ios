@@ -21,7 +21,7 @@ enum UserService {
     }
     
     case profileImage
-    case terms(UserViewModel.Term)
+    case terms(Term.TermType)
     case token
     case nickname(String)
     case signup(UserModel)

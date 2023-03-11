@@ -1,5 +1,5 @@
 //
-//  CommonWebVC.swift
+//  CommonTextVC.swift
 //  LiveGodLife
 //
 //  Created by wargi on 2023/03/07.
@@ -104,26 +104,22 @@ final class CommonTextVC: UIViewController {
             $0.bottom.equalToSuperview().offset(-44)
         }
         
-        startAnimator.addAnimations {
-            UIView.animate(withDuration: 1.0) { [weak self] in
-                guard let self else { return }
-                
-                self.contentView.snp.updateConstraints {
-                    $0.bottom.equalToSuperview().offset(44)
-                }
-                self.view.layoutIfNeeded()
+        startAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.contentView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().offset(44)
             }
+            self.view.layoutIfNeeded()
         }
         
-        endAnimator.addAnimations {
-            UIView.animate(withDuration: 1.0) { [weak self] in
-                guard let self else { return }
-                
-                self.contentView.snp.updateConstraints {
-                    $0.bottom.equalToSuperview().offset(Const.height)
-                }
-                self.view.layoutIfNeeded()
+        endAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            
+            self.contentView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().offset(Const.height)
             }
+            self.view.layoutIfNeeded()
         }
         
         endAnimator.addCompletion { [weak self] _ in

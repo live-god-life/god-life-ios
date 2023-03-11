@@ -6,21 +6,36 @@
 //
 
 import UIKit
+import Moya
+import Lottie
 import SnapKit
-import AuthenticationServices
 import KakaoSDKUser
 import KakaoSDKAuth
-import Moya
+import AuthenticationServices
 
 final class LoginVC: UIViewController {
     //MARK: - Properties
     private var viewModel = UserViewModel()
-    private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
-    private let appleLoginButton = RoundedButton()
-    private let kakaoLoginButton = RoundedButton()
+    private let loginImageView = UIImageView().then {
+        $0.image = UIImage(named: "loginBanner")
+    }
+    let buttonStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 16
+        $0.distribution = .fillEqually
+    }
+    private let appleLoginButton = RoundedButton().then {
+        $0.configure(title: "Apple로 시작하기", backgroundColor: .white)
+    }
+    private let kakaoLoginButton = RoundedButton().then {
+        let kakaoColor = UIColor(red: 247/255, green: 227/255, blue: 23/255, alpha: 1)
+        $0.configure(title: "카카오계정으로 시작하기", backgroundColor: kakaoColor)
+    }
     private var appleLoginService: AppleLoginService?
-    private let authLookProvider = MoyaProvider<NetworkService>()
+    private let animationView = LottieAnimationView(name: "splash").then {
+        $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .black
+    }
     
     var email:String = ""
     
@@ -31,11 +46,16 @@ final class LoginVC: UIViewController {
         makeUI()
         bind()
         
-        if let _ = UserDefaults.standard.string(forKey: UserService.ACCESS_TOKEN_KEY) {
-            viewModel.input.request.send(.token)
-            let homeVC = UINavigationController(rootViewController: RootVC())
-            homeVC.modalPresentationStyle = .fullScreen
-            self.present(homeVC, animated: false)
+        animationView.play { [weak self] _ in
+            if let _ = UserDefaults.standard.string(forKey: UserService.ACCESS_TOKEN_KEY) {
+                let homeVC = UINavigationController(rootViewController: RootVC())
+                homeVC.modalPresentationStyle = .fullScreen
+                self?.present(homeVC, animated: false) {
+                    self?.animationView.removeFromSuperview()
+                }
+            } else {
+                self?.animationView.removeFromSuperview()
+            }
         }
     }
 
@@ -44,47 +64,32 @@ final class LoginVC: UIViewController {
         view.backgroundColor = .black
         navigationItem.backButtonTitle = ""
         
-        titleLabel.text = "갓생살기"
-        titleLabel.textColor = .white
-        titleLabel.font = .bold(with: 26)
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(79)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(34)
-        }
-        subtitleLabel.text = "꿈꾸는 갓생러들이 모인 곳"
-        subtitleLabel.textColor = .gray1
-        subtitleLabel.font = .regular(with: 16)
-        view.addSubview(subtitleLabel)
-        subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(34)
-        }
-
-        setupButtons()
-    }
-    
-    private func setupButtons() {
-        appleLoginButton.configure(title: "Apple로 시작하기",
-                                   backgroundColor: .white)
-        kakaoLoginButton.configure(title: "카카오계정으로 시작하기",
-                                   backgroundColor: UIColor(red: 247/255, green: 227/255, blue: 23/255, alpha: 1))
-
-        let buttonStackView = UIStackView()
-        buttonStackView.axis = .vertical
-        buttonStackView.spacing = 20
-        buttonStackView.distribution = .fillEqually
+        view.addSubview(loginImageView)
+        view.addSubview(buttonStackView)
+        view.addSubview(animationView)
+        
         buttonStackView.addArrangedSubview(appleLoginButton)
         buttonStackView.addArrangedSubview(kakaoLoginButton)
-        view.addSubview(buttonStackView)
+        
+        loginImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-64.8)
+            $0.width.equalTo(290.4)
+            $0.height.equalTo(208.4)
+        }
         buttonStackView.snp.makeConstraints {
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(48)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(40)
-            $0.height.equalTo(132)
+            $0.top.equalTo(loginImageView.snp.bottom).offset(82.6)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(124)
+        }
+        animationView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     
     private func bind() {
+        viewModel.input.request.send(.token)
+        
         appleLoginService = AppleLoginService(presentationContextProvider: self)
         appleLoginService?.delegate = self
         

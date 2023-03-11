@@ -31,7 +31,6 @@
 		CC3181E32965C0F500016A77 /* TodoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E22965C0F500016A77 /* TodoDetailVC.swift */; };
 		CC3181EA2965D7DB00016A77 /* TaskInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3181E92965D7DB00016A77 /* TaskInfoCell.swift */; };
 		CC3D4B9F2971579900D24C0A /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */; };
-		CC819B58295C5F62004ED428 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC819B57295C5F62004ED428 /* UserToken.swift */; };
 		CC9C195128F651C100C53152 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195028F651C100C53152 /* LoginVC.swift */; };
 		CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C195428F6562700C53152 /* RoundedButton.swift */; };
 		CCA802E6293F388F00D9579F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA802E5293F388F00D9579F /* PopupView.swift */; };
@@ -54,7 +53,6 @@
 		D08B66C828D5A3B9000998DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C728D5A3B9000998DC /* SceneDelegate.swift */; };
 		D08B66CA28D5A3B9000998DC /* RootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08B66C928D5A3B9000998DC /* RootVC.swift */; };
 		D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08B66CE28D5A3BA000998DC /* Assets.xcassets */; };
-		D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */; };
 		D0A214EF2905604500D5FF59 /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A214EE2905604500D5FF59 /* MyPageVC.swift */; };
 		D0A215052905687B00D5FF59 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FE2905685600D5FF59 /* Pretendard-Bold.otf */; };
 		D0A21506290568D600D5FF59 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FC2905685600D5FF59 /* Pretendard-Regular.otf */; };
@@ -132,7 +130,7 @@
 		E935F6CE29B35818003DBE27 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6CD29B35818003DBE27 /* TasksCell.swift */; };
 		E935F6D129B47399003DBE27 /* AgreeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6D029B47399003DBE27 /* AgreeButtonView.swift */; };
 		E935F6D329B6FE85003DBE27 /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = E935F6D229B6FE85003DBE27 /* splash.json */; };
-		E935F6D529B7044F003DBE27 /* CommonWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6D429B7044F003DBE27 /* CommonWebVC.swift */; };
+		E935F6D529B7044F003DBE27 /* CommonTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6D429B7044F003DBE27 /* CommonTextVC.swift */; };
 		E935F6D729B71108003DBE27 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E935F6D629B71108003DBE27 /* LoginViewModel.swift */; };
 		E9367D432988260A002F016D /* FeedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D362988260A002F016D /* FeedDetailVC.swift */; };
 		E9367D442988260A002F016D /* MindsetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9367D382988260A002F016D /* MindsetView.xib */; };
@@ -181,6 +179,8 @@
 		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 		E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BF29882040004038EB /* GoalsCreateVC.swift */; };
 		E99A7EDE29BC978D00BFCBC9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */; };
+		E99A7EE029BDF14700BFCBC9 /* MoyaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A7EDF29BDF14700BFCBC9 /* MoyaPlugin.swift */; };
+		E99A7EE329BE909100BFCBC9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E99A7EE229BE909100BFCBC9 /* Lottie */; };
 		E9C77491298E65C4004CC061 /* DeleteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77490298E65C4004CC061 /* DeleteItemView.swift */; };
 		E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */; };
 		E9C77497298F145D004CC061 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C77496298F145D004CC061 /* CALayer+.swift */; };
@@ -221,7 +221,6 @@
 		CC3181E22965C0F500016A77 /* TodoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailVC.swift; sourceTree = "<group>"; };
 		CC3181E92965D7DB00016A77 /* TaskInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoCell.swift; sourceTree = "<group>"; };
 		CC3D4B9E2971579900D24C0A /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
-		CC819B57295C5F62004ED428 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		CC9C195028F651C100C53152 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		CC9C195428F6562700C53152 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		CCA802E5293F388F00D9579F /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
@@ -244,7 +243,6 @@
 		D08B66C728D5A3B9000998DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D08B66C928D5A3B9000998DC /* RootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootVC.swift; sourceTree = "<group>"; };
 		D08B66CE28D5A3BA000998DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D08B66D128D5A3BA000998DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08B66D328D5A3BA000998DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08DBF0E28DF2D8000C2D370 /* LiveGodLife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveGodLife.entitlements; sourceTree = "<group>"; };
 		D0A214EE2905604500D5FF59 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
@@ -324,7 +322,7 @@
 		E935F6CD29B35818003DBE27 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		E935F6D029B47399003DBE27 /* AgreeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeButtonView.swift; sourceTree = "<group>"; };
 		E935F6D229B6FE85003DBE27 /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
-		E935F6D429B7044F003DBE27 /* CommonWebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWebVC.swift; sourceTree = "<group>"; };
+		E935F6D429B7044F003DBE27 /* CommonTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextVC.swift; sourceTree = "<group>"; };
 		E935F6D629B71108003DBE27 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E9367D362988260A002F016D /* FeedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDetailVC.swift; sourceTree = "<group>"; };
 		E9367D382988260A002F016D /* MindsetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MindsetView.xib; sourceTree = "<group>"; };
@@ -366,6 +364,7 @@
 		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 		E99378BF29882040004038EB /* GoalsCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateVC.swift; sourceTree = "<group>"; };
 		E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E99A7EDF29BDF14700BFCBC9 /* MoyaPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPlugin.swift; sourceTree = "<group>"; };
 		E9C77490298E65C4004CC061 /* DeleteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteItemView.swift; sourceTree = "<group>"; };
 		E9C77494298F0326004CC061 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		E9C77496298F145D004CC061 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -388,6 +387,7 @@
 			files = (
 				E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */,
 				E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */,
+				E99A7EE329BE909100BFCBC9 /* Lottie in Frameworks */,
 				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
 				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
 				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
@@ -511,7 +511,7 @@
 			children = (
 				D01E2639292A72F300FBFF5B /* UserAPI.swift */,
 				D01E263D292AFCC300FBFF5B /* UserRepository.swift */,
-				CC819B57295C5F62004ED428 /* UserToken.swift */,
+				D0B8D87A28F1A4E200E9339E /* UserModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -555,7 +555,7 @@
 				CC9C195028F651C100C53152 /* LoginVC.swift */,
 				C9D8D6E6291BAD940098DD09 /* UserInfoVC.swift */,
 				C9D8D6EE291BE5870098DD09 /* AgreementVC.swift */,
-				E935F6D429B7044F003DBE27 /* CommonWebVC.swift */,
+				E935F6D429B7044F003DBE27 /* CommonTextVC.swift */,
 				C9D8D6F2291BEEAF0098DD09 /* JoinCompleteVC.swift */,
 				D0C18315292BB5B3007E3ED4 /* TabBar */,
 			);
@@ -717,7 +717,6 @@
 			isa = PBXGroup;
 			children = (
 				D06181BA28F1621400B40E32 /* LoginType.swift */,
-				D0B8D87A28F1A4E200E9339E /* UserModel.swift */,
 				E935F6D629B71108003DBE27 /* LoginViewModel.swift */,
 			);
 			path = Model;
@@ -906,6 +905,7 @@
 				D06181B628F15C0700B40E32 /* Requestable.swift */,
 				D0C51E2B28F121D80004514A /* APIEndpoint.swift */,
 				D06181B828F161FD00B40E32 /* APIResponse.swift */,
+				E99A7EDF29BDF14700BFCBC9 /* MoyaPlugin.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1092,7 +1092,6 @@
 				D0A2151E2906B89900D5FF59 /* Font */,
 				E99378C429882394004038EB /* Color */,
 				D08B66CE28D5A3BA000998DC /* Assets.xcassets */,
-				D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1166,6 +1165,7 @@
 				E96364FA297FC07A005F16CD /* CombineCocoa */,
 				E9636510297FDE6A005F16CD /* CombineMoya */,
 				E9636512297FDE6A005F16CD /* Moya */,
+				E99A7EE229BE909100BFCBC9 /* Lottie */,
 			);
 			productName = LiveGodLife;
 			productReference = E96364F3297FB07F005F16CD /* LiveGodLife.app */;
@@ -1202,6 +1202,7 @@
 				E96364ED297FAFCD005F16CD /* XCRemoteSwiftPackageReference "Then" */,
 				E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
+				E99A7EE129BE909100BFCBC9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
@@ -1233,7 +1234,6 @@
 				D0BB5B5A2906C18C00E46063 /* Montserrat-ExtraBold.otf in Resources */,
 				D0BB5B5E2906C19700E46063 /* Montserrat-SemiBold.otf in Resources */,
 				D0B0583729362A580014F88E /* HomeVC.storyboard in Resources */,
-				D08B66D228D5A3BA000998DC /* LaunchScreen.storyboard in Resources */,
 				E9367D472988260A002F016D /* TodoDropDownView.xib in Resources */,
 				D0BB5B6F2909473500E46063 /* ProfileUpdateVC.storyboard in Resources */,
 				D0C1831A292BB5B3007E3ED4 /* TabBarView.xib in Resources */,
@@ -1352,7 +1352,7 @@
 				B92C311529377CAD000DA2D7 /* MindsetsCell.swift in Sources */,
 				CC9C195528F6562700C53152 /* RoundedButton.swift in Sources */,
 				E9C77495298F0326004CC061 /* EmptyTableViewCell.swift in Sources */,
-				E935F6D529B7044F003DBE27 /* CommonWebVC.swift in Sources */,
+				E935F6D529B7044F003DBE27 /* CommonTextVC.swift in Sources */,
 				E96364F6297FB632005F16CD /* UIColor+.swift in Sources */,
 				CCB882C4296DA528009284FF /* PageSelectionView.swift in Sources */,
 				E9FBF9F029AB445500A41948 /* RepeatPopupVC.swift in Sources */,
@@ -1373,6 +1373,7 @@
 				E96364FF297FC70D005F16CD /* GradientProgressView.swift in Sources */,
 				E935D9F8298E4E98001787D2 /* DeleteFolderCell.swift in Sources */,
 				D0E3B2D92928A73600601936 /* HomeRepository.swift in Sources */,
+				E99A7EE029BDF14700BFCBC9 /* MoyaPlugin.swift in Sources */,
 				E9636505297FCF50005F16CD /* GoalsHeadersView.swift in Sources */,
 				E935D9D12988471B001787D2 /* TaskCheckButton.swift in Sources */,
 				E9367D432988260A002F016D /* FeedDetailVC.swift in Sources */,
@@ -1384,7 +1385,6 @@
 				E96365272982CBFE005F16CD /* DefaultCell.swift in Sources */,
 				D0C51E2C28F121D80004514A /* APIEndpoint.swift in Sources */,
 				D0BB5B652906C59E00E46063 /* SettingVC.swift in Sources */,
-				CC819B58295C5F62004ED428 /* UserToken.swift in Sources */,
 				E935D9E6298AD627001787D2 /* CategoryModel.swift in Sources */,
 				D0C97A6329379444001EC122 /* UIView+.swift in Sources */,
 				D0E3B2A8291D1CDF00601936 /* FeedTableViewCell.swift in Sources */,
@@ -1410,17 +1410,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		D08B66D028D5A3BA000998DC /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D08B66D128D5A3BA000998DC /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D08B66D428D5A3BA000998DC /* Debug */ = {
@@ -1565,9 +1554,12 @@
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1597,9 +1589,12 @@
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1675,6 +1670,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		E99A7EE129BE909100BFCBC9 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1717,6 +1720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		E99A7EE229BE909100BFCBC9 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E99A7EE129BE909100BFCBC9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
