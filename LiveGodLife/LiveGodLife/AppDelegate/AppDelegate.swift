@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import FirebaseCore
+import UserNotifications
 import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
         KakaoSDK.initSDK(appKey: "74934eaf8d7dfda42f617faa69616809")
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().backgroundColor = .clear
@@ -21,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!
         ]
 
+        registerForPushNotifications()
+        
         return true
     }
 
@@ -33,3 +39,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { String(format: "%02.2hhx", $0) }
+        let token = tokenParts.joined()
+        LogUtil.d("Device Token: \(token)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        LogUtil.d("Failed to register: \(error.localizedDescription)")
+    }
+    
+    func registerForPushNotifications() {
+        
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if let error {
+                    LogUtil.e(error)
+                    return
+                }
+                
+                guard granted else { return }
+                LogUtil.d("Permission granted: \(granted)")
+                self.notificationSettings()
+            }
+    }
+    
+    func notificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else { return }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .list, .badge, .sound])
+    }
+}

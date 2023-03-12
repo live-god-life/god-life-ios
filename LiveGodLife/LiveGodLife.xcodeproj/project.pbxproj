@@ -144,6 +144,16 @@
 		E9367D4C2988260A002F016D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D412988260A002F016D /* Feed.swift */; };
 		E9367D4D2988260A002F016D /* FeedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D422988260A002F016D /* FeedRepository.swift */; };
 		E9367D4F29882690002F016D /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9367D4E29882690002F016D /* SegmentControlView.swift */; };
+		E955DB8229C3150A00CA95CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E955DB8129C3150A00CA95CD /* GoogleService-Info.plist */; };
+		E955DB8529C3159000CA95CD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8429C3159000CA95CD /* FirebaseAnalytics */; };
+		E955DB8729C3159000CA95CD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8629C3159000CA95CD /* FirebaseAuth */; };
+		E955DB8929C3159000CA95CD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8829C3159000CA95CD /* FirebaseCrashlytics */; };
+		E955DB8B29C3159000CA95CD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8A29C3159000CA95CD /* FirebaseDatabase */; };
+		E955DB8D29C3159000CA95CD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8C29C3159000CA95CD /* FirebaseFirestore */; };
+		E955DB8F29C3159000CA95CD /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB8E29C3159000CA95CD /* FirebaseInAppMessaging-Beta */; };
+		E955DB9129C3159000CA95CD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB9029C3159000CA95CD /* FirebaseMessaging */; };
+		E955DB9329C3159000CA95CD /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB9229C3159000CA95CD /* FirebaseRemoteConfig */; };
+		E955DB9529C3159000CA95CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E955DB9429C3159000CA95CD /* FirebaseStorage */; };
 		E95D675D29A2944000DED5ED /* CalendarPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */; };
 		E95D675F29A295F800DED5ED /* DatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D675E29A295F800DED5ED /* DatePopupView.swift */; };
 		E96364E1297FAE97005F16CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96364E0297FAE97005F16CD /* SnapKit */; };
@@ -336,6 +346,7 @@
 		E9367D412988260A002F016D /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		E9367D422988260A002F016D /* FeedRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRepository.swift; sourceTree = "<group>"; };
 		E9367D4E29882690002F016D /* SegmentControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
+		E955DB8129C3150A00CA95CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95D675C29A2944000DED5ED /* CalendarPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopupVC.swift; sourceTree = "<group>"; };
 		E95D675E29A295F800DED5ED /* DatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupView.swift; sourceTree = "<group>"; };
 		E96364F3297FB07F005F16CD /* LiveGodLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveGodLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,15 +396,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E955DB9129C3159000CA95CD /* FirebaseMessaging in Frameworks */,
+				E955DB8B29C3159000CA95CD /* FirebaseDatabase in Frameworks */,
 				E96364EC297FAF90005F16CD /* Kingfisher in Frameworks */,
 				E9636511297FDE6A005F16CD /* CombineMoya in Frameworks */,
+				E955DB9329C3159000CA95CD /* FirebaseRemoteConfig in Frameworks */,
 				E99A7EE329BE909100BFCBC9 /* Lottie in Frameworks */,
 				E96364EF297FAFCD005F16CD /* Then in Frameworks */,
 				E96364E1297FAE97005F16CD /* SnapKit in Frameworks */,
 				E96364E9297FAF57005F16CD /* KakaoSDKUser in Frameworks */,
 				E96364FB297FC07A005F16CD /* CombineCocoa in Frameworks */,
+				E955DB8729C3159000CA95CD /* FirebaseAuth in Frameworks */,
+				E955DB9529C3159000CA95CD /* FirebaseStorage in Frameworks */,
 				E9636513297FDE6A005F16CD /* Moya in Frameworks */,
+				E955DB8929C3159000CA95CD /* FirebaseCrashlytics in Frameworks */,
+				E955DB8529C3159000CA95CD /* FirebaseAnalytics in Frameworks */,
 				E96364E7297FAF57005F16CD /* KakaoSDKAuth in Frameworks */,
+				E955DB8D29C3159000CA95CD /* FirebaseFirestore in Frameworks */,
+				E955DB8F29C3159000CA95CD /* FirebaseInAppMessaging-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +600,7 @@
 				E99378C3298822B4004038EB /* Resource */,
 				E99378C22988222B004038EB /* SupportFile */,
 				D08B66D328D5A3BA000998DC /* Info.plist */,
+				E955DB8129C3150A00CA95CD /* GoogleService-Info.plist */,
 			);
 			path = LiveGodLife;
 			sourceTree = "<group>";
@@ -1166,6 +1187,15 @@
 				E9636510297FDE6A005F16CD /* CombineMoya */,
 				E9636512297FDE6A005F16CD /* Moya */,
 				E99A7EE229BE909100BFCBC9 /* Lottie */,
+				E955DB8429C3159000CA95CD /* FirebaseAnalytics */,
+				E955DB8629C3159000CA95CD /* FirebaseAuth */,
+				E955DB8829C3159000CA95CD /* FirebaseCrashlytics */,
+				E955DB8A29C3159000CA95CD /* FirebaseDatabase */,
+				E955DB8C29C3159000CA95CD /* FirebaseFirestore */,
+				E955DB8E29C3159000CA95CD /* FirebaseInAppMessaging-Beta */,
+				E955DB9029C3159000CA95CD /* FirebaseMessaging */,
+				E955DB9229C3159000CA95CD /* FirebaseRemoteConfig */,
+				E955DB9429C3159000CA95CD /* FirebaseStorage */,
 			);
 			productName = LiveGodLife;
 			productReference = E96364F3297FB07F005F16CD /* LiveGodLife.app */;
@@ -1203,6 +1233,7 @@
 				E96364F9297FC07A005F16CD /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				E963650F297FDE6A005F16CD /* XCRemoteSwiftPackageReference "Moya" */,
 				E99A7EE129BE909100BFCBC9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = D08B66B928D5A3B9000998DC;
 			projectDirPath = "";
@@ -1247,6 +1278,7 @@
 				D0A21506290568D600D5FF59 /* Pretendard-Regular.otf in Resources */,
 				D08B66CF28D5A3BA000998DC /* Assets.xcassets in Resources */,
 				D0BB5B562906C17C00E46063 /* Pretendard-Medium.otf in Resources */,
+				E955DB8229C3150A00CA95CD /* GoogleService-Info.plist in Resources */,
 				D0BB5B552906C17900E46063 /* Pretendard-Light.otf in Resources */,
 				D0B0584229365BB90014F88E /* FeedTableViewCell.xib in Resources */,
 				D00E46F528F7BDC200A18FE7 /* OnboardingView.xib in Resources */,
@@ -1552,6 +1584,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1587,6 +1620,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wargi.livegodlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1622,6 +1656,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1681,6 +1723,51 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E955DB8429C3159000CA95CD /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		E955DB8629C3159000CA95CD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E955DB8829C3159000CA95CD /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		E955DB8A29C3159000CA95CD /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		E955DB8C29C3159000CA95CD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E955DB8E29C3159000CA95CD /* FirebaseInAppMessaging-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessaging-Beta";
+		};
+		E955DB9029C3159000CA95CD /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		E955DB9229C3159000CA95CD /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		E955DB9429C3159000CA95CD /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E955DB8329C3159000CA95CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		E96364E0297FAE97005F16CD /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E96364DF297FAE97005F16CD /* XCRemoteSwiftPackageReference "SnapKit" */;
