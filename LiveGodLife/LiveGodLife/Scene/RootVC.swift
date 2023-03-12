@@ -15,7 +15,7 @@ final class RootVC: UITabBarController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .black
 
         tabBar.isHidden = true
