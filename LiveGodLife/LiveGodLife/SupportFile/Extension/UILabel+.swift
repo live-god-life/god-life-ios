@@ -12,30 +12,30 @@ extension UILabel {
         return UILabel.textWidth(label: self)
     }
 
-    class func textWidth(label: UILabel) -> CGFloat {
+    static func textWidth(label: UILabel) -> CGFloat {
         return textWidth(label: label, text: label.text!)
     }
 
-    class func textWidth(label: UILabel, text: String) -> CGFloat {
+    static func textWidth(label: UILabel, text: String) -> CGFloat {
         return textWidth(font: label.font, text: text)
     }
 
-    class func textWidth(font: UIFont, text: String) -> CGFloat {
+    static func textWidth(font: UIFont, text: String) -> CGFloat {
         return textSize(font: font, text: text).width
     }
 
-    class func textHeight(withWidth width: CGFloat, font: UIFont, text: String) -> CGFloat {
+    static func textHeight(withWidth width: CGFloat, font: UIFont, text: String) -> CGFloat {
         return textSize(font: font, text: text, width: width).height
     }
 
-    class func textSize(font: UIFont, text: String, extra: CGSize) -> CGSize {
+    static func textSize(font: UIFont, text: String, extra: CGSize) -> CGSize {
         var size = textSize(font: font, text: text)
         size.width = size.width + extra.width
         size.height = size.height + extra.height
         return size
     }
 
-    class func textSize(font: UIFont, text: String, width: CGFloat = .greatestFiniteMagnitude, height: CGFloat = .greatestFiniteMagnitude) -> CGSize {
+    static func textSize(font: UIFont, text: String, width: CGFloat = .greatestFiniteMagnitude, height: CGFloat = .greatestFiniteMagnitude) -> CGSize {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         label.numberOfLines = 0
         label.font = font
@@ -44,7 +44,7 @@ extension UILabel {
         return label.frame.size
     }
 
-    class func countLines(font: UIFont, text: String, width: CGFloat, height: CGFloat = .greatestFiniteMagnitude) -> Int {
+    static func countLines(font: UIFont, text: String, width: CGFloat, height: CGFloat = .greatestFiniteMagnitude) -> Int {
         // Call self.layoutIfNeeded() if your view uses auto layout
         let myText = text as NSString
 

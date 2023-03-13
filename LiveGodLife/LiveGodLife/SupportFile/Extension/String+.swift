@@ -64,6 +64,25 @@ extension String {
             ]
         )
     }
+    
+    func lineAndLetterSpacing(font: UIFont?, lineHeight: CGFloat, color: UIColor = .white.withAlphaComponent(0.6)) -> NSAttributedString {
+        let style = NSMutableParagraphStyle()
+        // 행간 세팅
+        style.minimumLineHeight = lineHeight
+        style.maximumLineHeight = lineHeight
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .paragraphStyle: style,
+            .baselineOffset: (lineHeight - font!.lineHeight) / 4,
+            .foregroundColor: color,
+            .kern: -0.2,
+            .font: font!
+        ]
+        
+        let attributedString = NSAttributedString(string: self, attributes: attributes)
+        
+        return attributedString
+    }
 }
 
 extension NSAttributedString {

@@ -28,8 +28,24 @@ extension UIFont {
     static func montserrat(with size: CGFloat, weight: UIFont.Weight) -> UIFont? {
         let rawValue: String
         switch weight {
+        case .black:
+            rawValue = "Black"
         case .bold:
             rawValue = "Bold"
+        case .light:
+            rawValue = "Light"
+        case .medium:
+            rawValue = "Medium"
+        case .regular:
+            rawValue = "Regular"
+        case .semibold:
+            rawValue = "SemiBold"
+        case .thin:
+            rawValue = "Thin"
+        case .heavy:
+            rawValue = "ExtraBold"
+        case .ultraLight:
+            rawValue = "ExtraLight"
         default:
             rawValue = "Regular"
         }

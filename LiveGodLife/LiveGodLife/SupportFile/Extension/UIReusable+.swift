@@ -17,6 +17,10 @@ extension UITableViewCell {
     static func register(_ target: UITableView) {
         target.register(Self.self, forCellReuseIdentifier: Self.id)
     }
+    
+    static func xibRegister(_ target: UITableView) {
+        target.register(UINib(nibName: Self.id, bundle: nil), forCellReuseIdentifier: Self.id)
+    }
 }
 
 extension UICollectionViewCell {
