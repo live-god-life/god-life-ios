@@ -20,6 +20,7 @@ final class HomeHeaderView: UIView {
     @IBOutlet private weak var title: UILabel!
     @IBOutlet private weak var content: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var contentHeightConstraint: NSLayoutConstraint!
     
     //MARK: - Life Cycle
     override func awakeFromNib() {
@@ -33,7 +34,7 @@ final class HomeHeaderView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
 
-        layout.itemSize = CGSize(width: 296, height: 102)
+        layout.itemSize = CGSize(width: 296, height: 108)
         collectionView.collectionViewLayout = layout
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 63) // 우선 디자인 가이드대로
         collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
@@ -51,7 +52,12 @@ final class HomeHeaderView: UIView {
             if let goal = viewModel.goals.randomElement() {
                 self?.id = goal.id
                 self?.title.text = goal.title
-                self?.content.text = goal.mindsets.randomElement()?.content
+                let contentString = goal.mindsets.randomElement()?.content
+                self?.content.text = contentString
+                let numberOfLines = UILabel.countLines(font: .semiBold(with: 28)!, text: contentString ?? "", width: UIScreen.main.bounds.width - 92.0)
+                self?.contentHeightConstraint.constant = numberOfLines < 2 ? 40 : 80
+                self?.frame.size.height = numberOfLines < 2 ? 338 : 378
+                self?.layoutIfNeeded()
             }
             self?.collectionView.reloadData()
         }
@@ -71,7 +77,7 @@ extension HomeHeaderView: TodoCollectionViewCellDelegate {
 //MARK: - UICollectionView DataSource & DelegateFlowLayout
 extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 296, height: collectionView.frame.height)
+        return CGSize(width: 296.0, height: 108.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -12,24 +12,29 @@ final class FilterHeaderView: UIView {
     //MARK: - Properties
     let categoryFilterView = CategoryFilterView()
     private let titleLabel = UILabel().then {
-        $0.font = .bold(with: 20)
+        $0.font = .semiBold(with: 24)
         $0.textColor = .white
-        $0.text = "갓생 엿보기"
+        $0.text = "갓생 발견하기"
     }
     
     //MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = .background
+        backgroundColor = .black
+        
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(24)
-        }
         addSubview(categoryFilterView)
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(44)
+        }
         categoryFilterView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(36)
         }
     }
 

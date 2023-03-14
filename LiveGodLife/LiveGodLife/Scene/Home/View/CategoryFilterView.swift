@@ -20,7 +20,7 @@ final class CategoryFilterView: UIView {
     // TODO: 카테고리 필터뷰가 super view의 중앙에 있도록
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
-        $0.spacing = 10
+        $0.spacing = 8
         $0.distribution = .fillProportionally
     }
     private var items: [Category] = [] {
@@ -42,18 +42,20 @@ final class CategoryFilterView: UIView {
     
     //MARK: - Functions...
     private func makeUI() {
-        backgroundColor = .background
+        backgroundColor = .black
 
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(10)
-            $0.top.trailing.bottom.equalToSuperview()
-        }
-        scrollView.contentSize = stackView.intrinsicContentSize
         addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentSize = stackView.intrinsicContentSize
+        
         scrollView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.left.equalToSuperview().inset(16)
+            $0.top.right.bottom.equalToSuperview()
+        }
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 
@@ -82,7 +84,7 @@ extension CategoryFilterView: CategoryButtonDelegate {
         }
         selected.isSelected = !selected.isSelected
         sender.isSelected = !sender.isSelected
-
+        
         guard let index = itemButtons.firstIndex(of: sender) else {
             return
         }

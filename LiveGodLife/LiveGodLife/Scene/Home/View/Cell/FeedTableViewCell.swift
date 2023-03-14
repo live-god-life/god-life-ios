@@ -28,7 +28,8 @@ final class FeedTableViewCell: UITableViewCell {
     @IBOutlet private weak var todoCountLabel: UILabel!
     @IBOutlet private weak var todoScheduleDay: UILabel!
     @IBOutlet private weak var feedInfoView: UIView!
-
+    @IBOutlet private weak var titleHeightConstraint: NSLayoutConstraint!
+    
     //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,13 +39,15 @@ final class FeedTableViewCell: UITableViewCell {
 
     //MARK: - Functions...
     private func makeUI() {
-        backgroundColor = .background
+        backgroundColor = .black
+        
+        userProfileImageView.layer.cornerRadius = 12
         
         bookmarkButton.setImage(UIImage(named: "bookmark_disable"), for: .normal)
         bookmarkButton.setImage(UIImage(named: "bookmark"), for: .selected)
         
         feedInfoView.layer.borderWidth = 1
-        feedInfoView.layer.borderColor = UIColor.green.cgColor
+        feedInfoView.layer.borderColor = UIColor(sharpString: "57585F")?.cgColor
         feedInfoView.layer.cornerRadius = feedInfoView.frame.height / 2
         
         feedImageView.backgroundColor = .default
@@ -59,6 +62,8 @@ final class FeedTableViewCell: UITableViewCell {
         viewCountLabel.text = "\(feed.viewCount)"
         pickCountLabel.text = "\(feed.pickCount)"
         titleLabel.text = feed.title
+        let numberOfLines = UILabel.countLines(font: .semiBold(with: 18)!, text: feed.title, width: UIScreen.main.bounds.width - 64.0)
+        titleHeightConstraint.constant = numberOfLines < 2 ? 26 : 52
         bookmarkButton.isSelected = feed.isBookmark
         todoCountLabel.text = "\(feed.todoCount) List"
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
@@ -69,7 +74,8 @@ final class FeedTableViewCell: UITableViewCell {
         // throttle?
         guard let id = id else { return }
         bookmarkButton.isSelected = !bookmarkButton.isSelected
-        LogUtil.d(bookmarkButton.isSelected)
+        feedInfoView.layer.borderColor = bookmarkButton.isSelected ? UIColor.green.cgColor : UIColor(sharpString: "57585F")?.cgColor
+        
         delegate?.bookmark(feedID: id, status: bookmarkButton.isSelected)
     }
 }

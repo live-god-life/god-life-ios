@@ -6,94 +6,92 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Bold.otf">
-            <string>Montserrat-Bold</string>
-        </array>
-        <array key="Pretendard-Bold.otf">
-            <string>Pretendard-Bold</string>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
         </array>
         <array key="Pretendard-Regular.otf">
             <string>Pretendard-Regular</string>
+        </array>
+        <array key="Pretendard-SemiBold.otf">
+            <string>Pretendard-SemiBold</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TodoCollectionViewCell" customModule="LiveGodLife" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="310" height="102"/>
+            <rect key="frame" x="0.0" y="0.0" width="296" height="108"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="310" height="102"/>
+                <rect key="frame" x="0.0" y="0.0" width="296" height="108"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="rQb-WD-fVG">
-                        <rect key="frame" x="20" y="18" width="270" height="61"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D-Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zt4-Z9-Zx0">
-                                <rect key="frame" x="0.0" y="0.0" width="45" height="61"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="clY-xD-M2j"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="coS-vo-M6I">
-                                <rect key="frame" x="57" y="0.0" width="181" height="61"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="월, 수, 금" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnK-Ds-1Wd">
-                                        <rect key="frame" x="0.0" y="0.0" width="181" height="17"/>
-                                        <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬파이썬공부파이썬" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTN-1e-2fP">
-                                        <rect key="frame" x="0.0" y="22" width="181" height="39"/>
-                                        <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzL-Up-44i">
-                                <rect key="frame" x="246" y="0.0" width="24" height="61"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="bTU-yq-5ah"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                                <connections>
-                                    <action selector="didTapCheckButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="eeZ-vB-hmO"/>
-                                </connections>
-                            </button>
-                        </subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D-Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zt4-Z9-Zx0">
+                        <rect key="frame" x="16" y="26" width="56" height="56"/>
+                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="월, 수, 금" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnK-Ds-1Wd">
+                        <rect key="frame" x="84" y="16" width="50.666666666666657" height="22"/>
                         <constraints>
-                            <constraint firstItem="jzL-Up-44i" firstAttribute="leading" secondItem="coS-vo-M6I" secondAttribute="trailing" constant="8" id="Avd-qM-JI8"/>
-                            <constraint firstItem="coS-vo-M6I" firstAttribute="leading" secondItem="Zt4-Z9-Zx0" secondAttribute="trailing" constant="12" id="h9r-0i-WQV"/>
+                            <constraint firstAttribute="height" constant="22" id="SoB-Pk-fgK"/>
                         </constraints>
-                    </stackView>
+                        <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzL-Up-44i">
+                        <rect key="frame" x="252" y="42" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="bTU-yq-5ah"/>
+                            <constraint firstAttribute="height" constant="24" id="lCc-D2-dUm"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain"/>
+                        <connections>
+                            <action selector="didTapCheckButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="eeZ-vB-hmO"/>
+                        </connections>
+                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvU-n3-Fk6" customClass="CircularProgressBar" customModule="LiveGodLife" customModuleProvider="target">
-                        <rect key="frame" x="14.666666666666664" y="20.666666666666671" width="55.999999999999993" height="56"/>
+                        <rect key="frame" x="16" y="26" width="56" height="56"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="56" id="33S-Uh-PGd"/>
                             <constraint firstAttribute="height" constant="56" id="M5s-WT-Vg0"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="243" verticalCompressionResistancePriority="744" text="갓생 목표 만들기" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTN-1e-2fP">
+                        <rect key="frame" x="84" y="38" width="156" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="7q5-fz-WVA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="rQb-WD-fVG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="18" id="DBI-ay-frs"/>
-                <constraint firstAttribute="trailing" secondItem="rQb-WD-fVG" secondAttribute="trailing" constant="20" id="E9v-qo-fIg"/>
-                <constraint firstAttribute="bottom" secondItem="rQb-WD-fVG" secondAttribute="bottom" constant="23" id="F4h-eS-mg8"/>
-                <constraint firstItem="gvU-n3-Fk6" firstAttribute="centerY" secondItem="Zt4-Z9-Zx0" secondAttribute="centerY" id="bHX-R9-mUz"/>
-                <constraint firstItem="gvU-n3-Fk6" firstAttribute="centerX" secondItem="Zt4-Z9-Zx0" secondAttribute="centerX" id="fhS-rl-oZg"/>
-                <constraint firstItem="rQb-WD-fVG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="k0V-38-uhN"/>
+                <constraint firstAttribute="trailing" secondItem="jzL-Up-44i" secondAttribute="trailing" constant="20" id="2ba-Im-M5B"/>
+                <constraint firstItem="Zt4-Z9-Zx0" firstAttribute="top" secondItem="gvU-n3-Fk6" secondAttribute="top" id="69l-NH-ndp"/>
+                <constraint firstItem="LnK-Ds-1Wd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="Aae-9G-7e3"/>
+                <constraint firstItem="Zt4-Z9-Zx0" firstAttribute="leading" secondItem="gvU-n3-Fk6" secondAttribute="leading" id="Sla-3O-kWc"/>
+                <constraint firstItem="RTN-1e-2fP" firstAttribute="leading" secondItem="LnK-Ds-1Wd" secondAttribute="leading" id="UIJ-Wg-C3C"/>
+                <constraint firstItem="gvU-n3-Fk6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="aAO-Xt-kiL"/>
+                <constraint firstItem="RTN-1e-2fP" firstAttribute="top" secondItem="LnK-Ds-1Wd" secondAttribute="bottom" id="ed6-kP-nX5"/>
+                <constraint firstItem="Zt4-Z9-Zx0" firstAttribute="trailing" secondItem="gvU-n3-Fk6" secondAttribute="trailing" id="imT-bO-M36"/>
+                <constraint firstItem="gvU-n3-Fk6" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="mwj-T8-skG"/>
+                <constraint firstItem="jzL-Up-44i" firstAttribute="leading" secondItem="RTN-1e-2fP" secondAttribute="trailing" constant="12" id="pAy-Px-j6n"/>
+                <constraint firstItem="Zt4-Z9-Zx0" firstAttribute="bottom" secondItem="gvU-n3-Fk6" secondAttribute="bottom" id="t1N-7v-8hD"/>
+                <constraint firstItem="LnK-Ds-1Wd" firstAttribute="leading" secondItem="gvU-n3-Fk6" secondAttribute="trailing" constant="12" id="uKc-kh-jYW"/>
+                <constraint firstItem="jzL-Up-44i" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="zI8-M0-4Eg"/>
             </constraints>
             <size key="customSize" width="310" height="124"/>
             <connections>
                 <outlet property="checkButton" destination="jzL-Up-44i" id="Rck-tF-JDG"/>
+                <outlet property="contentHeightConstraint" destination="7q5-fz-WVA" id="9a0-1v-OH4"/>
                 <outlet property="contentLabel" destination="RTN-1e-2fP" id="enE-ew-wKx"/>
                 <outlet property="dDayLabel" destination="Zt4-Z9-Zx0" id="FRt-Py-lN2"/>
                 <outlet property="repetitionLabel" destination="LnK-Ds-1Wd" id="Rbo-gD-PAQ"/>

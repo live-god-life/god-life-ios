@@ -21,7 +21,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var repetitionLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     @IBOutlet private weak var checkButton: UIButton!
-
+    @IBOutlet private weak var contentHeightConstraint: NSLayoutConstraint!
+    
     //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,9 +34,7 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     private func makeUI() {
 //        progressBar.lineWidth = 5
 //        progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
-        layer.cornerRadius = 51
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray3.cgColor
+        layer.cornerRadius = 54
         contentView.backgroundColor = UIColor.default
         checkButton.setImage(UIImage(named: "btn_toggle_checkbox_on_todo"), for: .normal)
     }
@@ -54,6 +53,9 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         repetitionLabel.text = todo.repetitions.joined(separator: ",")
         repetitionLabel.isHidden = todo.repetitions.isEmpty
         contentLabel.text = todo.title
+        let numberOfLines = UILabel.countLines(font: .semiBold(with: 20)!, text: todo.title, width: UIScreen.main.bounds.width - 32.0)
+        contentHeightConstraint.constant = numberOfLines < 2 ? 28 : 56
+        
         let rate = (Double(todo.completedCount) / Double(todo.totalCount)) * 100
 //        progressBar.value = rate
     }

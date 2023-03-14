@@ -17,15 +17,16 @@ final class CategoryButton: UIButton {
 
     override var isSelected: Bool {
         didSet {
-            layer.borderColor = oldValue ? UIColor.gray2.cgColor : UIColor.clear.cgColor
+            titleLabel?.font = oldValue ? .regular(with: 16) : .semiBold(with: 16)
+            layer.borderColor = oldValue ? UIColor(sharpString: "414147")?.cgColor : UIColor.clear.cgColor
             backgroundColor = oldValue ? .clear : .green
         }
     }
 
     override var intrinsicContentSize: CGSize {
         var contentSize = super.intrinsicContentSize
-        contentSize.height += 4 * 2
-        contentSize.width += 12 * 2
+        contentSize.height = 36.0
+        contentSize.width += 32.0
         return contentSize
     }
     
@@ -36,12 +37,12 @@ final class CategoryButton: UIButton {
         layer.masksToBounds = true
         layer.cornerRadius = 10
         layer.borderWidth = 1
-        layer.borderColor = UIColor.gray2.cgColor
+        layer.borderColor = UIColor(sharpString: "414147")?.cgColor
 
-        setTitleColor(.gray2, for: .normal)
+        setTitleColor(.white.withAlphaComponent(0.6), for: .normal)
         setTitleColor(.black, for: .selected)
 
-        titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 14)
+        titleLabel?.font = .regular(with: 16)
 
         addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
