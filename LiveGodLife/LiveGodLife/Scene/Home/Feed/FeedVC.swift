@@ -42,7 +42,7 @@ final class FeedVC: UIViewController {
     func configure(with feeds: [Feed]) {
         self.feeds = feeds
         DispatchQueue.main.async { [weak self] in
-            self?.collectionView.reloadData()
+//            self?.collectionView.reloadData()
         }
     }
 }

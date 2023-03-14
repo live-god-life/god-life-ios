@@ -28,7 +28,8 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var todoCountLabel: UILabel!
     @IBOutlet private weak var todoScheduleDay: UILabel!
     @IBOutlet private weak var feedInfoView: UIView!
-
+    @IBOutlet private weak var titleHeightConstraint: NSLayoutConstraint!
+    
     //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,6 +58,8 @@ final class FeedCollectionViewCell: UICollectionViewCell {
         imageView.kf.setImage(with: URL(string: feed.image))
         userNameLabel.text = feed.user.nickname
         titleLabel.text = feed.title
+        let numberOfLines = UILabel.countLines(font: .semiBold(with: 18)!, text: feed.title, width: UIScreen.main.bounds.width - 32.0)
+        titleHeightConstraint.constant = numberOfLines < 2 ? 26 : 52
         viewCountLabel.text = "\(feed.viewCount)"
         pickCountLabel.text = "\(feed.pickCount)"
         bookmarkButton.isSelected = feed.isBookmark

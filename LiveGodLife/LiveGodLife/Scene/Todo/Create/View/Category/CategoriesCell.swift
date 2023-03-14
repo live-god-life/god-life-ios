@@ -18,8 +18,8 @@ final class CategoriesCell: UITableViewCell {
     //MARK: - Properties
     weak var delegate: CategoriesCellDelegate?
     private var models = CategoryModel.models()
-    private var snapshot: CategoriesSnapShot!
-    private var dataSource: CategoriesDataSource!
+    private var snapshot: CategoriesSnapShot?
+    private var dataSource: CategoriesDataSource?
     private var selectedCategory = 0
     private lazy var categoryCollectionView = UICollectionView(frame: .zero,
                                                                collectionViewLayout: setupFlowLayout()).then {
@@ -98,9 +98,12 @@ extension CategoriesCell {
     
     private func updateDataSnapshot(with categories: [CategoryModel]) {
         snapshot = CategoriesSnapShot()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(categories)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        snapshot?.appendSections([.main])
+        snapshot?.appendItems(categories)
+        
+        if let snapshot {
+            dataSource?.apply(snapshot, animatingDifferences: false)
+        }
     }
 }
 

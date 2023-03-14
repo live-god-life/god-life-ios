@@ -301,7 +301,7 @@ extension GoalsCreateVC: UITableViewDataSource {
         case .todo:
             guard !model.todos.isEmpty else {
                 let cell: EmptyTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.titleLabel.text = "TODO 를 추가해 보세요."
+                cell.titleLabel.text = "TODO를 추가해 보세요."
                 cell.titleLabel.font = .regular(with: 16)
                 return cell
             }

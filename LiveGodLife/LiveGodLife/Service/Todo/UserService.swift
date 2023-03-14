@@ -27,6 +27,8 @@ enum UserService {
     case signup(UserModel)
     case signin(UserModel)
     case withdrawal
+    case user
+    case heart
 }
 
 
@@ -34,7 +36,7 @@ extension UserService: TargetType{
     public var baseURL: URL {
         return URL(string: "http://101.101.208.221:80")!
     }
-
+    
     var path: String {
         switch self {
         case .profileImage:
@@ -51,12 +53,17 @@ extension UserService: TargetType{
             return "/login"
         case .withdrawal:
             return "/users"
+        case .user:
+            return "/users"
+        case .heart:
+            return "/users/hearts"
         }
     }
-
+    
     var method: Moya.Method {
         switch self {
-        case .profileImage, .terms, .token, .nickname:
+        case .profileImage, .terms, .token,
+                .nickname, .user, .heart:
             return .get
         case .signup, .signin:
             return .post
@@ -64,11 +71,12 @@ extension UserService: TargetType{
             return .delete
         }
     }
-
+    
     var task: Task {
         switch self {
         case .profileImage, .terms, .token,
-             .nickname, .withdrawal:
+                .nickname, .withdrawal, .user,
+                .heart:
             return .requestPlain
         case .signup(let user):
             return .requestJSONEncodable(user)
@@ -93,7 +101,8 @@ extension UserService: TargetType{
         var header = ["content-type": "application/json"]
         
         switch self {
-        case .profileImage, .token, .withdrawal:
+        case .profileImage, .token, .withdrawal,
+                .user, .heart:
             header.updateValue(accessToken, forKey: "Authorization")
         default:
             break

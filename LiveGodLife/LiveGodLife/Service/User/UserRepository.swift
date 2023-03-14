@@ -20,9 +20,12 @@ protocol UserRepository: Requestable {
 struct DefaultUserRepository: UserRepository {
 
     func login(endpoint: UserAPI) -> AnyPublisher<APIResponse<UserToken>, APIError> {
+        let accessToken = UserDefaults.standard.string(forKey: UserService.ACCESS_TOKEN_KEY) ?? ""
+        
         var request = endpoint.request
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        request.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        
         return URLSession.shared
             .dataTaskPublisher(for: request)
             .tryFilter {

@@ -30,7 +30,7 @@ final class CalendarCell: UICollectionViewCell {
         $0.layer.cornerRadius = 4.0
     }
     private let todoGuideLabel = UILabel().then {
-        $0.text = "TODO"
+        $0.text = "루틴"
         $0.textColor = .white
         $0.font = .regular(with: 16)
     }
@@ -39,7 +39,7 @@ final class CalendarCell: UICollectionViewCell {
         $0.layer.cornerRadius = 4.0
     }
     private let dDayGuideLabel = UILabel().then {
-        $0.text = "D-DAY"
+        $0.text = "할 일"
         $0.textColor = .white
         $0.font = .regular(with: 16)
     }

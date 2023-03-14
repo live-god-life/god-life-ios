@@ -2,7 +2,7 @@
 //  TodoDetailVC.swift
 //  LiveGodLife
 //
-//  Created by Ador on 2023/01/04.
+//  Created by wargi on 2023/01/04.
 //
 
 import UIKit

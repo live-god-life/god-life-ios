@@ -22,11 +22,6 @@ final class TaskTableViewCell: UITableViewCell {
         checkButton.addTarget(self, action: #selector(didTapCheck), for: .touchUpInside)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // TODO: - UI
-    }
-
     override func layoutSubviews() {
       super.layoutSubviews()
         
@@ -41,7 +36,7 @@ final class TaskTableViewCell: UITableViewCell {
         contentView.layer.borderWidth = 1
         selectionStyle = .none
         
-        titleLabel.font = .bold(with: 16)
+        titleLabel.font = .semiBold(with: 18)
         statusLabel.font = .bold(with: 12)
         completeLabel.font = .bold(with: 12)
     }
