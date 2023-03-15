@@ -22,7 +22,9 @@ final class ProfileView: UIView {
         $0.layer.borderColor = gradientColor.cgColor
         $0.clipsToBounds = true
     }
-    var profileImageView = UIImageView()
+    var profileImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+    }
     var nicknameLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .semiBold(with: 20)
@@ -58,15 +60,16 @@ final class ProfileView: UIView {
         addSubview(infoLabel)
         
         profileImageContainerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview()
+            $0.top.equalToSuperview().offset(24)
+            $0.left.equalToSuperview().offset(20)
             $0.size.equalTo(64)
         }
         profileImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.center.equalToSuperview()
+            $0.size.equalTo(32)
         }
         nicknameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(3.5)
+            $0.top.equalToSuperview().offset(27.5)
             $0.left.equalTo(profileImageContainerView.snp.right).offset(16)
             $0.height.equalTo(29)
         }

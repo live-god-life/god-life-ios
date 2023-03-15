@@ -32,7 +32,7 @@ final class SegmentControlView: UIView {
             }
         }
     }
-    private var selectedIndex: Int = 0 {
+    var selectedIndex: Int = 0 {
         didSet {
             buttons.forEach { $0.isSelected = false }
             buttons[selectedIndex].isSelected = true
@@ -58,13 +58,15 @@ final class SegmentControlView: UIView {
 
     //MARK: - Functions...
     private func makeUI(items: [SegmentItem], highlightColor: UIColor = .green) {
+        backgroundColor = .black
+        
         addSubview(stackView)
         
         items.enumerated().forEach { index, item in
             let button = SegmentControlButton()
             button.highlightViewColor = highlightColor
             button.setTitle(item.title, for: .normal)
-            button.setTitleColor(.gray2, for: .normal)
+            button.setTitleColor(.white.withAlphaComponent(0.6), for: .normal)
             button.setTitleColor(.white, for: .selected)
             button.tag = index
             button.addTarget(self, action: #selector(didTapItem), for: .touchUpInside)

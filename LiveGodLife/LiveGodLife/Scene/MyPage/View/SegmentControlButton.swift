@@ -10,13 +10,16 @@ import SnapKit
 
 final class SegmentControlButton: UIButton {
     //MARK: - Properties
+    let lineView = UIView().then {
+        $0.backgroundColor = .white.withAlphaComponent(0.2)
+    }
     let highlightView = UIView()
     var highlightViewColor: UIColor = .green
 
     override var isSelected: Bool {
         didSet {
-            let selected = UIFont.bold(with: 16)
-            let normal = UIFont.regular(with: 16)
+            let selected = UIFont.semiBold(with: 18)
+            let normal = UIFont.semiBold(with: 16)
             titleLabel?.font = isSelected ? selected : normal
             highlightView.backgroundColor = isSelected ? highlightViewColor : .clear
         }
@@ -37,10 +40,19 @@ final class SegmentControlButton: UIButton {
     private func makeUI() {
         titleLabel?.font = .regular(with: 16)
 
+        addSubview(lineView)
         addSubview(highlightView)
-        highlightView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+        
+        lineView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
+        }
+        highlightView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(94)
+            $0.height.equalTo(2)
         }
     }
 }
