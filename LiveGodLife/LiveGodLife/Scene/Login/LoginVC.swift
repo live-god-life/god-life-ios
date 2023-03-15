@@ -71,16 +71,16 @@ final class LoginVC: UIViewController {
         buttonStackView.addArrangedSubview(appleLoginButton)
         buttonStackView.addArrangedSubview(kakaoLoginButton)
         
+        buttonStackView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-160)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(124)
+        }
         loginImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-64.8)
             $0.width.equalTo(290.4)
             $0.height.equalTo(208.4)
-        }
-        buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(loginImageView.snp.bottom).offset(82.6)
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(124)
         }
         animationView.snp.makeConstraints {
             $0.edges.equalToSuperview()

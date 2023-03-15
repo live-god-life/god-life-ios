@@ -31,10 +31,13 @@ final class JoinCompleteVC: UIViewController {
         $0.textColor = .white.withAlphaComponent(0.6)
         $0.font = .regular(with: 16)
     }
+    private let welcomeImageView = UIImageView().then {
+        $0.image = UIImage(named: "welcomeBanner")
+    }
     private let homeButton = UIButton().then {
         $0.backgroundColor = .green
         $0.layer.cornerRadius = 27.0
-        $0.setTitle("홈으로", for: .normal)
+        $0.setTitle("시작하기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .semiBold(with: 18)
     }
@@ -50,12 +53,14 @@ final class JoinCompleteVC: UIViewController {
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
+        navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         view.addSubview(firstMainTitleLabel)
         view.addSubview(secondMainTitleLabel)
         view.addSubview(firstSubTitleLabel)
         view.addSubview(secondSubTitleLabel)
+        view.addSubview(welcomeImageView)
         view.addSubview(homeButton)
         
         firstMainTitleLabel.snp.makeConstraints {
@@ -78,8 +83,15 @@ final class JoinCompleteVC: UIViewController {
             $0.left.equalToSuperview().offset(20)
             $0.height.equalTo(24)
         }
+        welcomeImageView.snp.makeConstraints {
+            $0.top.equalTo(secondSubTitleLabel.snp.bottom).offset(60)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(220.7)
+            $0.height.equalTo(235)
+        }
+        
         homeButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-13)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(54)
         }

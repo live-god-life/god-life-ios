@@ -118,7 +118,7 @@ final class AgreementVC: UIViewController {
             $0.height.equalTo(24)
         }
         nextButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-13)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(54)
         }

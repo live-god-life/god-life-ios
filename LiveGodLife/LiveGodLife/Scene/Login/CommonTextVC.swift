@@ -49,7 +49,8 @@ final class CommonTextVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         titleLabel.text = title
-        textView.text = content
+        textView.attributedText = content?.lineAndLetterSpacing(font: .regular(with: 16),
+                                                                lineHeight: 26)
     }
     
     required init?(coder: NSCoder) {

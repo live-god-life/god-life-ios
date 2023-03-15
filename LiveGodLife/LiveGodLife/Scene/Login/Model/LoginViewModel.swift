@@ -42,6 +42,10 @@ final class UserViewModel {
                     self.requestSignin(user: user)
                 case .withdrawal:
                     self.requestWithdrawal()
+                case .user:
+                    self.requestUser()
+                case .heart:
+                    self.requestHeart()
                 }
             }
             .store(in: &bag)
@@ -65,8 +69,9 @@ extension UserViewModel {
         let requestNickname = PassthroughSubject<Bool, Never>()
         let requestSignUp = PassthroughSubject<Bool, Never>()
         let requestSignIn = PassthroughSubject<SignIn, Never>()
-        let requestSignOut = PassthroughSubject<Bool, Never>()
         let requestWithdrawal = PassthroughSubject<Bool, Never>()
+        let requestUser = PassthroughSubject<UserModel?, Never>()
+        let requestHeart = PassthroughSubject<[Feed], Never>()
     }
     
     enum SignIn: Int {
@@ -234,10 +239,6 @@ extension UserViewModel {
                 }
             }
     }
-    //MARK: 로그아웃
-    private func requestSignOut() {
-
-    }
     //MARK: 회원탈퇴
     private func requestWithdrawal() {
         provider.request(.withdrawal) { [weak self] response in
@@ -265,5 +266,45 @@ extension UserViewModel {
                     self?.output.requestWithdrawal.send(false)
                 }
             }
+    }
+    //MARK: 유저 정보 조회
+    private func requestUser() {
+        provider.request(.user) { [weak self] response in
+            switch response {
+            case .success(let result):
+                do {
+                    guard let model = try result.map(APIResponse<UserModel?>.self).data else {
+                        self?.output.requestUser.send(nil)
+                        throw APIError.decoding
+                    }
+                    self?.output.requestUser.send(model)
+                } catch {
+                    LogUtil.e(error.localizedDescription)
+                    self?.output.requestUser.send(nil)
+                }
+            case .failure:
+                self?.output.requestUser.send(nil)
+            }
+        }
+    }
+    //MARK: 찜한 글 조회
+    private func requestHeart() {
+        provider.request(.heart) { [weak self] response in
+            switch response {
+            case .success(let result):
+                do {
+                    guard let models = try result.map(APIResponse<[Feed]>.self).data else {
+                        self?.output.requestHeart.send([])
+                        throw APIError.decoding
+                    }
+                    self?.output.requestHeart.send(models)
+                } catch {
+                    LogUtil.e(error.localizedDescription)
+                    self?.output.requestHeart.send([])
+                }
+            case .failure:
+                self?.output.requestHeart.send([])
+            }
+        }
     }
 }

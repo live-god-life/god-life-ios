@@ -11,6 +11,7 @@ import SnapKit
 final class UserInfoVC: UIViewController {
     //MARK: - Properties
     private let viewModel = UserViewModel()
+    private let navigationView = CommonNavigationView()
     private let firstMainTitleLabel = UILabel().then {
         $0.text = "갓생살기에서 사용할"
         $0.textColor = .white
@@ -49,6 +50,12 @@ final class UserInfoVC: UIViewController {
         makeUI()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+    }
 
     //MARK: - Functions...
     private func makeUI() {
@@ -57,6 +64,7 @@ final class UserInfoVC: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationController?.isNavigationBarHidden = false
         
+        view.addSubview(navigationView)
         view.addSubview(firstMainTitleLabel)
         view.addSubview(secondMainTitleLabel)
         view.addSubview(firstSubTitleLabel)
@@ -64,8 +72,13 @@ final class UserInfoVC: UIViewController {
         view.addSubview(nickNameTextField)
         view.addSubview(nextButton)
   
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(44)
+        }
         firstMainTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(84)
+            $0.top.equalTo(navigationView.snp.bottom).offset(40)
             $0.left.equalToSuperview().offset(20)
             $0.height.equalTo(40)
         }
@@ -90,7 +103,7 @@ final class UserInfoVC: UIViewController {
             $0.height.equalTo(56)
         }
         nextButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-13)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(54)
         }
