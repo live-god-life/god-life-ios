@@ -18,113 +18,145 @@ enum SettingTableViewSection {
 
 final class SettingVC: UIViewController {
     //MARK: - Properties
-    private var bag = Set<AnyCancellable>()
-    private let tableView = UITableView()
-    private let sections: [SettingTableViewSection] = [
-        SettingTableViewSection(rawValue: 0),
-        SettingTableViewSection(rawValue: 1)
-    ]
-
+    private var viewModel = UserViewModel()
+    private let navigationView = CommonNavigationView().then {
+        $0.titleLabel.text = "설정"
+    }
+    private let logoutItem = SettingMenuView(title: "로그아웃")
+    private let withdrawalItem = SettingMenuView(title: "회원탈퇴")
+    private let serviceItem = SettingMenuView(title: "서비스 이용약괸")
+    private let privacyItem = SettingMenuView(title: "개인정보처리방침")
+    private let versionItem = SettingMenuView(title: "버전정보")
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
     }
 
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
+        
+        view.addSubview(navigationView)
+        view.addSubview(logoutItem)
+        view.addSubview(withdrawalItem)
+        view.addSubview(serviceItem)
+        view.addSubview(privacyItem)
+        view.addSubview(versionItem)
 
-        title = "설정"
-
-        setupTableView()
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        logoutItem.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(40)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        withdrawalItem.snp.makeConstraints {
+            $0.top.equalTo(logoutItem.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        serviceItem.snp.makeConstraints {
+            $0.top.equalTo(withdrawalItem.snp.bottom).offset(41)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        privacyItem.snp.makeConstraints {
+            $0.top.equalTo(serviceItem.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        versionItem.snp.makeConstraints {
+            $0.top.equalTo(privacyItem.snp.bottom).offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
     }
     
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: SettingTableViewCell.id, bundle: nil),
-                           forCellReuseIdentifier: SettingTableViewCell.id)
-        tableView.backgroundColor = .black
-        tableView.separatorStyle = .none
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.leading.trailing.top.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-        }
-    }
-}
-
-extension SettingVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-}
-
-extension SettingVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rawValue
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: SettingTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        switch sections[indexPath.section] {
-        case let .first(value), let .second(value):
-            cell.configure(with: value[indexPath.row])
-            cell.delegate = self
-        }
-        return cell
-    }
-}
-
-extension SettingVC: SettingTableViewCellDelegate {
-    func didTapActionButton(with index: Int) {
-        typealias cell = SettingTableViewCellViewModel
-        switch index {
-        case cell.logout.rawValue:
-            UserDefaults.standard.removeObject(forKey: UserService.USER_INFO_KEY)
-            UserDefaults.standard.synchronize()
-            
-            UserDefaults.standard.removeObject(forKey: UserService.ACCESS_TOKEN_KEY)
-            UserDefaults.standard.synchronize()
-            
-            self.dismiss(animated: true)
-        case cell.unregister.rawValue:
-            let unregisterVC = UnregisterVC()
-            navigationController?.pushViewController(unregisterVC, animated: true)
-        case cell.termsOfService.rawValue, cell.privacyPolicy.rawValue:
-            guard let url = URL(string: "https://knowing-amount-d01.notion.site/e758966ec3d44c4f9f9a5c6be91d758e") else {
-                return
+    private func bind() {
+        logoutItem
+            .gesture()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                let alert = UIAlertController(title: "알림", message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    UserDefaults.standard.removeObject(forKey: UserService.ACCESS_TOKEN_KEY)
+                    UserDefaults.standard.synchronize()
+                    
+                    UserDefaults.standard.removeObject(forKey: UserService.USER_INFO_KEY)
+                    UserDefaults.standard.synchronize()
+                    
+                    self?.dismiss(animated: true)
+                }
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+                
+                self?.present(alert, animated: true)
             }
-            UIApplication.shared.open(url)
-        default:
-            break
-        }
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
-            let divider = UIView()
-            divider.backgroundColor = .gray
-            return divider
-        }
-        return UIView()
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
-            return 1
-        }
-        return 0
+            .store(in: &viewModel.bag)
+        
+        withdrawalItem
+            .gesture()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                let unregisterVC = UnregisterVC()
+                unregisterVC.modalPresentationStyle = .fullScreen
+                self?.navigationController?.pushViewController(unregisterVC, animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        serviceItem
+            .gesture()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.viewModel.input.request.send(.terms(.use))
+            }
+            .store(in: &viewModel.bag)
+        
+        privacyItem
+            .gesture()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.viewModel.input.request.send(.terms(.privacy))
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestTerms
+            .sink { [weak self] term in
+                
+                guard let self,
+                      let type = term.type,
+                      let contents = term.contents else { return }
+                
+                var vc: UIViewController
+                
+                switch type {
+                case .use:
+                    vc = CommonTextVC(title: "서비스 이용약관", content: contents)
+                case .privacy:
+                    vc = CommonTextVC(title: "개인정보 처리방침", content: contents)
+                case .marketing:
+                    vc = CommonTextVC(title: "마케팅 정보 수신 동의", content: contents)
+                }
+                
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: false)
+            }
+            .store(in: &viewModel.bag)
     }
 }

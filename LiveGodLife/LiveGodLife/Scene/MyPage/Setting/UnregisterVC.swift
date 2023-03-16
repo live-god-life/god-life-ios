@@ -58,11 +58,12 @@ final class UnregisterVC: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     //MARK: - Fuctions...
     private func makeUI() {
+        view.backgroundColor = .black
+        
         view.addSubview(navigationView)
         view.addSubview(firstMainTitleLabel)
         view.addSubview(secondMainTitleLabel)
@@ -116,8 +117,8 @@ final class UnregisterVC: UIViewController {
             $0.height.equalTo(24)
         }
         unregisterButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-13)
             $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(54)
         }
     }
