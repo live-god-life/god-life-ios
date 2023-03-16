@@ -13,7 +13,15 @@ import Then
 
 final class MyPageVC: UIViewController {
     //MARK: - Properties
-    private var bag = Set<AnyCancellable>()
+    private var viewModel = UserViewModel()
+    private var user: UserModel?
+    private var feeds: [Feed] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     private let titleLabel = UILabel().then {
         $0.textColor = .white
         $0.text = "MY PAGE"
@@ -23,38 +31,36 @@ final class MyPageVC: UIViewController {
         $0.leftBarButton.isHidden = true
         $0.rightBarButton.setImage(UIImage(named: "setting"), for: .normal)
     }
-    private let profileView = ProfileView()
-    private var segmentControlView = SegmentControlView(frame: .zero,
-                                                        items: [SegmentItem(title: "찜한글"), SegmentItem(title: "내 작성글")])
-    private lazy var pageViewControllers = [feedVC, myArticleVC]
-    private let emptyLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .regular(with: 16)
-        $0.text = "찜한 글이 없어요 👀"
-    }
-
-    private lazy var pageVC = UIPageViewController(transitionStyle: .scroll,
-                                                   navigationOrientation: .horizontal).then {
+    private lazy var tableView = UITableView().then {
         $0.delegate = self
         $0.dataSource = self
-        $0.setViewControllers([feedVC], direction: .forward, animated: true)
+        $0.separatorStyle = .none
+        $0.separatorColor = .clear
+        $0.backgroundColor = .black
+        $0.keyboardDismissMode = .onDrag
+        $0.alwaysBounceHorizontal = false
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                       bottom: 104.0, right: 0)
+        FeedTableViewCell.xibRegister($0)
     }
-    private var user: UserModel?
-
-    private let feedVC = FeedVC()
-    private var myArticleVC = UIViewController().then {
-        $0.view.backgroundColor = .black
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 216, height: 60)))
-        label.numberOfLines = 0
+    private let profileView = ProfileView(frame: CGRect(x: 0, y: 0,
+                                                        width: UIScreen.main.bounds.width,
+                                                        height: 106.0))
+    private let items = [SegmentItem(title: "찜한글"), SegmentItem(title: "내 작성글")]
+    private lazy var segmentControlView = SegmentControlView(frame: .zero,
+                                                        items: items).then {
+        $0.delegate = self
+    }
+    private let emptyLabel = UILabel().then {
+        $0.numberOfLines = 0
         let text = "내 작성글 기능을 준비중입니다.\n다음 업데이트를 기대해주세요."
-        label.attributedText = text.attributed()
-        label.font = .regular(with: 18)
-        label.textColor = .white.withAlphaComponent(0.4)
-        $0.view.addSubview(label)
-        label.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(160)
-        }
+        $0.attributedText = text.lineAndLetterSpacing(font: .regular(with: 18),
+                                                      lineHeight: 30)
+        $0.font = .regular(with: 18)
+        $0.textColor = .white.withAlphaComponent(0.4)
+        $0.isHidden = true
     }
     
     //MARK: - Life Cycle
@@ -69,38 +75,30 @@ final class MyPageVC: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
-        requestData()
+        viewModel.input.request.send(.user)
+        if segmentControlView.selectedIndex == 0 {
+            viewModel.input.request.send(.heart)
+        }
     }
     
     private func makeUI() {
-        addChild(pageVC)
         view.backgroundColor = .black
         
+        tableView.tableHeaderView = profileView
+        
         view.addSubview(navigationView)
-        view.addSubview(profileView)
-        view.addSubview(segmentControlView)
-        view.addSubview(pageVC.view)
+        view.addSubview(tableView)
+        view.addSubview(emptyLabel)
         
         navigationView.addSubview(titleLabel)
-        feedVC.view.addSubview(emptyLabel)
         
         navigationView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(44)
         }
-        profileView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(64)
-        }
-        segmentControlView.snp.makeConstraints {
-            $0.top.equalTo(profileView.snp.bottom).offset(40)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(54)
-        }
-        pageVC.view.snp.makeConstraints {
-            $0.top.equalTo(segmentControlView.snp.bottom)
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -110,52 +108,10 @@ final class MyPageVC: UIViewController {
             $0.height.equalTo(30)
         }
         emptyLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(100)
+            $0.center.equalTo(tableView)
         }
         
         didMove(toParent: self)
-    }
-}
-
-// MARK: - Private
-private extension MyPageVC {
-    private func requestData() {
-        DefaultUserRepository().fetchProfile(endpoint: .user)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    // 프로필 조회 실패
-                    LogUtil.e(error)
-                case .finished:
-                    LogUtil.v("finished")
-                }
-            } receiveValue: { [weak self] user in
-                self?.user = user
-                DispatchQueue.main.async {
-                    self?.profileView.nicknameLabel.text = user.nickname
-                    if let image = user.image {
-                        self?.profileView.profileImageView.kf.setImage(with: URL(string: image))
-                    }
-                }
-            }
-            .store(in: &bag)
-
-        DefaultFeedRepository().requestFeeds(endpoint: .heartFeeds)
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] feeds in
-                let isHidden = !feeds.isEmpty
-                self?.configure(isHidden: isHidden)
-                self?.feedVC.configure(with: feeds)
-            })
-            .store(in: &bag)
-    }
-
-    func configure(isHidden: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.emptyLabel.isHidden = isHidden
-        }
     }
 }
 
@@ -168,7 +124,7 @@ extension MyPageVC {
                 let settingVC = SettingVC()
                 self?.navigationController?.pushViewController(settingVC, animated: true)
             }
-            .store(in: &bag)
+            .store(in: &viewModel.bag)
         
         profileView
             .gesture()
@@ -180,47 +136,78 @@ extension MyPageVC {
                 profileUpdateVC.configure(self.user)
                 self.navigationController?.pushViewController(profileUpdateVC, animated: true)
             }
-            .store(in: &bag)
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] model in
+                self?.user = model
+                self?.profileView.nicknameLabel.text = model?.nickname
+                if let imageUrlString = model?.image {
+                    self?.profileView.profileImageView.kf.setImage(with: URL(string: imageUrlString))
+                }
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestHeart
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] models in
+                self?.feeds = models
+            }
+            .store(in: &viewModel.bag)
     }
 }
 
-// MARK: - Delegate
-extension MyPageVC: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
-        let previous = current - 1
-        if previous < 0 {
-            return nil
-        }
-        return pageViewControllers[previous]
+extension MyPageVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return feeds.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: FeedTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.selectionStyle = .none
+        cell.delegate = self
+        cell.configure(with: feeds[indexPath.row])
+        return cell
+    }
+}
+
+extension MyPageVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return segmentControlView
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let current = pageViewControllers.firstIndex(of: viewController) else { return nil }
-        let next = current + 1
-        if next == pageViewControllers.count {
-            return nil
-        }
-        return pageViewControllers[next]
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 54
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 362
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .zero
     }
 }
 
 extension MyPageVC: SegmentControlViewDelegate {
     func didTapItem(index: Int) {
-        guard index < pageViewControllers.count else { return }
-
-        // FIXME: page item이 두개일 때만 정상동작
-        let direction: UIPageViewController.NavigationDirection = index == 0 ? .reverse : .forward
-        pageVC.setViewControllers([pageViewControllers[index]], direction: direction, animated: true)
+        if index == 0 {
+            emptyLabel.isHidden = true
+            viewModel.input.request.send(.heart)
+        } else {
+            feeds = []
+            emptyLabel.isHidden = false
+        }
     }
 }
 
-extension MyPageVC: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed {
-            if let previous = previousViewControllers.first, let index = pageViewControllers.firstIndex(of: previous) {
-                segmentControlView.deselectedIndex = index
-            }
-        }
+extension MyPageVC: FeedTableViewCellDelegate {
+    func bookmark(feedID: Int, status: Bool) {
+        
     }
 }
