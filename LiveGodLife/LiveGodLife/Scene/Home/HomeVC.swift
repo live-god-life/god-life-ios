@@ -171,7 +171,7 @@ extension HomeVC: UITableViewDelegate {
 
 //MARK: - FeedTableViewCellDelegate
 extension HomeVC: FeedTableViewCellDelegate {
-    func bookmark(feedID: Int, status: Bool) {
+    func bookmark(_ cell: FeedTableViewCell, feedID: Int, status: Bool) {
         let param: [String: Any] = ["id": feedID, "status": status]
         repository.request(UserAPI.bookmark(param))
             .sink { _ in

@@ -48,6 +48,7 @@ final class MoyaPlugin: PluginType {
                 navi?.popToRootViewController(animated: true)
             }
             alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
         } else if statusCode == 401 {
             let vc = UIApplication.topViewController()
             let alert = UIAlertController(title: "알림", message: "회원 정보 누락으로 인해 로그아웃 됩니다.\n다시 로그인해주세요😭", preferredStyle: .alert)
@@ -60,6 +61,7 @@ final class MoyaPlugin: PluginType {
                 vc?.dismiss(animated: true)
             }
             alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
         } else if statusCode == 409 {
             let navi = UIApplication.topViewController()?.navigationController
             let alert = UIAlertController(title: "알림", message: "이미 가입된 회원입니다.\n로그인 화면으로 돌아갑니다‼️", preferredStyle: .alert)
@@ -72,10 +74,12 @@ final class MoyaPlugin: PluginType {
                 navi?.popToRootViewController(animated: true)
             }
             alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
         } else if (500 ..< 600) ~= statusCode {
             let alert = UIAlertController(title: "서버 에러", message: "잠시후 다시 시도해주세요.\n에러 코드: \(statusCode)", preferredStyle: .alert)
             let action = UIAlertAction(title: "확인", style: .default)
             alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
         } else {
             LogUtil.e(error.localizedDescription)
         }

@@ -29,6 +29,7 @@ enum UserService {
     case withdrawal
     case user
     case heart
+    case bookmark(Int, String)
 }
 
 
@@ -57,6 +58,8 @@ extension UserService: TargetType{
             return "/users"
         case .heart:
             return "/users/hearts"
+        case .bookmark(let id, _):
+            return "/users/feeds/\(id)/bookmark"
         }
     }
     
@@ -69,6 +72,8 @@ extension UserService: TargetType{
             return .post
         case .withdrawal:
             return .delete
+        case .bookmark:
+            return .patch
         }
     }
     
@@ -92,7 +97,16 @@ extension UserService: TargetType{
             } else {
                 return .requestPlain
             }
+        case .bookmark(_, let status):
+            let parameters = [
+                "bookMarkStatus" : status
+            ]
             
+            if let data = try? JSONSerialization.data(withJSONObject: parameters) {
+                return .requestData(data)
+            } else {
+                return .requestPlain
+            }
         }
     }
     
@@ -102,7 +116,7 @@ extension UserService: TargetType{
         
         switch self {
         case .profileImage, .token, .withdrawal,
-                .user, .heart:
+                .user, .heart, .bookmark:
             header.updateValue(accessToken, forKey: "Authorization")
         default:
             break

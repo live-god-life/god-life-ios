@@ -10,7 +10,7 @@ import SnapKit
 import Kingfisher
 
 protocol FeedTableViewCellDelegate: AnyObject {
-    func bookmark(feedID: Int, status: Bool)
+    func bookmark(_ cell: FeedTableViewCell, feedID: Int, status: Bool)
 }
 
 final class FeedTableViewCell: UITableViewCell {
@@ -65,6 +65,7 @@ final class FeedTableViewCell: UITableViewCell {
         let numberOfLines = UILabel.countLines(font: .semiBold(with: 18)!, text: feed.title, width: UIScreen.main.bounds.width - 64.0)
         titleHeightConstraint.constant = numberOfLines < 2 ? 26 : 52
         bookmarkButton.isSelected = feed.isBookmark
+        feedInfoView.layer.borderColor = feed.isBookmark ? UIColor.green.cgColor : UIColor(sharpString: "57585F")?.cgColor
         todoCountLabel.text = "\(feed.todoCount) List"
         todoScheduleDay.text = "\(feed.todoScheduleDay) Day"
     }
@@ -76,6 +77,6 @@ final class FeedTableViewCell: UITableViewCell {
         bookmarkButton.isSelected = !bookmarkButton.isSelected
         feedInfoView.layer.borderColor = bookmarkButton.isSelected ? UIColor.green.cgColor : UIColor(sharpString: "57585F")?.cgColor
         
-        delegate?.bookmark(feedID: id, status: bookmarkButton.isSelected)
+        delegate?.bookmark(self, feedID: id, status: bookmarkButton.isSelected)
     }
 }
