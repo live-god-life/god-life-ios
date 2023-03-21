@@ -9,7 +9,7 @@ import Then
 import SnapKit
 import UIKit
 //MARK: CustomVisualEffectView
-final class CustomVisualEffectView: UIVisualEffectView {
+final class CustomVisualEffectView: UIView {
     //MARK: - Properties
     let backgroundButton = UIButton().then {
         $0.backgroundColor = .clear
@@ -17,9 +17,7 @@ final class CustomVisualEffectView: UIVisualEffectView {
     
     //MARK: - Initializer
     init() {
-        let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
-        
-        super.init(effect: blurEffect)
+        super.init(frame: .zero)
         
         makeUI()
     }
@@ -30,7 +28,9 @@ final class CustomVisualEffectView: UIVisualEffectView {
     
     //MARK: - Make UI
     private func makeUI() {
-        contentView.addSubview(backgroundButton)
+        backgroundColor = UIColor(rgbHexString: "#414246")?.withAlphaComponent(0.7)
+        
+        addSubview(backgroundButton)
         
         backgroundButton.snp.makeConstraints {
             $0.edges.equalToSuperview()

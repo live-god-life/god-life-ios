@@ -24,7 +24,7 @@ final class SettingVC: UIViewController {
     }
     private let logoutItem = SettingMenuView(title: "로그아웃")
     private let withdrawalItem = SettingMenuView(title: "회원탈퇴")
-    private let serviceItem = SettingMenuView(title: "서비스 이용약괸")
+    private let serviceItem = SettingMenuView(title: "서비스 이용약관")
     private let privacyItem = SettingMenuView(title: "개인정보처리방침")
     private let versionItem = SettingMenuView(title: "버전정보")
     
@@ -154,7 +154,7 @@ final class SettingVC: UIViewController {
                     vc = CommonTextVC(title: "마케팅 정보 수신 동의", content: contents)
                 }
                 
-                vc.modalPresentationStyle = .fullScreen
+                vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: false)
             }
             .store(in: &viewModel.bag)

@@ -13,16 +13,39 @@ final class ProfileUpdateVC: UIViewController {
     private var bag = Set<AnyCancellable>()
     private var user: UserModel?
     private let repository = DefaultUserRepository()
+    private let navigationView = CommonNavigationView().then {
+        $0.titleLabel.text = "프로필 수정"
+    }
+    private let profileImageContainerView = UIView().then {
+        $0.layer.borderWidth = 1.0
+        $0.layer.cornerRadius = 50.0
+        let gradient = UIImage()
+        let gradientColor = UIColor(patternImage: gradient
+            .gradientImage(bounds: CGRect(x: 0, y: 0,
+                                          width: 100.0, height: 100.0),
+                           colors: [.green, .blue]))
+        $0.layer.borderColor = gradientColor.cgColor
+        $0.clipsToBounds = true
+    }
+    var profileImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+    }
+    private lazy var nickNameTextField = TextFieldView().then {
+        $0.delegate = self
+        $0.layer.cornerRadius = 28
+    }
+    private let completedButton = UIButton().then {
+        $0.backgroundColor = .green
+        $0.layer.cornerRadius = 27.0
+        $0.setTitle("완료", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .semiBold(with: 18)
+    }
+    
     private var isHiddenImageContainerView: Bool = true
     private var imageCollectionViewModel = ImageCollectionViewModel()
-    
-    @IBOutlet private weak var profileImageContainerView: UIView!
-    @IBOutlet private weak var profileImageView: UIImageView!
-    @IBOutlet private weak var nicknameTextField: TextFieldView!
-    @IBOutlet private weak var imageContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageCollectionView: UICollectionView!
-    @IBOutlet private weak var dimmedView: UIView!
-
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,26 +57,49 @@ final class ProfileUpdateVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
     }
 
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
 
-        title = "프로필 수정"
+        view.addSubview(navigationView)
+        view.addSubview(profileImageContainerView)
+        view.addSubview(nickNameTextField)
+        view.addSubview(completedButton)
+        
+        profileImageContainerView.addSubview(profileImageView)
+        
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        profileImageContainerView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(52)
+            $0.centerX.equalToSuperview()
+            $0.size.equalTo(100)
+        }
+        profileImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(32)
+        }
+        nickNameTextField.snp.makeConstraints {
+            $0.top.equalTo(profileImageContainerView.snp.bottom).offset(40)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(56)
+        }
+        completedButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-13)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(54)
+        }
         
         setupProfileImageView()
         setupImageCollectionView()
-        imageContainerViewBottomConstraint.constant = 400
     }
     
     private func bind() {
-        nicknameTextField.delegate = self
-
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideProfileImageSelectView))
-        dimmedView.addGestureRecognizer(gesture)
-
         requestImages()
     }
     
@@ -62,19 +108,19 @@ final class ProfileUpdateVC: UIViewController {
     }
 
     private func requestImages() {
-        DefaultMyPageRepository().requestImages(endpoint: .images)
-            .sink { _ in
-            } receiveValue: { [weak self] asset in
-                self?.imageCollectionViewModel.data = asset
-                DispatchQueue.main.async {
-                    self?.imageCollectionView.reloadData()
-                }
-            }
-            .store(in: &bag)
+//        DefaultMyPageRepository().requestImages(endpoint: .images)
+//            .sink { _ in
+//            } receiveValue: { [weak self] asset in
+//                self?.imageCollectionViewModel.data = asset
+//                DispatchQueue.main.async {
+//                    self?.imageCollectionView.reloadData()
+//                }
+//            }
+//            .store(in: &bag)
     }
 
     private func validateNickname() {
-        let text = nicknameTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        let text = nickNameTextField.text ?? ""
         var data = ["image": imageCollectionViewModel.selectedImage]
 
         if let nickname = user?.nickname, nickname != text {
@@ -116,8 +162,6 @@ final class ProfileUpdateVC: UIViewController {
 
         isHiddenImageContainerView = false
         DispatchQueue.main.async { [weak self] in
-            self?.dimmedView.isHidden = false
-            self?.imageContainerViewBottomConstraint.constant = 0
             UIView.animate(withDuration: 0.4) {
                 self?.view.layoutIfNeeded()
             }
@@ -127,11 +171,9 @@ final class ProfileUpdateVC: UIViewController {
     @objc
     private func hideProfileImageSelectView() {
         DispatchQueue.main.async { [weak self] in
-            self?.imageContainerViewBottomConstraint.constant = 400
             UIView.animate(withDuration: 0.4, animations: {
                 self?.view.layoutIfNeeded()
             }, completion: { _ in
-                self?.dimmedView.isHidden = true
                 self?.isHiddenImageContainerView = true
             })
         }
@@ -150,7 +192,7 @@ final class ProfileUpdateVC: UIViewController {
 
 extension ProfileUpdateVC {
     private func setupProfileImageView() {
-        nicknameTextField.text = user?.nickname
+        nickNameTextField.text = user?.nickname
 
         let radius = profileImageContainerView.frame.height / 2
         profileImageContainerView.layer.cornerRadius = radius

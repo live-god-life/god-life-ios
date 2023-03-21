@@ -207,7 +207,12 @@ extension MyPageVC: SegmentControlViewDelegate {
 }
 
 extension MyPageVC: FeedTableViewCellDelegate {
-    func bookmark(feedID: Int, status: Bool) {
-        
+    func bookmark(_ cell: FeedTableViewCell, feedID: Int, status: Bool) {
+        guard let index = tableView.indexPath(for: cell)?.row,
+              index < feeds.count else {
+            return
+        }
+        viewModel.input.request.send(.bookmark(feedID, "false"))
+        feeds.remove(at: index)
     }
 }

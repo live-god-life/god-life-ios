@@ -18,6 +18,10 @@ final class SettingMenuView: UIView {
     private let accessoryImageView = UIImageView().then {
         $0.image = UIImage(named: "arrow-right")
     }
+    private let versionLabel = UILabel().then {
+        $0.textColor = .green
+        $0.font = .semiBold(with: 18)
+    }
     
     //MARK: - Initializer
     init(title: String?) {
@@ -36,14 +40,15 @@ final class SettingMenuView: UIView {
         addSubview(titleLabel)
         addSubview(accessoryImageView)
         
-        titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview()
-        }
         accessoryImageView.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-10)
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalTo(accessoryImageView.snp.left).offset(-16)
+            $0.centerY.equalToSuperview()
         }
     }
 }
