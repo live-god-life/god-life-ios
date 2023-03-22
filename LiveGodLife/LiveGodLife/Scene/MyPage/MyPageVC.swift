@@ -129,10 +129,11 @@ extension MyPageVC {
         profileView
             .gesture()
             .sink { [weak self] _ in
-                guard let self, let profileUpdateVC = ProfileUpdateVC.instance() else {
+                guard let self else {
                     LogUtil.e("ProfileUpdateVC 생성 실패")
                     return
                 }
+                let profileUpdateVC = ProfileUpdateVC()
                 profileUpdateVC.configure(self.user)
                 self.navigationController?.pushViewController(profileUpdateVC, animated: true)
             }

@@ -10,7 +10,7 @@ import Combine
 
 final class ProfileUpdateVC: UIViewController {
     //MARK: - Properties
-    private var bag = Set<AnyCancellable>()
+    private let viewModel = UserViewModel()
     private var user: UserModel?
     private let repository = DefaultUserRepository()
     private let navigationView = CommonNavigationView().then {
@@ -41,10 +41,6 @@ final class ProfileUpdateVC: UIViewController {
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .semiBold(with: 18)
     }
-    
-    private var isHiddenImageContainerView: Bool = true
-    private var imageCollectionViewModel = ImageCollectionViewModel()
-    @IBOutlet private weak var imageCollectionView: UICollectionView!
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -82,7 +78,7 @@ final class ProfileUpdateVC: UIViewController {
             $0.size.equalTo(100)
         }
         profileImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(32)
+            $0.edges.equalToSuperview().inset(16)
         }
         nickNameTextField.snp.makeConstraints {
             $0.top.equalTo(profileImageContainerView.snp.bottom).offset(40)
@@ -94,50 +90,71 @@ final class ProfileUpdateVC: UIViewController {
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(54)
         }
-        
-        setupProfileImageView()
-        setupImageCollectionView()
     }
     
     private func bind() {
-        requestImages()
+        completedButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self, let user = self.user else {
+                    return
+                }
+                
+                if let newName = self.nickNameTextField.text, user.nickname != newName {
+                    self.viewModel.input.request.send(.nickname(newName))
+                } else {
+                    self.viewModel.input.request.send(.profile(user.nickname, user.image ?? ""))
+                }
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestNickname
+            .sink { [weak self] isSuccess in
+                if isSuccess {
+                    self?.viewModel.input.request.send(.profile(self?.user?.nickname ?? "", self?.user?.image ?? ""))
+                } else {
+                    let alert = UIAlertController(title: "알림", message: "중복된 닉네임입니다🥲", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
+                    self?.present(alert, animated: true)
+                }
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestProfile
+            .sink { [weak self] isSuccess in
+                guard isSuccess else {
+                    let alert = UIAlertController(title: "알림", message: "수정이 실패했습니다.\n다시 시도해주세요😭", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
+                    self?.present(alert, animated: true)
+                    return
+                }
+                
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        profileImageContainerView
+            .gesture()
+            .sink { [weak self] _ in
+                let selectImagePopupVC = SelectImagePopupVC()
+                selectImagePopupVC.modalPresentationStyle = .overFullScreen
+                selectImagePopupVC.delegate = self
+                self?.present(selectImagePopupVC, animated: false)
+            }
+            .store(in: &viewModel.bag)
     }
     
     func configure(_ user: UserModel?) {
         self.user = user
-    }
-
-    private func requestImages() {
-//        DefaultMyPageRepository().requestImages(endpoint: .images)
-//            .sink { _ in
-//            } receiveValue: { [weak self] asset in
-//                self?.imageCollectionViewModel.data = asset
-//                DispatchQueue.main.async {
-//                    self?.imageCollectionView.reloadData()
-//                }
-//            }
-//            .store(in: &bag)
-    }
-
-    private func validateNickname() {
-        let text = nickNameTextField.text ?? ""
-        var data = ["image": imageCollectionViewModel.selectedImage]
-
-        if let nickname = user?.nickname, nickname != text {
-            data["nickname"] = text
-            repository.validateNickname(endpoint: .nickname(nickname))
-                .sink(receiveCompletion: { [weak self] completion in
-                    LogUtil.i("nickname: \(completion)")
-                    switch completion {
-                    case .failure(_):
-                        self?.showPopup()
-                    case .finished:
-                        self?.updateUserInfo(with: data)
-                    }
-                }, receiveValue: { _ in })
-                .store(in: &bag)
-        } else {
-            updateUserInfo(with: data)
+        self.nickNameTextField.text = user?.nickname
+        if let image = user?.image, let url = URL(string: image) {
+            profileImageView.kf.setImage(with: url)
         }
     }
 
@@ -153,114 +170,28 @@ final class ProfileUpdateVC: UIViewController {
                     }
                 }
             } receiveValue: { _ in }
-            .store(in: &bag)
-    }
-    
-    @objc
-    private func showProfileImageSelectView() {
-        guard isHiddenImageContainerView else { return }
-
-        isHiddenImageContainerView = false
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.4) {
-                self?.view.layoutIfNeeded()
-            }
-        }
-    }
-
-    @objc
-    private func hideProfileImageSelectView() {
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.4, animations: {
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self?.isHiddenImageContainerView = true
-            })
-        }
-    }
-    
-    @IBAction
-    private func didTapImageContainerViewClose() {
-        hideProfileImageSelectView()
-    }
-
-    @IBAction
-    private func didTapCompleteButton() {
-        validateNickname()
-    }
-}
-
-extension ProfileUpdateVC {
-    private func setupProfileImageView() {
-        nickNameTextField.text = user?.nickname
-
-        let radius = profileImageContainerView.frame.height / 2
-        profileImageContainerView.layer.cornerRadius = radius
-        profileImageContainerView.makeBorderGradation(startColor: .green, endColor: .blue, radius: radius)
-        profileImageView.contentMode = .scaleAspectFit
-        if let image = user?.image, let url = URL(string: image) {
-            profileImageView.kf.setImage(with: url)
-        }
-        profileImageView.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(showProfileImageSelectView))
-        profileImageView.addGestureRecognizer(gesture)
-    }
-
-    private func setupImageCollectionView() {
-        imageCollectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.id)
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
-    }
-    
-    // TODO: 공통 로직으로 분리
-    private func showPopup() {
-        DispatchQueue.main.async { [weak self] in
-            let popup = PopupView()
-            popup.negativeButton.isHidden = true
-            popup.configure(title: "중복된 닉네임입니다.",
-                            negativeHandler: { },
-                            positiveHandler: {
-                popup.removeFromSuperview()
-            })
-            self?.view.addSubview(popup)
-            popup.snp.makeConstraints {
-                $0.width.equalTo(327)
-                $0.height.equalTo(188)
-                $0.center.equalToSuperview()
-            }
-        }
-    }
-}
-
-extension ProfileUpdateVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width / 4
-        return CGSize(width: width, height: width)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageCollectionViewModel.data.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        guard let url = imageCollectionViewModel.data[indexPath.item].url else { return cell }
-        cell.configure(url)
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let url = imageCollectionViewModel.data[indexPath.item].url else {
-            return
-        }
-        imageCollectionViewModel.selectedImage = url
-        profileImageView.kf.setImage(with: URL(string: url))
+            .store(in: &viewModel.bag)
     }
 }
 
 extension ProfileUpdateVC: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension ProfileUpdateVC: SelectImagePopupVCDelegate {
+    func select(urlString: String?) {
+        guard let urlString, let imageUrl = URL(string: urlString) else { return }
+        
+        user?.image = urlString
+        profileImageView.kf.setImage(with: imageUrl)
     }
 }

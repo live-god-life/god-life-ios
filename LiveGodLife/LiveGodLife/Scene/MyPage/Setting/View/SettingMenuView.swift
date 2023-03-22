@@ -15,10 +15,11 @@ final class SettingMenuView: UIView {
         $0.textColor = .white.withAlphaComponent(0.6)
         $0.font = .semiBold(with: 18)
     }
-    private let accessoryImageView = UIImageView().then {
+    let accessoryImageView = UIImageView().then {
         $0.image = UIImage(named: "arrow-right")
     }
-    private let versionLabel = UILabel().then {
+    let versionLabel = UILabel().then {
+        $0.isHidden = true
         $0.textColor = .green
         $0.font = .semiBold(with: 18)
     }
@@ -37,8 +38,14 @@ final class SettingMenuView: UIView {
     
     //MARK: - Make UI
     private func makeUI() {
+        if let infoDic = Bundle.main.infoDictionary,
+           let appVersionName = infoDic["CFBundleShortVersionString"] as? String {
+            versionLabel.text = "V " + appVersionName
+        }
+        
         addSubview(titleLabel)
         addSubview(accessoryImageView)
+        addSubview(versionLabel)
         
         accessoryImageView.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-10)
@@ -47,7 +54,10 @@ final class SettingMenuView: UIView {
         }
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
-            $0.right.equalTo(accessoryImageView.snp.left).offset(-16)
+            $0.centerY.equalToSuperview()
+        }
+        versionLabel.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-20)
             $0.centerY.equalToSuperview()
         }
     }

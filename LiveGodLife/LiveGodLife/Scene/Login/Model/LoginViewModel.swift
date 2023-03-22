@@ -48,6 +48,8 @@ final class UserViewModel {
                     self.requestHeart()
                 case .bookmark(let id, let status):
                     self.requestBookmark(id: id, status: status)
+                case .profile(let nickname, let imageUrlString):
+                    self.requestProfile(nickname: nickname, imageUrlString: imageUrlString)
                 }
             }
             .store(in: &bag)
@@ -75,6 +77,7 @@ extension UserViewModel {
         let requestUser = PassthroughSubject<UserModel?, Never>()
         let requestHeart = PassthroughSubject<[Feed], Never>()
         let requestBookmark = PassthroughSubject<Bool, Never>()
+        let requestProfile = PassthroughSubject<Bool, Never>()
     }
     
     enum SignIn: Int {
@@ -324,6 +327,23 @@ extension UserViewModel {
                     }
                 case .failure:
                     self?.output.requestBookmark.send(false)
+                }
+            }
+    }
+    //MARK: 프로필 업데이트
+    private func requestProfile(nickname: String, imageUrlString: String) {
+        provider.request(.profile(nickname, imageUrlString)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        let status = try result.map(APIResponse<[String: String]>.self).status
+                        self?.output.requestProfile.send(status == .success)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                        self?.output.requestProfile.send(false)
+                    }
+                case .failure:
+                    self?.output.requestProfile.send(false)
                 }
             }
     }

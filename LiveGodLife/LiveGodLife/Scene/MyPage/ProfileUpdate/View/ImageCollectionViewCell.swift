@@ -21,8 +21,9 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(_ image: String) {
+        contentView.backgroundColor = UIColor(rgbHexString: "#1C1C1D")
+        contentView.layer.cornerRadius = contentView.frame.height / 2
         contentView.addSubview(imageView)
-        contentView.makeBorderGradation(startColor: .green, endColor: .blue, radius: frame.height / 2)
         imageView.kf.setImage(with: URL(string: image))
     }
 }

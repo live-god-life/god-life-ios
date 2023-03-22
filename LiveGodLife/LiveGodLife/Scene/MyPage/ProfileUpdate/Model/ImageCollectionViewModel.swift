@@ -11,7 +11,24 @@ struct ImageAsset: Decodable {
     let url: String?
 }
 
-struct ImageCollectionViewModel {
-    var data: [ImageAsset] = []
+final class ImageCollectionViewModel {
+    private var viewModel = UserViewModel()
+    @Published var data: [ImageAsset] = []
     var selectedImage: String = ""
+    
+    init() {
+        bind()
+    }
+    
+    private func bind() {
+        viewModel
+            .output
+            .requestProfileImage
+            .sink { [weak self] images in
+                self?.data = images.map { ImageAsset(url: $0.url) }
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel.input.request.send(.profileImage)
+    }
 }

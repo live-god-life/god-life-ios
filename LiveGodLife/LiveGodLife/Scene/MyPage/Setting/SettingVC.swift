@@ -26,7 +26,10 @@ final class SettingVC: UIViewController {
     private let withdrawalItem = SettingMenuView(title: "회원탈퇴")
     private let serviceItem = SettingMenuView(title: "서비스 이용약관")
     private let privacyItem = SettingMenuView(title: "개인정보처리방침")
-    private let versionItem = SettingMenuView(title: "버전정보")
+    private let versionItem = SettingMenuView(title: "버전정보").then {
+        $0.versionLabel.isHidden = false
+        $0.accessoryImageView.isHidden = true
+    }
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
