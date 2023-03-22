@@ -73,7 +73,6 @@
 		D0BB5B582906C18300E46063 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0A214FD2905685600D5FF59 /* Pretendard-Thin.otf */; };
 		D0BB5B652906C59E00E46063 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B642906C59E00E46063 /* SettingVC.swift */; };
 		D0BB5B6D2906D3D000E46063 /* ProfileUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B6C2906D3D000E46063 /* ProfileUpdateVC.swift */; };
-		D0BB5B6F2909473500E46063 /* ProfileUpdateVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BB5B6E2909473500E46063 /* ProfileUpdateVC.storyboard */; };
 		D0BB5B7129094E4F00E46063 /* UnregisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B7029094E4F00E46063 /* UnregisterVC.swift */; };
 		D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */; };
 		D0BF16CC28F9AC1000CDA6CE /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BF16CB28F9AC1000CDA6CE /* OnboardingVC.swift */; };
@@ -184,6 +183,7 @@
 		E963653E29869EA5005F16CD /* DayTodosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653D29869EA5005F16CD /* DayTodosCell.swift */; };
 		E963654029869F74005F16CD /* DayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963653F29869F74005F16CD /* DayTodoCell.swift */; };
 		E964AF3A29D193AF00A9AA4E /* SettingMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964AF3929D193AF00A9AA4E /* SettingMenuView.swift */; };
+		E964AF3C29D1C14B00A9AA4E /* DBVersionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964AF3B29D1C14B00A9AA4E /* DBVersionModel.swift */; };
 		E99378BE2986CA6F004038EB /* GoalStatusPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */; };
 		E99378C029882040004038EB /* GoalsCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99378BF29882040004038EB /* GoalsCreateVC.swift */; };
 		E99A7EDE29BC978D00BFCBC9 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */; };
@@ -273,7 +273,6 @@
 		D0BAD2BC28FEC6DC00637482 /* UIColor+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		D0BB5B642906C59E00E46063 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		D0BB5B6C2906D3D000E46063 /* ProfileUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateVC.swift; sourceTree = "<group>"; };
-		D0BB5B6E2909473500E46063 /* ProfileUpdateVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileUpdateVC.storyboard; sourceTree = "<group>"; };
 		D0BB5B7029094E4F00E46063 /* UnregisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterVC.swift; sourceTree = "<group>"; };
 		D0BB5B742909590800E46063 /* SettingTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		D0BF16CB28F9AC1000CDA6CE /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
@@ -368,6 +367,7 @@
 		E963653D29869EA5005F16CD /* DayTodosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodosCell.swift; sourceTree = "<group>"; };
 		E963653F29869F74005F16CD /* DayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoCell.swift; sourceTree = "<group>"; };
 		E964AF3929D193AF00A9AA4E /* SettingMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuView.swift; sourceTree = "<group>"; };
+		E964AF3B29D1C14B00A9AA4E /* DBVersionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBVersionModel.swift; sourceTree = "<group>"; };
 		E99378BD2986CA6F004038EB /* GoalStatusPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusPopupView.swift; sourceTree = "<group>"; };
 		E99378BF29882040004038EB /* GoalsCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCreateVC.swift; sourceTree = "<group>"; };
 		E99A7EDD29BC978D00BFCBC9 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -692,7 +692,6 @@
 				E935D9C629883893001787D2 /* Model */,
 				E935D9C72988389D001787D2 /* View */,
 				D0BB5B6C2906D3D000E46063 /* ProfileUpdateVC.swift */,
-				D0BB5B6E2909473500E46063 /* ProfileUpdateVC.storyboard */,
 			);
 			path = ProfileUpdate;
 			sourceTree = "<group>";
@@ -735,6 +734,7 @@
 			children = (
 				D06181BA28F1621400B40E32 /* LoginType.swift */,
 				E935F6D629B71108003DBE27 /* LoginViewModel.swift */,
+				E964AF3B29D1C14B00A9AA4E /* DBVersionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1257,7 +1257,6 @@
 				E961094029C9C7990096FA22 /* Montserrat-SemiBold.ttf in Resources */,
 				E9367D472988260A002F016D /* TodoDropDownView.xib in Resources */,
 				E961093829C9C7990096FA22 /* Montserrat-ExtraLight.ttf in Resources */,
-				D0BB5B6F2909473500E46063 /* ProfileUpdateVC.storyboard in Resources */,
 				D0C1831A292BB5B3007E3ED4 /* TabBarView.xib in Resources */,
 				E9367D492988260A002F016D /* FeedCollectionViewCell.xib in Resources */,
 				E961093A29C9C7990096FA22 /* Montserrat-ExtraBold.ttf in Resources */,
@@ -1384,6 +1383,7 @@
 				C9D8D6EF291BE5870098DD09 /* AgreementVC.swift in Sources */,
 				CC3181EA2965D7DB00016A77 /* TaskInfoCell.swift in Sources */,
 				D08B66C628D5A3B9000998DC /* AppDelegate.swift in Sources */,
+				E964AF3C29D1C14B00A9AA4E /* DBVersionModel.swift in Sources */,
 				D0BB5B752909590800E46063 /* SettingTableViewCellViewModel.swift in Sources */,
 				D01E263A292A72F300FBFF5B /* UserAPI.swift in Sources */,
 				D04D742628EB377A0013B5BB /* AppleLoginService.swift in Sources */,

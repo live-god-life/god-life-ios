@@ -23,6 +23,7 @@ final class RootVC: UITabBarController {
         navigationItem.backButtonTitle = ""
 
         addObservers()
+        DBVersionModel.appVersionCheck()
     }
 
     override func viewDidAppear(_ animated: Bool) {

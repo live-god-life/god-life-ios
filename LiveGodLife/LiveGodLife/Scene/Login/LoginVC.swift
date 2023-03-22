@@ -55,6 +55,7 @@ final class LoginVC: UIViewController {
                 }
             } else {
                 self?.animationView.removeFromSuperview()
+                DBVersionModel.appVersionCheck()
             }
         }
     }

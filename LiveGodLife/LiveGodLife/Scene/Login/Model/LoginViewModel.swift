@@ -46,6 +46,8 @@ final class UserViewModel {
                     self.requestUser()
                 case .heart:
                     self.requestHeart()
+                case .bookmark(let id, let status):
+                    self.requestBookmark(id: id, status: status)
                 }
             }
             .store(in: &bag)
@@ -72,6 +74,7 @@ extension UserViewModel {
         let requestWithdrawal = PassthroughSubject<Bool, Never>()
         let requestUser = PassthroughSubject<UserModel?, Never>()
         let requestHeart = PassthroughSubject<[Feed], Never>()
+        let requestBookmark = PassthroughSubject<Bool, Never>()
     }
     
     enum SignIn: Int {
@@ -306,5 +309,22 @@ extension UserViewModel {
                 self?.output.requestHeart.send([])
             }
         }
+    }
+    //MARK: 북마크
+    private func requestBookmark(id: Int, status: String) {
+        provider.request(.bookmark(id, status)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        let status = try result.map(APIResponse<[String: String]>.self).status
+                        self?.output.requestBookmark.send(status == .success)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                        self?.output.requestBookmark.send(false)
+                    }
+                case .failure:
+                    self?.output.requestBookmark.send(false)
+                }
+            }
     }
 }
