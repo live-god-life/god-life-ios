@@ -96,11 +96,19 @@ final class ProfileUpdateVC: UIViewController {
         completedButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self, let user = self.user else {
+                guard let self, let user = self.user, let newName = self.nickNameTextField.text else {
                     return
                 }
                 
-                if let newName = self.nickNameTextField.text, user.nickname != newName {
+                guard newName.validateNickname() else {
+                    let alert = UIAlertController(title: "알림", message: "잘못된 형식의 닉네임입니다\n다시 설정해주세요🥲", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                if user.nickname != newName {
                     self.viewModel.input.request.send(.nickname(newName))
                 } else {
                     self.viewModel.input.request.send(.profile(user.nickname, user.image ?? ""))
@@ -112,13 +120,17 @@ final class ProfileUpdateVC: UIViewController {
             .output
             .requestNickname
             .sink { [weak self] isSuccess in
+                guard let self, let user = self.user, let newName = self.nickNameTextField.text else {
+                    return
+                }
+                
                 if isSuccess {
-                    self?.viewModel.input.request.send(.profile(self?.user?.nickname ?? "", self?.user?.image ?? ""))
+                    self.viewModel.input.request.send(.profile(newName, user.image ?? ""))
                 } else {
                     let alert = UIAlertController(title: "알림", message: "중복된 닉네임입니다🥲", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(okAction)
-                    self?.present(alert, animated: true)
+                    self.present(alert, animated: true)
                 }
             }
             .store(in: &viewModel.bag)

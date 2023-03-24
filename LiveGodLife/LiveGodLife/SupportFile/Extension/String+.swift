@@ -65,11 +65,14 @@ extension String {
         )
     }
     
-    func lineAndLetterSpacing(font: UIFont?, lineHeight: CGFloat, color: UIColor = .white.withAlphaComponent(0.6)) -> NSAttributedString {
+    func lineAndLetterSpacing(font: UIFont?, lineHeight: CGFloat,
+                              color: UIColor = .white.withAlphaComponent(0.6),
+                              alignment: NSTextAlignment = .left) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         // 행간 세팅
         style.minimumLineHeight = lineHeight
         style.maximumLineHeight = lineHeight
+        style.alignment = alignment
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: style,
@@ -82,6 +85,12 @@ extension String {
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         
         return attributedString
+    }
+    
+    func validateNickname() -> Bool {
+        let nicknameRegEx = "^[가-힣a-zA-Z0-9_]{2,8}$"
+        let predicate = NSPredicate(format:"SELF MATCHES %@", nicknameRegEx)
+        return predicate.evaluate(with: self)
     }
 }
 

@@ -28,6 +28,8 @@ enum NetworkService {
     case goals(Dictionary<String,Any>)
     case deatilGoals(Int)
     case addGoals(Data)
+    case detailTodo(Dictionary<String,Any>)
+    case detailTodos(Dictionary<String,Any>)
 }
 extension NetworkService: TargetType {
     public var baseURL: URL {
@@ -58,13 +60,20 @@ extension NetworkService: TargetType {
             return "/goals/\(goalsID)"
         case .addGoals(_):
             return "/goals"
+        case .detailTodo(let parameters):
+            let todoId = parameters["todoId"] as? Int ?? 1
+            return "/goals/todos/\(todoId)"
+        case .detailTodos(let parameters):
+            let todoId = parameters["todoId"] as? Int ?? 1
+            return "/goals/todos/\(todoId)/todoSchedules"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .nickname, .otherDetail, .day, .month,
-             .mindsets, .goals, .deatilGoals:
+        case .nickname, .otherDetail, .day,
+                .month, .mindsets, .goals,
+                .deatilGoals, .detailTodo, .detailTodos:
             return .get
         case .status:
             return .patch
@@ -83,19 +92,19 @@ extension NetworkService: TargetType {
             return .requestPlain
         case .otherDetail(_, _):
             return .requestPlain
-        case .join(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .month(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .day(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .status(_, let parameter):
-            let data = try! JSONSerialization.data(withJSONObject: parameter)
+        case .join(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .month(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .day(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .status(_, let parameters):
+            let data = try! JSONSerialization.data(withJSONObject: parameters)
             return .requestData(data)
-        case .mindsets(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
-        case .goals(let parameter):
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
+        case .mindsets(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .goals(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .addGoals(let model):
             return .requestData(model)
         case .deatilGoals:
@@ -103,6 +112,10 @@ extension NetworkService: TargetType {
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
             return .requestData(data)
+        case .detailTodo(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .detailTodos(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         }
     }
     

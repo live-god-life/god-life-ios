@@ -76,6 +76,11 @@ extension Date {
         return Self.dateFormatter.string(from: self)
     }
     
+    var yyMMddE: String {
+        Self.dateFormatter.dateFormat = "yy.MM.dd E"
+        return Self.dateFormatter.string(from: self)
+    }
+    
     var yyyyMM: String {
         Self.dateFormatter.dateFormat = "yyyyMM"
         return Self.dateFormatter.string(from: self)
@@ -85,8 +90,7 @@ extension Date {
         Self.dateFormatter.dateFormat = "yyyyMMdd"
         return Self.dateFormatter.string(from: self)
     }
-    
-    var HHmm: String {
+        var HHmm: String {
         Self.dateFormatter.dateFormat = "HH:mm"
         return Self.dateFormatter.string(from: self)
     }

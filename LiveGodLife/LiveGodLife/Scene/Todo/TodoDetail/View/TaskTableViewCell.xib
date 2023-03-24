@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Pretendard-Regular.otf">
+            <string>Pretendard-Regular</string>
+        </array>
+        <array key="Pretendard-SemiBold.otf">
+            <string>Pretendard-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" rowHeight="132" id="KGk-i7-Jjw" customClass="TaskTableViewCell" customModule="LiveGodLife" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWK-Y3-K27">
+                        <rect key="frame" x="16" y="60" width="288" height="72"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNb-Eg-4Lk" customClass="TaskCheckButton" customModule="LiveGodLife" customModuleProvider="target">
+                                <rect key="frame" x="16" y="24" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="43i-c9-m0x"/>
+                                    <constraint firstAttribute="height" constant="24" id="l5Y-Lk-q86"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="btn_toggle_checkbox_off"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="245" verticalHuggingPriority="251" horizontalCompressionResistancePriority="745" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nom-IC-cSF">
+                                <rect key="frame" x="48" y="36" width="160" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxt-Lt-KhJ" customClass="PaddingLabel" customModule="LiveGodLife" customModuleProvider="target">
+                                <rect key="frame" x="216" y="23" width="56" height="26"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="56" id="AQP-yD-AEJ"/>
+                                    <constraint firstAttribute="height" constant="26" id="sv7-zy-UcN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
+                                <color key="textColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-C8-ApQ" userLabel="Completed Label" customClass="PaddingLabel" customModule="LiveGodLife" customModuleProvider="target">
+                                <rect key="frame" x="216" y="23" width="56" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="56" id="GhF-Wz-8Hm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="nom-IC-cSF" firstAttribute="leading" secondItem="zNb-Eg-4Lk" secondAttribute="trailing" constant="8" id="7pb-ua-peY"/>
+                            <constraint firstItem="zNb-Eg-4Lk" firstAttribute="centerY" secondItem="YWK-Y3-K27" secondAttribute="centerY" id="9Jo-Hf-AhN"/>
+                            <constraint firstAttribute="trailing" secondItem="gxt-Lt-KhJ" secondAttribute="trailing" constant="16" id="Dyt-Wc-0rL"/>
+                            <constraint firstItem="5rh-C8-ApQ" firstAttribute="leading" secondItem="nom-IC-cSF" secondAttribute="trailing" constant="8" id="IGX-eI-AqP"/>
+                            <constraint firstAttribute="height" constant="72" id="PX1-Yw-ZO8"/>
+                            <constraint firstItem="5rh-C8-ApQ" firstAttribute="bottom" secondItem="gxt-Lt-KhJ" secondAttribute="bottom" id="ciB-Z7-dwy"/>
+                            <constraint firstItem="gxt-Lt-KhJ" firstAttribute="centerY" secondItem="nom-IC-cSF" secondAttribute="centerY" id="fi4-4a-Gx9"/>
+                            <constraint firstItem="nom-IC-cSF" firstAttribute="centerY" secondItem="zNb-Eg-4Lk" secondAttribute="centerY" id="hEv-nz-MSe"/>
+                            <constraint firstItem="zNb-Eg-4Lk" firstAttribute="leading" secondItem="YWK-Y3-K27" secondAttribute="leading" constant="16" id="kvd-CZ-fFt"/>
+                            <constraint firstItem="5rh-C8-ApQ" firstAttribute="top" secondItem="gxt-Lt-KhJ" secondAttribute="top" id="rFr-wX-BwB"/>
+                            <constraint firstItem="5rh-C8-ApQ" firstAttribute="trailing" secondItem="gxt-Lt-KhJ" secondAttribute="trailing" id="rUi-R3-kF4"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEs-lR-JlG">
+                        <rect key="frame" x="20" y="24" width="0.0" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="OVr-7e-LK5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="YWK-Y3-K27" firstAttribute="top" secondItem="dEs-lR-JlG" secondAttribute="bottom" constant="12" id="HnY-S2-7OQ"/>
+                    <constraint firstItem="dEs-lR-JlG" firstAttribute="leading" secondItem="YWK-Y3-K27" secondAttribute="leading" constant="4" id="Vmq-zd-ZX6"/>
+                    <constraint firstAttribute="bottom" secondItem="YWK-Y3-K27" secondAttribute="bottom" id="i9Q-Vd-3At"/>
+                    <constraint firstItem="YWK-Y3-K27" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="t5l-88-E2d"/>
+                    <constraint firstAttribute="trailing" secondItem="YWK-Y3-K27" secondAttribute="trailing" constant="16" id="txV-0z-5vl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="checkButton" destination="zNb-Eg-4Lk" id="KlR-Av-gpB"/>
+                <outlet property="completeLabel" destination="5rh-C8-ApQ" id="UoT-Qf-jnC"/>
+                <outlet property="containerView" destination="YWK-Y3-K27" id="C8I-zc-gEk"/>
+                <outlet property="dateLabel" destination="dEs-lR-JlG" id="Jbm-3z-wES"/>
+                <outlet property="statusLabel" destination="gxt-Lt-KhJ" id="Ymg-cS-ygE"/>
+                <outlet property="titleLabel" destination="nom-IC-cSF" id="zDP-wy-HQm"/>
+            </connections>
+            <point key="canvasLocation" x="80.916030534351137" y="30.985915492957748"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="5rh-C8-ApQ">
+            <size key="intrinsicContentSize" width="16" height="8"/>
+        </designable>
+        <designable name="gxt-Lt-KhJ">
+            <size key="intrinsicContentSize" width="16" height="8"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="btn_toggle_checkbox_off" width="24" height="24"/>
+    </resources>
+</document>
