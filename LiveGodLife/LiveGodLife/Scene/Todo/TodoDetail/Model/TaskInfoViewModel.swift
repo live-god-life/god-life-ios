@@ -20,9 +20,9 @@ struct TaskInfoViewModel {
         self.period = "\(data.startDate.yyyyMMdd?.yyMd ?? "") ~ \(data.endDate.yyyyMMdd?.yyMd ?? "")"
         switch data.repetitionType {
         case .day:
-            repetition = "매일"
+            repetition = "매일 "
         case .week:
-            var value = "매주"
+            var value = "매주 "
             data.repetitionParams.forEach {
                 value.append($0)
             }

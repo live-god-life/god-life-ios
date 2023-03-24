@@ -96,12 +96,12 @@ extension MindsetsVC {
 extension MindsetsVC: UICollectionViewDelegateFlowLayout {
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 32,
+        flowLayout.sectionInset = UIEdgeInsets(top: 24,
                                                left: .zero,
                                                bottom: 88,
                                                right: .zero)
-        flowLayout.minimumLineSpacing = 40.0
-        flowLayout.minimumInteritemSpacing = 40.0
+        flowLayout.minimumLineSpacing = 32.0
+        flowLayout.minimumInteritemSpacing = 32.0
         flowLayout.scrollDirection = .vertical
         return flowLayout
     }

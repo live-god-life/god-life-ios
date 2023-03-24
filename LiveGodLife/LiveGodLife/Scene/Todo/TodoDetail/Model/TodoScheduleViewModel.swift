@@ -12,7 +12,7 @@ struct TodoScheduleViewModel: Decodable {
     let title: String
     let scheduleDate: String
     let dayOfWeek: String
-    let completionStatus: Bool
+    var completionStatus: Bool
 
     enum CodingKeys: String, CodingKey {
         case todoScheduleID = "todoScheduleId"
