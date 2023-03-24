@@ -113,10 +113,11 @@ final class UserInfoVC: UIViewController {
         nextButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self, let name = self.nickNameTextField.text, !name.isEmpty else {
-                    let alert = UIAlertController(title: "알림", message: "닉네임을 입력해주세요.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "확인", style: .default)
-                    alert.addAction(action)
+                guard let self, let name = self.nickNameTextField.text,
+                      name.validateNickname() else {
+                    let alert = UIAlertController(title: "알림", message: "잘못된 형식의 닉네임입니다\n다시 설정해주세요🥲", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
                     self?.present(alert, animated: true)
                     return
                 }

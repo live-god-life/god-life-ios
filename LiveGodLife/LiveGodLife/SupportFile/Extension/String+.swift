@@ -83,6 +83,12 @@ extension String {
         
         return attributedString
     }
+    
+    func validateNickname() -> Bool {
+        let nicknameRegEx = "^[가-힣a-zA-Z0-9_]{2,8}$"
+        let predicate = NSPredicate(format:"SELF MATCHES %@", nicknameRegEx)
+        return predicate.evaluate(with: self)
+    }
 }
 
 extension NSAttributedString {
