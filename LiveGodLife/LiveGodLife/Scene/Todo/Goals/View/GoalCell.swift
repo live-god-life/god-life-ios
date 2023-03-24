@@ -201,7 +201,7 @@ final class GoalCell: UICollectionViewCell {
         }
         
         // Progress
-        progress.progress = Float(completeCount) / Float(proceedingCount)
+        progress.progress = Float(model.completedTodoTaskScheduleCount ?? 0) / Float(model.totalTodoTaskScheduleCount ?? 0)
         progress.layer.cornerRadius = 4.0
     }
 }

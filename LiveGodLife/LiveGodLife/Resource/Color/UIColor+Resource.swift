@@ -25,7 +25,7 @@ extension UIColor {
     /// #DDDDDD
     static let DDDDDD = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1)
     /// #537CFF
-    static let blue = UIColor(red: 83/255, green: 124/255, blue: 1, alpha: 1)
+    static let blue = UIColor(rgbHexString: "#537CFF")!
     /// #111111
     static let background = UIColor(red: 17/255, green: 17/255, blue: 17/255, alpha: 1)
     /// #2B2B30

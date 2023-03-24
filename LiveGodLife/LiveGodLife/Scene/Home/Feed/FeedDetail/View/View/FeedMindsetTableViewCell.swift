@@ -1,5 +1,5 @@
 //
-//  MindSetTableViewCell.swift
+//  FeedMindsetTableViewCell.swift
 //  LiveGodLife
 //
 //  Created by wargi on 2023/03/29.
@@ -9,7 +9,7 @@ import Then
 import SnapKit
 import UIKit
 //MARK: MindSetTableViewCell
-final class MindSetTableViewCell: UITableViewCell {
+final class FeedMindsetTableViewCell: UITableViewCell {
     //MARK: - Properties
     private let contentsLabel = UILabel().then {
         $0.numberOfLines = 0
@@ -56,19 +56,6 @@ final class MindSetTableViewCell: UITableViewCell {
             $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
-        
-        let gradient = UIImage()
-        let gradientColor = UIColor(patternImage: gradient
-            .gradientImage(
-                bounds: self.bounds,
-                colors: [
-                    .green,
-                    .blue
-                ]
-            )
-        )
-        contentsView.layer.borderColor = gradientColor.cgColor
-        
         leftImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(17)
@@ -87,12 +74,20 @@ final class MindSetTableViewCell: UITableViewCell {
             $0.right.equalTo(rightImageView.snp.left).offset(-10.27)
             $0.bottom.equalToSuperview().offset(-24)
         }
+        
+        let gradient = UIImage()
+        let gradientColor = UIColor(patternImage: gradient
+            .gradientImage(bounds: CGRect(x: 0, y: 0,
+                                          width: UIScreen.main.bounds.width - 32,
+                                          height: bounds.height), colors: [.green, .blue]))
+        contentsView.layer.borderColor = gradientColor.cgColor
     }
 
     func configure(with mindset: Feed.Mindset) {
         contentsLabel.attributedText = mindset.content.lineAndLetterSpacing(font: .semiBold(with: 18),
                                                                             lineHeight: 26.0,
-                                                                            color: .white.withAlphaComponent(0.8))
+                                                                            color: .white.withAlphaComponent(0.8),
+                                                                            alignment: .center)
     }
     
     static func height(with content: String) -> CGFloat {

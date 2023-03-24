@@ -164,7 +164,8 @@ extension DayTodosCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let id = dataSource.itemIdentifier(for: indexPath)?.todoId else { return }
         
-        let todoDetailVC = TodoDetailVC(id: id)
+        let todoType = dataSource.itemIdentifier(for: indexPath)?.repetitionType ?? ""
+        let todoDetailVC = TodoDetailVC(type: todoType == "NONE" ? .dDay : .todo, id: id)
         UIApplication.topViewController()?.navigationController?.pushViewController(todoDetailVC, animated: true)
     }
 }
