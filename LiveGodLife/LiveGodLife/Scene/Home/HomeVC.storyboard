@@ -2,17 +2,16 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Pretendard-Bold.otf">
-            <string>Pretendard-Bold</string>
-        </array>
         <array key="Pretendard-Regular.otf">
             <string>Pretendard-Regular</string>
+        </array>
+        <array key="Pretendard-SemiBold.otf">
+            <string>Pretendard-SemiBold</string>
         </array>
     </customFonts>
     <scenes>
@@ -28,25 +27,33 @@
                                 <rect key="frame" x="0.0" y="47" width="390" height="797"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="390" placeholderIntrinsicHeight="282" translatesAutoresizingMaskIntoConstraints="NO" id="eRJ-Ih-9NM" customClass="HomeHeaderView" customModule="LiveGodLife" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="282"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="338"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="목표" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKD-JR-EuQ">
-                                            <rect key="frame" x="24" y="54" width="316" height="17"/>
-                                            <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="안녕하세요 :)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKD-JR-EuQ">
+                                            <rect key="frame" x="20" y="68" width="298" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="Rb1-vF-zWc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="16"/>
                                             <color key="textColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="더 끝까지 밀어 붙여! 인생은" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
-                                            <rect key="frame" x="24" y="79" width="304" height="69"/>
-                                            <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSz-Dp-RSK">
+                                            <rect key="frame" x="20" y="100" width="298" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Fk0-RC-BaP"/>
+                                            </constraints>
+                                            <string key="text">새로운 목표를 발견하고,
+다른 목표를 가져와보세요!</string>
+                                            <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="28"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-k3-QMK">
-                                            <rect key="frame" x="0.0" y="180" width="390" height="102"/>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-k3-QMK">
+                                            <rect key="frame" x="0.0" y="180" width="390" height="108"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="102" id="Zjd-Uy-vhd"/>
+                                                <constraint firstAttribute="height" constant="108" id="Zjd-Uy-vhd"/>
                                             </constraints>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="veS-9F-hlK">
                                                 <size key="itemSize" width="128" height="128"/>
@@ -58,8 +65,8 @@
                                             <cells/>
                                         </collectionView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5T-jf-mMG">
-                                            <rect key="frame" x="340" y="108" width="40" height="40"/>
-                                            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="334" y="100" width="40" height="40"/>
+                                            <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="VRf-mU-yRV"/>
                                                 <constraint firstAttribute="height" constant="40" id="wWt-5b-Nal"/>
@@ -78,22 +85,23 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="54" id="3E6-bz-VpZ"/>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="top" secondItem="eRJ-Ih-9NM" secondAttribute="top" constant="68" id="3E6-bz-VpZ"/>
                                         <constraint firstItem="Tg7-k3-QMK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" id="7el-cq-UzE"/>
-                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="o5T-jf-mMG" secondAttribute="bottom" constant="32" id="A86-Aw-bJD"/>
-                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="E1Z-nv-QIu"/>
-                                        <constraint firstAttribute="trailing" secondItem="SKD-JR-EuQ" secondAttribute="trailing" constant="50" id="Vax-zg-H65"/>
-                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="24" id="Znt-Ag-aey"/>
-                                        <constraint firstAttribute="trailing" secondItem="o5T-jf-mMG" secondAttribute="trailing" constant="10" id="bkW-uc-2Mq"/>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="20" id="E1Z-nv-QIu"/>
+                                        <constraint firstItem="o5T-jf-mMG" firstAttribute="bottom" secondItem="CSz-Dp-RSK" secondAttribute="bottom" id="LSq-X2-X8N"/>
+                                        <constraint firstItem="CSz-Dp-RSK" firstAttribute="leading" secondItem="eRJ-Ih-9NM" secondAttribute="leading" constant="20" id="Znt-Ag-aey"/>
+                                        <constraint firstAttribute="trailing" secondItem="o5T-jf-mMG" secondAttribute="trailing" constant="16" id="bkW-uc-2Mq"/>
                                         <constraint firstAttribute="trailing" secondItem="Tg7-k3-QMK" secondAttribute="trailing" id="eru-gf-QR0"/>
-                                        <constraint firstAttribute="bottom" secondItem="Tg7-k3-QMK" secondAttribute="bottom" id="ncX-zL-c6E"/>
-                                        <constraint firstItem="o5T-jf-mMG" firstAttribute="leading" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="12" id="rlP-CJ-Eb4"/>
-                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="32" id="sjs-Tc-wce"/>
+                                        <constraint firstItem="SKD-JR-EuQ" firstAttribute="trailing" secondItem="CSz-Dp-RSK" secondAttribute="trailing" id="h4E-zr-ngm"/>
+                                        <constraint firstAttribute="bottom" secondItem="Tg7-k3-QMK" secondAttribute="bottom" constant="50" id="ncX-zL-c6E"/>
+                                        <constraint firstItem="o5T-jf-mMG" firstAttribute="leading" secondItem="CSz-Dp-RSK" secondAttribute="trailing" constant="16" id="rlP-CJ-Eb4"/>
+                                        <constraint firstItem="Tg7-k3-QMK" firstAttribute="top" secondItem="CSz-Dp-RSK" secondAttribute="bottom" constant="40" id="sjs-Tc-wce"/>
                                         <constraint firstItem="CSz-Dp-RSK" firstAttribute="top" secondItem="SKD-JR-EuQ" secondAttribute="bottom" constant="8" id="taS-wH-oHf"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="collectionView" destination="Tg7-k3-QMK" id="kgb-sg-039"/>
                                         <outlet property="content" destination="CSz-Dp-RSK" id="y2a-Nh-URR"/>
+                                        <outlet property="contentHeightConstraint" destination="Fk0-RC-BaP" id="xJt-b2-Q1C"/>
                                         <outlet property="title" destination="SKD-JR-EuQ" id="wBA-X5-Y1p"/>
                                     </connections>
                                 </view>
