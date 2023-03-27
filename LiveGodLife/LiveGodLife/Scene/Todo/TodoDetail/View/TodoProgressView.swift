@@ -9,10 +9,7 @@ import UIKit
 
 final class TodoProgressView: UIView {
     //MARK: - Properties
-    private let progressView = CircleProgressBar(backgroundCircleColor: .gray7,
-                                                 foregroundCircleColor: .green,
-                                                 startGradientColor: .green.withAlphaComponent(0.1),
-                                                 endGradientColor: .green)
+    private let progressView: CircleProgressBar
     private let titleLabel = UILabel().then {
         $0.text = "달성율"
         $0.textColor = .white.withAlphaComponent(0.6)
@@ -35,8 +32,13 @@ final class TodoProgressView: UIView {
     }
     
     //MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(isTodo: Bool) {
+        progressView = CircleProgressBar(backgroundCircleColor: .gray7,
+                                         foregroundCircleColor: isTodo ? .green : .blue,
+                                         startGradientColor: isTodo ? .green.withAlphaComponent(0.1) : .blue.withAlphaComponent(0.1),
+                                         endGradientColor: isTodo ? .green : .blue)
+        
+        super.init(frame: .zero)
         
         makeUI()
     }

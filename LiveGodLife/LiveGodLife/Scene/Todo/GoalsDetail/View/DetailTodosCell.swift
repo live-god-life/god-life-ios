@@ -20,12 +20,10 @@ final class DetailTodosCell: UICollectionViewCell {
         case center
         case bottom
     }
-    private let progress = CircleProgressBar(backgroundCircleColor: .black,
-                                             foregroundCircleColor: .green,
-                                             startGradientColor: .green,
-                                             endGradientColor: .green)
     private let dDayLabel = UILabel().then {
         $0.textAlignment = .center
+        $0.textColor = .white
+        $0.font = .montserrat(with: 12, weight: .semibold)
     }
     private let titleLabel = UILabel().then {
         $0.textColor = .white
@@ -59,7 +57,6 @@ final class DetailTodosCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         
         contentView.addSubview(innerView)
-        innerView.addSubview(progress)
         innerView.addSubview(dDayLabel)
         innerView.addSubview(titleLabel)
         innerView.addSubview(dateLabel)
@@ -70,14 +67,15 @@ final class DetailTodosCell: UICollectionViewCell {
             $0.top.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(16)
         }
-        progress.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(16)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(40)
+        lineView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(1)
         }
-        dDayLabel.snp.makeConstraints {
-            $0.center.equalTo(progress)
-            $0.height.equalTo(12)
+        infoImageView.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-16)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
@@ -89,16 +87,6 @@ final class DetailTodosCell: UICollectionViewCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.left.equalTo(titleLabel.snp.left)
             $0.height.equalTo(22)
-        }
-        infoImageView.snp.makeConstraints {
-            $0.right.equalToSuperview().offset(-16)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
-        }
-        lineView.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(1)
         }
     }
     
@@ -113,32 +101,40 @@ final class DetailTodosCell: UICollectionViewCell {
         infoImageView.image = infoImage
         
         let isDDay = todo.repetitionType == "NONE"
+        
+        var progress: CircleProgressBar
+        if isDDay {
+            progress = CircleProgressBar(backgroundCircleColor: .black,
+                                                     foregroundCircleColor: .blue,
+                                                     startGradientColor: .blue,
+                                                     endGradientColor: .blue)
+        } else {
+            progress = CircleProgressBar(backgroundCircleColor: .black,
+                                                     foregroundCircleColor: .green,
+                                                     startGradientColor: .green,
+                                                     endGradientColor: .green)
+        }
+        
+        innerView.addSubview(progress)
+        progress.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(16)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(40)
+        }
+        dDayLabel.snp.makeConstraints {
+            $0.center.equalTo(progress)
+            $0.height.equalTo(12)
+        }
+        
         let total = todo.totalTodoTaskScheduleCount ?? 0
         let complete = todo.completedTodoTaskScheduleCount ?? 0
-        progress.progress = Double(complete) / Double(total)
-        progress.isHidden = isDDay
+        let rate = Float(complete) / Float(total)
+        progress.progress = CGFloat(rate)
         
-        // D-Day
-        let today = Date().timeIntervalSince1970
-        let lastDay = todo.endDate?.toDate()?.timeIntervalSince1970 ?? 0.0
-        let dDay = Int((today - lastDay) / 60.0 / 60.0 / 24.0)
-        let dDayString = isDDay ? "D-DAY" : dDay < 0 ? "D-\(abs(dDay))" : "D+\(dDay)"
-        dDayLabel.text = dDayString
-        dDayLabel.textColor = isDDay ? .blue : .white
-        dDayLabel.font = .montserrat(with: 12, weight: .semibold)
-        
-        if isDDay {
-            dDayLabel.snp.remakeConstraints {
-                $0.left.equalToSuperview().offset(11)
-                $0.centerY.equalToSuperview()
-                $0.height.equalTo(24)
-            }
-        } else {
-            dDayLabel.snp.remakeConstraints {
-                $0.center.equalTo(progress)
-                $0.height.equalTo(12)
-            }
-        }
+        let percentString = (rate * 100).isInfinite || (rate * 100).isNaN ? "0%" : "\(Int(rate * 100))%"
+        let attributedString = NSMutableAttributedString(string: percentString)
+        dDayLabel.attributedText = attributedString.apply(word: "%",
+                                                          attrs: [.font: UIFont.montserrat(with: 8, weight: .semibold)!])
         
         if radius.contains(.top) && radius.contains(.bottom) {
             lineView.isHidden = true

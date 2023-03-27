@@ -207,7 +207,8 @@ extension DetailGoalVC: UICollectionViewDelegate {
             let id = todo?.todoId
             guard let id else { return }
             
-            let todoDetailVC = TodoDetailVC(id: id)
+            let todoType = todo?.repetitionType ?? ""
+            let todoDetailVC = TodoDetailVC(type: todoType == "NONE" ? .dDay : .todo, id: id)
             navigationController?.pushViewController(todoDetailVC, animated: true)
         }
     }

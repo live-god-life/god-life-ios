@@ -78,6 +78,27 @@ final class TodoListViewModel {
                 self?.requestAddGoals(model: newGoal)
             }
             .store(in: &bag)
+        //DetailTodos
+        input
+            .requestDetailTodos
+            .sink { [weak self] info in
+                self?.requestDetailTodos(id: info.id, isAfter: info.isAfter)
+            }
+            .store(in: &bag)
+        //DetailTodo
+        input
+            .requestDetailTodo
+            .sink { [weak self] todoId in
+                self?.requestDetailTodo(id: todoId)
+            }
+            .store(in: &bag)
+        //DetailTodos
+        input
+            .requestDetailTodos
+            .sink { [weak self] info in
+                self?.requestDetailTodos(id: info.id, isAfter: info.isAfter)
+            }
+            .store(in: &bag)
     }
 }
 
@@ -99,15 +120,20 @@ extension TodoListViewModel {
         var requestMindsets = PassthroughSubject<Int?, Never>()
         var requestDetailGoal = PassthroughSubject<Int, Never>()
         var requestAddGoal = PassthroughSubject<CreateGoalsModel, Never>()
+        var requestDetailTodo = PassthroughSubject<Int, Never>()
+        var requestDetailTodos = PassthroughSubject<(id: Int, isAfter: Bool), Never>()
     }
     
     struct Output {
         var requestMonth = PassthroughSubject<[DayModel], Never>()
         var requestDay = PassthroughSubject<[MainCalendarModel], Never>()
+        var requestStatus = PassthroughSubject<Void?, Never>()
         var requestGoals = PassthroughSubject<[GoalModel], Never>()
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
         var requestDetailGoal = PassthroughSubject<Void?, Never>()
         var requestAddGoal = PassthroughSubject<Result<Void?, Error>, Never>()
+        var requestDetailTodo = PassthroughSubject<TaskViewModel, Never>()
+        var requestDetailTodos = PassthroughSubject<[TodoScheduleViewModel], Never>()
     }
 }
 
@@ -168,10 +194,11 @@ extension TodoListViewModel {
         ]
         
         NetworkManager.shared.provider
-            .request(.status(id, parameters)) { response in
+            .request(.status(id, parameters)) { [weak self] response in
                 switch response {
                 case .success:
                     LogUtil.e("TODO 완료체크")
+                    self?.output.requestStatus.send(nil)
                 case .failure(let err):
                     LogUtil.e(err.localizedDescription)
                 }
@@ -267,6 +294,57 @@ extension TodoListViewModel {
                     self?.output.requestAddGoal.send(.success(nil))
                 case .failure(let err):
                     self?.output.requestAddGoal.send(.failure(err))
+                }
+            }
+    }
+    //MARK: 투두 상세
+    private func requestDetailTodo(id: Int) {
+        let parameters: [String: Any] = [
+            "todoId": id
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.detailTodo(parameters)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        guard let model = try result.map(APIResponse<TaskViewModel>.self).data else {
+                            throw APIError.decoding
+                        }
+                        self?.output.requestDetailTodo.send(model)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                    }
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                }
+            }
+    }
+    //MARK: 투두 상세(앞으로의 일정)
+    private func requestDetailTodos(id: Int, isAfter: Bool) {
+        let parameters: [String: Any] = [
+            "todoId": id,
+            "criteria": isAfter ? "after" : "before",
+            "size": 1000,
+            "page": 0
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.detailTodos(parameters)) { [weak self] response in
+                switch response {
+                case .success(let result):
+                    do {
+                        guard let models = try result.map(APIResponse<[TodoScheduleViewModel]>.self).data else {
+                            throw APIError.decoding
+                        }
+                        self?.output.requestDetailTodos.send(models)
+                    } catch {
+                        LogUtil.e(error.localizedDescription)
+                        self?.output.requestDetailTodos.send([])
+                    }
+                case .failure(let err):
+                    LogUtil.e(err.localizedDescription)
+                    self?.output.requestDetailTodos.send([])
                 }
             }
     }

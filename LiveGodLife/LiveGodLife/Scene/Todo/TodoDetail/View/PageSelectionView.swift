@@ -20,7 +20,7 @@ final class PageSelectionView: UIView {
     private var bag = Set<AnyCancellable>()
     weak var delegate: PageSelectionViewDelegate?
     private var type: TodoDetailVC.TaskType = .todo
-    private let nextButton = UIButton()
+    let nextButton = UIButton()
     private let nextBottomLine = UIView().then {
         $0.isHidden = true
     }
@@ -30,7 +30,7 @@ final class PageSelectionView: UIView {
         $0.textAlignment = .center
         $0.font = .semiBold(with: 18)
     }
-    private let prevButton = UIButton()
+    let prevButton = UIButton()
     private let prevBottomLine = UIView().then {
         $0.isHidden = true
     }
@@ -131,9 +131,11 @@ final class PageSelectionView: UIView {
         nextBottomLine.backgroundColor = type == .todo ? .green : .blue
         prevBottomLine.backgroundColor = type == .todo ? .green : .blue
         
+        nextButton.isSelected = isNext
         nextLabel.textColor = isNext ? .white : .white.withAlphaComponent(0.6)
         nextBottomLine.isHidden = !isNext
         
+        prevButton.isSelected = !isNext
         prevLabel.textColor = isNext ? .white.withAlphaComponent(0.6) : .white
         prevBottomLine.isHidden = isNext
     }

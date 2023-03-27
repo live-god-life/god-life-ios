@@ -36,11 +36,15 @@ final class TaskInfoView: UIView {
         $0.valueLabel.textAlignment = .left
         $0.configure(logo: UIImage(named: "alarm"), title: "알람 설정", value: "")
     }
-    private let progressView = TodoProgressView()
+    private let progressView: TodoProgressView
 
     //MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(isTodo: Bool) {
+        progressView = TodoProgressView(isTodo: isTodo)
+        
+        super.init(frame: CGRect(x: 0, y: 0,
+                                 width: UIScreen.main.bounds.width,
+                                 height: 346.0))
 
         makeUI()
     }

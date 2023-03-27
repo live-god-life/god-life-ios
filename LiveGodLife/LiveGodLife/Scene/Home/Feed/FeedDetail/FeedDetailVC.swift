@@ -20,40 +20,34 @@ final class FeedDetailVC: UIViewController {
     var feed: Feed? {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.updateView()
+                self?.feedDetailHeaderView.configure(with: self?.feed)
+                self?.feedDetailTableView.reloadData()
             }
         }
     }
-    private let baseScrollView = UIScrollView()
-    private let containerView = UIView()
-    private let imageView = UIImageView()
-    private let categoryLabel = UILabel()
-    private let titleLabel = UILabel()
-    private let todoCountLabel = UILabel()
-    private let todoScheduleDay = UILabel()
-    private let bookmarkButton = UIButton()
-    private let nicknameLabel = UILabel()
-    private let mindsetView = MindsetView()
-    private let userProfileImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 20
-        $0.backgroundColor = .green
+    private let navigationView = CommonNavigationView()
+    private let feedDetailHeaderView = FeedDetailHeaderView(frame: CGRect(x: 0, y: 0,
+                                                                          width: UIScreen.main.bounds.width,
+                                                                          height: 446.0))
+    private lazy var feedDetailTableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.separatorStyle = .none
+        $0.separatorColor = .clear
+        $0.backgroundColor = .black
+        $0.keyboardDismissMode = .onDrag
+        $0.alwaysBounceHorizontal = false
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = UIEdgeInsets(top: .zero, left: .zero,
+                                       bottom: 74.0, right: .zero)
+        FeedDetailContentsCell.register($0)
+        RecommendationCell.register($0)
+        MindsetsTableViewCell.register($0)
+        CreateTodoCell.register($0)
+        EmptyTableViewCell.register($0)
     }
-    private let calendarImageView = UIImageView().then {
-        $0.image = UIImage(named: "calendar")
-        $0.contentMode = .scaleAspectFit
-    }
-    private let contentsContainerView = UIStackView().then {
-        $0.axis = .vertical
-        $0.distribution = .equalSpacing
-        $0.spacing = 32
-    }
-    private let todosStackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.distribution = .equalSpacing
-        $0.spacing = 24
-    }
+    
 
     //MARK: - Initializer
     init(feedID: Int) {
@@ -74,12 +68,31 @@ final class FeedDetailVC: UIViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     //MARK: - Functions...
     private func makeUI() {
         view.backgroundColor = .black
-        navigationController?.navigationBar.isHidden = false
-
-        setupUI()
+        
+        view.addSubview(navigationView)
+        view.addSubview(feedDetailTableView)
+        
+        feedDetailTableView.tableHeaderView = feedDetailHeaderView
+        
+        navigationView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        feedDetailTableView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
     }
     
     private func bind() {
@@ -105,7 +118,7 @@ final class FeedDetailVC: UIViewController {
                     guard let self else { return }
                     self.isBookmarkStatus = !self.isBookmarkStatus
                     DispatchQueue.main.async {
-                        self.updateBookmark()
+//                        self.updateBookmark()
                     }
                 }
             } receiveValue: { (feed: String?) in
@@ -115,233 +128,74 @@ final class FeedDetailVC: UIViewController {
     }
 }
 
-private extension FeedDetailVC {
-    private func setupUI() {
-        // baseScrollView
-        baseScrollView.contentSize = containerView.bounds.size
-        view.addSubview(baseScrollView)
-        baseScrollView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+extension FeedDetailVC: UITableViewDataSource {
+    enum FeedCell: Int, CaseIterable {
+        case contents
+        case recommand
+        case mindsets
+        case todos
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return FeedCell.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let _ = feed else { return .zero }
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let feed, let cellType = FeedCell(rawValue: indexPath.section) else { return UITableViewCell() }
+        
+        switch cellType {
+            
+        case .contents:
+            let cell: FeedDetailContentsCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            cell.configure(with: feed)
+            
+            return cell
+        case .recommand:
+            let cell: RecommendationCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            cell.delegate = self
+            
+            return cell
+        case .mindsets:
+            let cell: MindsetsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            cell.configure(with: feed)
+            
+            return cell
+        case .todos:
+            return UITableViewCell()
         }
+        
 
-        // containerStackView
-        baseScrollView.addSubview(containerView)
-        containerView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
-            $0.width.equalTo(view.safeAreaLayoutGuide)
-        }
+    }
+}
 
-        // imageView
-        containerView.addSubview(imageView)
-        imageView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.height.equalTo(250)
-        }
-        imageView.contentMode = .scaleAspectFit
-
-        // categoryLabel
-        categoryLabel.textColor = .BBBBBB
-        categoryLabel.font = .regular(with: 14)
-        containerView.addSubview(categoryLabel)
-        categoryLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().inset(24)
-        }
-
-        // titleLabel
-        titleLabel.textColor = .BBBBBB
-        titleLabel.font = .bold(with: 24)
-        titleLabel.numberOfLines = 2
-        containerView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(categoryLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(70)
-        }
-
-        let image = UIImageView(image: UIImage(named: "lightning"))
-        image.contentMode = .scaleAspectFit
-        containerView.addSubview(image)
-        image.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().inset(24)
-        }
-        todoCountLabel.text = "0 List"
-        todoCountLabel.textColor = .green
-        todoCountLabel.font = .montserrat(with: 16, weight: .bold)
-        containerView.addSubview(todoCountLabel)
-        todoCountLabel.snp.makeConstraints {
-            $0.leading.equalTo(image.snp.trailing).offset(8)
-            $0.centerY.equalTo(image.snp.centerY)
-        }
-
-        containerView.addSubview(calendarImageView)
-        calendarImageView.snp.makeConstraints {
-            $0.leading.equalTo(todoCountLabel.snp.trailing).offset(10)
-            $0.centerY.equalTo(image.snp.centerY)
-        }
-        todoScheduleDay.textColor = .green
-        todoScheduleDay.font = .montserrat(with: 16, weight: .bold)
-        containerView.addSubview(todoScheduleDay)
-        todoScheduleDay.snp.makeConstraints {
-            $0.leading.equalTo(calendarImageView.snp.trailing).offset(8)
-            $0.centerY.equalTo(image.snp.centerY)
-        }
-
-        bookmarkButton.addTarget(self, action: #selector(didTapBookmark), for: .touchUpInside)
-        bookmarkButton.setBackgroundImage(UIImage(named: "bookmark"), for: .selected)
-        bookmarkButton.setBackgroundImage(UIImage(named: "bookmark_disable"), for: .normal)
-        containerView.addSubview(bookmarkButton)
-        bookmarkButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.trailing.equalToSuperview().inset(16)
-        }
-
-        let dividerView = UIView()
-        dividerView.backgroundColor = .gray
-        containerView.addSubview(dividerView)
-        dividerView.snp.makeConstraints {
-            $0.top.equalTo(bookmarkButton.snp.bottom).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(1)
-        }
-
-        // user
-        containerView.addSubview(userProfileImageView)
-        userProfileImageView.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().inset(24)
-            $0.width.height.equalTo(40)
-        }
-
-        nicknameLabel.textColor = .white
-        nicknameLabel.font = .bold(with: 20)
-        nicknameLabel.numberOfLines = 1
-        containerView.addSubview(nicknameLabel)
-        nicknameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(userProfileImageView.snp.centerY)
-            $0.leading.equalTo(userProfileImageView.snp.trailing).offset(8)
-        }
-
-        containerView.addSubview(contentsContainerView)
-        contentsContainerView.snp.makeConstraints {
-            $0.top.equalTo(userProfileImageView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-//        contentsContainerView.addSubview(contentsStackView)
-//        contentsStackView.snp.makeConstraints {
-//            $0.top.leading.trailing.bottom.equalToSuperview()
-//        }
-
-        let dividerView2 = UIView()
-        dividerView2.backgroundColor = .gray
-        containerView.addSubview(dividerView2)
-        dividerView2.snp.makeConstraints {
-            $0.top.equalTo(contentsContainerView.snp.bottom).offset(58)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(1)
-        }
-
-        let recommandTitle = UILabel()
-        recommandTitle.text = "추천 리스트"
-        recommandTitle.textColor = .white
-        recommandTitle.font = .bold(with: 26)
-        containerView.addSubview(recommandTitle)
-        recommandTitle.snp.makeConstraints {
-            $0.top.equalTo(dividerView2.snp.bottom).offset(69)
-            $0.leading.equalToSuperview().inset(24)
-        }
-
-        let mindsetLabel = UILabel()
-        mindsetLabel.text = "마인드셋"
-        mindsetLabel.textColor = .white
-        mindsetLabel.font = .bold(with: 20)
-        containerView.addSubview(mindsetLabel)
-        mindsetLabel.snp.makeConstraints {
-            $0.top.equalTo(recommandTitle.snp.bottom).offset(19)
-            $0.leading.equalToSuperview().inset(24)
-        }
-
-        containerView.addSubview(mindsetView)
-        mindsetView.snp.makeConstraints {
-            $0.top.equalTo(mindsetLabel.snp.bottom).offset(19)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(120)
-        }
-
-        let todoLabel = UILabel()
-        todoLabel.text = "Todo"
-        todoLabel.textColor = .white
-        todoLabel.font = .bold(with: 20)
-        containerView.addSubview(todoLabel)
-        todoLabel.snp.makeConstraints {
-            $0.top.equalTo(mindsetView.snp.bottom).offset(49)
-            $0.leading.equalToSuperview().inset(24)
-        }
-
-        containerView.addSubview(todosStackView)
-        todosStackView.snp.makeConstraints {
-            $0.top.equalTo(todoLabel.snp.bottom).offset(19)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview()
+extension FeedDetailVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let feed, let cellType = FeedCell(rawValue: indexPath.section) else { return .zero }
+        
+        switch cellType {
+        case .contents:
+            return FeedDetailContentsCell.height(with: feed)
+        case .recommand:
+            return 110.0
+        case .mindsets:
+            return MindsetsTableViewCell.height(with: feed)
+        case .todos:
+            return .zero
         }
     }
+}
 
-    private func updateView() {
-        guard let feed = feed else {
-            // TODO: error handle
-            return
-        }
-        let url = URL(string: feed.image)
-        imageView.kf.setImage(with: url)
-        categoryLabel.text = feed.category
-        titleLabel.text = feed.title
-        todoCountLabel.text = "\(feed.todoCount) List"
-        todoScheduleDay.text = "\(feed.todoScheduleDay) DAY"
-        bookmarkButton.isSelected = feed.isBookmark
-        nicknameLabel.text = feed.user.nickname
-
-        isBookmarkStatus = feed.isBookmark
-
-        feed.contents.forEach { content in
-            let stackView = UIStackView()
-            stackView.axis = .vertical
-            stackView.distribution = .equalSpacing
-            stackView.spacing = 8
-
-            let titleLabel = UILabel()
-            titleLabel.attributedText = content.title.attributed()
-            titleLabel.textColor = .white
-            titleLabel.font = .bold(with: 18)
-            titleLabel.numberOfLines = 0
-            stackView.addArrangedSubview(titleLabel)
-
-            let contentLabel = UILabel()
-            contentLabel.attributedText = content.content.attributed()
-            contentLabel.textColor = .white
-            contentLabel.font = .medium(with: 16)
-            contentLabel.numberOfLines = 0
-            stackView.addArrangedSubview(contentLabel)
-
-            contentsContainerView.addArrangedSubview(stackView)
-        }
-
-        // 첫 번째 마인드셋을 보여준다
-        if let mindset = feed.mindsets.first {
-            mindsetView.configure(content: mindset.content)
-            mindsetView.makeBorderGradation(startColor: .green, endColor: .blue, radius: 16)
-        }
-
-        feed.todos.forEach { todo in
-            let todoView = TodoDropDownView()
-            todoView.configure(todo)
-            todosStackView.addArrangedSubview(todoView)
-        }
-    }
-
-    private func updateBookmark() {
-        bookmarkButton.isSelected = isBookmarkStatus
+extension FeedDetailVC: RecommendationCellDelegate {
+    func load() {
+        
     }
 }

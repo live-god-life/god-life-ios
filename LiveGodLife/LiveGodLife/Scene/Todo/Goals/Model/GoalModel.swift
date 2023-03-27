@@ -17,6 +17,7 @@ protocol GoalProtocol: Decodable {
     var totalTodoCount: Int? { get set }
     var completedTodoCount: Int? { get set }
     var totalTodoTaskScheduleCount: Int? { get set }
+    var completedTodoTaskScheduleCount: Int? { get set }
 }
 
 struct GoalModel: Hashable, GoalProtocol {
@@ -30,6 +31,7 @@ struct GoalModel: Hashable, GoalProtocol {
     var totalTodoCount: Int?
     var completedTodoCount: Int?
     var totalTodoTaskScheduleCount: Int?
+    var completedTodoTaskScheduleCount: Int?
     
     enum Codingkeys: Int,CodingKey {
         case title
