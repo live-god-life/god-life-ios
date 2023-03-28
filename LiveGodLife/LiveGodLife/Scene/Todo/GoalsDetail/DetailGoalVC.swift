@@ -16,8 +16,29 @@ final class DetailGoalVC: UIViewController {
     private let id: Int
     private let viewModel = TodoListViewModel()
     private var selectedIndexPaths = Set<Int>()
+    
+    private let updateView = UIView().then {
+        $0.isHidden = true
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.gray3.cgColor
+        $0.layer.cornerRadius = 8.0
+        $0.backgroundColor = .black
+    }
+    private let updateButton = UIButton().then {
+        $0.setTitle("수정", for: .normal)
+        $0.setTitle("수정", for: .highlighted)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.white, for: .highlighted)
+    }
+    private let deleteButton = UIButton().then {
+        $0.setTitle("삭제", for: .normal)
+        $0.setTitle("삭제", for: .highlighted)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.white, for: .highlighted)
+    }
     private let navigationBarView = CommonNavigationView().then {
         $0.titleLabel.text = "목표상세"
+        $0.rightBarButton.isHidden = false
     }
     private lazy var detailCollectionView = UICollectionView(frame: .zero,
                                                              collectionViewLayout: setupFlowLayout()).then {
@@ -72,6 +93,9 @@ final class DetailGoalVC: UIViewController {
         
         view.addSubview(navigationBarView)
         view.addSubview(detailCollectionView)
+        view.addSubview(updateView)
+        updateView.addSubview(updateButton)
+        updateView.addSubview(deleteButton)
         
         navigationBarView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -82,10 +106,34 @@ final class DetailGoalVC: UIViewController {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
         }
+        updateView.snp.makeConstraints {
+            $0.right.equalTo(navigationBarView.rightBarButton.snp.left)
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.width.equalTo(98)
+            $0.height.equalTo(96)
+        }
+        updateButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(40)
+        }
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(40)
+        }
     }
     
     //MARK: - Binding..
     private func bind() {
+        navigationBarView
+            .rightBarButton
+            .tapPublisher
+            .sink { [weak self] in
+                self?.updateView.isHidden.toggle()
+            }
+            .store(in: &viewModel.bag)
+        
         viewModel
             .output
             .requestDetailGoal
@@ -94,6 +142,92 @@ final class DetailGoalVC: UIViewController {
                 self?.detailCollectionView.reloadData()
             }
             .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestDeleteGoal
+            .sink { [weak self] isSuccess in
+                guard let self else { return }
+                guard isSuccess else {
+                    let alert = UIAlertController(title: "알림", message: "삭제에 실패했습니다.\n다시 시도해주세요😭", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true)
+                    return
+                }
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        updateButton
+            .tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                
+                let alert = UIAlertController(title: "목표를 수정하시겠습니까?", message: "수정시 완료 처리한 TODO들이 삭제 됩니다.\n완료 이력을 유지하려면 새로 등록해 주세요.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "수정하기", style: .default) { _ in
+                    guard let goal = self.viewModel.deatilModel else { return }
+                    
+                    let title = goal.title ?? ""
+                    let category = goal.category ?? ""
+                    let mindsets = goal.mindsets ?? []
+                    let todos = goal.todos ?? []
+                    var todosModel: [TodosModel] = []
+                    
+                    for (idx, todo) in todos.enumerated() {
+                        var j = -1
+                        todosModel.append(TodosModel(title: todo.title ?? "",
+                                                     type: todo.type ?? "",
+                                                     depth: 1,
+                                                     orderNumber: idx,
+                                                     startDate: todo.startDate,
+                                                     endDate: todo.endDate,
+                                                     repetitionType: todo.repetitionType,
+                                                     repetitionParams: todo.repetitionParams,
+                                                     notification: todo.notification,
+                                                     todos: (todo.childTodos ?? []).map {
+                            j += 1
+                            return ChildTodo(title: $0.title ?? "",
+                                             type: $0.type ?? "",
+                                             depth: 2,
+                                             orderNumber: j,
+                                             startDate: $0.startDate ?? "",
+                                             endDate: $0.endDate ?? "",
+                                             repetitionType: $0.repetitionType ?? "")
+                            }))
+                    }
+                    
+                    let model = CreateGoalsModel(title: title,
+                                                 categoryCode: category,
+                                                 mindsets: mindsets.map { GoalsMindset(content: $0.content ?? "") },
+                                                 todos: todosModel)
+                    let updateGoals = GoalsCreateVC(editType: .update(self.id), model: model)
+                    self.navigationController?.pushViewController(updateGoals, animated: true)
+                }
+                alert.addAction(okAction)
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        deleteButton
+            .tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                
+                let alert = UIAlertController(title: "알림", message: "목표를 삭제하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.viewModel.input.requestDeleteGoal.send(self.id)
+                }
+                alert.addAction(okAction)
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        
     }
 }
 

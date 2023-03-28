@@ -14,6 +14,7 @@ import CombineCocoa
 protocol CalendarViewDelegate: AnyObject {
     func select(date: Date)
     func select(startDate: Date?, endDate: Date?)
+    func month(date: Date?)
 }
 
 //MARK: CalendarView
@@ -311,10 +312,6 @@ final class CalendarView: UIView {
         self.endDate = endDate
         self.targetDate = date
         
-        if type == .todo, self.startDate == nil {
-            self.startDate = date
-        }
-        
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.backgroundColor = .black
@@ -365,6 +362,7 @@ final class CalendarView: UIView {
             return
         }
         
+        delegate?.month(date: calendar.date(from: components))
         self.targetDate = calendar.date(from: components) ?? Date()
     }
 }
@@ -379,7 +377,6 @@ extension CalendarView: UICollectionViewDataSource {
         
         cell.delegate = self
         cell.configure(type: self.type, with: models[indexPath.item], startDate: startDate, endDate: endDate)
-        LogUtil.d(startDate)
         
         return cell
     }
@@ -444,6 +441,7 @@ extension CalendarView: UIPickerViewDelegate {
         if year != calendar.component(.year, from: date) || month != calendar.component(.month, from: date) {
             self.isEnd = true
             self.targetDate = calendar.date(from: components)
+            self.delegate?.month(date: calendar.date(from: components))
         }
     }
 }

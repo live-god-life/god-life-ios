@@ -90,6 +90,12 @@ final class CalendarViewCell: UICollectionViewCell {
                 self?.monthModel = model
             }
             .store(in: &viewModel.bag)
+        
+        
+        NotificationCenter.default.addObserver(forName: .requestMonth, object: nil, queue: .main) { [weak self] noti in
+            guard let monthString = noti.userInfo?["month"] as? String else { return }
+            self?.viewModel.input.requestMonth.send(monthString)
+        }
     }
     
     func configure(type: CellType, with model: [CalendarViewModel], startDate: Date?, endDate: Date?) {
@@ -177,4 +183,8 @@ extension CalendarViewCell: UICollectionViewDelegate {
             cell.configure(with: model.date, day: model.dateString, isTodo: isTodo, isDDay: isDday, isSelected: false)
         }
     }
+}
+
+extension NSNotification.Name {
+    static var requestMonth = NSNotification.Name("ReqeustMonth")
 }

@@ -235,11 +235,13 @@ final class CalendarPopupVC: UIViewController {
 }
 
 extension CalendarPopupVC: CalendarViewDelegate {
+    func month(date: Date?) {
+        
+    }
+    
     func select(date: Date) {}
     
     func select(startDate: Date?, endDate: Date?) {
-        guard let startDate, let endDate else { return }
-        
         self.startDate = startDate
         self.endDate = endDate
         

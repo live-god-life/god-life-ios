@@ -20,6 +20,12 @@ final class NewGoalTitleCell: UITableViewCell {
     //MARK: - Properties
     weak var delegate: NewGoalTitleCellDelegate?
     private var bag = Set<AnyCancellable>()
+    private var text: String? {
+        didSet {
+            textLineView.isHidden = !(text?.isEmpty ?? true)
+            pencilImageView.isHidden = !(text?.isEmpty ?? true)
+        }
+    }
     private let textField = UITextField().then {
         $0.textColor = .white
         $0.textAlignment = .center
@@ -92,6 +98,7 @@ final class NewGoalTitleCell: UITableViewCell {
             .textPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] text in
+                self?.text = text
                 self?.delegate?.textEditingChanged(text)
             }
             .store(in: &bag)
@@ -110,6 +117,7 @@ final class NewGoalTitleCell: UITableViewCell {
     }
     
     func configure(with title: String?) {
-        textField.text = title
+        self.text = title
+        self.textField.text = title
     }
 }

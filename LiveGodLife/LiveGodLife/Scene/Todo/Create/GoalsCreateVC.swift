@@ -15,6 +15,7 @@ import CombineCocoa
 final class GoalsCreateVC: UIViewController {
     //MARK: - Properties
     private var bag = Set<AnyCancellable>()
+    private let editType: EditType
     private var model: CreateGoalsModel
     private let viewModel = TodoListViewModel()
     private let navigationView = CommonNavigationView().then {
@@ -52,7 +53,8 @@ final class GoalsCreateVC: UIViewController {
     }
     
     //MARK: - Life Cycle
-    init(model: CreateGoalsModel) {
+    init(editType: EditType, model: CreateGoalsModel) {
+        self.editType = editType
         self.model = model
         
         super.init(nibName: nil, bundle: nil)
@@ -120,6 +122,22 @@ final class GoalsCreateVC: UIViewController {
                     alert.addAction(action)
                     self?.present(alert, animated: true)
                 }
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestUpdateGoal
+            .sink { [weak self] isSuccess in
+                guard isSuccess else {
+                    let alert = UIAlertController(title: "알림", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert, animated: true)
+                    return
+                }
+                
+                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &viewModel.bag)
         
@@ -196,7 +214,12 @@ final class GoalsCreateVC: UIViewController {
                     }
                 }
                 
-                self.viewModel.input.requestAddGoal.send(self.model)
+                switch self.editType {
+                case .new:
+                    self.viewModel.input.requestAddGoal.send(self.model)
+                case .update(let id):
+                    self.viewModel.input.requestUpdateGoal.send((id, self.model))
+                }
             }
             .store(in: &bag)
     }
@@ -225,6 +248,11 @@ final class GoalsCreateVC: UIViewController {
 
 //MARK: - UITableViewDataSource
 extension GoalsCreateVC: UITableViewDataSource {
+    enum EditType {
+        case new
+        case update(Int)
+    }
+    
     enum SectionType: Int, CaseIterable {
         case title = 0
         case category

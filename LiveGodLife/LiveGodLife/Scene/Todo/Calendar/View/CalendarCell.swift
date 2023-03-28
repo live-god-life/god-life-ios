@@ -13,6 +13,7 @@ import CombineCocoa
 
 protocol CalendarCellDelegate: AnyObject {
     func selected(date: Date)
+    func move(month: Date)
 }
 
 //MARK: CalendarView
@@ -100,13 +101,19 @@ final class CalendarCell: UICollectionViewCell {
     }
     
     //MARK: - Functions...
-    func configure(date: Date) {
+    func configure(date: Date, startDate: Date) {
         calendarView.delegate = self
-        calendarView.configure(with: date)
+        calendarView.configure(with: date, startDate: startDate)
+        calendarView.collectionView.reloadData()
     }
 }
 
 extension CalendarCell: CalendarViewDelegate {
+    func month(date: Date?) {
+        guard let date else { return }
+        delegate?.move(month: date)
+    }
+    
     func select(date: Date) {
         delegate?.selected(date: date)
     }

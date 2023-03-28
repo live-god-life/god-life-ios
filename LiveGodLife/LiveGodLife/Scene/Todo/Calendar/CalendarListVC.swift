@@ -15,10 +15,10 @@ final class CalendarListVC: UIViewController {
     //MARK: - Properties
     private let viewModel = TodoListViewModel()
     private let calendar = Calendar.current
-    private var currentMonth = Date() {
-        didSet { viewModel.input.requestDay.send(currentMonth.yyyyMMdd) }
+    private var currentMonth = Date()
+    private var selectedDate = Date() {
+        didSet { viewModel.input.requestDay.send(selectedDate.yyyyMMdd) }
     }
-    private var selectedDate = Date()
     private var dayModel = [MainCalendarModel]() {
         didSet {
             self.calendarCollectionView.reloadData()
@@ -55,7 +55,8 @@ final class CalendarListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        calendarCollectionView.reloadSections(IndexSet(0...0))
+        NotificationCenter.default.post(name: .requestMonth, object: nil, userInfo: ["month": currentMonth.yyyyMM])
+        viewModel.input.requestDay.send(currentMonth.yyyyMMdd)
     }
     
     //MARK: - Make UI
@@ -73,9 +74,6 @@ final class CalendarListVC: UIViewController {
     
     //MARK: - Binding..
     private func bind() {
-        dateFormatter.dateFormat = "yyyyMMdd"
-        viewModel.input.requestDay.send(dateFormatter.string(from: Date()))
-        
         viewModel
             .output
             .requestDay
@@ -84,6 +82,9 @@ final class CalendarListVC: UIViewController {
                 self?.dayModel = model
             }
             .store(in: &viewModel.bag)
+        
+        dateFormatter.dateFormat = "yyyyMMdd"
+        viewModel.input.requestDay.send(dateFormatter.string(from: Date()))
     }
 }
 
@@ -117,7 +118,7 @@ extension CalendarListVC: UICollectionViewDataSource {
         case .calendar:
             let cell: CalendarCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.delegate = self
-            cell.configure(date: selectedDate)
+            cell.configure(date: currentMonth, startDate: selectedDate)
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -173,6 +174,10 @@ extension CalendarListVC: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CalendarCellDelegate
 extension CalendarListVC: CalendarCellDelegate {
+    func move(month: Date) {
+        currentMonth = month
+    }
+    
     func selected(date: Date) {
         selectedDate = date
         dateFormatter.dateFormat = "yyyyMMdd"
