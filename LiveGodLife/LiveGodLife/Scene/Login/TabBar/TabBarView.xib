@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Bold.otf">
+        <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
     </customFonts>
@@ -39,21 +39,21 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgg-tA-MqC">
                             <rect key="frame" x="0.0" y="0.0" width="118" height="104"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5j-GA-IFI">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5j-GA-IFI">
                                     <rect key="frame" x="39" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="gGc-rc-XWc"/>
                                         <constraint firstAttribute="width" constant="40" id="rxX-E6-oFP"/>
                                     </constraints>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" image="tab_home_disable"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tab_home_disable"/>
                                     <connections>
                                         <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="ZSM-oL-Rrv"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sds-Pa-J0q">
-                                    <rect key="frame" x="42.666666666666671" y="54" width="32.666666666666671" height="15"/>
+                                    <rect key="frame" x="41" y="54" width="36.333333333333343" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="fwy-27-R60"/>
                                     </constraints>
@@ -73,21 +73,21 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv5-TI-KKP">
                             <rect key="frame" x="118" y="0.0" width="118" height="104"/>
                             <subviews>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-71-B5n">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-71-B5n">
                                     <rect key="frame" x="39" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="GJy-LI-alE"/>
                                         <constraint firstAttribute="height" constant="40" id="gVI-TE-5eE"/>
                                     </constraints>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" image="tab_calendar_disable"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tab_calendar_disable"/>
                                     <connections>
                                         <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="vmu-qu-2jG"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FET-Pt-e8e">
-                                    <rect key="frame" x="43.666666666666657" y="54" width="31" height="15"/>
+                                    <rect key="frame" x="41.666666666666657" y="54" width="34.666666666666657" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="PP2-3z-jHn"/>
                                     </constraints>
@@ -107,21 +107,21 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa2-uW-doq">
                             <rect key="frame" x="236" y="0.0" width="118" height="104"/>
                             <subviews>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-C0-FqL">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3z-C0-FqL">
                                     <rect key="frame" x="39" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="Cfv-Pi-k1o"/>
                                         <constraint firstAttribute="height" constant="40" id="jLg-uf-aFT"/>
                                     </constraints>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" image="tab_my_disable"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tab_my_disable"/>
                                     <connections>
                                         <action selector="setViewController:" destination="-1" eventType="touchUpInside" id="Jjf-Hf-A8U"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MYPAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crd-UJ-4ly">
-                                    <rect key="frame" x="36.333333333333314" y="54" width="45.333333333333343" height="15"/>
+                                    <rect key="frame" x="34.333333333333314" y="54" width="49.666666666666657" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="raY-9L-SX4"/>
                                     </constraints>

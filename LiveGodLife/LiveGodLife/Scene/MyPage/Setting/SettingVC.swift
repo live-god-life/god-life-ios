@@ -20,7 +20,7 @@ final class SettingVC: UIViewController {
     //MARK: - Properties
     private var viewModel = UserViewModel()
     private let navigationView = CommonNavigationView().then {
-        $0.titleLabel.text = "설정"
+        $0.titleLabel.text = "설정"        
     }
     private let logoutItem = SettingMenuView(title: "로그아웃")
     private let withdrawalItem = SettingMenuView(title: "회원탈퇴")

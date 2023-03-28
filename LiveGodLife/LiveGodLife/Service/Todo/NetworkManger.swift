@@ -28,8 +28,11 @@ enum NetworkService {
     case goals(Dictionary<String,Any>)
     case deatilGoals(Int)
     case addGoals(Data)
+    case updateGoals(Int, Data)
+    case deleteGoals(Dictionary<String,Any>)
     case detailTodo(Dictionary<String,Any>)
     case detailTodos(Dictionary<String,Any>)
+    case deleteTodo(Dictionary<String,Any>)
 }
 extension NetworkService: TargetType {
     public var baseURL: URL {
@@ -58,14 +61,22 @@ extension NetworkService: TargetType {
             return "/goals"
         case .deatilGoals(let goalsID):
             return "/goals/\(goalsID)"
-        case .addGoals(_):
+        case .addGoals:
             return "/goals"
+        case .updateGoals(let id, _):
+            return "/goals/\(id)"
+        case .deleteGoals(let parameters):
+            let goalId = parameters["goalId"] as? Int ?? 1
+            return "/goals/\(goalId)"
         case .detailTodo(let parameters):
             let todoId = parameters["todoId"] as? Int ?? 1
             return "/goals/todos/\(todoId)"
         case .detailTodos(let parameters):
             let todoId = parameters["todoId"] as? Int ?? 1
             return "/goals/todos/\(todoId)/todoSchedules"
+        case .deleteTodo(let parameters):
+            let todoId = parameters["todoId"] as? Int ?? 1
+            return "/goals/todos/\(todoId)"
         }
     }
     
@@ -75,10 +86,14 @@ extension NetworkService: TargetType {
                 .month, .mindsets, .goals,
                 .deatilGoals, .detailTodo, .detailTodos:
             return .get
-        case .status:
-            return .patch
         case .addGoals, .join, .login:
             return .post
+        case .updateGoals:
+            return .put
+        case .status:
+            return .patch
+        case .deleteGoals, .deleteTodo:
+            return .delete
         }
     }
     
@@ -107,14 +122,20 @@ extension NetworkService: TargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .addGoals(let model):
             return .requestData(model)
+        case .updateGoals(_, let model):
+            return .requestData(model)
         case .deatilGoals:
             return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+        case .deleteGoals(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .login(let parameter):
             let data = try! JSONSerialization.data(withJSONObject: parameter)
             return .requestData(data)
         case .detailTodo(let parameters):
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .detailTodos(let parameters):
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .deleteTodo(let parameters):
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         }
     }

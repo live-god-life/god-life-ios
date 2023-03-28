@@ -78,11 +78,18 @@ final class TodoListViewModel {
                 self?.requestAddGoals(model: newGoal)
             }
             .store(in: &bag)
-        //DetailTodos
+        //UpdateGoal
         input
-            .requestDetailTodos
-            .sink { [weak self] info in
-                self?.requestDetailTodos(id: info.id, isAfter: info.isAfter)
+            .requestUpdateGoal
+            .sink { [weak self] id, goal in
+                self?.requestUpdateGoals(id: id, model: goal)
+            }
+            .store(in: &bag)
+        //DeleteGoals
+        input
+            .requestDeleteGoal
+            .sink { [weak self] goalId in
+                self?.requestDeleteGoal(id: goalId )
             }
             .store(in: &bag)
         //DetailTodo
@@ -97,6 +104,13 @@ final class TodoListViewModel {
             .requestDetailTodos
             .sink { [weak self] info in
                 self?.requestDetailTodos(id: info.id, isAfter: info.isAfter)
+            }
+            .store(in: &bag)
+        //DeleteTodo
+        input
+            .requestDeleteTodo
+            .sink { [weak self] todoId in
+                self?.requestDeleteTodo(id: todoId)
             }
             .store(in: &bag)
     }
@@ -120,8 +134,11 @@ extension TodoListViewModel {
         var requestMindsets = PassthroughSubject<Int?, Never>()
         var requestDetailGoal = PassthroughSubject<Int, Never>()
         var requestAddGoal = PassthroughSubject<CreateGoalsModel, Never>()
+        var requestUpdateGoal = PassthroughSubject<(Int, CreateGoalsModel), Never>()
+        var requestDeleteGoal = PassthroughSubject<Int, Never>()
         var requestDetailTodo = PassthroughSubject<Int, Never>()
         var requestDetailTodos = PassthroughSubject<(id: Int, isAfter: Bool), Never>()
+        var requestDeleteTodo = PassthroughSubject<Int, Never>()
     }
     
     struct Output {
@@ -132,8 +149,11 @@ extension TodoListViewModel {
         var requestMindsets = PassthroughSubject<[MindSetsModel], Never>()
         var requestDetailGoal = PassthroughSubject<Void?, Never>()
         var requestAddGoal = PassthroughSubject<Result<Void?, Error>, Never>()
+        var requestUpdateGoal = PassthroughSubject<Bool, Never>()
+        var requestDeleteGoal = PassthroughSubject<Bool, Never>()
         var requestDetailTodo = PassthroughSubject<TaskViewModel, Never>()
         var requestDetailTodos = PassthroughSubject<[TodoScheduleViewModel], Never>()
+        var requestDeleteTodo = PassthroughSubject<Bool, Never>()
     }
 }
 
@@ -297,6 +317,44 @@ extension TodoListViewModel {
                 }
             }
     }
+    //MARK: Goals 목표 수정
+    private func requestUpdateGoals(id: Int, model: CreateGoalsModel) {
+        guard let model = try? JSONEncoder().encode(model) else {
+            let alert = UIAlertController(title: "알림", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(action)
+            UIApplication.topViewController()?.present(alert, animated: true)
+            return
+        }
+        
+        NetworkManager.shared.provider
+            .request(.updateGoals(id, model)) { [weak self] response in
+                switch response {
+                case .success:
+                    self?.output.requestUpdateGoal.send(true)
+                case .failure(let err):
+                    LogUtil.e(err)
+                    self?.output.requestUpdateGoal.send(false)
+                }
+            }
+    }
+    //MARK: 목표 삭제
+    private func requestDeleteGoal(id: Int) {
+        let parameters: [String: Any] = [
+            "goalId": id
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.deleteGoals(parameters)) { [weak self] response in
+                switch response {
+                case .success:
+                    self?.output.requestDeleteGoal.send(true)
+                case .failure(let err):
+                    LogUtil.e(err)
+                    self?.output.requestDeleteGoal.send(false)
+                }
+            }
+    }
     //MARK: 투두 상세
     private func requestDetailTodo(id: Int) {
         let parameters: [String: Any] = [
@@ -345,6 +403,23 @@ extension TodoListViewModel {
                 case .failure(let err):
                     LogUtil.e(err.localizedDescription)
                     self?.output.requestDetailTodos.send([])
+                }
+            }
+    }
+    //MARK: TODO 삭제
+    private func requestDeleteTodo(id: Int) {
+        let parameters: [String: Any] = [
+            "todoId": id
+        ]
+        
+        NetworkManager.shared.provider
+            .request(.deleteTodo(parameters)) { [weak self] response in
+                switch response {
+                case .success:
+                    self?.output.requestDeleteTodo.send(true)
+                case .failure(let err):
+                    LogUtil.e(err)
+                    self?.output.requestDeleteTodo.send(false)
                 }
             }
     }

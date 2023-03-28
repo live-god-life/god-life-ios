@@ -23,8 +23,9 @@ final class CommonNavigationView: UIView {
         $0.font = .semiBold(with: 20)
     }
     let rightBarButton = UIButton().then {
-        $0.setImage(UIImage(named: "more_btn"), for: .normal)
-        $0.setImage(UIImage(named: "more_btn"), for: .highlighted)
+        $0.isHidden = true
+        $0.setImage(UIImage(named: "navigation_more_btn"), for: .normal)
+        $0.setImage(UIImage(named: "navigation_more_btn"), for: .highlighted)
     }
     
     //MARK: - Initializer
@@ -67,7 +68,6 @@ final class CommonNavigationView: UIView {
         leftBarButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self else { return }
                 UIApplication.topViewController()?.navigationController?.popViewController(animated: true)
             }
             .store(in: &bag)

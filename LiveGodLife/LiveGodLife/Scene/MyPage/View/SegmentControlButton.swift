@@ -19,7 +19,7 @@ final class SegmentControlButton: UIButton {
     override var isSelected: Bool {
         didSet {
             let selected = UIFont.semiBold(with: 18)
-            let normal = UIFont.semiBold(with: 16)
+            let normal = UIFont.semiBold(with: 18)
             titleLabel?.font = isSelected ? selected : normal
             highlightView.backgroundColor = isSelected ? highlightViewColor : .clear
         }

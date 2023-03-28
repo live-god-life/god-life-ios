@@ -21,8 +21,28 @@ final class TodoDetailVC: UIViewController {
         }
     }
     private var schedules = [TodoScheduleViewModel]()
+    private let updateView = UIView().then {
+        $0.isHidden = true
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.gray3.cgColor
+        $0.layer.cornerRadius = 8.0
+        $0.backgroundColor = .black
+    }
+    private let updateButton = UIButton().then {
+        $0.setTitle("수정", for: .normal)
+        $0.setTitle("수정", for: .highlighted)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.white, for: .highlighted)
+    }
+    private let deleteButton = UIButton().then {
+        $0.setTitle("삭제", for: .normal)
+        $0.setTitle("삭제", for: .highlighted)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.white, for: .highlighted)
+    }
     private lazy var navigationView = CommonNavigationView().then {
         $0.titleLabel.text = self.taskType == .todo ? "루틴 상세" : "할 일 상세"
+        $0.rightBarButton.isHidden = false
     }
     private lazy var taskInfoView = TaskInfoView(isTodo: self.taskType == .todo)
     private lazy var todoTableView = UITableView().then {
@@ -67,6 +87,9 @@ final class TodoDetailVC: UIViewController {
         todoTableView.tableHeaderView = taskInfoView
         view.addSubview(navigationView)
         view.addSubview(todoTableView)
+        view.addSubview(updateView)
+        updateView.addSubview(updateButton)
+        updateView.addSubview(deleteButton)
         
         navigationView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -77,6 +100,22 @@ final class TodoDetailVC: UIViewController {
             $0.top.equalTo(navigationView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
+        }
+        updateView.snp.makeConstraints {
+            $0.right.equalTo(navigationView.rightBarButton.snp.left)
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.width.equalTo(98)
+            $0.height.equalTo(96)
+        }
+        updateButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(40)
+        }
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-8)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(40)
         }
         
         headerView.configure(with: taskType, isNext: true)
@@ -108,6 +147,46 @@ final class TodoDetailVC: UIViewController {
             .sink { [weak self] _ in
                 guard let self else { return }
                 self.viewModel.input.requestDetailTodo.send(self.id)
+            }
+            .store(in: &viewModel.bag)
+        
+        navigationView
+            .rightBarButton
+            .tapPublisher
+            .sink { [weak self] in
+                self?.updateView.isHidden.toggle()
+            }
+            .store(in: &viewModel.bag)
+        
+        viewModel
+            .output
+            .requestDeleteTodo
+            .sink { [weak self] isSuccess in
+                guard let self else { return }
+                guard isSuccess else {
+                    let alert = UIAlertController(title: "알림", message: "삭제에 실패했습니다.\n다시 시도해주세요😭", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true)
+                    return
+                }
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &viewModel.bag)
+        
+        deleteButton
+            .tapPublisher
+            .sink { [weak self] in
+                guard let self else { return }
+                
+                let alert = UIAlertController(title: "알림", message: "투두를 삭제하시겠습니까?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.viewModel.input.requestDeleteTodo.send(self.id)
+                }
+                alert.addAction(okAction)
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true)
             }
             .store(in: &viewModel.bag)
         

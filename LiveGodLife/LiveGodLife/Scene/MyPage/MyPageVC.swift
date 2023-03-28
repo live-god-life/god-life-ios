@@ -29,6 +29,7 @@ final class MyPageVC: UIViewController {
     }
     private var navigationView = CommonNavigationView().then {
         $0.leftBarButton.isHidden = true
+        $0.rightBarButton.isHidden = false
         $0.rightBarButton.setImage(UIImage(named: "setting"), for: .normal)
     }
     private lazy var tableView = UITableView().then {
