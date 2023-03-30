@@ -60,7 +60,7 @@ final class MindsetsTableViewCell: UITableViewCell {
             $0.height.equalTo(28)
         }
         mindsetTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
         }

@@ -16,7 +16,10 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     private var id: Int?
     weak var delegate: TodoCollectionViewCellDelegate?
     
-//    @IBOutlet private weak var progressBar: CircularProgressBar!
+    private var progressBar = CircleProgressBar(backgroundCircleColor: .black,
+                                                foregroundCircleColor: .green,
+                                                startGradientColor: .green,
+                                                endGradientColor: .green)
     @IBOutlet private weak var dDayLabel: UILabel!
     @IBOutlet private weak var repetitionLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
@@ -32,11 +35,17 @@ final class TodoCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Functions...
     private func makeUI() {
-//        progressBar.lineWidth = 5
-//        progressBar.gradientColor = [UIColor.green.cgColor, UIColor.green.cgColor]
         layer.cornerRadius = 54
         contentView.backgroundColor = UIColor.default
         checkButton.setImage(UIImage(named: "btn_toggle_checkbox_on_todo"), for: .normal)
+        
+        contentView.addSubview(progressBar)
+        
+        progressBar.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().offset(16)
+            $0.size.equalTo(56)
+        }
     }
 
     func configure(_ todo: Todo.Schedule) {
@@ -56,8 +65,8 @@ final class TodoCollectionViewCell: UICollectionViewCell {
         let numberOfLines = UILabel.countLines(font: .semiBold(with: 20)!, text: todo.title, width: UIScreen.main.bounds.width - 32.0)
         contentHeightConstraint.constant = numberOfLines < 2 ? 28 : 56
         
-        let rate = (Double(todo.completedCount) / Double(todo.totalCount)) * 100
-//        progressBar.value = rate
+        let rate = Double(todo.completedCount) / Double(todo.totalCount)
+        progressBar.progress = rate
     }
 
     @IBAction

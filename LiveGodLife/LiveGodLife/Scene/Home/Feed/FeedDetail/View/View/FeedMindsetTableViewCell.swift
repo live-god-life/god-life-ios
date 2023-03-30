@@ -44,6 +44,7 @@ final class FeedMindsetTableViewCell: UITableViewCell {
     
     //MARK: - Make UI
     private func makeUI() {
+        selectionStyle = .none
         backgroundColor = .black
         
         contentView.addSubview(contentsView)
@@ -53,8 +54,9 @@ final class FeedMindsetTableViewCell: UITableViewCell {
         contentsView.addSubview(rightImageView)
         
         contentsView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.top.equalToSuperview().offset(16)
             $0.left.right.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
         }
         leftImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()

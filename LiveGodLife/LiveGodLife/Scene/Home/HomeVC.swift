@@ -32,6 +32,8 @@ final class HomeVC: UIViewController, CategoryFilterViewDelegate {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.isHidden = true
+        
+        requestTodos()
     }
     
     private func makeUI() {
@@ -49,7 +51,6 @@ final class HomeVC: UIViewController, CategoryFilterViewDelegate {
         headerView.delegate = self
         filterHeaderView.categoryFilterView.delegate = self
         
-        requestTodos()
         requestFeeds()
     }
 
@@ -69,7 +70,7 @@ extension HomeVC {
         dateFormatter.dateFormat = "yyyyMMdd"
         let today = dateFormatter.string(from: Date())
 
-        let param: [String: Any] = ["date": today, "size": 5, "completionStatus": "false"]
+        let param: [String: Any] = ["date": today, "size": 5]
         let todos = repository.requestTodos(endpoint: .todos(param))
         let mindset = repository.requestGoals(endpoint: .mindsets)
 

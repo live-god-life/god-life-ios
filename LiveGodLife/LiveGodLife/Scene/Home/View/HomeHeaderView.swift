@@ -47,7 +47,7 @@ final class HomeHeaderView: UIView {
 
     func configure(viewModel: HomeHeaderViewModel) {
         self.todos = viewModel.todos.flatMap { $0.schedules }
-
+        
         DispatchQueue.main.async { [weak self] in
             if let goal = viewModel.goals.randomElement() {
                 self?.id = goal.id
@@ -66,11 +66,7 @@ final class HomeHeaderView: UIView {
 
 extension HomeHeaderView: TodoCollectionViewCellDelegate {
     func complete(id: Int) {
-        if let index = todos.firstIndex(where: { $0.scheduleID == id }) {
-            todos.remove(at: index)
-            collectionView.reloadData()
-            delegate?.completeTodo(id: id)
-        }
+        delegate?.completeTodo(id: id)
     }
 }
 
