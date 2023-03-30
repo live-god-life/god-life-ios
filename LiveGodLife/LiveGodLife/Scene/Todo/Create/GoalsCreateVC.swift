@@ -53,6 +53,10 @@ final class GoalsCreateVC: UIViewController {
     }
     
     //MARK: - Life Cycle
+    deinit {
+        removeKeyboardNotifications()
+    }
+    
     init(editType: EditType, model: CreateGoalsModel) {
         self.editType = editType
         self.model = model
@@ -69,6 +73,7 @@ final class GoalsCreateVC: UIViewController {
         
         makeUI()
         bind()
+        addKeyboardNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +118,8 @@ final class GoalsCreateVC: UIViewController {
             .output
             .requestAddGoal
             .sink { [weak self] result in
+                self?.completeButton.isUserInteractionEnabled = true
+                
                 switch result {
                 case .success:
                     self?.navigationController?.popViewController(animated: true)
@@ -129,6 +136,8 @@ final class GoalsCreateVC: UIViewController {
             .output
             .requestUpdateGoal
             .sink { [weak self] isSuccess in
+                self?.completeButton.isUserInteractionEnabled = true
+                
                 guard isSuccess else {
                     let alert = UIAlertController(title: "알림", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
                     let action = UIAlertAction(title: "확인", style: .default)
@@ -145,6 +154,9 @@ final class GoalsCreateVC: UIViewController {
             .tapPublisher
             .sink { [weak self] _ in
                 guard let self else { return }
+                
+                self.completeButton.isUserInteractionEnabled = false
+                
                 
                 let alert = UIAlertController(title: "알림", message: "", preferredStyle: .alert)
                 let action = UIAlertAction(title: "확인", style: .default)
@@ -168,8 +180,20 @@ final class GoalsCreateVC: UIViewController {
                     return
                 }
                 
+                guard !self.model.todos.isEmpty else {
+                    alert.message = "투두를 추가해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
                 guard !self.model.todos.contains(where: { $0.title.isEmpty }) else {
                     alert.message = "투두 제목을 설정해주세요."
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                guard !(self.model.todos.first(where: { $0.type == "FOLDER" })?.todos.isEmpty ?? false) else {
+                    alert.message = "투두를 추가해주세요."
                     self.present(alert, animated: true)
                     return
                 }
@@ -192,18 +216,6 @@ final class GoalsCreateVC: UIViewController {
                     return
                 }
                 
-                guard !self.model.todos.contains(where: { ($0.repetitionParams?.isEmpty ?? true) && $0.type != "FOLDER" }) else {
-                    alert.message = "반복 주기를 설정해주세요."
-                    self.present(alert, animated: true)
-                    return
-                }
-                
-                guard !self.model.todos.contains(where: { $0.todos.contains(where: { $0.repetitionParams?.isEmpty ?? true }) }) else {
-                    alert.message = "반복 주기를 설정해주세요."
-                    self.present(alert, animated: true)
-                    return
-                }
-                
                 for (i, todo) in self.model.todos.enumerated() {
                     if todo.type != "FOLDER" {
                         if todo.notification?.isEmpty ?? true { self.model.todos[i].notification = "09:00" }
@@ -213,6 +225,8 @@ final class GoalsCreateVC: UIViewController {
                         }
                     }
                 }
+                
+                LogUtil.d(self.model)
                 
                 switch self.editType {
                 case .new:
@@ -242,6 +256,60 @@ final class GoalsCreateVC: UIViewController {
                 $0.height.equalTo(188)
                 $0.center.equalToSuperview()
             }
+        }
+    }
+    
+    // 노티피케이션을 추가하는 메서드
+    func addKeyboardNotifications(){
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification,
+                                               object: nil,
+                                               queue: .main) { [weak self] noti in
+            if let self, let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height + 148.0
+                
+                var inset = self.newGoalTableView.contentInset
+                inset.bottom = keyboardHeight
+                self.newGoalTableView.contentInset = inset
+                
+                inset = self.newGoalTableView.verticalScrollIndicatorInsets
+                inset.bottom = keyboardHeight
+                self.newGoalTableView.verticalScrollIndicatorInsets = inset
+            }
+        }
+        // 키보드가 사라질 때 앱에게 알리는 메서드 추가
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
+                                               object: nil,
+                                               queue: .main) { [weak self] noti in
+            if let self {
+                let bottomInset = 148.0
+                
+                var inset = self.newGoalTableView.contentInset
+                inset.bottom = bottomInset
+                self.newGoalTableView.contentInset = inset
+                
+                inset = self.newGoalTableView.verticalScrollIndicatorInsets
+                inset.bottom = bottomInset
+                self.newGoalTableView.verticalScrollIndicatorInsets = inset
+            }
+        }
+    }
+
+    // 노티피케이션을 제거하는 메서드
+    func removeKeyboardNotifications(){
+        // 키보드가 나타날 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        // 키보드가 사라질 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 키보드가 사라졌다는 알림을 받으면 실행할 메서드
+    @objc func keyboardWillHide(_ noti: NSNotification){
+        // 키보드의 높이만큼 화면을 내려준다.
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.newGoalTableView.frame.origin.y += keyboardHeight
         }
     }
 }
@@ -575,16 +643,16 @@ extension GoalsCreateVC: TodoDelegate {
         LogUtil.d(model)
     }
     
-    func repeatDate(for cell: UITableViewCell, with days: [String]) {
+    func repeatDate(for cell: UITableViewCell, type: String, days: [String]) {
         guard let indexPath = newGoalTableView.indexPath(for: cell) else { return }
         
         let index = indexPath.section - 6
         
         if indexPath.row == 0 {
-            model.todos[index].repetitionType = "WEEK"
+            model.todos[index].repetitionType = type
             model.todos[index].repetitionParams = days
         } else {
-            model.todos[index].todos[indexPath.row - 1].repetitionType = "WEEK"
+            model.todos[index].todos[indexPath.row - 1].repetitionType = type
             model.todos[index].todos[indexPath.row - 1].repetitionParams = days
         }
         

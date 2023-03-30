@@ -11,12 +11,13 @@ import UIKit
 import Combine
 
 protocol RepeatPopupVCDelegate: AnyObject {
-    func select(days: Set<Int>)
+    func select(type: String, days: Set<Int>)
 }
 
 //MARK: DatePopupVC
 final class RepeatPopupVC: UIViewController {
     enum RepeatType {
+        case none
         case everyday
         case weekday
         case weekend
@@ -46,6 +47,15 @@ final class RepeatPopupVC: UIViewController {
         $0.textColor = .white
         $0.font = .semiBold(with: 20)
     }
+    private let notUsedLabel = UILabel().then {
+        $0.text = "사용안함"
+        $0.textColor = UIColor(rgbHexString: "8D8D93")
+        $0.font = .semiBold(with: 16)
+    }
+    private let notUsedImageView = UIImageView().then {
+        $0.image = UIImage(named: "empty-checkbox")
+    }
+    private let notUsedButton = UIButton()
     private let repeatDateStackView = RepeatDateStackView()
     private let repeatWeekStackView = RepeatWeekdayView().then {
         $0.isHidden = true
@@ -135,6 +145,9 @@ final class RepeatPopupVC: UIViewController {
         containerView.addArrangedSubview(bottomView)
         
         titleContainerView.addSubview(titleLabel)
+        titleContainerView.addSubview(notUsedImageView)
+        titleContainerView.addSubview(notUsedLabel)
+        titleContainerView.addSubview(notUsedButton)
         lineContainerView.addSubview(lineView)
         dayCountContainerView.addSubview(dayCountLabel)
         buttonContainerView.addSubview(completedButton)
@@ -152,8 +165,23 @@ final class RepeatPopupVC: UIViewController {
         }
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
-            $0.right.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(44)
+        }
+        notUsedImageView.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.right.equalToSuperview().offset(-10)
+            $0.size.equalTo(24)
+        }
+        notUsedLabel.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.right.equalTo(notUsedImageView.snp.left).offset(-8)
+            $0.height.equalTo(26)
+        }
+        notUsedButton.snp.makeConstraints {
+            $0.left.equalTo(notUsedLabel.snp.left)
+            $0.verticalEdges.equalToSuperview()
+            $0.right.equalToSuperview()
         }
         repeatDateStackView.snp.makeConstraints {
             $0.height.equalTo(36)
@@ -228,6 +256,23 @@ final class RepeatPopupVC: UIViewController {
             }
             .store(in: &bag)
         
+        notUsedButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                let isSelected = !(self.notUsedButton.isSelected)
+                self.notUsedButton.isSelected = isSelected
+                self.repeatWeekStackView.isUserInteractionEnabled = !isSelected
+                self.repeatDateStackView.isUserInteractionEnabled = !isSelected
+                self.notUsedImageView.image = isSelected ? UIImage(named: "fill-checkbox") : UIImage(named: "empty-checkbox")
+                
+                if isSelected {
+                    self.repeatType = .none
+                }
+            }
+            .store(in: &bag)
+        
         completedButton
             .tapPublisher
             .sink { [weak self] _ in
@@ -237,14 +282,14 @@ final class RepeatPopupVC: UIViewController {
                 switch self.repeatType {
                 case .everyday:
                     (1...7).forEach { result.insert($0) }
-                    self.delegate?.select(days: result)
+                    self.delegate?.select(type: "WEEK", days: result)
                 case .weekday:
                     (2...6).forEach { result.insert($0) }
-                    self.delegate?.select(days: result)
+                    self.delegate?.select(type: "WEEK", days: result)
                 case .weekend:
                     result.insert(1)
                     result.insert(7)
-                    self.delegate?.select(days: result)
+                    self.delegate?.select(type: "WEEK", days: result)
                 case .custom(let days):
                     guard !days.isEmpty else {
                         let alert = UIAlertController(title: "알림", message: "반복 날짜를 선택해주세요.", preferredStyle: .alert)
@@ -254,7 +299,10 @@ final class RepeatPopupVC: UIViewController {
                         return
                     }
                     
-                    self.delegate?.select(days: days)
+                    self.delegate?.select(type: "WEEK", days: days)
+                case .none:
+                    self.delegate?.select(type: "NONE", days: [])
+                    self.endAnimator.startAnimation()
                 }
                 
                 self.endAnimator.startAnimation()
@@ -299,6 +347,11 @@ final class RepeatPopupVC: UIViewController {
                         if days.contains(weekday) { totalDayCount += 1 }
                         sDay.addTimeInterval(86400)
                     }
+                case .none:
+                    self.notUsedButton.isSelected = true
+                    self.repeatDateStackView.prevButton = nil
+                    self.repeatWeekStackView.isHidden = true
+                    self.repeatWeekStackView.configure(days: [])
                 }
                 
                 self.dayCountLabel.text = "총 \(totalDayCount)일"
@@ -311,11 +364,19 @@ final class RepeatPopupVC: UIViewController {
         repeatDateStackView.configure(type: self.repeatType)
         
         repeatWeekStackView.delegate = self
-        if case let .custom(days) = self.repeatType {
+        
+        switch repeatType {
+        case .custom(let days):
             self.days = days
             repeatWeekStackView.isHidden = false
             repeatWeekStackView.configure(days: days)
-        } else {
+        case .none:
+            self.notUsedButton.isSelected = true
+            self.repeatWeekStackView.isUserInteractionEnabled = false
+            self.repeatDateStackView.isUserInteractionEnabled = false
+            self.notUsedImageView.image = UIImage(named: "fill-checkbox")
+            fallthrough
+        default:
             repeatWeekStackView.isHidden = true
             repeatWeekStackView.configure(days: [])
         }

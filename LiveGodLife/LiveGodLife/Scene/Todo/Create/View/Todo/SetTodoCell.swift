@@ -15,7 +15,7 @@ protocol TodoDelegate: AnyObject {
     func delete(for cell: UITableViewCell)
     func title(for cell: UITableViewCell, with text: String)
     func date(for cell: UITableViewCell, startDate: Date, endDate: Date)
-    func repeatDate(for cell: UITableViewCell, with days: [String])
+    func repeatDate(for cell: UITableViewCell, type: String, days: [String])
     func alaram(for cell: UITableViewCell, with alarm: String?)
 }
 
@@ -29,7 +29,9 @@ final class SetTodoCell: UITableViewCell {
     private var notification: String?
     private var days = Set<Int>() {
         didSet {
-            if days.count == 7 {
+            if days.isEmpty {
+                self.repeatType = .none
+            } else if days.count == 7 {
                 self.repeatType = .everyday
             } else if days.count == 2,
                       days.contains(1) && days.contains(7) {
@@ -57,6 +59,8 @@ final class SetTodoCell: UITableViewCell {
                 let result = sortedDays.reduce("매주 ", { $0 + "\(dayString[$1 - 1]),"})
                 let daysString = String(result[result.startIndex..<result.index(before: result.endIndex)])
                 repeatItemView.valueLabel.text = daysString
+            case .none:
+                repeatItemView.valueLabel.text = "선택 안함"
             }
         }
     }
@@ -75,7 +79,7 @@ final class SetTodoCell: UITableViewCell {
         $0.configure(logo: UIImage(named: "period"), title: "목표 기간", value: "필수")
     }
     private let repeatItemView = SetTodoItemView().then {
-        $0.configure(logo: UIImage(named: "repetition"), title: "반복 주기", value: "필수")
+        $0.configure(logo: UIImage(named: "repetition"), title: "반복 주기", value: "선택")
     }
     private let alarmItemView = SetTodoItemView().then {
         $0.configure(logo: UIImage(named: "alarm"), title: "알람 설정", value: "선택")
@@ -301,11 +305,11 @@ extension SetTodoCell: CalendarPopupVCDelegate {
 }
 
 extension SetTodoCell: RepeatPopupVCDelegate {
-    func select(days: Set<Int>) {
+    func select(type: String, days: Set<Int>) {
         self.days = days
         let dayString = ["일", "월", "화", "수", "목", "금", "토"]
         let result = days.map { $0 }.sorted(by: <).map { dayString[$0 - 1] }
-        delegate?.repeatDate(for: self, with: result)
+        delegate?.repeatDate(for: self, type: type, days: result)
     }
 }
 

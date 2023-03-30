@@ -74,7 +74,7 @@ final class RepeatDateStackView: UIView {
         $0.backgroundColor = .black
         $0.titleLabel?.font = .regular(with: 16)
     }
-    private lazy var prevButton: UIButton? = self.everyDayButton {
+    lazy var prevButton: UIButton? = self.everyDayButton {
         didSet {
             oldValue?.isSelected = false
             oldValue?.layer.borderWidth = 1.0
@@ -176,6 +176,8 @@ final class RepeatDateStackView: UIView {
             prevButton = weekendButton
         case .custom:
             prevButton = customButton
+        case .none:
+            prevButton = nil
         }
     }
 }

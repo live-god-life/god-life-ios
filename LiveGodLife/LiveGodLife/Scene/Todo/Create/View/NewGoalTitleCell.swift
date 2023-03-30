@@ -98,7 +98,6 @@ final class NewGoalTitleCell: UITableViewCell {
             .textPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] text in
-                self?.text = text
                 self?.delegate?.textEditingChanged(text)
             }
             .store(in: &bag)
@@ -117,7 +116,8 @@ final class NewGoalTitleCell: UITableViewCell {
     }
     
     func configure(with title: String?) {
-        self.text = title
+        self.textLineView.isHidden = !(title?.isEmpty ?? true)
+        self.pencilImageView.isHidden = !(title?.isEmpty ?? true)
         self.textField.text = title
     }
 }
