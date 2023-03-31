@@ -178,11 +178,11 @@ final class GoalCell: UICollectionViewCell {
         }
         
         // CountLabel
-        let minsetCount = model.totalMindsetCount ?? 0
+        let minsetCount = model.mindsets?.count ?? 0
         mindsetCountLabel.text = "마인드셋:\(minsetCount)"
-        let completeCount = model.completedTodoCount ?? 0
+        let completeCount = model.completedTodoTaskScheduleCount ?? 0
         completedTodoCountLabel.text = "완료:\(completeCount)"
-        let proceedingCount = (model.totalTodoCount ?? 0) - completeCount
+        let proceedingCount = (model.totalTodoTaskScheduleCount ?? 0) - completeCount
         totalTodoCountLabel.text = "진행중:\(proceedingCount)"
 
         // DateLabel

@@ -122,7 +122,7 @@ extension CalendarListVC: UICollectionViewDataSource {
             return cell
         case .dateHeader:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)
-            dateFormatter.dateFormat = "MM월 dd일 EEEE"
+            dateFormatter.dateFormat = "yy.MM.dd. E"
             let title = dateFormatter.string(from: selectedDate)
             cell.configure(with: title)
             return cell

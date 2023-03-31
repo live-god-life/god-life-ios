@@ -164,6 +164,7 @@ final class DetailGoalVC: UIViewController {
             .sink { [weak self] in
                 guard let self else { return }
                 
+                self.updateView.isHidden = true
                 let alert = UIAlertController(title: "목표를 수정하시겠습니까?", message: "수정시 완료 처리한 TODO들이 삭제 됩니다.\n완료 이력을 유지하려면 새로 등록해 주세요.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "수정하기", style: .default) { _ in
                     guard let goal = self.viewModel.deatilModel else { return }
@@ -216,6 +217,7 @@ final class DetailGoalVC: UIViewController {
             .sink { [weak self] in
                 guard let self else { return }
                 
+                self.updateView.isHidden = true
                 let alert = UIAlertController(title: "알림", message: "목표를 삭제하시겠습니까?", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "확인", style: .default) { _ in
                     self.viewModel.input.requestDeleteGoal.send(self.id)
@@ -226,8 +228,6 @@ final class DetailGoalVC: UIViewController {
                 self.present(alert, animated: true)
             }
             .store(in: &viewModel.bag)
-        
-        
     }
 }
 
@@ -273,7 +273,7 @@ extension DetailGoalVC: UICollectionViewDataSource {
         switch cellType {
         case .title:
             let cell: GoalCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.configure(with: viewModel.deatilModel, type: .title)
+            cell.configure(with: model, type: .title)
             return cell
         case .line:
             let cell: DefaultCell = collectionView.dequeueReusableCell(for: indexPath)

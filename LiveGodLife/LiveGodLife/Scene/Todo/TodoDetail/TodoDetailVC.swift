@@ -42,7 +42,6 @@ final class TodoDetailVC: UIViewController {
     }
     private lazy var navigationView = CommonNavigationView().then {
         $0.titleLabel.text = self.taskType == .todo ? "루틴 상세" : "할 일 상세"
-        $0.rightBarButton.isHidden = false
     }
     private lazy var taskInfoView = TaskInfoView(isTodo: self.taskType == .todo)
     private lazy var todoTableView = UITableView().then {

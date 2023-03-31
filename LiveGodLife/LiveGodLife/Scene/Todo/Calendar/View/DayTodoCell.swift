@@ -135,7 +135,7 @@ final class DayTodoCell: UICollectionViewCell {
                       parameters.contains("금") {
                 return "평일"
             } else {
-                var subTitle = "매주" + parameters.map { "\($0)," }.joined()
+                var subTitle = "매주 " + parameters.map { "\($0)," }.joined()
                 subTitle.removeLast()
                 return subTitle
             }

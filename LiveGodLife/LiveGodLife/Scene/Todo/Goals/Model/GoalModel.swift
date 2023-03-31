@@ -18,6 +18,7 @@ protocol GoalProtocol: Decodable {
     var completedTodoCount: Int? { get set }
     var totalTodoTaskScheduleCount: Int? { get set }
     var completedTodoTaskScheduleCount: Int? { get set }
+    var mindsets: [MindSetModel]? { get set }
 }
 
 struct GoalModel: Hashable, GoalProtocol {
@@ -32,6 +33,7 @@ struct GoalModel: Hashable, GoalProtocol {
     var completedTodoCount: Int?
     var totalTodoTaskScheduleCount: Int?
     var completedTodoTaskScheduleCount: Int?
+    var mindsets: [MindSetModel]?
     
     enum Codingkeys: Int,CodingKey {
         case title
